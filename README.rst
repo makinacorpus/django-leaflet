@@ -1,4 +1,4 @@
-*django-leaflet* allows you to use `Leaflet <leaflet.cloudmade.com>`_ (*version 0.3*)
+*django-leaflet* allows you to use `Leaflet <http://leaflet.cloudmade.com>`_ (*version 0.3*)
 in your `Django <https://www.djangoproject.com>`_ projects.
 
 
