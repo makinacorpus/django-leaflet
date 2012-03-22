@@ -5,7 +5,11 @@ register = template.Library()
 
 @register.simple_tag
 def leaflet_css():
-    return '<link rel="stylesheet" type="text/css" href="%sleaflet.css">' % settings.STATIC_URL
+    return """<link rel="stylesheet" type="text/css" href="%(static)sleaflet.css">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" type="text/css" href="%(static)sleaflet.ie.css" />
+    <![endif]-->
+    """ % {'static': settings.STATIC_URL}
 
 @register.simple_tag
 def leaflet_js():
@@ -22,4 +26,3 @@ def leaflet_map(name):
         var %(name)s = new L.Map('%(name)s');
     </script>
     """ % {'name': name}
-
