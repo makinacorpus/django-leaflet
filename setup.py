@@ -11,7 +11,9 @@ setup(
     url='https://github.com/makinacorpus/django-leaflet',
     download_url = "http://pypi.python.org/pypi/django-leaflet/",
     description="Use Leaflet in your django projects",
-    long_description=open(os.path.join(here, 'README.rst')).read(),
+    long_description=open(os.path.join(here, 'README.rst')).read() + '\n\n' + 
+                     open(os.path.join(here, 'CHANGES')).read(),
+    license='LPGL, see LICENSE file.',
     install_requires=[],
     packages=find_packages(),
     include_package_data = True,
