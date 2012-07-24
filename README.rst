@@ -45,7 +45,7 @@ USAGE
 ::
 
     <script type="text/javascript">
-        function yourmapInit(yourmap) {
+        function yourmapInit(yourmap, bounds) {
             ...
             // Add background layer from MapBox
             yourmap.addLayer(new L.TileLayer('http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png'));
