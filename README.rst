@@ -29,35 +29,43 @@ USAGE
     </head>
 
 
-* Add the map in your page :
-
+* Add the map in your page, providing a name :
 ::
     
     ...
     <body>
         ...
         {% leaflet_map "yourmap" %}
-        ...        
+        ...
     </body>
 
-* Use the *Leaflet* API as usual on the resulting ``yourmap`` object :
+
+* Use the *Leaflet* API as usual in the map initialization callback :
 
 ::
 
     <script type="text/javascript">
-        ...
-        // Add background layer from MapBox
-        yourmap.addLayer(new L.TileLayer('http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png'));
-        ...
+        function yourmapInit(yourmap) {
+            ...
+            // Add background layer from MapBox
+            yourmap.addLayer(new L.TileLayer('http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png'));
+            ...
+        }
     </script>
 
-* Give your maps a size (**mandatory**) :
+:notes:
+
+    A Javascript function name for initialization callback can be provided
+    with ``{% leaflet_map "yourmap" "window.customMap" %}``. Default is ``name + Init``.
+
+
+* Give your maps a size (``height`` is **mandatory**) :
 
 ::
 
     <style>
     
-        .leaflet-container {
+        .leaflet-container {  /* all maps */
             width:  600px;
             height: 400px;
         }
@@ -85,4 +93,3 @@ LICENSE
 
     * Lesser GNU Public License
     * Leaflet Copyright - 2010-2011 CloudMade, Vladimir Agafonkin
-

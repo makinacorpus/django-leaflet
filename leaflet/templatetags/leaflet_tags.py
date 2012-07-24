@@ -19,10 +19,17 @@ def leaflet_js():
     return '<script src="%s%s" type="text/javascript"></script>' % (settings.STATIC_URL, leafletjs)
 
 @register.simple_tag
-def leaflet_map(name):
+def leaflet_map(name, callback=None):
+    if callback is None:
+        callback = "%sInit" % name
+
     return """
     <div id="%(name)s"></div>
     <script type="text/javascript">
-        var %(name)s = new L.Map('%(name)s');
+        var loadmap%(name)s = function () {
+            var map = new L.Map('%(name)s');
+            %(callback)s(map);
+        };
+        window.addEventListener("load", loadmap%(name)s);
     </script>
-    """ % {'name': name}
+    """ % {'name': name, 'callback': callback}
