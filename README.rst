@@ -76,6 +76,20 @@ USAGE
         
     </style>
 
+
+Configuration
+=============
+
+You can configure a global spatial extent for your maps, that will automatically
+center your maps and restrict panning. Just add in your project settings :
+
+::
+
+    LEAFLET_CONFIG = {
+        'SPATIAL_EXTENT' : (5.0, 44.0, 7.5, 46)
+    }
+
+
 =======
 AUTHORS
 =======
