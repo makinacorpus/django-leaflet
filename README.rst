@@ -90,6 +90,16 @@ center your maps and restrict panning. Just add in your project settings :
     }
 
 
+By default, it runs the last stable version of Leaflet. But it is possible 
+to run the version under development, just set :
+
+::
+
+    LEAFLET_CONFIG = {
+        'LEAFLET_VERSION' : 'unstable'
+    }
+
+
 =======
 AUTHORS
 =======

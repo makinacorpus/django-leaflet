@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 app_settings = dict({
+    'LEAFLET_VERSION': "",
     'SPATIAL_EXTENT': None,
 }, **getattr(settings, 'LEAFLET_CONFIG', {}))
 
@@ -13,4 +14,4 @@ if SPATIAL_EXTENT is None:
     SPATIAL_EXTENT = getattr(settings, 'SPATIAL_EXTENT')
 if SPATIAL_EXTENT is not None:
     if not isinstance(SPATIAL_EXTENT, tuple) or len(SPATIAL_EXTENT) != 4:
-        raise ImproperlyConfigured(_("Spatial extent should a tuple (minx, miny, maxx, maxy)"))
+        raise ImproperlyConfigured(_("Spatial extent should be a tuple (minx, miny, maxx, maxy)"))

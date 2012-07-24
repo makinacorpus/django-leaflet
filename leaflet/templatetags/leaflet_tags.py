@@ -1,25 +1,34 @@
+import os
 from django import template
 from django.conf import settings
 
-from . import SPATIAL_EXTENT
+from . import app_settings, SPATIAL_EXTENT
 
 
 register = template.Library()
 
+
+def base_url():
+    version = app_settings.get('LEAFLET_VERSION')
+    return os.path.join(settings.STATIC_URL, "leaflet", version)
+
+
 @register.simple_tag
 def leaflet_css():
-    return """<link rel="stylesheet" type="text/css" href="%(static)sleaflet.css">
+    return """<link rel="stylesheet" type="text/css" href="%(static)s/leaflet.css">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" type="text/css" href="%(static)sleaflet.ie.css" />
+    <link rel="stylesheet" type="text/css" href="%(static)s/leaflet.ie.css" />
     <![endif]-->
-    """ % {'static': settings.STATIC_URL}
+    """ % {'static': base_url()}
+
 
 @register.simple_tag
 def leaflet_js():
     leafletjs = 'leaflet.min.js'
     if settings.TEMPLATE_DEBUG:
         leafletjs = 'leaflet.js'
-    return '<script src="%s%s" type="text/javascript"></script>' % (settings.STATIC_URL, leafletjs)
+    return '<script src="%s/%s" type="text/javascript"></script>' % (base_url(), leafletjs)
+
 
 @register.simple_tag
 def leaflet_map(name, callback=None):
