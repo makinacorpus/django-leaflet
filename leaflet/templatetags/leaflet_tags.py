@@ -2,7 +2,7 @@ import os
 from django import template
 from django.conf import settings
 
-from . import app_settings, SPATIAL_EXTENT
+from leaflet import app_settings, SPATIAL_EXTENT
 
 
 register = template.Library()
