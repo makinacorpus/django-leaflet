@@ -35,20 +35,20 @@ def leaflet_map(name, callback=None):
     if callback is None:
         callback = "%sInit" % name
 
+    conf_extent = """
+        var bounds = null;
+    """
+    if SPATIAL_EXTENT is not None:
+        xmin, ymin, xmax, ymax = SPATIAL_EXTENT
         conf_extent = """
-            var bounds = null;
-        """
-        if SPATIAL_EXTENT is not None:
-            xmin, ymin, xmax, ymax = SPATIAL_EXTENT
-            conf_extent = """
-            var southWest = new L.LatLng(%s, %s),
-                northEast = new L.LatLng(%s, %s),
-                bounds = new L.LatLngBounds(southWest, northEast);
-            // Restrict to bounds
-            map.setMaxBounds(bounds);
-            // Fit bounds
-            map.fitBounds(bounds);
-            """ % (ymin, xmin, ymax, xmax)
+        var southWest = new L.LatLng(%s, %s),
+            northEast = new L.LatLng(%s, %s),
+            bounds = new L.LatLngBounds(southWest, northEast);
+        // Restrict to bounds
+        map.setMaxBounds(bounds);
+        // Fit bounds
+        map.fitBounds(bounds);
+        """ % (ymin, xmin, ymax, xmax)
 
     return """
     <div id="%(name)s"></div>
