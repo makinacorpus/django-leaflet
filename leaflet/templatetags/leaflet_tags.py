@@ -50,14 +50,25 @@ def leaflet_map(name, callback=None):
         map.fitBounds(bounds);
         """ % (ymin, xmin, ymax, xmax)
 
+    conf_tileslayer = ""
+    tilesurl = app_settings.get('TILES_URL')
+    if tilesurl:
+        conf_tileslayer = """
+            var tilesLayer = new L.TileLayer("%s");
+            map.addLayer(tilesLayer);
+        """ % tilesurl
+
     return """
     <div id="%(name)s"></div>
     <script type="text/javascript">
         var loadmap%(name)s = function () {
             var map = new L.Map('%(name)s');
             %(extent)s
+            %(tiles)s
             %(callback)s(map, bounds);
         };
         window.addEventListener("load", loadmap%(name)s);
     </script>
-    """ % {'name': name, 'callback': callback, 'extent': conf_extent}
+    """ % {'name': name, 'callback': callback, 
+           'extent': conf_extent,
+           'tiles': conf_tileslayer}

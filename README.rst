@@ -80,25 +80,36 @@ USAGE
 Configuration
 =============
 
-You can configure a global spatial extent for your maps, that will automatically
-center your maps and restrict panning. Just add in your project settings :
+In order to configure *django-leaflet*, just add a new section in your settings :
 
 ::
 
     LEAFLET_CONFIG = {
-        'SPATIAL_EXTENT' : (5.0, 44.0, 7.5, 46)
+        # conf here
     }
 
+
+Spatial extent
+
+You can configure a global spatial extent for your maps, that will automatically
+center your maps and restrict panning. 
+
+    'SPATIAL_EXTENT' : (5.0, 44.0, 7.5, 46)
+
+
+Leaflet version
 
 By default, it runs the last stable version of Leaflet. But it is possible 
-to run the version under development, just set :
+to run the version under development.
 
-::
 
-    LEAFLET_CONFIG = {
-        'LEAFLET_VERSION' : 'unstable'
-    }
+    'LEAFLET_VERSION' : 'unstable'
 
+Default tiles layer
+
+To globally add a tiles layer to your maps :
+
+    'TILES_URL' : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 =======
 AUTHORS

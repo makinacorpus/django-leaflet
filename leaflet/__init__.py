@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 app_settings = dict({
     'LEAFLET_VERSION': "",
+    'TILES_URL': None,
     'SPATIAL_EXTENT': None,
 }, **getattr(settings, 'LEAFLET_CONFIG', {}))
 
