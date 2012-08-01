@@ -1,3 +1,7 @@
+.leaflet-tile {
+	filter: inherit;
+	}
+
 .leaflet-vml-shape {
 	width: 1px;
 	height: 1px;

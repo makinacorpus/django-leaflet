@@ -99,11 +99,11 @@ center your maps and restrict panning.
 
 Leaflet version
 
-By default, it runs the last stable version of Leaflet. But it is possible 
-to run the version under development.
+By default, it runs the last stable version (*0.4.1*) of Leaflet. But it is possible 
+to run the ``legacy`` version (*0.3.1*) or the ``unstable`` under development (*master*).
 
 
-    'LEAFLET_VERSION' : 'unstable'
+    'LEAFLET_VERSION' : 'legacy'
 
 Default tiles layer
 
