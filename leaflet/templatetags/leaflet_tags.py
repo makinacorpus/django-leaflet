@@ -65,7 +65,9 @@ def leaflet_map(name, callback=None):
             var map = new L.Map('%(name)s');
             %(extent)s
             %(tiles)s
-            %(callback)s(map, bounds);
+            if(typeof %(callback)s == 'function') {
+                %(callback)s(map, bounds);
+            }
         };
         window.addEventListener("load", loadmap%(name)s);
     </script>
