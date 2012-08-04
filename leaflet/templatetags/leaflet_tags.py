@@ -1,5 +1,6 @@
 import os
 from django import template
+from django.template import Context
 from django.conf import settings
 
 from leaflet import app_settings, SPATIAL_EXTENT
@@ -27,50 +28,25 @@ def leaflet_js():
     leafletjs = 'leaflet.min.js'
     if settings.TEMPLATE_DEBUG:
         leafletjs = 'leaflet.js'
-    return '<script src="%s/%s" type="text/javascript"></script>' % (base_url(), leafletjs)
+    return """<script src="%(base)s/%(lf)s" type="text/javascript"></script>
+              <script src="%(base)s/leaflet.extras.js" type="text/javascript"></script>""" % {
+                'base': base_url(),
+                'lf': leafletjs
+            }
 
 
 @register.simple_tag
-def leaflet_map(name, callback=None):
+def leaflet_map(name, callback=None, fitextent=True):
     if callback is None:
         callback = "%sInit" % name
-
-    conf_extent = """
-        var bounds = null;
-    """
-    if SPATIAL_EXTENT is not None:
-        xmin, ymin, xmax, ymax = SPATIAL_EXTENT
-        conf_extent = """
-        var southWest = new L.LatLng(%s, %s),
-            northEast = new L.LatLng(%s, %s),
-            bounds = new L.LatLngBounds(southWest, northEast);
-        // Restrict to bounds
-        map.setMaxBounds(bounds);
-        // Fit bounds
-        map.fitBounds(bounds);
-        """ % (ymin, xmin, ymax, xmax)
-
-    conf_tileslayer = ""
     tilesurl = app_settings.get('TILES_URL')
-    if tilesurl:
-        conf_tileslayer = """
-            var tilesLayer = new L.TileLayer("%s");
-            map.addLayer(tilesLayer);
-        """ % tilesurl
-
-    return """
-    <div id="%(name)s"></div>
-    <script type="text/javascript">
-        var loadmap%(name)s = function () {
-            var map = new L.Map('%(name)s');
-            %(extent)s
-            %(tiles)s
-            if(typeof %(callback)s == 'function') {
-                %(callback)s(map, bounds);
-            }
-        };
-        window.addEventListener("load", loadmap%(name)s);
-    </script>
-    """ % {'name': name, 'callback': callback, 
-           'extent': conf_extent,
-           'tiles': conf_tileslayer}
+    extent = None
+    if fitextent and SPATIAL_EXTENT is not None:
+        xmin, ymin, xmax, ymax = SPATIAL_EXTENT
+        extent = (ymin, xmin, ymax, xmax)
+    t = template.loader.get_template("leaflet/map_fragment.html")
+    return t.render(Context(dict(name=name,
+                                 extent=extent,
+                                 tilesurl=tilesurl,
+                                 callback=callback,
+                                 scale=app_settings.get('SCALE'))))

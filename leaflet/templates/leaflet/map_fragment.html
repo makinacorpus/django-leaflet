@@ -1,0 +1,38 @@
+{% load static i18n %}
+<div id="{{ name }}"></div>
+<script type="text/javascript">
+    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
+    L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
+    
+    var loadmap{{ name }} = function () {
+        var map = new L.Map('{{ name }}'),
+            bounds = null;
+        
+        {% if extent %}
+            var southWest = new L.LatLng({{ extent.0|stringformat:"f" }}, {{ extent.1|stringformat:"f" }}),
+                northEast = new L.LatLng({{ extent.2|stringformat:"f" }}, {{ extent.3|stringformat:"f" }}),
+                bounds = new L.LatLngBounds(southWest, northEast);
+            // Restrict to bounds
+            map.setMaxBounds(bounds);
+            // Fit bounds
+            map.fitBounds(bounds);
+            // Add reset view control
+            map.addControl(new L.Control.ResetView(bounds));
+
+            // Scale can only be added 
+            {% if scale %}
+                map.addControl(new L.Control.Scale());
+            {% endif %}
+        {% endif %}
+        
+        {% if tilesurl %}
+            var tilesLayer = new L.TileLayer("{{ tilesurl }}");
+            map.addLayer(tilesLayer);
+        {% endif %}
+        
+        if(typeof {{ callback }} == 'function') {
+            {{ callback }}(map, bounds);
+        }
+    };
+    window.addEventListener("load", loadmap{{ name }});
+</script>

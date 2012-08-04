@@ -7,6 +7,7 @@ app_settings = dict({
     'LEAFLET_VERSION': "",
     'TILES_URL': None,
     'SPATIAL_EXTENT': None,
+    'SCALE': True,
 }, **getattr(settings, 'LEAFLET_CONFIG', {}))
 
 
