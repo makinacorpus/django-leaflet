@@ -11,7 +11,10 @@ register = template.Library()
 
 def base_url():
     version = app_settings.get('LEAFLET_VERSION')
-    return os.path.join(settings.STATIC_URL, "leaflet", version)
+    paths = (settings.STATIC_URL, "leaflet")
+    if version:
+        paths += (version,)
+    return os.path.join(*paths)
 
 
 @register.simple_tag
