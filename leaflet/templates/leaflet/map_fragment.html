@@ -1,10 +1,10 @@
 {% load static i18n %}
 <div id="{{ name }}"></div>
 <script type="text/javascript">
-    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
-    L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
-    
     var loadmap{{ name }} = function () {
+        L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
+        L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
+
         var map = new L.Map('{{ name }}'),
             bounds = null;
         

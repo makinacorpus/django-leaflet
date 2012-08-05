@@ -8,6 +8,7 @@ L.Control.ResetView = L.Control.extend({
 
     initialize: function (bounds, options) {
         this.bounds = bounds;
+        L.Util.setOptions(this, options);
     },
 
     onAdd: function (map) {
@@ -16,7 +17,7 @@ L.Control.ResetView = L.Control.extend({
         }
         map.resetviewControl = this;
         
-        container = L.DomUtil.create('div', 'leaflet-control-zoom');
+        var container = L.DomUtil.create('div', 'leaflet-control-zoom');
         var link = L.DomUtil.create('a', 'leaflet-control-zoom-out', container);
         link.href = '#';
         link.title = L.Control.ResetView.TITLE;
