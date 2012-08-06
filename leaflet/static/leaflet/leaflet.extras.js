@@ -7,7 +7,12 @@ L.Control.ResetView = L.Control.extend({
     },
 
     initialize: function (bounds, options) {
+        // Accept function as argument to bounds
+        if (typeof(bounds) != 'function')
+           bounds = function() { return bounds; };
+
         this.bounds = bounds;
+
         L.Util.setOptions(this, options);
     },
 
@@ -22,10 +27,11 @@ L.Control.ResetView = L.Control.extend({
         link.href = '#';
         link.title = L.Control.ResetView.TITLE;
         link.style.backgroundImage = L.Control.ResetView.ICON;
+
         L.DomEvent.addListener(link, 'click', L.DomEvent.stopPropagation)
                   .addListener(link, 'click', L.DomEvent.preventDefault)
                   .addListener(link, 'click', L.Util.bind(function() {
-                        map.fitBounds(this.bounds);
+                        map.fitBounds(this.bounds());
                    }, this));
         return container;
     }
