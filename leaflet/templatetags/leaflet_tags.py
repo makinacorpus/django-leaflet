@@ -1,4 +1,5 @@
-import os
+import os, json
+
 from django import template
 from django.template import Context
 from django.conf import settings
@@ -53,3 +54,14 @@ def leaflet_map(name, callback=None, fitextent=True):
                                  tilesurl=tilesurl,
                                  callback=callback,
                                  scale=app_settings.get('SCALE'))))
+
+@register.simple_tag
+def leaflet_json_config():
+    settings_as_json = app_settings.copy()
+
+    if SPATIAL_EXTENT is not None:
+        xmin, ymin, xmax, ymax = settings_as_json.pop('SPATIAL_EXTENT')
+        settings_as_json['SPATIAL_EXTENT'] = { 'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax }
+
+    return json.dumps(settings_as_json)
+
