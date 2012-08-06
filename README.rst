@@ -1,4 +1,4 @@
-*django-leaflet* allows you to use `Leaflet <http://leaflet.cloudmade.com>`_ (*version 0.3*)
+*django-leaflet* allows you to use `Leaflet <http://leaflet.cloudmade.com>`_
 in your `Django <https://www.djangoproject.com>`_ projects.
 
 
@@ -40,7 +40,8 @@ USAGE
     </body>
 
 
-* Use the *Leaflet* API as usual in the map initialization callback :
+* Use the *Leaflet* API as usual in the map initialization callback (*can be
+  facultative depending on settings*) :
 
 ::
 
@@ -53,10 +54,6 @@ USAGE
         }
     </script>
 
-:notes:
-
-    A Javascript function name for initialization callback can be provided
-    with ``{% leaflet_map "yourmap" "window.customMap" %}``. Default is ``name + Init``.
 
 
 * Give your maps a size (``height`` is **mandatory**) :
@@ -90,26 +87,54 @@ In order to configure *django-leaflet*, just add a new section in your settings 
 
 
 Spatial extent
+--------------
 
 You can configure a global spatial extent for your maps, that will automatically
-center your maps and restrict panning. 
+center your maps, restrict panning and add reset view and scale controls.
+(*See advanced usage to tweak that.*)
 
     'SPATIAL_EXTENT' : (5.0, 44.0, 7.5, 46)
 
-
-Leaflet version
-
-By default, it runs the last stable version (*0.4.1*) of Leaflet. But it is possible 
-to run the ``legacy`` version (*0.3.1*) or the ``unstable`` under development (*master*).
-
-
-    'LEAFLET_VERSION' : 'legacy'
-
 Default tiles layer
+-------------------
 
 To globally add a tiles layer to your maps :
 
     'TILES_URL' : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+Leaflet version
+---------------
+
+By default, it runs the last stable version (*0.4.1*) of Leaflet. But it is possible 
+to run the ``legacy`` version (*0.3.1*) or the ``unstable`` under development (*master*).
+
+    'LEAFLET_VERSION' : 'legacy'
+
+Scale control
+-------------
+
+Automatically add a scale control with km and miles :
+
+    'SCALE' : False
+
+
+Advanced usage
+==============
+
+{% leaflet_map %} tag parameters
+--------------------------------
+
+    callback
+
+        A Javascript function name for initialization callback. (Default:``name + Init``)
+        
+        ``{% leaflet_map "yourmap" callback="window.customMap" %}``
+
+    fixextent
+
+        Control if map initial view shoud be set to extent setting. (Default: ``True``).
+        Setting fixextent to ``False`` will prevent view reset and scale controls
+        to be added.
 
 =======
 AUTHORS
