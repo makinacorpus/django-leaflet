@@ -14,14 +14,17 @@
                 bounds = new L.LatLngBounds(southWest, northEast);
             // Restrict to bounds
             map.setMaxBounds(bounds);
-            // Fit bounds
-            map.fitBounds(bounds);
-            // Add reset view control
-            map.addControl(new L.Control.ResetView(bounds));
+            
+            {% if fitextent %}
+                // Fit bounds
+                map.fitBounds(bounds);
+                // Add reset view control
+                map.addControl(new L.Control.ResetView(bounds));
 
-            // Scale can only be added 
-            {% if scale %}
-                map.addControl(new L.Control.Scale());
+                // Scale can only be added 
+                {% if scale %}
+                    map.addControl(new L.Control.Scale());
+                {% endif %}
             {% endif %}
         {% endif %}
         

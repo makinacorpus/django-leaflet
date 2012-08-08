@@ -45,12 +45,13 @@ def leaflet_map(name, callback=None, fitextent=True):
         callback = "%sInit" % name
     tilesurl = app_settings.get('TILES_URL')
     extent = None
-    if fitextent and SPATIAL_EXTENT is not None:
+    if SPATIAL_EXTENT is not None:
         xmin, ymin, xmax, ymax = SPATIAL_EXTENT
         extent = (ymin, xmin, ymax, xmax)
     t = template.loader.get_template("leaflet/map_fragment.html")
     return t.render(Context(dict(name=name,
                                  extent=extent,
+                                 fitextent=fitextent,
                                  tilesurl=tilesurl,
                                  callback=callback,
                                  scale=app_settings.get('SCALE'))))
@@ -64,4 +65,3 @@ def leaflet_json_config():
         settings_as_json['SPATIAL_EXTENT'] = { 'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax }
 
     return json.dumps(settings_as_json)
-
