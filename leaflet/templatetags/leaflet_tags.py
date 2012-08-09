@@ -44,6 +44,8 @@ def leaflet_map(name, callback=None, fitextent=True):
     if callback is None:
         callback = "%sInit" % name
     tilesurl = app_settings.get('TILES_URL')
+    if tilesurl and isinstance(tilesurl, basestring):
+        tilesurl = (('background', tilesurl),)
     extent = None
     if SPATIAL_EXTENT is not None:
         xmin, ymin, xmax, ymax = SPATIAL_EXTENT
@@ -52,7 +54,7 @@ def leaflet_map(name, callback=None, fitextent=True):
     return t.render(Context(dict(name=name,
                                  extent=extent,
                                  fitextent=fitextent,
-                                 tilesurl=tilesurl,
+                                 tilesurl=[list(url) for url in tilesurl],
                                  callback=callback,
                                  scale=app_settings.get('SCALE'))))
 

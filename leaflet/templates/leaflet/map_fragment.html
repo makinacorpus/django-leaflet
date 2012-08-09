@@ -28,10 +28,18 @@
             {% endif %}
         {% endif %}
         
-        {% if tilesurl %}
-            var tilesLayer = new L.TileLayer("{{ tilesurl }}");
-            map.addLayer(tilesLayer);
-        {% endif %}
+        var layers = {{ tilesurl|safe }};
+        if (layers.length == 1) {
+            L.tileLayer(layers[0][1]).addTo(map);
+        }
+        else {
+            map.layerscontrol = L.control.layers().addTo(map);
+            for (var i=0; i<layers.length; i++) {
+                var l = L.tileLayer(layers[i][1]);
+                if (i==0) l.addTo(map);
+                map.layerscontrol.addBaseLayer(l, layers[i][0]);
+            }
+        }
         
         if(typeof {{ callback }} == 'function') {
             {{ callback }}(map, bounds);

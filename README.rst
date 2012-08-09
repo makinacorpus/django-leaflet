@@ -102,6 +102,9 @@ To globally add a tiles layer to your maps :
 
     'TILES_URL' : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
+This setting can also be a list of tuples (name, url) ! A layer switcher
+will then be added automatically.
+
 Leaflet version
 ---------------
 
