@@ -4,7 +4,7 @@ from django import template
 from django.template import Context
 from django.conf import settings
 
-from leaflet import app_settings, SPATIAL_EXTENT
+from leaflet import app_settings, SPATIAL_EXTENT, SRID
 
 
 register = template.Library()
@@ -32,12 +32,20 @@ def leaflet_js():
     leafletjs = 'leaflet.min.js'
     if settings.TEMPLATE_DEBUG:
         leafletjs = 'leaflet.js'
-    return """<script src="%(base)s/%(lf)s" type="text/javascript"></script>
-              <script src="%(base)s/leaflet.extras.js" type="text/javascript"></script>""" % {
-                'base': base_url(),
-                'lf': leafletjs
-            }
+    scripts = """<script src="%(base)s/%(lf)s" type="text/javascript"></script>
+              <script src="%(base)s/leaflet.extras.js" type="text/javascript"></script>"""
+    if SRID:
+        scripts += """<script src="%(staticurl)sleaflet/proj4js.js" type="text/javascript"></script>
+                      <script src="%(staticurl)sleaflet/proj4leaflet.js" type="text/javascript"></script>
+                      <script src="http://spatialreference.org/ref/epsg/%(srid)s/proj4js/" type="text/javascript"></script>"""
 
+    return scripts % {
+            'base': base_url(),
+            'staticurl': settings.STATIC_URL,
+            'lf': leafletjs,
+            'srid': SRID
+        }
+    
 
 @register.simple_tag
 def leaflet_map(name, callback=None, fitextent=True):
@@ -52,11 +60,14 @@ def leaflet_map(name, callback=None, fitextent=True):
         extent = (ymin, xmin, ymax, xmax)
     t = template.loader.get_template("leaflet/map_fragment.html")
     return t.render(Context(dict(name=name,
-                                 extent=extent,
+                                 srid=SRID,
+                                 extent=list(extent),
                                  fitextent=fitextent,
                                  tilesurl=[list(url) for url in tilesurl],
                                  callback=callback,
-                                 scale=app_settings.get('SCALE'))))
+                                 scale=app_settings.get('SCALE'),
+                                 tilesextent=list(app_settings.get('TILES_EXTENT', [])),
+                                 maxresolution=app_settings.get('MAX_RESOLUTION', 0))))
 
 @register.simple_tag
 def leaflet_json_config():

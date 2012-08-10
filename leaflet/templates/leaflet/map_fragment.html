@@ -5,37 +5,56 @@
         L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
         L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
 
-        var map = new L.Map('{{ name }}'),
-            bounds = null;
         
+        var bounds = null,
+            mapoptions = {},
+            tilesoptions = {};
+
+        {% if srid %}
+            var bbox =  {{ tilesextent|safe }};
+            var maxResolution = {{ maxresolution|stringformat:"f" }};
+            var scale = function(zoom) {
+                return 1 / (maxResolution / Math.pow(2, zoom));
+            };
+            var transformation = new L.Transformation(1, -bbox[0], -1, bbox[3]);
+            var crs = L.CRS.proj4js('EPSG:{{ srid }}', Proj4js.defs['{{ srid }}'], transformation);
+            crs.scale = scale;
+            mapoptions.crs = crs;
+            mapoptions.scale = scale,
+            mapoptions.continuousWorld = tilesoptions.continuousWorld = true;
+        {% endif %}
+
         {% if extent %}
-            var southWest = new L.LatLng({{ extent.0|stringformat:"f" }}, {{ extent.1|stringformat:"f" }}),
-                northEast = new L.LatLng({{ extent.2|stringformat:"f" }}, {{ extent.3|stringformat:"f" }}),
-                bounds = new L.LatLngBounds(southWest, northEast);
+            var extent =  {{ extent|safe }};
+            var southWest = new L.LatLng(extent[0], extent[1]),
+                northEast = new L.LatLng(extent[2], extent[3]);
+            bounds = new L.LatLngBounds(southWest, northEast);
+        {% endif %}
+        
+        map = new L.Map('{{ name }}', mapoptions);
+        
+        if (bounds) {
             // Restrict to bounds
             map.setMaxBounds(bounds);
-            
             {% if fitextent %}
-                // Fit bounds
                 map.fitBounds(bounds);
                 // Add reset view control
                 map.addControl(new L.Control.ResetView(bounds));
-
                 // Scale can only be added 
                 {% if scale %}
                     map.addControl(new L.Control.Scale());
                 {% endif %}
             {% endif %}
-        {% endif %}
-        
+        }
+
         var layers = {{ tilesurl|safe }};
         if (layers.length == 1) {
-            L.tileLayer(layers[0][1]).addTo(map);
+            L.tileLayer(layers[0][1], tilesoptions).addTo(map);
         }
         else {
             map.layerscontrol = L.control.layers().addTo(map);
             for (var i=0; i<layers.length; i++) {
-                var l = L.tileLayer(layers[i][1]);
+                var l = L.tileLayer(layers[i][1], tilesoptions);
                 if (i==0) l.addTo(map);
                 map.layerscontrol.addBaseLayer(l, layers[i][0]);
             }

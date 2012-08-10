@@ -139,6 +139,21 @@ Advanced usage
         Setting fixextent to ``False`` will prevent view reset and scale controls
         to be added.
 
+
+Projection
+----------
+
+It is possible to setup the map spatial reference in ``LEAFLET_CONFIG`` :
+
+    'SRID' : 2154   # See http://spatialreference.org
+
+Additional parameters are then required to compute scale levels :
+
+    'MAX_RESOLUTION' : 1142.7383,
+    'TILES_EXTENT' : [700000,6325197,1060000,6617738],
+
+For more information, `have a look at this example <http://blog.mathieu-leplatre.info/leaflet-tiles-in-lambert-93-projection-2154.html>`_.
+
 =======
 AUTHORS
 =======
