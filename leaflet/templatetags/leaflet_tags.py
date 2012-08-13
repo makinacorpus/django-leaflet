@@ -29,9 +29,9 @@ def leaflet_css():
 
 @register.simple_tag
 def leaflet_js():
-    leafletjs = 'leaflet.min.js'
+    leafletjs = 'leaflet.js'
     if settings.TEMPLATE_DEBUG:
-        leafletjs = 'leaflet.js'
+        leafletjs = 'leaflet-src.js'
     scripts = """<script src="%(base)s/%(lf)s" type="text/javascript"></script>
               <script src="%(base)s/leaflet.extras.js" type="text/javascript"></script>"""
     if SRID:
