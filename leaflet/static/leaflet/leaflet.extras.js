@@ -8,10 +8,8 @@ L.Control.ResetView = L.Control.extend({
 
     initialize: function (bounds, options) {
         // Accept function as argument to bounds
-        if (typeof(bounds) != 'function')
-           bounds = function() { return bounds; };
-
-        this.bounds = bounds;
+        this.getBounds = typeof(bounds) == 'function' ? bounds :
+                                                        function() { return bounds; };
 
         L.Util.setOptions(this, options);
     },
@@ -21,7 +19,7 @@ L.Control.ResetView = L.Control.extend({
             map.removeControl(map.resetviewControl);
         }
         map.resetviewControl = this;
-        
+
         var container = L.DomUtil.create('div', 'leaflet-control-zoom');
         var link = L.DomUtil.create('a', 'leaflet-control-zoom-out', container);
         link.href = '#';
@@ -31,7 +29,7 @@ L.Control.ResetView = L.Control.extend({
         L.DomEvent.addListener(link, 'click', L.DomEvent.stopPropagation)
                   .addListener(link, 'click', L.DomEvent.preventDefault)
                   .addListener(link, 'click', L.Util.bind(function() {
-                        map.fitBounds(this.bounds());
+                      map.fitBounds(this.getBounds());
                    }, this));
         return container;
     }
