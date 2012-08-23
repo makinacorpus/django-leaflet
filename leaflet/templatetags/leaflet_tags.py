@@ -29,23 +29,11 @@ def leaflet_css():
 
 @register.simple_tag
 def leaflet_js():
-    leafletjs = 'leaflet.js'
-    if settings.TEMPLATE_DEBUG:
-        leafletjs = 'leaflet-src.js'
-    scripts = """<script src="%(base)s/%(lf)s" type="text/javascript"></script>
-              <script src="%(base)s/leaflet.extras.js" type="text/javascript"></script>"""
-    if SRID:
-        scripts += """<script src="%(staticurl)sleaflet/proj4js.js" type="text/javascript"></script>
-                      <script src="%(staticurl)sleaflet/proj4leaflet.js" type="text/javascript"></script>
-                      <script src="http://spatialreference.org/ref/epsg/%(srid)s/proj4js/" type="text/javascript"></script>"""
+    t = template.loader.get_template("leaflet/head_fragment.html")
+    return t.render(Context(dict(debug=settings.TEMPLATE_DEBUG,
+                                 version=app_settings.get('LEAFLET_VERSION'),
+                                 srid=SRID)))
 
-    return scripts % {
-            'base': base_url(),
-            'staticurl': settings.STATIC_URL,
-            'lf': leafletjs,
-            'srid': SRID
-        }
-    
 
 @register.simple_tag
 def leaflet_map(name, callback=None, fitextent=True):

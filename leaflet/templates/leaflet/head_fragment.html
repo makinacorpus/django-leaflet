@@ -1,0 +1,8 @@
+{% load static %}
+<script src="{% get_static_prefix %}leaflet{% if version %}/{{ version }}{% endif %}/leaflet{% if debug %}-src{% endif %}.js" type="text/javascript"></script>
+<script src="{% static "leaflet/leaflet.extras.js" %}" type="text/javascript"></script>
+{% if srid %}
+    <script src="{% static "leaflet/proj4js.js" %}" type="text/javascript"></script>
+    <script src="{% static "leaflet/proj4leaflet.js" %}" type="text/javascript"></script>
+    <script src="{% get_static_prefix %}proj4js/{{ srid }}.js" type="text/javascript"></script>
+{% endif %}

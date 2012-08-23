@@ -154,6 +154,8 @@ Additional parameters are then required to compute scale levels :
 
 For more information, `have a look at this example <http://blog.mathieu-leplatre.info/leaflet-tiles-in-lambert-93-projection-2154.html>`_.
 
+By default, Django will try to load the spatial reference from your static files at "proj4js/{{ srid }}.js". If it fails, it will eventually rely on `<spatialreference.org>`_.
+
 =======
 AUTHORS
 =======
