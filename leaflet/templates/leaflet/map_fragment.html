@@ -5,7 +5,6 @@
         L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
         L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
 
-        
         var bounds = null,
             mapoptions = {},
             tilesoptions = {};
@@ -31,7 +30,10 @@
             bounds = new L.LatLngBounds(southWest, northEast);
         {% endif %}
         
-        map = new L.Map('{{ name }}', mapoptions);
+        var map = new L.Map('{{ name }}', mapoptions);
+        // Register document maps, like window.forms :)
+        if (!window.maps) window.maps = []
+        window.maps.push(map);
         
         if (bounds) {
             // Restrict to bounds
@@ -40,7 +42,7 @@
                 map.fitBounds(bounds);
                 // Add reset view control
                 map.addControl(new L.Control.ResetView(bounds));
-                // Scale can only be added 
+                // Scale can only be added if map view is set
                 {% if scale %}
                     map.addControl(new L.Control.Scale());
                 {% endif %}
