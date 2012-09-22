@@ -21,6 +21,6 @@ if SPATIAL_EXTENT is not None:
 
 SRID = app_settings.get("SRID") 
 if SRID is None:
-    SRID = getattr(settings, 'MAP_SRID', getattr(settings, 'SRID'))
+    SRID = getattr(settings, 'MAP_SRID', getattr(settings, 'SRID', 3857))
 if SRID == 3857:  # Leaflet's default, do not setup custom projection machinery
     SRID = None
