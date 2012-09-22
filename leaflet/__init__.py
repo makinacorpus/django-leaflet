@@ -14,7 +14,7 @@ app_settings = dict({
 
 SPATIAL_EXTENT = app_settings.get("SPATIAL_EXTENT")
 if SPATIAL_EXTENT is None:
-    SPATIAL_EXTENT = getattr(settings, 'SPATIAL_EXTENT')
+    SPATIAL_EXTENT = getattr(settings, 'SPATIAL_EXTENT', (-180, -90, 180, 90))
 if SPATIAL_EXTENT is not None:
     if not isinstance(SPATIAL_EXTENT, (tuple, list)) or len(SPATIAL_EXTENT) != 4:
         raise ImproperlyConfigured(_("Spatial extent should be a tuple (minx, miny, maxx, maxy)"))
