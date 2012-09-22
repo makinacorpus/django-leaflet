@@ -24,6 +24,7 @@ def leaflet_css():
     <!--[if lte IE 8]>
     <link rel="stylesheet" type="text/css" href="%(static)s/leaflet.ie.css" />
     <![endif]-->
+    <style>.leaflet-container {min-height: 300px;}</style>
     """ % {'static': base_url()}
 
 
