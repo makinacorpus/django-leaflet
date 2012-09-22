@@ -39,24 +39,27 @@ USAGE
         ...
     </body>
 
+* Your maps shows up!
 
-* Use the *Leaflet* API as usual in the map initialization callback (*can be
-  facultative depending on settings*) :
+
+Use Leaflet API
+---------------
+
+You can use the *Leaflet* API as usual in the map initialization callback :
 
 ::
 
     <script type="text/javascript">
-        function yourmapInit(yourmap, bounds) {
+        function yourmapInit(map, bounds) {
             ...
-            // Add background layer from MapBox
-            yourmap.addLayer(new L.TileLayer('http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png'));
+            L.marker([50.5, 30.5]).addTo(map);
             ...
         }
     </script>
 
 
-
-* Give your maps a size (``height`` is **mandatory**) :
+Customize map size
+------------------
 
 ::
 
@@ -72,6 +75,7 @@ USAGE
         }
         
     </style>
+
 
 
 Configuration
@@ -116,7 +120,7 @@ to run the ``legacy`` version (*0.3.1*) or the ``unstable`` under development (*
 Scale control
 -------------
 
-Automatically add a scale control with km and miles :
+Disable scale control with km and miles :
 
     'SCALE' : False
 
