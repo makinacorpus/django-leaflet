@@ -56,7 +56,7 @@ def leaflet_map(name, callback=None, fitextent=True):
                                  callback=callback,
                                  scale=app_settings.get('SCALE'),
                                  tilesextent=list(app_settings.get('TILES_EXTENT', [])),
-                                 maxresolution=app_settings.get('MAX_RESOLUTION', 0))))
+                                )))
 
 @register.simple_tag
 def leaflet_json_config():

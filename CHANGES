@@ -5,7 +5,7 @@ CHANGELOG
 0.2.1 (unreleased)
 ==================
 
-- Nothing changed yet.
+* Remove max resolution setting since it can be computed
 
 
 0.2.0 (2012-09-22)
