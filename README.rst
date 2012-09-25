@@ -129,7 +129,7 @@ Advanced usage
 * ``callback``: javascript function name for initialization callback.
   (Default: ``name + Init``). Example::
   
-      ``{% leaflet_map "yourmap" callback="window.customMap" %}``
+      {% leaflet_map "yourmap" callback="window.customMap" %}
 
 * ``fixextent``: control if map initial view shoud be set to extent setting.
   (Default: ``True``). Setting fixextent to ``False`` will prevent view reset
