@@ -16,9 +16,7 @@ USAGE
 
 * Add ``leaflet`` to your ``INSTALLED_APPS``
 
-* Add the HTML header :
-
-::
+* Add the HTML header::
 
     {% load leaflet_tags %}
     
@@ -29,8 +27,7 @@ USAGE
     </head>
 
 
-* Add the map in your page, providing a name :
-::
+* Add the map in your page, providing a name::
     
     ...
     <body>
@@ -45,9 +42,7 @@ USAGE
 Use Leaflet API
 ---------------
 
-You can use the *Leaflet* API as usual in the map initialization callback :
-
-::
+You can use the *Leaflet* API as usual in the map initialization callback::
 
     <script type="text/javascript">
         function yourmapInit(map, bounds) {
@@ -81,9 +76,8 @@ Customize map size
 Configuration
 =============
 
-In order to configure *django-leaflet*, just add a new section in your settings :
-
-::
+In order to configure *django-leaflet*, just add a new section in your
+settings::
 
     LEAFLET_CONFIG = {
         # conf here
@@ -93,18 +87,18 @@ In order to configure *django-leaflet*, just add a new section in your settings 
 Spatial extent
 --------------
 
-You can configure a global spatial extent for your maps, that will automatically
-center your maps, restrict panning and add reset view and scale controls.
-(*See advanced usage to tweak that.*)
+You can configure a global spatial extent for your maps, that will
+automatically center your maps, restrict panning and add reset view and scale
+controls. (*See advanced usage to tweak that.*)::
 
-    'SPATIAL_EXTENT' : (5.0, 44.0, 7.5, 46)
+    'SPATIAL_EXTENT': (5.0, 44.0, 7.5, 46)
 
 Default tiles layer
 -------------------
 
-To globally add a tiles layer to your maps :
+To globally add a tiles layer to your maps::
 
-    'TILES_URL' : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    'TILES_URL': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 This setting can also be a list of tuples (name, url) ! A layer switcher
 will then be added automatically.
@@ -112,59 +106,59 @@ will then be added automatically.
 Leaflet version
 ---------------
 
-By default, it runs the last stable version (*0.4.4*) of Leaflet. But it is possible 
-to run the ``legacy`` version (*0.3.1*) or the ``unstable`` under development (*master*).
+By default, it runs the last stable version (*0.4.4*) of Leaflet. But it is
+possible to run the ``legacy`` version (*0.3.1*) or the ``unstable`` under
+development (*master*)::
 
-    'LEAFLET_VERSION' : 'legacy'
+    'LEAFLET_VERSION': 'legacy'
 
 Scale control
 -------------
 
-Disable scale control with km and miles :
+Disable scale control with km and miles::
 
-    'SCALE' : False
+    'SCALE': False
 
 
 Advanced usage
 ==============
 
-{% leaflet_map %} tag parameters
---------------------------------
+``{% leaflet_map %}`` tag parameters
+------------------------------------
 
-    callback
+* ``callback``: javascript function name for initialization callback.
+  (Default: ``name + Init``). Example::
+  
+      {% leaflet_map "yourmap" callback="window.customMap" %}
 
-        A Javascript function name for initialization callback. (Default:``name + Init``)
-        
-        ``{% leaflet_map "yourmap" callback="window.customMap" %}``
-
-    fixextent
-
-        Control if map initial view shoud be set to extent setting. (Default: ``True``).
-        Setting fixextent to ``False`` will prevent view reset and scale controls
-        to be added.
+* ``fixextent``: control if map initial view shoud be set to extent setting.
+  (Default: ``True``). Setting fixextent to ``False`` will prevent view reset
+  and scale controls to be added.
 
 
 Projection
 ----------
 
-It is possible to setup the map spatial reference in ``LEAFLET_CONFIG`` :
+It is possible to setup the map spatial reference in ``LEAFLET_CONFIG``::
 
-    'SRID' : 2154   # See http://spatialreference.org
+    'SRID': 2154  # See http://spatialreference.org
 
-Additional parameter is required to compute scale levels : the tiles extent in local
-projection : 
+Additional parameter is required to compute scale levels : the tiles extent in
+local projection::
 
-    'TILES_EXTENT' : [700000, 6325197, 1060000, 6617738],
+    'TILES_EXTENT': [700000, 6325197, 1060000, 6617738],
 
 For more information, `have a look at this example <http://blog.mathieu-leplatre.info/leaflet-tiles-in-lambert-93-projection-2154.html>`_.
 
-By default, Django will try to load the spatial reference from your static files at "proj4js/{{ srid }}.js". If it fails, it will eventually rely on `<spatialreference.org>`_.
+By default, Django will try to load the spatial reference from your static
+files at "proj4js/{{ srid }}.js". If it fails, it will eventually rely on
+`<spatialreference.org>`_.
 
 =======
 AUTHORS
 =======
 
-    * Mathieu Leplatre <mathieu.leplatre@makina-corpus.com>
+* Mathieu Leplatre <mathieu.leplatre@makina-corpus.com>
 
 |makinacom|_
 
@@ -175,5 +169,5 @@ AUTHORS
 LICENSE
 =======
 
-    * Lesser GNU Public License
-    * Leaflet Copyright - 2010-2011 CloudMade, Vladimir Agafonkin
+* Lesser GNU Public License
+* Leaflet Copyright - 2010-2011 CloudMade, Vladimir Agafonkin
