@@ -4,5 +4,5 @@
 {% if srid %}
     <script src="{% static "leaflet/proj4js.js" %}" type="text/javascript"></script>
     <script src="{% static "leaflet/proj4leaflet.js" %}" type="text/javascript"></script>
-    <script src="{% get_static_prefix %}proj4js/{{ srid }}.js" type="text/javascript"></script>
+    <script src="{% get_static_prefix %}proj4js/EPSG{{ srid }}.js" type="text/javascript"></script>
 {% endif %}
