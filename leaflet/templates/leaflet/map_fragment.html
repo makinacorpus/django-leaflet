@@ -4,10 +4,14 @@
     var loadmap{{ name }} = function () {
         L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
         L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
-
+        
         var bounds = null,
             mapoptions = {},
-            tilesoptions = {};
+            tilesoptions = {},
+            controls = {
+                scale: {{ scale|yesno:"true,false" }},
+                resetview: {{ resetview|yesno:"true,false" }},
+            }
 
         {% if srid %}
             var bbox =  {{ tilesextent|safe }},
@@ -40,15 +44,36 @@
         if (bounds) {
             // Restrict to bounds
             map.setMaxBounds(bounds);
+            
             {% if fitextent %}
                 map.fitBounds(bounds);
-                // Add reset view control
-                map.addControl(new L.Control.ResetView(bounds));
-                // Scale can only be added if map view is set
-                {% if scale %}
-                    map.addControl(new L.Control.Scale());
-                {% endif %}
             {% endif %}
+        }
+        
+        if (controls.scale) {
+            // Add scale control
+            var addscale = function () {
+                this.addControl(new L.Control.Scale());
+            };
+            if (map._loaded) {
+                addscale.call(map);
+            }
+            else {
+                map.on('load', addscale, map);
+            }
+        }
+        
+        if (controls.resetview && bounds) {
+            // Add reset view control
+            var addresetview = function () {
+                this.addControl(new L.Control.ResetView(bounds));
+            };
+            if (map._loaded) {
+                addresetview.call(map);
+            }
+            else {
+                map.on('load', addresetview, map);
+            }
         }
 
         var layers = {{ tilesurl|safe }};
