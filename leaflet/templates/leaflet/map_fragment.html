@@ -38,7 +38,7 @@
         
         var map = new L.Map('{{ name }}', mapoptions);
         // Register document maps, like window.forms :)
-        if (!window.maps) window.maps = []
+        if (!window.maps) window.maps = [];
         window.maps.push(map);
         
         if (bounds) {
@@ -53,7 +53,7 @@
         if (controls.scale) {
             // Add scale control
             var addscale = function () {
-                this.addControl(new L.Control.Scale());
+                this.addControl(new L.Control.Scale({imperial: false}));
             };
             if (map._loaded) {
                 addscale.call(map);
