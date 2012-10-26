@@ -2,11 +2,12 @@
 CHANGELOG
 =========
 
-0.2.1 (unreleased)
+0.3.0 (unreleased)
 ==================
 
 * Remove max resolution setting since it can be computed
-
+* Allow scale control even if view is not set
+* Upgrade Leaflet to 0.4.5
 
 0.2.0 (2012-09-22)
 ==================
