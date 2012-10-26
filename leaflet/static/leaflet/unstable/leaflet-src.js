@@ -21,7 +21,7 @@ if (typeof exports !== undefined + '') {
 	window.L = L;
 }
 
-L.version = '0.4.4';
+L.version = '0.4.5';
 
 
 /*
@@ -126,8 +126,6 @@ L.Util = {
 
 (function () {
 
-	// inspired by http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-
 	function getPrefixed(name) {
 		var i, fn,
 			prefixes = ['webkit', 'moz', 'o', 'ms'];
@@ -139,14 +137,8 @@ L.Util = {
 		return fn;
 	}
 
-	var lastTime = 0;
-
 	function timeoutDefer(fn) {
-		var time = +new Date(),
-			timeToCall = Math.max(0, 16 - (time - lastTime));
-
-		lastTime = time + timeToCall;
-		return window.setTimeout(fn, timeToCall);
+		return window.setTimeout(fn, 1000 / 60);
 	}
 
 	var requestFn = window.requestAnimationFrame ||
@@ -796,11 +788,11 @@ L.DomUtil = {
 	},
 
 	getScaleString: function (scale, origin) {
-		var preTranslateStr = L.DomUtil.getTranslateString(origin),
-			scaleStr = ' scale(' + scale + ') ',
-			postTranslateStr = L.DomUtil.getTranslateString(origin.multiplyBy(-1));
 
-		return preTranslateStr + scaleStr + postTranslateStr;
+		var preTranslateStr = L.DomUtil.getTranslateString(origin.add(origin.multiplyBy(-1 * scale))),
+		    scaleStr = ' scale(' + scale + ') ';
+
+		return preTranslateStr + scaleStr;
 	},
 
 	setPosition: function (el, point, disable3D) {
@@ -827,9 +819,6 @@ L.Util.extend(L.DomUtil, {
 	TRANSITION: L.DomUtil.testProp(['transition', 'webkitTransition', 'OTransition', 'MozTransition', 'msTransition']),
 	TRANSFORM: L.DomUtil.testProp(['transform', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform'])
 });
-
-L.DomUtil.TRANSITION_END = (L.DomUtil.TRANSITION === 'webkitTransition' || L.DomUtil.TRANSITION === 'OTransition' ?
-				L.DomUtil.TRANSITION + 'End' : 'transitionend');
 
 
 /*
@@ -3699,22 +3688,16 @@ L.Path = L.Path.extend({
 	},
 
 	bringToFront: function () {
-		var root = this._map._pathRoot,
-			path = this._container;
-
-		if (path && root.lastChild !== path) {
-			root.appendChild(path);
+		if (this._container) {
+			this._map._pathRoot.appendChild(this._container);
 		}
 		return this;
 	},
 
 	bringToBack: function () {
-		var root = this._map._pathRoot,
-			path = this._container,
-			first = root.firstChild;
-
-		if (path && first !== path) {
-			root.insertBefore(path, first);
+		if (this._container) {
+			var root = this._map._pathRoot;
+			root.insertBefore(this._container, root.firstChild);
 		}
 		return this;
 	},
@@ -5447,6 +5430,7 @@ L.Draggable = L.Class.extend({
 			return;
 		}
 
+		this._startPos = this._newPos = L.DomUtil.getPosition(this._element);
 		this._startPoint = new L.Point(first.clientX, first.clientY);
 
 		L.DomEvent.on(document, L.Draggable.MOVE, this._onMove, this);
@@ -5467,8 +5451,6 @@ L.Draggable = L.Class.extend({
 		if (!this._moved) {
 			this.fire('dragstart');
 			this._moved = true;
-
-			this._startPos = L.DomUtil.getPosition(this._element).subtract(diffVec);
 
 			if (!L.Browser.touch) {
 				L.DomUtil.disableTextSelection();
@@ -5580,9 +5562,9 @@ L.Map.mergeOptions({
 	dragging: true,
 
 	inertia: !L.Browser.android23,
-	inertiaDeceleration: 5000, // px/s^2
-	inertiaMaxSpeed: 4000, // px/s
-	inertiaThreshold: L.Browser.touch ? 32 : 18, // ms
+	inertiaDeceleration: 3000, // px/s^2
+	inertiaMaxSpeed: 1500, // px/s
+	inertiaThreshold: L.Browser.touch ? 32 : 14, // ms
 
 	// TODO refactor, move to CRS
 	worldCopyJump: true
@@ -5620,13 +5602,13 @@ L.Map.Drag = L.Handler.extend({
 	_onDragStart: function () {
 		var map = this._map;
 
-		if (map._panAnim) {
-			map._panAnim.stop();
-		}
-
 		map
 			.fire('movestart')
 			.fire('dragstart');
+
+		if (map._panTransition) {
+			map._panTransition._onTransitionEnd(true);
+		}
 
 		if (map.options.inertia) {
 			this._positions = [];
@@ -5701,8 +5683,13 @@ L.Map.Drag = L.Handler.extend({
 				decelerationDuration = limitedSpeed / options.inertiaDeceleration,
 				offset = limitedSpeedVector.multiplyBy(-decelerationDuration / 2).round();
 
+			var panOptions = {
+				duration: decelerationDuration,
+				easing: 'ease-out'
+			};
+
 			L.Util.requestAnimFrame(L.Util.bind(function () {
-				this._map.panBy(offset, decelerationDuration);
+				this._map.panBy(offset, panOptions);
 			}, this));
 		}
 
@@ -7046,74 +7033,270 @@ L.control.layers = function (baseLayers, overlays, options) {
 };
 
 
-/*
- * L.PosAnimation is used by Leaflet internally for pan animations
- */
-
-L.PosAnimation = L.Class.extend({
+L.Transition = L.Class.extend({
 	includes: L.Mixin.Events,
 
-	run: function (el, newPos, duration) {
-		this.stop();
+	statics: {
+		CUSTOM_PROPS_SETTERS: {
+			position: L.DomUtil.setPosition
+			//TODO transform custom attr
+		},
 
+		implemented: function () {
+			return L.Transition.NATIVE || L.Transition.TIMER;
+		}
+	},
+
+	options: {
+		easing: 'ease',
+		duration: 0.5
+	},
+
+	_setProperty: function (prop, value) {
+		var setters = L.Transition.CUSTOM_PROPS_SETTERS;
+		if (prop in setters) {
+			setters[prop](this._el, value);
+		} else {
+			this._el.style[prop] = value;
+		}
+	}
+});
+
+
+/*
+ * L.Transition native implementation that powers Leaflet animation
+ * in browsers that support CSS3 Transitions
+ */
+
+L.Transition = L.Transition.extend({
+	statics: (function () {
+		var transition = L.DomUtil.TRANSITION,
+			transitionEnd = (transition === 'webkitTransition' || transition === 'OTransition' ?
+				transition + 'End' : 'transitionend');
+
+		return {
+			NATIVE: !!transition,
+
+			TRANSITION: transition,
+			PROPERTY: transition + 'Property',
+			DURATION: transition + 'Duration',
+			EASING: transition + 'TimingFunction',
+			END: transitionEnd,
+
+			// transition-property value to use with each particular custom property
+			CUSTOM_PROPS_PROPERTIES: {
+				position: L.Browser.any3d ? L.DomUtil.TRANSFORM : 'top, left'
+			}
+		};
+	}()),
+
+	options: {
+		fakeStepInterval: 100
+	},
+
+	initialize: function (/*HTMLElement*/ el, /*Object*/ options) {
 		this._el = el;
+		L.Util.setOptions(this, options);
+
+		L.DomEvent.on(el, L.Transition.END, this._onTransitionEnd, this);
+		this._onFakeStep = L.Util.bind(this._onFakeStep, this);
+	},
+
+	run: function (/*Object*/ props) {
+		var prop,
+			propsList = [],
+			customProp = L.Transition.CUSTOM_PROPS_PROPERTIES;
+
+		for (prop in props) {
+			if (props.hasOwnProperty(prop)) {
+				prop = customProp[prop] ? customProp[prop] : prop;
+				prop = this._dasherize(prop);
+				propsList.push(prop);
+			}
+		}
+
+		this._el.style[L.Transition.DURATION] = this.options.duration + 's';
+		this._el.style[L.Transition.EASING] = this.options.easing;
+		this._el.style[L.Transition.PROPERTY] = 'all';
+
+		for (prop in props) {
+			if (props.hasOwnProperty(prop)) {
+				this._setProperty(prop, props[prop]);
+			}
+		}
+
+		// Chrome flickers for some reason if you don't do this
+		L.Util.falseFn(this._el.offsetWidth);
+
 		this._inProgress = true;
+
+		if (L.Browser.mobileWebkit) {
+			// Set up a slightly delayed call to a backup event if webkitTransitionEnd doesn't fire properly
+			this.backupEventFire = setTimeout(L.Util.bind(this._onBackupFireEnd, this), this.options.duration * 1.2 * 1000);
+		}
+
+		if (L.Transition.NATIVE) {
+			clearInterval(this._timer);
+			this._timer = setInterval(this._onFakeStep, this.options.fakeStepInterval);
+		} else {
+			this._onTransitionEnd();
+		}
+	},
+
+	_dasherize: (function () {
+		var re = /([A-Z])/g;
+
+		function replaceFn(w) {
+			return '-' + w.toLowerCase();
+		}
+
+		return function (str) {
+			return str.replace(re, replaceFn);
+		};
+	}()),
+
+	_onFakeStep: function () {
+		this.fire('step');
+	},
+
+	_onTransitionEnd: function (e) {
+		if (this._inProgress) {
+			this._inProgress = false;
+			clearInterval(this._timer);
+
+			this._el.style[L.Transition.TRANSITION] = '';
+
+			// Clear the delayed call to the backup event, we have recieved some form of webkitTransitionEnd
+			clearTimeout(this.backupEventFire);
+			delete this.backupEventFire;
+
+			this.fire('step');
+
+			if (e && e.type) {
+				this.fire('end');
+			}
+		}
+	},
+
+	_onBackupFireEnd: function () {
+		// Create and fire a transitionEnd event on the element.
+
+		var event = document.createEvent("Event");
+		event.initEvent(L.Transition.END, true, false);
+		this._el.dispatchEvent(event);
+	}
+});
+
+
+/*
+ * L.Transition fallback implementation that powers Leaflet animation
+ * in browsers that don't support CSS3 Transitions
+ */
+
+L.Transition = L.Transition.NATIVE ? L.Transition : L.Transition.extend({
+	statics: {
+		getTime: Date.now || function () {
+			return +new Date();
+		},
+
+		TIMER: true,
+
+		EASINGS: {
+			'linear': function (t) { return t; },
+			'ease-out': function (t) { return t * (2 - t); }
+		},
+
+		CUSTOM_PROPS_GETTERS: {
+			position: L.DomUtil.getPosition
+		},
+
+		//used to get units from strings like "10.5px" (->px)
+		UNIT_RE: /^[\d\.]+(\D*)$/
+	},
+
+	options: {
+		fps: 50
+	},
+
+	initialize: function (el, options) {
+		this._el = el;
+		L.Util.extend(this.options, options);
+
+		this._easing = L.Transition.EASINGS[this.options.easing] || L.Transition.EASINGS['ease-out'];
+
+		this._step = L.Util.bind(this._step, this);
+		this._interval = Math.round(1000 / this.options.fps);
+	},
+
+	run: function (props) {
+		this._props = {};
+
+		var getters = L.Transition.CUSTOM_PROPS_GETTERS,
+			re = L.Transition.UNIT_RE;
 
 		this.fire('start');
 
-		el.style[L.DomUtil.TRANSITION] = 'all ' + duration + 's ease-out';
-
-		L.DomEvent.on(el, L.DomUtil.TRANSITION_END, this._onTransitionEnd, this);
-		L.DomUtil.setPosition(el, newPos);
-
-		// Chrome flickers for some reason if you don't do this
-		L.Util.falseFn(el.offsetWidth);
-	},
-
-	stop: function () {
-		if (!this._inProgress) { return; }
-
-		var pos = this._getPos();
-
-		L.DomUtil.setPosition(this._el, pos);
-		this._onTransitionEnd();
-	},
-
-	_transformRe: /(-?[\d\.]+), (-?[\d\.]+)\)/,
-
-	_getPos: function () {
-		var left, top, matches,
-			el = this._el,
-			style = window.getComputedStyle(el);
-
-		if (L.Browser.any3d) {
-			matches = style[L.DomUtil.TRANSFORM].match(this._transformRe);
-			left = parseFloat(matches[1]);
-			top  = parseFloat(matches[2]);
-		} else {
-			left = parseFloat(style.left);
-			top  = parseFloat(style.top);
+		for (var prop in props) {
+			if (props.hasOwnProperty(prop)) {
+				var p = {};
+				if (prop in getters) {
+					p.from = getters[prop](this._el);
+				} else {
+					var matches = this._el.style[prop].match(re);
+					p.from = parseFloat(matches[0]);
+					p.unit = matches[1];
+				}
+				p.to = props[prop];
+				this._props[prop] = p;
+			}
 		}
 
-		return new L.Point(left, top, true);
+		clearInterval(this._timer);
+		this._timer = setInterval(this._step, this._interval);
+		this._startTime = L.Transition.getTime();
 	},
 
-	_onTransitionEnd: function () {
-		L.DomEvent.off(this._el, L.DomUtil.TRANSITION_END, this._onTransitionEnd, this);
+	_step: function () {
+		var time = L.Transition.getTime(),
+			elapsed = time - this._startTime,
+			duration = this.options.duration * 1000;
 
-		if (!this._inProgress) { return; }
-		this._inProgress = false;
+		if (elapsed < duration) {
+			this._runFrame(this._easing(elapsed / duration));
+		} else {
+			this._runFrame(1);
+			this._complete();
+		}
+	},
 
-		this._el.style[L.DomUtil.TRANSITION] = '';
+	_runFrame: function (percentComplete) {
+		var setters = L.Transition.CUSTOM_PROPS_SETTERS,
+			prop, p, value;
 
+		for (prop in this._props) {
+			if (this._props.hasOwnProperty(prop)) {
+				p = this._props[prop];
+				if (prop in setters) {
+					value = p.to.subtract(p.from).multiplyBy(percentComplete).add(p.from);
+					setters[prop](this._el, value);
+				} else {
+					this._el.style[prop] =
+							((p.to - p.from) * percentComplete + p.from) + p.unit;
+				}
+			}
+		}
+		this.fire('step');
+	},
+
+	_complete: function () {
+		clearInterval(this._timer);
 		this.fire('end');
 	}
-
 });
 
 
 
-L.Map.include({
+L.Map.include(!(L.Transition && L.Transition.implemented()) ? {} : {
 
 	setView: function (center, zoom, forceReset) {
 		zoom = this._limitZoom(zoom);
@@ -7138,28 +7321,31 @@ L.Map.include({
 		return this;
 	},
 
-	panBy: function (offset, duration) {
+	panBy: function (offset, options) {
 		offset = L.point(offset);
 
 		if (!(offset.x || offset.y)) {
 			return this;
 		}
 
-		if (!this._panAnim) {
-			this._panAnim = new L.PosAnimation();
+		if (!this._panTransition) {
+			this._panTransition = new L.Transition(this._mapPane);
 
-			this._panAnim.on({
+			this._panTransition.on({
 				'step': this._onPanTransitionStep,
 				'end': this._onPanTransitionEnd
 			}, this);
 		}
 
+		L.Util.setOptions(this._panTransition, L.Util.extend({duration: 0.25}, options));
+
 		this.fire('movestart');
 
 		L.DomUtil.addClass(this._mapPane, 'leaflet-pan-anim');
 
-		var newPos = L.DomUtil.getPosition(this._mapPane).subtract(offset);
-		this._panAnim.run(this._mapPane, newPos, duration || 0.25);
+		this._panTransition.run({
+			position: L.DomUtil.getPosition(this._mapPane).subtract(offset)
+		});
 
 		return this;
 	},
@@ -7194,79 +7380,13 @@ L.Map.include({
 });
 
 
-/*
- * L.PosAnimation fallback implementation that powers Leaflet pan animations
- * in browsers that don't support CSS3 Transitions
- */
-
-L.PosAnimation = L.DomUtil.TRANSITION ? L.PosAnimation : L.Class.extend({
-	includes: L.Mixin.Events,
-
-	run: function (el, newPos, duration) {
-		this.stop();
-
-		this._el = el;
-		this._inProgress = true;
-		this._duration = duration;
-
-		this._startPos = L.DomUtil.getPosition(el);
-		this._offset = newPos.subtract(this._startPos);
-		this._startTime = +new Date();
-
-		this.fire('start');
-
-		this._animate();
-	},
-
-	stop: function () {
-		if (!this._inProgress) { return; }
-
-		this._step();
-		this._complete();
-	},
-
-	_animate: function () {
-		this._animId = L.Util.requestAnimFrame(this._animate, this, false, this._el);
-		this._step();
-	},
-
-	_step: function () {
-		var elapsed = (+new Date()) - this._startTime,
-			duration = this._duration * 1000;
-
-		if (elapsed < duration) {
-			this._runFrame(this._easeOut(elapsed / duration));
-		} else {
-			this._runFrame(1);
-			this._complete();
-		}
-	},
-
-	_runFrame: function (progress) {
-		var pos = this._startPos.add(this._offset.multiplyBy(progress));
-		L.DomUtil.setPosition(this._el, pos);
-		this.fire('step');
-	},
-
-	_complete: function () {
-		L.Util.cancelAnimFrame(this._animId);
-		this.fire('end');
-		this._inProgress = false;
-	},
-
-	_easeOut: function (t) {
-		return t * (2 - t);
-	}
-});
-
-
 L.Map.mergeOptions({
 	zoomAnimation: L.DomUtil.TRANSITION && !L.Browser.android23 && !L.Browser.mobileOpera
 });
 
 if (L.DomUtil.TRANSITION) {
 	L.Map.addInitHook(function () {
-		L.DomEvent.on(this._mapPane, L.DomUtil.TRANSITION_END, this._catchTransitionEnd, this);
+		L.DomEvent.on(this._mapPane, L.Transition.END, this._catchTransitionEnd, this);
 	});
 }
 
@@ -7318,11 +7438,6 @@ L.Map.include(!L.DomUtil.TRANSITION ? {} : {
 			tileBg = this._tileBg;
 
 		clearTimeout(this._clearTileBgTimer);
-
-		//dumb FireFox hack, I have no idea why this magic zero translate fixes the scale transition problem
-		if (L.Browser.gecko || window.opera) {
-			tileBg.style[transform] += ' translate(0,0)';
-		}
 
 		L.Util.falseFn(tileBg.offsetWidth); //hack to make sure transform is updated before running animation
 
