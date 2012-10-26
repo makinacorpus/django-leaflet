@@ -106,7 +106,7 @@ will then be added automatically.
 Leaflet version
 ---------------
 
-By default, it runs the last stable version (*0.4.4*) of Leaflet. But it is
+By default, it runs the last stable version (*0.4.5*) of Leaflet. But it is
 possible to run the ``legacy`` version (*0.3.1*) or the ``unstable`` under
 development (*master*)::
 
