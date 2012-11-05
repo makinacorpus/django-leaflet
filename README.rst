@@ -135,6 +135,11 @@ Advanced usage
   (Default: ``True``). Setting fixextent to ``False`` will prevent view reset
   and scale controls to be added.
 
+* ``creatediv``: control if the leaflet map tags creates a new div or not.
+  (Default: ``True``).
+  Useful to put the javascript code in the header or footer instead of the
+  body of the html document. If used, do not forget to create the div manually.
+
 
 Projection
 ----------

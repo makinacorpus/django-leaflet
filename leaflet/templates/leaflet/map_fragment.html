@@ -1,5 +1,5 @@
 {% load static i18n %}
-<div id="{{ name }}"></div>
+{% if create_div %}<div id="{{ name }}"></div>{% endif %}
 <script type="text/javascript">
     var loadmap{{ name }} = function () {
         L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
