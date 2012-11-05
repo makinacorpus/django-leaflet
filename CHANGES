@@ -2,11 +2,11 @@
 CHANGELOG
 =========
 
-0.3.1 (unreleased)
+0.4.0 (unreleased)
 ==================
 
 * Remove imperial scale.
-
+* Add ``create_div`` parameter
 
 0.3.0 (2012-10-26)
 ==================
