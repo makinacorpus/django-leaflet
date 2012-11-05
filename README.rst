@@ -164,6 +164,7 @@ AUTHORS
 =======
 
 * Mathieu Leplatre <mathieu.leplatre@makina-corpus.com>
+* Ariel Núñez <http://ingenieroariel.com>
 
 |makinacom|_
 
