@@ -37,7 +37,7 @@ def leaflet_js():
 
 
 @register.simple_tag
-def leaflet_map(name, callback=None, fitextent=True):
+def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
     if callback is None:
         callback = "%sInit" % name
     tilesurl = app_settings.get('TILES_URL')
@@ -49,6 +49,7 @@ def leaflet_map(name, callback=None, fitextent=True):
         extent = (ymin, xmin, ymax, xmax)
     t = template.loader.get_template("leaflet/map_fragment.html")
     return t.render(Context(dict(name=name,
+                                 creatediv=creatediv,
                                  srid=SRID,
                                  extent=list(extent),
                                  fitextent=fitextent,
