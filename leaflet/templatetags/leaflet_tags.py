@@ -1,4 +1,4 @@
-import os, json
+import json
 
 from django import template
 from django.template import Context
@@ -10,30 +10,18 @@ from leaflet import app_settings, SPATIAL_EXTENT, SRID
 register = template.Library()
 
 
-def base_url():
-    version = app_settings.get('LEAFLET_VERSION')
-    paths = (settings.STATIC_URL, "leaflet")
-    if version:
-        paths += (version,)
-    return os.path.join(*paths)
-
-
-@register.simple_tag
+@register.inclusion_tag('leaflet/css.html')
 def leaflet_css():
-    return """<link rel="stylesheet" type="text/css" href="%(static)s/leaflet.css">
-    <!--[if lte IE 8]>
-    <link rel="stylesheet" type="text/css" href="%(static)s/leaflet.ie.css" />
-    <![endif]-->
-    <style>.leaflet-container {min-height: 300px;}</style>
-    """ % {'static': base_url()}
+    return {
+    }
 
 
-@register.simple_tag
+@register.inclusion_tag('leaflet/js.html')
 def leaflet_js():
-    t = template.loader.get_template("leaflet/head_fragment.html")
-    return t.render(Context(dict(debug=settings.TEMPLATE_DEBUG,
-                                 version=app_settings.get('LEAFLET_VERSION'),
-                                 srid=SRID)))
+    return {
+        "DEBUG": settings.TEMPLATE_DEBUG,
+        "SRID": SRID
+    }
 
 
 @register.simple_tag

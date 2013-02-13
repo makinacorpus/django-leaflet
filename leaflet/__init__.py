@@ -6,7 +6,6 @@ from django.utils.translation import ugettext as _
 DEFAULT_TILES_URL = 'http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png'
 
 app_settings = dict({
-    'LEAFLET_VERSION': "",
     'TILES_URL': DEFAULT_TILES_URL,
     'SPATIAL_EXTENT': None,
     'SRID': None,

@@ -1,6 +1,7 @@
 *django-leaflet* allows you to use `Leaflet <http://leaflet.cloudmade.com>`_
 in your `Django <https://www.djangoproject.com>`_ projects.
 
+It embeds Leaflet in version *0.5.1*.
 
 =======
 INSTALL
@@ -102,15 +103,6 @@ To globally add a tiles layer to your maps::
 
 This setting can also be a list of tuples (name, url) ! A layer switcher
 will then be added automatically.
-
-Leaflet version
----------------
-
-By default, it runs the last stable version (*0.5.1*) of Leaflet. But it is
-possible to run the ``legacy`` version (*0.4.5*) or the ``unstable`` under
-development (*master*)::
-
-    'LEAFLET_VERSION': 'legacy'
 
 Scale control
 -------------
