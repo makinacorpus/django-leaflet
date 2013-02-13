@@ -11,6 +11,7 @@ app_settings = dict({
     'SRID': None,
     'SCALE': True,
     'TILES_EXTENT': [],
+    'MINIMAP': False,
 }, **getattr(settings, 'LEAFLET_CONFIG', {}))
 
 

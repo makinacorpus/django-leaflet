@@ -111,6 +111,17 @@ Disable scale control with km and miles::
 
     'SCALE': False
 
+Minimap control
+---------------
+
+Shows a small map in the corner which shows the same as the main map with a 
+set zoom offset::
+
+    'MINIMAP': True
+
+By default it shows the tiles of the first layer in the list.
+
+(`More info... <https://github.com/Norkart/Leaflet-MiniMap>`_)
 
 Advanced usage
 ==============

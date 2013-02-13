@@ -5,6 +5,7 @@ CHANGELOG
 0.5.0 (unreleased)
 ==================
 
+* Add minimap support
 * Drop Leaflet version switching
 * Update Leaflet to 0.5.1
 

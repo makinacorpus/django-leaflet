@@ -13,6 +13,7 @@ register = template.Library()
 @register.inclusion_tag('leaflet/css.html')
 def leaflet_css():
     return {
+        "MINIMAP": app_settings.get('MINIMAP'),
     }
 
 
@@ -20,7 +21,8 @@ def leaflet_css():
 def leaflet_js():
     return {
         "DEBUG": settings.TEMPLATE_DEBUG,
-        "SRID": SRID
+        "SRID": SRID,
+        "MINIMAP": app_settings.get('MINIMAP'),
     }
 
 
@@ -44,6 +46,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
                                  tilesurl=[list(url) for url in tilesurl],
                                  callback=callback,
                                  scale=app_settings.get('SCALE'),
+                                 minimap=app_settings.get('MINIMAP'),
                                  tilesextent=list(app_settings.get('TILES_EXTENT', [])),
                                 )))
 

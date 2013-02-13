@@ -3,4 +3,7 @@
 <!--[if lte IE 8]>
     <link rel="stylesheet" href="{% static "leaflet/leaflet.ie.css" %}" />
 <![endif]-->
-<style>.leaflet-container {min-height: 300px;}</style>
+<style>.leaflet-container-default {min-height: 300px;}</style>
+{% if MINIMAP %}
+<link rel="stylesheet" href="{% static "leaflet/Control.MiniMap.css" %}" />
+{% endif %}

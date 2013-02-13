@@ -1,5 +1,5 @@
 {% load static i18n %}
-{% if creatediv %}<div id="{{ name }}"></div>{% endif %}
+{% if creatediv %}<div id="{{ name }}" class="leaflet-container-default"></div>{% endif %}
 <script type="text/javascript">
     var loadmap{{ name }} = function () {
         L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
@@ -11,6 +11,7 @@
             controls = {
                 scale: {{ scale|yesno:"true,false" }},
                 resetview: {{ resetview|yesno:"true,false" }},
+                minimap: {{ minimap|yesno:"true,false" }}
             }
 
         {% if srid %}
@@ -52,28 +53,16 @@
         
         if (controls.scale) {
             // Add scale control
-            var addscale = function () {
-                this.addControl(new L.Control.Scale({imperial: false}));
-            };
-            if (map._loaded) {
-                addscale.call(map);
-            }
-            else {
-                map.on('load', addscale, map);
-            }
+            map.whenReady(function () {
+                new L.Control.Scale({imperial: false}).addTo(map);
+            });
         }
         
         if (controls.resetview && bounds) {
             // Add reset view control
-            var addresetview = function () {
-                this.addControl(new L.Control.ResetView(bounds));
-            };
-            if (map._loaded) {
-                addresetview.call(map);
-            }
-            else {
-                map.on('load', addresetview, map);
-            }
+            map.whenReady(function () {
+                new L.Control.ResetView(bounds).addTo(map);
+            });
         }
 
         var layers = {{ tilesurl|safe }};
@@ -88,7 +77,15 @@
                 map.layerscontrol.addBaseLayer(l, layers[i][0]);
             }
         }
-        
+
+        if (controls.minimap) {
+            var layer = new L.TileLayer(layers[0][1], tilesoptions);
+            map.whenReady(function () {
+                map.minimapcontrol = new L.Control.MiniMap(layer,
+                                                           {toggleDisplay: true}).addTo(map);
+            });
+        }
+
         if(typeof {{ callback }} == 'function') {
             {{ callback }}(map, bounds);
         }
