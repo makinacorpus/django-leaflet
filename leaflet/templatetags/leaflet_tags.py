@@ -5,38 +5,40 @@ from django.template import Context
 from django.conf import settings
 
 from leaflet import app_settings, SPATIAL_EXTENT, SRID
-from leaflet import MAP_CENTER, MAP_ZOOM, PLUGINS_CSS, PLUGINS_JS
+from leaflet import PLUGINS
 
 
 register = template.Library()
 
 @register.inclusion_tag('leaflet/css.html')
-def leaflet_css(only_plugins=None, exclude_plugins=None):
+def leaflet_css(plugins=None):
     """
 
     :param only_plugins:
     :param exclude_plugins:
     :return:
     """
+    plugin_names = _get_plugin_names(plugins)
     return {
         "MINIMAP": app_settings.get('MINIMAP'),
-        "PLUGINS_CSS": PLUGINS_CSS,
+        "PLUGINS_CSS": _get_all_resources_for_plugins(plugin_names, 'css'),
     }
 
 
 @register.inclusion_tag('leaflet/js.html')
-def leaflet_js(only_plugins=None, exclude_plugins=None):
+def leaflet_js(plugins=None):
     """
 
     :param only_plugins:
     :param exclude_plugins:
     :return:
     """
+    plugin_names = _get_plugin_names(plugins)
     return {
         "DEBUG": settings.TEMPLATE_DEBUG,
         "SRID": SRID,
         "MINIMAP": app_settings.get('MINIMAP'),
-        "PLUGINS_JS": PLUGINS_JS,
+        "PLUGINS_JS":  _get_all_resources_for_plugins(plugin_names, 'js'),
     }
 
 
@@ -67,8 +69,8 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
                                  creatediv=creatediv,
                                  srid=SRID,
                                  extent=list(extent),
-                                 map_center=MAP_CENTER,
-                                 map_zoom=MAP_ZOOM,
+                                 center=app_settings['DEFAULT_CENTER'],
+                                 zoom=app_settings['DEFAULT_ZOOM'],
                                  fitextent=fitextent,
                                  tilesurl=[list(url) for url in tilesurl],
                                  callback=callback,
@@ -86,3 +88,36 @@ def leaflet_json_config():
         settings_as_json['SPATIAL_EXTENT'] = { 'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax }
 
     return json.dumps(settings_as_json)
+
+
+
+
+def _get_plugin_names(plugin_names_from_tag_parameter):
+    """
+    Returns a list of plugin names, specified in the parameter.
+    Used by tags to determine which plugins to include
+    :param pluging_names_parameter:
+    :return:
+    """
+    if isinstance(plugin_names_from_tag_parameter, (str,unicode)):
+        names = plugin_names_from_tag_parameter.split(',')
+        return map(lambda n: n.strip(), names)
+    else:
+        return []
+
+
+
+def _get_all_resources_for_plugins(plugin_names, resource_type):
+    """
+    Returns a list of URLs for the plugins with the specified resource type (js, css, ...)
+    :param plugin_names:
+    :param resource_type:
+    :return:
+    """
+    result = []
+    for plugin_name in plugin_names:
+        if plugin_name in PLUGINS:
+            result.extend(PLUGINS[plugin_name].get(resource_type, []))
+
+    return result
+

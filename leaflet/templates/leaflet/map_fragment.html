@@ -37,12 +37,12 @@
             bounds = new L.LatLngBounds(southWest, northEast);
         {% endif %}
 
-        {% if map_zoom %}
-            mapoptions.zoom = {{ map_zoom }};
+        {% if zoom %}
+            mapoptions.zoom = {{ zoom }};
         {% endif %}
 
-        {% if map_center %}
-            mapoptions.center = new L.LatLng({{ map_center.1|unlocalize }}, {{ map_center.0|unlocalize }});
+        {% if center %}
+            mapoptions.center = new L.LatLng({{ center.0|unlocalize }}, {{ center.1|unlocalize }});
         {% endif %}
 
         var map = new L.Map('{{ name }}', mapoptions);
@@ -54,7 +54,7 @@
             // Restrict to bounds
             map.setMaxBounds(bounds);
             
-            {% if fitextent and not map_center and not map_zoom %}
+            {% if fitextent and not center and not zoom %}
                 map.fitBounds(bounds);
             {% endif %}
         }
