@@ -96,3 +96,4 @@ def _normalize_plugins_config():
     PLUGINS['__is_normalized__'] = True
 
 _normalize_plugins_config()
+
