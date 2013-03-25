@@ -76,7 +76,7 @@ def ensure_full_url(url):
         # absolute URL or a URL starting at root
         return url
     else:
-        return urlparse.urljoin('/static/', url)
+        return urlparse.urljoin(settings.STATIC_URL, url)
 
 
 PLUGINS_CSS = _flat_list_from_plugin_config('css')
