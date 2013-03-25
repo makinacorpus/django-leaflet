@@ -9,6 +9,6 @@
 {% endif %}
 {% if PLUGINS_CSS %}
     {% for css in PLUGINS_CSS %}
-        <script src="{{ css }}" type="text/javascript"></script>
+        <link rel="stylesheet" href="{{ css }}" type="text/css" />
     {% endfor %}
 {% endif %}
