@@ -98,5 +98,11 @@
             {{ callback }}(map, bounds);
         }
     };
-    window.addEventListener("load", loadmap{{ name }});
+
+    // http://stackoverflow.com/a/6927800/74632
+    if (window.addEventListener) { // W3C DOM
+        window.addEventListener("load", loadmap{{ name }}, false);
+    } else if (window.attachEvent) { // IE DOM
+        window.attachEvent("onload", loadmap{{ name }});
+    } // nothing else to try
 </script>
