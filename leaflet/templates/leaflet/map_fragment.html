@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n l10n %}
 {% if creatediv %}<div id="{{ name }}" class="leaflet-container-default"></div>{% endif %}
 <script type="text/javascript">
     var loadmap{{ name }} = function () {
@@ -36,7 +36,15 @@
                 northEast = new L.LatLng(extent[2], extent[3]);
             bounds = new L.LatLngBounds(southWest, northEast);
         {% endif %}
-        
+
+        {% if zoom %}
+            mapoptions.zoom = {{ zoom }};
+        {% endif %}
+
+        {% if center %}
+            mapoptions.center = new L.LatLng({{ center.0|unlocalize }}, {{ center.1|unlocalize }});
+        {% endif %}
+
         var map = new L.Map('{{ name }}', mapoptions);
         // Register document maps, like window.forms :)
         if (!window.maps) window.maps = [];
@@ -46,7 +54,7 @@
             // Restrict to bounds
             map.setMaxBounds(bounds);
             
-            {% if fitextent %}
+            {% if fitextent and not center and not zoom %}
                 map.fitBounds(bounds);
             {% endif %}
         }
@@ -90,5 +98,11 @@
             {{ callback }}(map, bounds);
         }
     };
-    window.addEventListener("load", loadmap{{ name }});
+
+    // http://stackoverflow.com/a/6927800/74632
+    if (window.addEventListener) { // W3C DOM
+        window.addEventListener("load", loadmap{{ name }}, false);
+    } else if (window.attachEvent) { // IE DOM
+        window.attachEvent("onload", loadmap{{ name }});
+    } // nothing else to try
 </script>
