@@ -27,6 +27,26 @@ USAGE
         {% leaflet_css %}
     </head>
 
+These tags also support loading CSS and JS resources for leaflet plugins.
+All plugins msut be specified in settings.py in LEAFLET_CONFIG['PLUGINS'] as described below.
+
+To include specific plugins in the page, specify plugin names, comma separated::
+
+    {% load leaflet_tags %}
+
+    <head>
+        ...
+        {% leaflet_js  plugins="bouncemarker, draw" %}
+        {% leaflet_css plugins="bouncemarker, draw"%}
+    </head>
+
+To include all plugins configured in LEAFLET_CONFIG['PLUGINS'], use::
+
+    {% leaflet_js plugins="ALL" %}
+    {% leaflet_css plugins="ALL" %}
+
+By default no plugins will be included.
+
 
 * Add the map in your page, providing a name::
     
@@ -94,6 +114,19 @@ controls. (*See advanced usage to tweak that.*)::
 
     'SPATIAL_EXTENT': (5.0, 44.0, 7.5, 46)
 
+
+Initial map center and zoom level
+---------------------------------
+
+In addition to limiting your maps with ``SPATIAL_EXTENT``, you can also specify
+initial map center and zoom level::
+
+    'MAP_CENTER': (6.0, 45.0),
+    'MAP_ZOOM': 16,
+
+The tuple/list must contain (lat,lng) coords.
+
+
 Default tiles layer
 -------------------
 
@@ -122,6 +155,31 @@ set zoom offset::
 By default it shows the tiles of the first layer in the list.
 
 (`More info... <https://github.com/Norkart/Leaflet-MiniMap>`_)
+
+
+Plugins
+-------
+
+To ease the usage of plugins, django-leaflet allows specifying a set of plugins, that can
+later be referred to from the template tags by name::
+
+    'PLUGINS': {
+        'name-of-plugin': {
+            'css': ['relative/path/to/stylesheet.css', '/root/path/to/stylesheet.css'],
+            'js': 'http://absolute-url.example.com/path/to/script.js',
+        },
+        . . .
+    }
+
+Both 'css' and 'js' support identical features for specifying resource URLs:
+
+    * can be either a plain string or a list of URLs
+    * each string can be:
+
+        - absolute URL - will be included as-is; **example**: ``http://absolute-url.example.com/path/to/script.js``
+        - a URL beginning from the root - will be included as-is;  **example**: ``/root/path/to/stylesheet.css``
+        - a relative URL - settings.STATIC_URL will be prepended; **example**: ``relative/path/to/stylesheet.css`` will be included as **/static/relative/path/to/stylesheet.css** (depending on your setting for STATIC_URL)
+
 
 Advanced usage
 ==============
