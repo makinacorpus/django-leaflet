@@ -226,6 +226,7 @@ AUTHORS
 
 * Mathieu Leplatre <mathieu.leplatre@makina-corpus.com>
 * Ariel Núñez <http://ingenieroariel.com>
+* Boris Chervenkov <https://github.com/boris-chervenkov>
 
 |makinacom|_
 
