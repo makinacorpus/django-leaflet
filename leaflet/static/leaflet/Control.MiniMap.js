@@ -5,6 +5,7 @@ L.Control.MiniMap = L.Control.extend({
 		zoomLevelOffset: -5,
 		zoomLevelFixed: false,
 		zoomAnimation: false,
+		autoToggleDisplay: false,
 		width: 150,
 		height: 150
 	},
@@ -31,6 +32,7 @@ L.Control.MiniMap = L.Control.extend({
 			attributionControl: false,
 			zoomControl: false,
 			zoomAnimation: this.options.zoomAnimation,
+			autoToggleDisplay: this.options.autoToggleDisplay,
 			touchZoom: !this.options.zoomLevelFixed,
 			scrollWheelZoom: !this.options.zoomLevelFixed,
 			doubleClickZoom: !this.options.zoomLevelFixed,
@@ -42,6 +44,10 @@ L.Control.MiniMap = L.Control.extend({
 		//These bools are used to prevent infinite loops of the two maps notifying each other that they've moved.
 		this._mainMapMoving = false;
 		this._miniMapMoving = false;
+
+		//Keep a record of this to prevent auto toggling when the user explicitly doesn't want it.
+		this._userToggledDisplay = false;
+		this._minimized = false;
 
 		if (this.options.toggleDisplay) {
 			this._addToggleButton();
@@ -60,21 +66,22 @@ L.Control.MiniMap = L.Control.extend({
 	addTo: function (map) {
 		L.Control.prototype.addTo.call(this, map);
 		this._miniMap.setView(this._mainMap.getCenter(), this._decideZoom(true));
+		this._setDisplay(this._decideMinimized());
+		return this;
 	},
-	
+
 	onRemove: function (map) {
 		this._mainMap.off('moveend', this._onMainMapMoved, this);
 		this._mainMap.off('move', this._onMainMapMoving, this);
 		this._miniMap.off('moveend', this._onMiniMapMoved, this);
 
 	},
-	
+
 	_addToggleButton: function () {
 		this._toggleDisplayButton = this.options.toggleDisplay ? this._createButton(
-		        '', 'Hide', 'leaflet-control-minimap-toggle-display',  this._container, this._toggleDisplay,  this) : undefined;
-		this._minimized = false;
+				'', 'Hide', 'leaflet-control-minimap-toggle-display', this._container, this._toggleDisplayButtonClicked, this) : undefined;
 	},
-	
+
 	_createButton: function (html, title, className, container, fn, context) {
 		var link = L.DomUtil.create('a', className, container);
 		link.innerHTML = html;
@@ -84,36 +91,67 @@ L.Control.MiniMap = L.Control.extend({
 		var stop = L.DomEvent.stopPropagation;
 
 		L.DomEvent
-		    .on(link, 'click', stop)
-		    .on(link, 'mousedown', stop)
-		    .on(link, 'dblclick', stop)
-		    .on(link, 'click', L.DomEvent.preventDefault)
-		    .on(link, 'click', fn, context);
+			.on(link, 'click', stop)
+			.on(link, 'mousedown', stop)
+			.on(link, 'dblclick', stop)
+			.on(link, 'click', L.DomEvent.preventDefault)
+			.on(link, 'click', fn, context);
 
 		return link;
 	},
-	
-	_toggleDisplay: function () {
+
+	_toggleDisplayButtonClicked: function () {
+		this._userToggledDisplay = true;
 		if (!this._minimized) {
-			// hide the minimap
+			this._minimize();
+		}
+		else {
+			this._restore();
+		}
+	},
+
+	_setDisplay: function (minimize) {
+		if (minimize != this._minimized) {
+			if (!this._minimized) {
+				this._minimize();
+			}
+			else {
+				this._restore();
+			}
+		}
+	},
+
+	_minimize: function () {
+		// hide the minimap
+		if (this.options.toggleDisplay) {
 			this._container.style.width = '19px';
 			this._container.style.height = '19px';
 			this._toggleDisplayButton.className += ' minimized';
-			this._minimized = true;
 		}
 		else {
+			this._container.style.display = 'none';
+		}
+		this._minimized = true;
+	},
+
+	_restore: function () {
+		if (this.options.toggleDisplay) {
 			this._container.style.width = this.options.width + 'px';
 			this._container.style.height = this.options.height + 'px';
 			this._toggleDisplayButton.className = this._toggleDisplayButton.className
-				.replace(/(?:^|\s)minimized(?!\S)/g , '');
-			this._minimized = false;
+					.replace(/(?:^|\s)minimized(?!\S)/g, '');
 		}
+		else {
+			this._container.style.display = 'block';
+		}
+		this._minimized = false;
 	},
-	
+
 	_onMainMapMoved: function (e) {
 		if (!this._miniMapMoving) {
 			this._mainMapMoving = true;
 			this._miniMap.setView(this._mainMap.getCenter(), this._decideZoom(true));
+			this._setDisplay(this._decideMinimized());
 		} else {
 			this._miniMapMoving = false;
 		}
@@ -125,7 +163,7 @@ L.Control.MiniMap = L.Control.extend({
 	},
 
 	_onMiniMapMoved: function (e) {
-	if (!this._mainMapMoving) {
+		if (!this._mainMapMoving) {
 			this._miniMapMoving = true;
 			this._mainMap.setView(this._miniMap.getCenter(), this._decideZoom(false));
 		} else {
@@ -145,6 +183,21 @@ L.Control.MiniMap = L.Control.extend({
 			else
 				return this._mainMap.getZoom();
 		}
+	},
+
+	_decideMinimized: function () {
+		if (this._userToggledDisplay) {
+			return this._minimized;
+		}
+
+		if (this.options.autoToggleDisplay) {
+			if (this._mainMap.getBounds().contains(this._miniMap.getBounds())) {
+				return true;
+			}
+			return false;
+		}
+
+		return this._minimized;
 	}
 });
 
