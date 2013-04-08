@@ -2,9 +2,10 @@
 CHANGELOG
 =========
 
-0.5.1 (unreleased)
-==================
+0.5.1
+=====
 
+* Update Leaflet.Minimap
 * Fix apparence of Reset view button
 
 
