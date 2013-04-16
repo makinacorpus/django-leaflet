@@ -121,8 +121,8 @@ Initial map center and zoom level
 In addition to limiting your maps with ``SPATIAL_EXTENT``, you can also specify
 initial map center and zoom level::
 
-    'MAP_CENTER': (6.0, 45.0),
-    'MAP_ZOOM': 16,
+    'DEFAULT_CENTER': (6.0, 45.0),
+    'DEFAULT_ZOOM': 16,
 
 The tuple/list must contain (lat,lng) coords.
 
