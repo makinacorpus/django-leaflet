@@ -56,6 +56,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
                                  tilesurl=[list(url) for url in tilesurl],
                                  callback=callback,
                                  scale=app_settings.get('SCALE'),
+                                 resetview=app_settings.get('RESET_VIEW'),
                                  tilesextent=list(app_settings.get('TILES_EXTENT', [])),
                                 )))
 
