@@ -17,7 +17,7 @@
             var bbox =  {{ tilesextent|safe }},
                 width = bbox[2] - bbox[0],
                 height = bbox[3] - bbox[1],
-                maxResolution = Math.min(width, height) / 256;  // tile size
+                maxResolution = Math.max(width, height) / 256;  // tile size
             var scale = function(zoom) {
                 return 1 / (maxResolution / Math.pow(2, zoom));
             };
