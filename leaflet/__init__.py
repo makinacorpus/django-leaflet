@@ -4,7 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 
 
-DEFAULT_TILES_URL = 'http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png'
+DEFAULT_TILES_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 app_settings = dict({
     'TILES_URL': DEFAULT_TILES_URL,
