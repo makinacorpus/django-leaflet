@@ -7,6 +7,7 @@ CHANGELOG
 
 * Upgrade to Leaflet 0.6.2
 * Upgrade Leaflet.Minimap (rev 3cd58f7)
+* Upgrade Proj4Leaflet (rev f4f5b6d)
 
 0.5.1 (2013-04-08)
 ==================
