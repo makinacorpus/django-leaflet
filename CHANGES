@@ -5,7 +5,8 @@ CHANGELOG
 0.6.0a (unreleased)
 ======-============
 
-* Update to Leaflet 0.6.2
+* Upgrade to Leaflet 0.6.2
+* Upgrade Leaflet.Minimap (rev 3cd58f7)
 
 0.5.1 (2013-04-08)
 ==================
