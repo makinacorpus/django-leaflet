@@ -59,6 +59,10 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
     if tilesurl and isinstance(tilesurl, basestring):
         tilesurl = (('background', tilesurl),)
 
+    attributions = app_settings.get('ATTRIBUTIONS')
+    if attributions and isinstance(attributions, basestring):
+        attributions = (('background', attributions),)
+
     extent = None
     if SPATIAL_EXTENT is not None:
         xmin, ymin, xmax, ymax = SPATIAL_EXTENT
@@ -77,6 +81,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
                                  scale=app_settings.get('SCALE'),
                                  minimap=app_settings.get('MINIMAP'),
                                  tilesextent=list(app_settings.get('TILES_EXTENT', [])),
+                                 attributions=[list(attribution) for attribution in attributions]
                                 )))
 
 @register.simple_tag

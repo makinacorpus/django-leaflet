@@ -7,7 +7,7 @@
         
         var bounds = null,
             mapoptions = {},
-            tilesoptions = {},
+            tilesoptions = [{},{}],
             controls = {
                 scale: {{ scale|yesno:"true,false" }},
                 resetview: {{ resetview|yesno:"true,false" }},
@@ -45,6 +45,19 @@
             mapoptions.center = new L.LatLng({{ center.0|unlocalize }}, {{ center.1|unlocalize }});
         {% endif %}
 
+        {% if attributions %}
+            var attributions = {{ attributions|safe }};
+
+            if (attributions.length == 1) {
+                tilesoptions[0].attributions = attributions[0][1];
+            }
+            else {
+                for (var i=0; i<attributions.length; i++) {
+                    tilesoptions[i].attribution = attributions[i][1];
+                }
+            }
+        {% endif %}
+
         var map = new L.Map('{{ name }}', mapoptions);
         // Register document maps, like window.forms :)
         if (!window.maps) window.maps = [];
@@ -75,19 +88,19 @@
 
         var layers = {{ tilesurl|safe }};
         if (layers.length == 1) {
-            L.tileLayer(layers[0][1], tilesoptions).addTo(map);
+            L.tileLayer(layers[0][1], tilesoptions[0]).addTo(map);
         }
         else {
             map.layerscontrol = L.control.layers().addTo(map);
             for (var i=0; i<layers.length; i++) {
-                var l = L.tileLayer(layers[i][1], tilesoptions);
+                var l = L.tileLayer(layers[i][1], tilesoptions[i]);
                 if (i==0) l.addTo(map);
                 map.layerscontrol.addBaseLayer(l, layers[i][0]);
             }
         }
 
         if (controls.minimap) {
-            var layer = new L.TileLayer(layers[0][1], tilesoptions);
+            var layer = new L.TileLayer(layers[0][1], tilesoptions[0]);
             map.whenReady(function () {
                 map.minimapcontrol = new L.Control.MiniMap(layer,
                                                            {toggleDisplay: true}).addTo(map);

@@ -8,6 +8,7 @@ DEFAULT_TILES_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 app_settings = dict({
     'TILES_URL': DEFAULT_TILES_URL,
+    'ATTRIBUTIONS': '',
     'SPATIAL_EXTENT': None,
     'DEFAULT_ZOOM': None,
     'DEFAULT_CENTER': None,
