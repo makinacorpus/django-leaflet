@@ -137,6 +137,15 @@ To globally add a tiles layer to your maps::
 This setting can also be a list of tuples (name, url) ! A layer switcher
 will then be added automatically.
 
+Default attributions
+--------------------
+
+To globally add an attribution to tiles of your maps::
+
+    'ATTRIBUTIONS': 'Django Leaflet whateveryouwant Copyrights'
+
+This setting can also be a list of tuples (layer, attribution) ! Depending on the layer name.
+
 Scale control
 -------------
 
