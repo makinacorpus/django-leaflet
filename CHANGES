@@ -2,18 +2,10 @@
 CHANGELOG
 =========
 
-0.5.1
-=====
+0.6.0a (unreleased)
+======-============
 
-* Update Leaflet.Minimap
-* Fix apparence of Reset view button
-
-
-0.5.2 (unreleased)
-==================
-
-- Nothing changed yet.
-
+* Update to Leaflet 0.6.2
 
 0.5.1 (2013-04-08)
 ==================
@@ -21,13 +13,13 @@ CHANGELOG
 * Add minimap support
 * Drop Leaflet version switching
 * Update Leaflet to 0.5.1
-
+* Update Leaflet.Minimap
+* Fix apparence of Reset view button
 
 0.4.1 (2012-11-05)
 ==================
 
 * Fix div creation test in template.
-
 
 0.4.0 (2012-11-05)
 ==================
