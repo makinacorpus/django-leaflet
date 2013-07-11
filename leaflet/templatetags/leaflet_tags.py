@@ -4,11 +4,11 @@ from django import template
 from django.template import Context
 from django.conf import settings
 
-from leaflet import app_settings, SPATIAL_EXTENT, SRID
-from leaflet import PLUGINS
+from leaflet import app_settings, SPATIAL_EXTENT, SRID, PLUGINS
 
 
 register = template.Library()
+
 
 @register.inclusion_tag('leaflet/css.html')
 def leaflet_css(plugins=None):
@@ -38,7 +38,7 @@ def leaflet_js(plugins=None):
         "DEBUG": settings.TEMPLATE_DEBUG,
         "SRID": SRID,
         "MINIMAP": app_settings.get('MINIMAP'),
-        "PLUGINS_JS":  _get_all_resources_for_plugins(plugin_names, 'js'),
+        "PLUGINS_JS": _get_all_resources_for_plugins(plugin_names, 'js'),
     }
 
 
@@ -76,8 +76,8 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
                                  callback=callback,
                                  scale=app_settings.get('SCALE'),
                                  minimap=app_settings.get('MINIMAP'),
-                                 tilesextent=list(app_settings.get('TILES_EXTENT', [])),
-                                )))
+                                 tilesextent=list(app_settings.get('TILES_EXTENT', [])),)))
+
 
 @register.simple_tag
 def leaflet_json_config():
@@ -85,11 +85,10 @@ def leaflet_json_config():
 
     if SPATIAL_EXTENT is not None:
         xmin, ymin, xmax, ymax = settings_as_json.pop('SPATIAL_EXTENT')
-        settings_as_json['SPATIAL_EXTENT'] = { 'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax }
+        settings_as_json['SPATIAL_EXTENT'] = {'xmin': xmin, 'ymin': ymin,
+                                              'xmax': xmax, 'ymax': ymax}
 
     return json.dumps(settings_as_json)
-
-
 
 
 def _get_plugin_names(plugin_names_from_tag_parameter):
@@ -99,12 +98,11 @@ def _get_plugin_names(plugin_names_from_tag_parameter):
     :param pluging_names_parameter:
     :return:
     """
-    if isinstance(plugin_names_from_tag_parameter, (str,unicode)):
+    if isinstance(plugin_names_from_tag_parameter, (str, unicode)):
         names = plugin_names_from_tag_parameter.split(',')
-        return map(lambda n: n.strip(), names)
+        return [n.strip() for n in names]
     else:
         return []
-
 
 
 def _get_all_resources_for_plugins(plugin_names, resource_type):
@@ -120,4 +118,3 @@ def _get_all_resources_for_plugins(plugin_names, resource_type):
             result.extend(PLUGINS[plugin_name].get(resource_type, []))
 
     return result
-

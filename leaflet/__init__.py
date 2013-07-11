@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 
 DEFAULT_TILES_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
+
 app_settings = dict({
     'TILES_URL': DEFAULT_TILES_URL,
     'SPATIAL_EXTENT': None,
@@ -26,14 +27,14 @@ if SPATIAL_EXTENT is not None:
     if not isinstance(SPATIAL_EXTENT, (tuple, list)) or len(SPATIAL_EXTENT) != 4:
         raise ImproperlyConfigured(_("Spatial extent should be a tuple (minx, miny, maxx, maxy)"))
 
-SRID = app_settings.get("SRID") 
+SRID = app_settings.get("SRID")
 if SRID is None:
     SRID = getattr(settings, 'MAP_SRID', getattr(settings, 'SRID', 3857))
 if SRID == 3857:  # Leaflet's default, do not setup custom projection machinery
     SRID = None
 
 DEFAULT_CENTER = app_settings.get('DEFAULT_CENTER', None)
-if DEFAULT_CENTER is not None and not (isinstance(DEFAULT_CENTER, (list,tuple)) and len(DEFAULT_CENTER) == 2):
+if DEFAULT_CENTER is not None and not (isinstance(DEFAULT_CENTER, (list, tuple)) and len(DEFAULT_CENTER) == 2):
     raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_CENTER'] must be an list/tuple with two elements - (lon, lat)")
 
 DEFAULT_ZOOM = app_settings.get("DEFAULT_ZOOM", None)
@@ -47,7 +48,6 @@ if PLUGINS is not None and not (isinstance(PLUGINS, dict) and all(map(lambda el:
 
 PLUGIN_ALL = 'ALL'
 
-# -----------------------
 
 def _normalize_plugins_config():
     """
@@ -59,11 +59,11 @@ def _normalize_plugins_config():
             ** the the URL is not a root URL - does not start with / - prepend settings.STATIC_URL
     Also, adds a special key - ALL - that includes 'css' and 'js' for all plugins listed
     """
-    if '__is_normalized__' in PLUGINS: # already normalized
+    if '__is_normalized__' in PLUGINS:  # already normalized
         return
 
     RESOURCE_TYPE_KEYS = ['css', 'js']
-    PLUGINS[PLUGIN_ALL] = dict( (k, []) for k in RESOURCE_TYPE_KEYS)
+    PLUGINS[PLUGIN_ALL] = dict((k, []) for k in RESOURCE_TYPE_KEYS)
 
     for plugin_dict in PLUGINS.itervalues():
         for resource_type in RESOURCE_TYPE_KEYS:
@@ -71,11 +71,11 @@ def _normalize_plugins_config():
             urls = plugin_dict.get(resource_type, None)
             if isinstance(urls, (str, unicode)):
                 urls = [urls]
-            elif isinstance(urls, tuple): # force to list
+            elif isinstance(urls, tuple):  # force to list
                 urls = list(urls)
-            elif isinstance(urls, list): # already a list
+            elif isinstance(urls, list):  # already a list
                 pass
-            else: # css/js has not been specified or the wrong type
+            else:  # css/js has not been specified or the wrong type
                 urls = []
 
             # normalize the URLs - see the docstring for details
@@ -96,4 +96,3 @@ def _normalize_plugins_config():
     PLUGINS['__is_normalized__'] = True
 
 _normalize_plugins_config()
-
