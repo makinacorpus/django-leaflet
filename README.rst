@@ -132,10 +132,15 @@ Default tiles layer
 
 To globally add a tiles layer to your maps::
 
-    'TILES_URL': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
-This setting can also be a list of tuples (name, url) ! A layer switcher
+This setting can also be a list of tuples ``(name, url, attributions)`` ! A layer switcher
 will then be added automatically.
+
+::
+
+    'TILES': [('Satellite', 'http://server/a/...', '© Big eye'),
+              ('Streets', 'http://server/b/...', '© Contributors')]
 
 Scale control
 -------------

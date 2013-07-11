@@ -1,14 +1,17 @@
 import urlparse
+import warnings
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 
 
-DEFAULT_TILES_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+DEFAULT_TILES = (_('OSM'), 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                 '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')
 
 
 app_settings = dict({
-    'TILES_URL': DEFAULT_TILES_URL,
+    'TILES': DEFAULT_TILES,
     'SPATIAL_EXTENT': None,
     'DEFAULT_ZOOM': None,
     'DEFAULT_CENTER': None,
@@ -18,6 +21,19 @@ app_settings = dict({
     'MINIMAP': False,
     'PLUGINS': {},
 }, **getattr(settings, 'LEAFLET_CONFIG', {}))
+
+
+# Backward-compatibility : defaults TILES with value of TILES_URL
+if 'TILES_URL' in app_settings:
+    warnings.warn("TILES_URL is deprecated.", DeprecationWarning)
+    if 'TILES' in app_settings:
+        raise ImproperlyConfigured(_("Remove TILES_URL and keep TILES value."))
+    app_settings['TILES'] = [(app_settings['TILES_URL'])]
+
+
+# If TILES is a string, convert to tuple
+if isinstance(app_settings.get('TILES'), basestring):
+    app_settings['TILES'] = [(_('Background'), app_settings.get('TILES'), '')]
 
 
 SPATIAL_EXTENT = app_settings.get("SPATIAL_EXTENT")
