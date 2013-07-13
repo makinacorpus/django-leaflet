@@ -10,6 +10,7 @@ from django.utils.translation import ugettext as _
 DEFAULT_TILES = (_('OSM'), 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                  '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')
 
+LEAFLET_CONFIG = getattr(settings, 'LEAFLET_CONFIG', {})
 
 app_settings = dict({
     'TILES': DEFAULT_TILES,
@@ -21,13 +22,13 @@ app_settings = dict({
     'TILES_EXTENT': [],
     'MINIMAP': False,
     'PLUGINS': {},
-}, **getattr(settings, 'LEAFLET_CONFIG', {}))
+}, **LEAFLET_CONFIG)
 
 
 # Backward-compatibility : defaults TILES with value of TILES_URL
-if 'TILES_URL' in app_settings:
+if 'TILES_URL' in LEAFLET_CONFIG:
     warnings.warn("TILES_URL is deprecated.", DeprecationWarning)
-    if 'TILES' in app_settings:
+    if 'TILES' in LEAFLET_CONFIG:
         raise ImproperlyConfigured(_("Remove TILES_URL and keep TILES value."))
     app_settings['TILES'] = [(app_settings['TILES_URL'])]
 
