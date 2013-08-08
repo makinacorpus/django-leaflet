@@ -46,20 +46,22 @@ L.Map.DjangoMap = L.Map.extend({
         var djoptions = options.djoptions;
         options.zoom = djoptions.zoom;
         options.center = djoptions.center;
-        options.maxBounds = djoptions.extent;
-
-        // Translate SRID to native options
+        // Translate to native options
         options = L.Util.extend(options,
                                 this._projectionOptions(djoptions));
+        if (djoptions.extent) {
+            options.maxBounds = [djoptions.extent.slice(0, 2),
+                                 djoptions.extent.slice(2)];
+        }
 
-        L.Map.prototype.initialize.apply(this, arguments);
+        L.Map.prototype.initialize.call(this, id, options);
 
-        this._addLayers();
-        this._addControls();
+        this._djAddLayers();
+        this._djAddControls();
 
         if (djoptions.fitextent && djoptions.extent &&
             !(djoptions.center || djoptions.zoom)) {
-            map.fitBounds(djoptions.extent);
+            this.fitBounds(djoptions.extent);
         }
     },
 
@@ -89,40 +91,38 @@ L.Map.DjangoMap = L.Map.extend({
         };
     },
 
-    _addLayers: function (djoptions) {
-        var layers = this.options.djoptions.layers;
+    _djAddLayers: function () {
+        var layers = this.options.djoptions.layers,
+            continuousWorld = this.options.continuousWorld;
 
         if (layers.length == 1) {
-            var layer = l2d(layers[0]),
-            L.tileLayer(layer.url, layer.options).addTo(map);
+            var layer = l2d(layers[0]);
+            L.tileLayer(layer.url, layer.options).addTo(this);
             return;
         }
 
-        map.layerscontrol = L.control.layers().addTo(map);
+        this.layerscontrol = L.control.layers().addTo(this);
         for (var i = 0, n = layers.length; i < n; i++) {
-            var layer = l2d(layers[i])
+            var layer = l2d(layers[i]),
                 l = L.tileLayer(layer.url, layer.options);
-            map.layerscontrol.addBaseLayer(l, layer.name);
+            this.layerscontrol.addBaseLayer(l, layer.name);
             // Show first one as default
-            if (i === 0) l.addTo(map);
+            if (i === 0) l.addTo(this);
         }
 
         function l2d(l) {
-            var name = layer[0],
-                url = layer[1],
-                attribution = layer[2],
-                options = {'attribution': attribution,
-                           'continuousWorld': this.options.continuousWorld};
-            return {name: name, url: url, options: options};
+            var options = {'attribution': l[2],
+                           'continuousWorld': continuousWorld};
+            return {name: l[0], url: l[1], options: options};
         }
     },
 
-    _addControls: function () {
+    _djAddControls: function () {
         // Scale control ?
         if (this.options.djoptions.scale) {
-            map.whenReady(function () {
-                new L.Control.Scale({imperial: false}).addTo(map);
-            });
+            this.whenReady(function () {
+                new L.Control.Scale({imperial: false}).addTo(this);
+            }, this);
         }
 
         // Minimap control ?
@@ -130,10 +130,11 @@ L.Map.DjangoMap = L.Map.extend({
             for (var firstLayer in this._layers) break;
             var url = this._layers[firstLayer]._url;
             var layer = L.tileLayer(url);
-            map.whenReady(function () {
-                map.minimapcontrol = new L.Control.MiniMap(layer,
-                                                           {toggleDisplay: true}).addTo(map);
-            });
+            this.minimapcontrol = null;
+            this.whenReady(function () {
+                this.minimapcontrol = new L.Control.MiniMap(layer,
+                                                            {toggleDisplay: true}).addTo(this);
+            }, this);
         }
 
         // ResetView control ?
@@ -141,9 +142,9 @@ L.Map.DjangoMap = L.Map.extend({
             var bounds = this.options.djoptions.extent;
             if (bounds) {
                 // Add reset view control
-                map.whenReady(function () {
-                    new L.Control.ResetView(bounds).addTo(map);
-                });
+                this.whenReady(function () {
+                    new L.Control.ResetView(bounds).addTo(this);
+                }, this);
             }
         }
     }
@@ -151,4 +152,4 @@ L.Map.DjangoMap = L.Map.extend({
 });
 
 
-L.Map.djangoMap = function () { return new L.Map.DjangoMap(arguments); };
+L.Map.djangoMap = function (id, options) { return new L.Map.DjangoMap(id, options); };
