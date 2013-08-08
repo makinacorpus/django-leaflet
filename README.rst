@@ -42,14 +42,15 @@ USAGE
 Use Leaflet API
 ---------------
 
-You can use the *Leaflet* API as usual in the map initialization callback::
+You can use the *Leaflet* API as usual. Just grab a reference
+on the map just initialized, using events::
 
     <script type="text/javascript">
-        function yourmapInit(map, bounds) {
+        window.addEventListener("map:init", function (e) {
             ...
-            L.marker([50.5, 30.5]).addTo(map);
+            L.marker([50.5, 30.5]).addTo(e.map);
             ...
-        }
+        }, false);
     </script>
 
 

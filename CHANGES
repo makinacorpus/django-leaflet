@@ -15,6 +15,15 @@ CHANGELOG
 * Add ``auto-include`` key for entries in ``PLUGINS`` setting, in order
   to implicity load plugins with ``leaflet_css`` and ``leaflet_js`` tags.
 
+* Rewrote map initialization, into less flexible and obstruvise way.
+
+* JS callaback function for map initialization is **deprecated**.
+  Use event ``map:init`` instead.
+
+* If you plan MSIE 6,7,8 support, add a minimalist polyfill in ``<head>``::
+
+    <!--[if IE 8]><script src="leaflet/eventlister.ie8.js"></script><!--<![endif]-->
+    <!--[if lt IE 8]><script src="leaflet/eventlister.ie6-7.js"></script><!--<![endif]-->
 
 0.6.0 (2013-08-08)
 ==================
