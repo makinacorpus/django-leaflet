@@ -2,8 +2,6 @@
 {% if creatediv %}<div id="{{ name }}" class="leaflet-container-default"></div>{% endif %}
 <script type="text/javascript">
     var loadmap{{ name }} = function () {
-        L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
-        L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
         
         var bounds = null,
             mapoptions = {},

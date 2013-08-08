@@ -1,6 +1,8 @@
 L.Control.ResetView = L.Control.extend({
-    ICON: 'url(images/reset-view.png)',
-    TITLE: "Reset view",
+    statics: {
+        ICON: 'url(images/reset-view.png)',
+        TITLE: "Reset view",
+    },
 
     options: {
         position: 'topleft'
