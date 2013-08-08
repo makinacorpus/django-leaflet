@@ -62,9 +62,12 @@ if DEFAULT_ZOOM is not None and not (isinstance(DEFAULT_ZOOM, int) and (1 <= DEF
 
 PLUGINS = app_settings.get("PLUGINS", None)
 if PLUGINS is not None and not (isinstance(PLUGINS, dict) and all(map(lambda el: isinstance(el, dict), PLUGINS.itervalues()))):
-    raise ImproperlyConfigured("LEAFLET_CONFIG['PLUGINS'] must be dict of dicts in the format { '[plugin_name]': { 'js': '[path-to-js]', 'css': '[path-to-css]' } } .")
+    error_msg = """LEAFLET_CONFIG['PLUGINS'] must be dict of dicts in the format:
+    { '[plugin_name]': { 'js': '[path-to-js]', 'css': '[path-to-css]' } } .)"""
+    raise ImproperlyConfigured(error_msg)
 
 PLUGIN_ALL = 'ALL'
+PLUGINS_DEFAULT = '__default__'
 
 
 def _normalize_plugins_config():
@@ -80,10 +83,15 @@ def _normalize_plugins_config():
     if '__is_normalized__' in PLUGINS:  # already normalized
         return
 
-    RESOURCE_TYPE_KEYS = ['css', 'js']
-    PLUGINS[PLUGIN_ALL] = dict((k, []) for k in RESOURCE_TYPE_KEYS)
+    listed_plugins = PLUGINS.keys()
+    PLUGINS[PLUGINS_DEFAULT] = dict()
+    PLUGINS[PLUGIN_ALL] = dict()
 
-    for plugin_dict in PLUGINS.itervalues():
+    RESOURCE_TYPE_KEYS = ['css', 'js']
+
+    for key in listed_plugins:
+        plugin_dict = PLUGINS[key]
+
         for resource_type in RESOURCE_TYPE_KEYS:
             # normalize the resource URLs
             urls = plugin_dict.get(resource_type, None)
@@ -107,9 +115,12 @@ def _normalize_plugins_config():
 
             plugin_dict[resource_type] = urls
 
+            # Append it to the DEFAULT pseudo-plugin if auto-include
+            if plugin_dict.get('auto-include', False):
+                PLUGINS[PLUGINS_DEFAULT].setdefault(resource_type, []).extend(urls)
+
             # also append it to the ALL pseudo-plugin;
-            # PLUGINS[PLUGIN_ALL][resource_type] is known to be a list form the initialization above
-            PLUGINS[PLUGIN_ALL][resource_type].extend(urls)
+            PLUGINS[PLUGIN_ALL].setdefault(resource_type, []).extend(urls)
 
     PLUGINS['__is_normalized__'] = True
 
