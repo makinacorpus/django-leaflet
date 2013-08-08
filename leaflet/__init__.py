@@ -22,6 +22,7 @@ app_settings = dict({
     'SCALE': True,
     'MINIMAP': False,
     'RESET_VIEW': True,
+    'GLOBAL_LOADMAP': False,
     'PLUGINS': {},
 }, **LEAFLET_CONFIG)
 

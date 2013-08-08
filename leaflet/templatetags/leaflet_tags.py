@@ -79,6 +79,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
         'name': name,
         'creatediv': creatediv,
         'callback': callback,
+        'GLOBAL_LOADMAP': app_settings.get('GLOBAL_LOADMAP'),
         'djoptions': json.dumps(djoptions)
     }
 
