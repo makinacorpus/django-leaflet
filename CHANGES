@@ -5,8 +5,12 @@ CHANGELOG
 0.7.0 (unreleased)
 ==================
 
-- Nothing changed yet.
+* Add ability to associate layers attributions from settings
 
+:notes:
+
+    ``TILES_URL`` entry in ``LEAFLET_CONFIG`` is **deprecated**.
+    Use ``TILES`` instead.
 
 0.6.0 (2013-08-08)
 ==================

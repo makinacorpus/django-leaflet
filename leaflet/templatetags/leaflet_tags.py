@@ -55,9 +55,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
     if callback is None:
         callback = "%sInit" % name
 
-    tilesurl = app_settings.get('TILES_URL')
-    if tilesurl and isinstance(tilesurl, basestring):
-        tilesurl = (('background', tilesurl),)
+    tiles = app_settings.get('TILES')
 
     extent = None
     if SPATIAL_EXTENT is not None:
@@ -72,7 +70,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
                                  center=app_settings['DEFAULT_CENTER'],
                                  zoom=app_settings['DEFAULT_ZOOM'],
                                  fitextent=fitextent,
-                                 tilesurl=[list(url) for url in tilesurl],
+                                 tiles=[list(layer) for layer in tiles],
                                  callback=callback,
                                  scale=app_settings.get('SCALE'),
                                  minimap=app_settings.get('MINIMAP'),
