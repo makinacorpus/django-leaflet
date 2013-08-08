@@ -1,7 +1,7 @@
 *django-leaflet* allows you to use `Leaflet <http://leaflet.cloudmade.com>`_
 in your `Django <https://www.djangoproject.com>`_ projects.
 
-It embeds Leaflet in version *0.6.2*.
+It embeds Leaflet in version *0.6.4*.
 
 =======
 INSTALL
