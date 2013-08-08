@@ -15,6 +15,10 @@ CHANGELOG
 * Add ``auto-include`` key for entries in ``PLUGINS`` setting, in order
   to implicity load plugins with ``leaflet_css`` and ``leaflet_js`` tags.
 
+* Rewrote map initialization, into less flexible and obstruvise way.
+
+* JS callaback function for map initialization is **deprecated**.
+  Use event ``map:init`` instead.
 
 0.6.0 (2013-08-08)
 ==================
