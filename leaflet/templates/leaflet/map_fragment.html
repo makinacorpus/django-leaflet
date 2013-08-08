@@ -6,7 +6,8 @@
             map = L.Map.djangoMap('{{ name }}', {djoptions: djoptions});
 
         // Register document maps, like window.forms :)
-        window.maps = (window.maps || []).push(map);
+        window.maps = window.maps || [];
+        window.maps.push(map);
 
         if(typeof {{ callback }} == 'function') {
             console.warn('DEPRECATED: Use function callback is deprecated, prefer events (see documentation).');
