@@ -152,6 +152,7 @@ later be referred to from the template tags by name::
         'name-of-plugin': {
             'css': ['relative/path/to/stylesheet.css', '/root/path/to/stylesheet.css'],
             'js': 'http://absolute-url.example.com/path/to/script.js',
+            'auto-include': True,
         },
         . . .
     }
@@ -168,6 +169,8 @@ Both 'css' and 'js' support identical features for specifying resource URLs:
 Now, use ``leaflet_js`` and ``leaflet_css`` tags to load CSS and JS resources of 
 configured Leaflet plugins.
 
+By default only plugins with ``'auto-include'`` as True will be included.
+
 To include specific plugins in the page, specify plugin names, comma separated::
 
     {% load leaflet_tags %}
@@ -178,12 +181,10 @@ To include specific plugins in the page, specify plugin names, comma separated::
         {% leaflet_css plugins="bouncemarker, draw"%}
     </head>
 
-To include all plugins configured in LEAFLET_CONFIG['PLUGINS'], use::
+To include all plugins configured in ``LEAFLET_CONFIG['PLUGINS']``, use::
 
     {% leaflet_js plugins="ALL" %}
     {% leaflet_css plugins="ALL" %}
-
-By default no plugins will be included.
 
 
 Advanced usage

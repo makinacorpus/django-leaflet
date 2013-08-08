@@ -12,6 +12,10 @@ CHANGELOG
     ``TILES_URL`` entry in ``LEAFLET_CONFIG`` is **deprecated**.
     Use ``TILES`` instead.
 
+* Add ``auto-include`` key for entries in ``PLUGINS`` setting, in order
+  to implicity load plugins with ``leaflet_css`` and ``leaflet_js`` tags.
+
+
 0.6.0 (2013-08-08)
 ==================
 

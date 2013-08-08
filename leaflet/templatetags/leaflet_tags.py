@@ -4,7 +4,7 @@ from django import template
 from django.template import Context
 from django.conf import settings
 
-from leaflet import app_settings, SPATIAL_EXTENT, SRID, PLUGINS
+from leaflet import app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT
 
 
 register = template.Library()
@@ -100,7 +100,7 @@ def _get_plugin_names(plugin_names_from_tag_parameter):
         names = plugin_names_from_tag_parameter.split(',')
         return [n.strip() for n in names]
     else:
-        return []
+        return [PLUGINS_DEFAULT]
 
 
 def _get_all_resources_for_plugins(plugin_names, resource_type):
