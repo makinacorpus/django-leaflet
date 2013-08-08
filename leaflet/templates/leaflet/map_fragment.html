@@ -73,16 +73,19 @@
             });
         }
 
-        var layers = {{ tilesurl|safe }};
+        var layers = {{ tiles|safe }};
         if (layers.length == 1) {
-            L.tileLayer(layers[0][1], tilesoptions).addTo(map);
+            var options = L.extend({'attribution': layers[0][2]}, tilesoptions);
+            L.tileLayer(layers[0][1], options).addTo(map);
         }
         else {
             map.layerscontrol = L.control.layers().addTo(map);
             for (var i=0; i<layers.length; i++) {
-                var l = L.tileLayer(layers[i][1], tilesoptions);
-                if (i==0) l.addTo(map);
+                var options = L.extend({'attribution': layers[i][2]}, tilesoptions);
+                var l = L.tileLayer(layers[i][1], options);
                 map.layerscontrol.addBaseLayer(l, layers[i][0]);
+                // Show first one as default
+                if (i==0) l.addTo(map);
             }
         }
 
