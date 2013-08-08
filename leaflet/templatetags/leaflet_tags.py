@@ -42,7 +42,7 @@ def leaflet_js(plugins=None):
     }
 
 
-@register.simple_tag
+@register.inclusion_tag('leaflet/map_fragment.html')
 def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
     """
 
@@ -62,19 +62,26 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
         xmin, ymin, xmax, ymax = SPATIAL_EXTENT
         extent = (ymin, xmin, ymax, xmax)
 
-    t = template.loader.get_template("leaflet/map_fragment.html")
-    return t.render(Context(dict(name=name,
-                                 creatediv=creatediv,
-                                 srid=SRID,
-                                 extent=list(extent),
-                                 center=app_settings['DEFAULT_CENTER'],
-                                 zoom=app_settings['DEFAULT_ZOOM'],
-                                 fitextent=fitextent,
-                                 tiles=[list(layer) for layer in tiles],
-                                 callback=callback,
-                                 scale=app_settings.get('SCALE'),
-                                 minimap=app_settings.get('MINIMAP'),
-                                 tilesextent=list(app_settings.get('TILES_EXTENT', [])),)))
+    djoptions = dict(
+        srid=SRID,
+        extent=list(extent),
+        fitextent=fitextent,
+        center=app_settings['DEFAULT_CENTER'],
+        zoom=app_settings['DEFAULT_ZOOM'],
+        layers=tiles,
+        scale=app_settings.get('SCALE'),
+        minimap=app_settings.get('MINIMAP'),
+        resetview=app_settings.get('RESET_VIEW'),
+        tilesextent=list(app_settings.get('TILES_EXTENT', []))
+    )
+
+    return {
+        'name': name,
+        'creatediv': creatediv,
+        'callback': callback,
+        'GLOBAL_LOADMAP': app_settings.get('GLOBAL_LOADMAP'),
+        'djoptions': json.dumps(djoptions)
+    }
 
 
 @register.simple_tag

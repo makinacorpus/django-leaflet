@@ -1,111 +1,29 @@
 {% load static i18n l10n %}
 {% if creatediv %}<div id="{{ name }}" class="leaflet-container-default"></div>{% endif %}
 <script type="text/javascript">
-    var loadmap{{ name }} = function () {
-        L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
-        L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
-        
-        var bounds = null,
-            mapoptions = {},
-            tilesoptions = {},
-            controls = {
-                scale: {{ scale|yesno:"true,false" }},
-                resetview: {{ resetview|yesno:"true,false" }},
-                minimap: {{ minimap|yesno:"true,false" }}
+    (function () {
+        function loadmap() {
+            var djoptions = {% autoescape off %}{{ djoptions }}{% endautoescape %},
+                map = L.Map.djangoMap('{{ name }}', {djoptions: djoptions});
+
+            // Register document maps, like window.forms :)
+            window.maps = window.maps || [];
+            window.maps.push(map);
+
+            if(typeof {{ callback }} == 'function') {
+                console.warn('DEPRECATED: Use function callback is deprecated, prefer events (see documentation).');
+                {{ callback }}(map, djoptions.extent);
+                return;
             }
 
-        {% if srid %}
-            var bbox =  {{ tilesextent|safe }},
-                width = bbox[2] - bbox[0],
-                height = bbox[3] - bbox[1],
-                maxResolution = Math.max(width, height) / 256;  // tile size
-            var scale = function(zoom) {
-                return 1 / (maxResolution / Math.pow(2, zoom));
-            };
-            var transformation = new L.Transformation(1, -bbox[0], -1, bbox[3]);
-            var crs = L.Proj.CRS('EPSG:{{ srid }}', Proj4js.defs['{{ srid }}'], transformation);
-            crs.scale = scale;
-            mapoptions.crs = crs;
-            mapoptions.scale = scale,
-            mapoptions.continuousWorld = tilesoptions.continuousWorld = true;
+            // Trigger init event
+            var evt = new CustomEvent('map:init', {'map': map});
+            window.dispatchEvent(event);
+        }
+        window.addEventListener("load", loadmap, false);
+        {% if GLOBAL_LOADMAP %}
+        // Put initialization function in global scope
+        window['load' + '{{ name }}'] = loadmap;
         {% endif %}
-
-        {% if extent %}
-            var extent =  {{ extent|safe }};
-            var southWest = new L.LatLng(extent[0], extent[1]),
-                northEast = new L.LatLng(extent[2], extent[3]);
-            bounds = new L.LatLngBounds(southWest, northEast);
-        {% endif %}
-
-        {% if zoom %}
-            mapoptions.zoom = {{ zoom }};
-        {% endif %}
-
-        {% if center %}
-            mapoptions.center = new L.LatLng({{ center.0|unlocalize }}, {{ center.1|unlocalize }});
-        {% endif %}
-
-        var map = new L.Map('{{ name }}', mapoptions);
-        // Register document maps, like window.forms :)
-        if (!window.maps) window.maps = [];
-        window.maps.push(map);
-        
-        if (bounds) {
-            // Restrict to bounds
-            map.setMaxBounds(bounds);
-            
-            {% if fitextent and not center and not zoom %}
-                map.fitBounds(bounds);
-            {% endif %}
-        }
-        
-        if (controls.scale) {
-            // Add scale control
-            map.whenReady(function () {
-                new L.Control.Scale({imperial: false}).addTo(map);
-            });
-        }
-        
-        if (controls.resetview && bounds) {
-            // Add reset view control
-            map.whenReady(function () {
-                new L.Control.ResetView(bounds).addTo(map);
-            });
-        }
-
-        var layers = {{ tiles|safe }};
-        if (layers.length == 1) {
-            var options = L.extend({'attribution': layers[0][2]}, tilesoptions);
-            L.tileLayer(layers[0][1], options).addTo(map);
-        }
-        else {
-            map.layerscontrol = L.control.layers().addTo(map);
-            for (var i=0; i<layers.length; i++) {
-                var options = L.extend({'attribution': layers[i][2]}, tilesoptions);
-                var l = L.tileLayer(layers[i][1], options);
-                map.layerscontrol.addBaseLayer(l, layers[i][0]);
-                // Show first one as default
-                if (i==0) l.addTo(map);
-            }
-        }
-
-        if (controls.minimap) {
-            var layer = new L.TileLayer(layers[0][1], tilesoptions);
-            map.whenReady(function () {
-                map.minimapcontrol = new L.Control.MiniMap(layer,
-                                                           {toggleDisplay: true}).addTo(map);
-            });
-        }
-
-        if(typeof {{ callback }} == 'function') {
-            {{ callback }}(map, bounds);
-        }
-    };
-
-    // http://stackoverflow.com/a/6927800/74632
-    if (window.addEventListener) { // W3C DOM
-        window.addEventListener("load", loadmap{{ name }}, false);
-    } else if (window.attachEvent) { // IE DOM
-        window.attachEvent("onload", loadmap{{ name }});
-    } // nothing else to try
+    })();
 </script>

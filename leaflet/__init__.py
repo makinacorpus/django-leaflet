@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 
 
 DEFAULT_TILES = (_('OSM'), 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                 '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')
+                 u'© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')
 
 LEAFLET_CONFIG = getattr(settings, 'LEAFLET_CONFIG', {})
 
@@ -18,9 +18,11 @@ app_settings = dict({
     'DEFAULT_ZOOM': None,
     'DEFAULT_CENTER': None,
     'SRID': None,
-    'SCALE': True,
     'TILES_EXTENT': [],
+    'SCALE': True,
     'MINIMAP': False,
+    'RESET_VIEW': True,
+    'GLOBAL_LOADMAP': False,
     'PLUGINS': {},
 }, **LEAFLET_CONFIG)
 
