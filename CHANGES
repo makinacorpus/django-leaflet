@@ -20,6 +20,11 @@ CHANGELOG
 * JS callaback function for map initialization is **deprecated**.
   Use event ``map:init`` instead.
 
+* If you plan MSIE 6,7,8 support, add a minimalist polyfill in ``<head>``::
+
+    <!--[if IE 8]><script src="leaflet/eventlister.ie8.js"></script><!--<![endif]-->
+    <!--[if lt IE 8]><script src="leaflet/eventlister.ie6-7.js"></script><!--<![endif]-->
+
 0.6.0 (2013-08-08)
 ==================
 
