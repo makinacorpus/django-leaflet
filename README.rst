@@ -27,27 +27,6 @@ USAGE
         {% leaflet_css %}
     </head>
 
-These tags also support loading CSS and JS resources for leaflet plugins.
-All plugins msut be specified in settings.py in LEAFLET_CONFIG['PLUGINS'] as described below.
-
-To include specific plugins in the page, specify plugin names, comma separated::
-
-    {% load leaflet_tags %}
-
-    <head>
-        ...
-        {% leaflet_js  plugins="bouncemarker, draw" %}
-        {% leaflet_css plugins="bouncemarker, draw"%}
-    </head>
-
-To include all plugins configured in LEAFLET_CONFIG['PLUGINS'], use::
-
-    {% leaflet_js plugins="ALL" %}
-    {% leaflet_css plugins="ALL" %}
-
-By default no plugins will be included.
-
-
 * Add the map in your page, providing a name::
     
     ...
@@ -134,8 +113,9 @@ To globally add a tiles layer to your maps::
 
     'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
-This setting can also be a list of tuples ``(name, url, attributions)`` ! A layer switcher
-will then be added automatically.
+This setting can also be a list of tuples ``(name, url, attributions)``.
+
+If it contains several layers, a layer switcher will then be added automatically.
 
 ::
 
@@ -184,6 +164,26 @@ Both 'css' and 'js' support identical features for specifying resource URLs:
         - absolute URL - will be included as-is; **example**: ``http://absolute-url.example.com/path/to/script.js``
         - a URL beginning from the root - will be included as-is;  **example**: ``/root/path/to/stylesheet.css``
         - a relative URL - settings.STATIC_URL will be prepended; **example**: ``relative/path/to/stylesheet.css`` will be included as **/static/relative/path/to/stylesheet.css** (depending on your setting for STATIC_URL)
+
+Now, use ``leaflet_js`` and ``leaflet_css`` tags to load CSS and JS resources of 
+configured Leaflet plugins.
+
+To include specific plugins in the page, specify plugin names, comma separated::
+
+    {% load leaflet_tags %}
+
+    <head>
+        ...
+        {% leaflet_js  plugins="bouncemarker, draw" %}
+        {% leaflet_css plugins="bouncemarker, draw"%}
+    </head>
+
+To include all plugins configured in LEAFLET_CONFIG['PLUGINS'], use::
+
+    {% leaflet_js plugins="ALL" %}
+    {% leaflet_css plugins="ALL" %}
+
+By default no plugins will be included.
 
 
 Advanced usage
