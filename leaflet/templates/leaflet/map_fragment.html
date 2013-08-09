@@ -5,11 +5,11 @@
         function loadmap() {
             var djoptions = {% autoescape off %}{{ djoptions }}{% endautoescape %},
                 map = L.Map.djangoMap('{{ name }}', {djoptions: djoptions});
-
+            {% if not NO_GLOBALS %}
             // Register document maps, like window.forms :)
             window.maps = window.maps || [];
             window.maps.push(map);
-
+            {% endif %}
             if(typeof {{ callback }} == 'function') {
                 console.warn('DEPRECATED: Use function callback is deprecated, prefer events (see documentation).');
                 {{ callback }}(map, djoptions.extent);
@@ -21,7 +21,7 @@
             window.dispatchEvent(event);
         }
         window.addEventListener("load", loadmap, false);
-        {% if GLOBAL_LOADMAP %}
+        {% if not NO_GLOBALS %}
         // Put initialization function in global scope
         window['loadmap' + '{{ name }}'] = loadmap;
         {% endif %}
