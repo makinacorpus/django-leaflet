@@ -23,7 +23,7 @@
         window.addEventListener("load", loadmap, false);
         {% if GLOBAL_LOADMAP %}
         // Put initialization function in global scope
-        window['load' + '{{ name }}'] = loadmap;
+        window['loadmap' + '{{ name }}'] = loadmap;
         {% endif %}
     })();
 </script>
