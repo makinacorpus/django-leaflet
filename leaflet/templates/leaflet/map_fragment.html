@@ -2,6 +2,7 @@
 {% if creatediv %}<div id="{{ name }}" class="leaflet-container-default"></div>{% endif %}
 <script type="text/javascript">
     (function () {
+
         function loadmap() {
             var djoptions = {% autoescape off %}{{ djoptions }}{% endautoescape %},
                 map = L.Map.djangoMap('{{ name }}', {djoptions: djoptions});
@@ -15,9 +16,8 @@
                 {{ callback }}(map, djoptions.extent);
                 return;
             }
-
             // Trigger init event
-            var evt = new CustomEvent('map:init', {'map': map});
+            var evt = new CustomEvent('map:init', {'map': map, 'init': loadmap});
             window.dispatchEvent(event);
         }
         window.addEventListener("load", loadmap, false);
