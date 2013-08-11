@@ -18,7 +18,7 @@
             }
             // Trigger init event
             var evt = new CustomEvent('map:init', {'map': map, 'init': loadmap});
-            window.dispatchEvent(event);
+            window.dispatchEvent(evt);
         }
         window.addEventListener("load", loadmap, false);
         {% if not NO_GLOBALS %}
