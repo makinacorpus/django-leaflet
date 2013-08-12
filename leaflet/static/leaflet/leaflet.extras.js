@@ -159,9 +159,6 @@ L.Map.djangoMap = function (id, options) {
         // Register document maps, like window.forms :)
         window.maps = window.maps || [];
         window.maps.push(map);
-
-        // Put initialization function in global scope (like django-leaflet < 0.7)
-        window['loadmap' + id] = options.initfunc;
     }
 
     /*

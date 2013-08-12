@@ -11,6 +11,9 @@
     }
     if (window.addEventListener) window.addEventListener("load", loadmap, false);
     else if (window.jQuery) jQuery(window).on("load", loadmap);
-
+    {% if not NO_GLOBALS %}
+    // Put initialization function in global scope (like django-leaflet < 0.7)
+    window['loadmap' + '{{ name }}'] = loadmap;
+    {% endif %}
 })();
 </script>
