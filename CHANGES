@@ -7,7 +7,8 @@ CHANGELOG
 
 **Breaking changes**
 
-* The ``leaflet_map`` template tag no longer registers map into ``window.maps``
+* The ``leaflet_map`` template tag no longer registers initialization
+  functions in global scope, and no longer adds map objects into ``window.maps``
   array by default. Use ``LEAFLET_CONFIG['NO_GLOBALS'] = False`` to
   restore this feature.
 
@@ -18,11 +19,7 @@ CHANGELOG
 
 * JS callback function for map initialization is **deprecated**.
   Use event ``map:init`` instead.
-
-* If you need ``map:init`` events with MSIE 6,7,8 support, add a minimalist polyfill in ``<head>``::
-
-    <!--[if IE 8]><script src="{% static "leaflet/eventlister.ie8.js" %}"></script><!--<![endif]-->
-    <!--[if lt IE 8]><script src="{% static "leaflet/eventlister.ie6-7.js" %}"></script><!--<![endif]-->
+  For MSIE 6,7,8 events support, see *Use Leaflet API* section in README.
 
 **Features**
 

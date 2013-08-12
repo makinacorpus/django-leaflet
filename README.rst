@@ -53,7 +53,7 @@ on the map just initialized, using events::
         }, false);
     </script>
 
-For Internet Explorer 6,7,8 support, you may use jQuery ::
+For Internet Explorer 6,7,8 support, we fallback on jQuery if available ::
 
     $(window).on('map:init', function (e) { ... });
 

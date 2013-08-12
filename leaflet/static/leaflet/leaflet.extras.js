@@ -155,10 +155,28 @@ L.Map.DjangoMap = L.Map.extend({
 L.Map.djangoMap = function (id, options) {
     var map = new L.Map.DjangoMap(id, options);
 
+    if (options.globals) {
+        // Register document maps, like window.forms :)
+        window.maps = window.maps || [];
+        window.maps.push(map);
+
+        // Put initialization function in global scope (like django-leaflet < 0.7)
+        window['loadmap' + id] = options.initfunc;
+    }
+
     /*
      * Trigger custome map:init Event
      */
     triggerEvent(window, 'map:init', {map: map, options: options});
+
+    /*
+     * django-leaflet < 0.7 callback (deprecated)
+     */
+    if(typeof options.callback == 'function') {
+        console.warn('DEPRECATED: Use function callback is deprecated, prefer events (see documentation).');
+        options.callback(map, options.djoptions.extent);
+        return;
+    }
 
     return map;
 

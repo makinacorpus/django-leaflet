@@ -1,27 +1,16 @@
-{% load static i18n l10n %}
+{% load static i18n %}
 {% if creatediv %}<div id="{{ name }}" class="leaflet-container-default"></div>{% endif %}
 <script type="text/javascript">
-    (function () {
+(function () {
 
-        function loadmap() {
-            var djoptions = {% autoescape off %}{{ djoptions }}{% endautoescape %},
-                map = L.Map.djangoMap('{{ name }}', {djoptions: djoptions});
-            {% if not NO_GLOBALS %}
-            // Register document maps, like window.forms :)
-            window.maps = window.maps || [];
-            window.maps.push(map);
-            {% endif %}
-            if(typeof {{ callback }} == 'function') {
-                console.warn('DEPRECATED: Use function callback is deprecated, prefer events (see documentation).');
-                {{ callback }}(map, djoptions.extent);
-                return;
-            }
-        }
-        if (window.addEventListener) window.addEventListener("load", loadmap, false);
-        else if (window.jQuery) jQuery(window).on("load", loadmap);
-        {% if not NO_GLOBALS %}
-        // Put initialization function in global scope
-        window['loadmap' + '{{ name }}'] = loadmap;
-        {% endif %}
-    })();
+    function loadmap() {
+        var djoptions = {% autoescape off %}{{ djoptions }}{% endautoescape %},
+            options = {djoptions: djoptions, initfunc: loadmap,
+                       globals: {{ NO_GLOBALS|yesno:"false,true"}}, callback: {{ callback}}};
+        L.Map.djangoMap('{{ name }}', options);
+    }
+    if (window.addEventListener) window.addEventListener("load", loadmap, false);
+    else if (window.jQuery) jQuery(window).on("load", loadmap);
+
+})();
 </script>
