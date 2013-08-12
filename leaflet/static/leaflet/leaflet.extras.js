@@ -153,6 +153,10 @@ L.Map.DjangoMap = L.Map.extend({
 
 
 L.Map.djangoMap = function (id, options) {
+    var container = L.DomUtil.get(id);
+    if (container._leaflet)  // Already initialized
+        return;
+
     var map = new L.Map.DjangoMap(id, options);
 
     if (options.globals) {

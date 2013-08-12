@@ -33,6 +33,7 @@ CHANGELOG
 * Rewrote map initialization, into less flexible and obstruvise way.
 * Use plugin system for Leaflet.MiniMap.
 * Add ``loadevent`` parameter to ``leaflet_map`` tag.
+* Map initialization is now idempotent, does nothing if map is already initialized.
 
 
 0.6.0 (2013-08-08)
