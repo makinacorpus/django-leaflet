@@ -3,6 +3,13 @@ in your `Django <https://www.djangoproject.com>`_ projects.
 
 It embeds Leaflet in version *0.6.4*.
 
+.. image:: https://travis-ci.org/makinacorpus/django-leaflet.png
+    :target: https://travis-ci.org/makinacorpus/django-leaflet
+
+.. image:: https://coveralls.io/repos/makinacorpus/django-leaflet/badge.png
+    :target: https://coveralls.io/r/makinacorpus/django-leaflet
+
+
 =======
 INSTALL
 =======
