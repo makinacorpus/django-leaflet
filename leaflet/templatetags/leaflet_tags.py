@@ -1,7 +1,6 @@
 import json
 
 from django import template
-from django.template import Context
 from django.conf import settings
 
 from leaflet import app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT
