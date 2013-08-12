@@ -9,8 +9,10 @@
                        globals: {{ NO_GLOBALS|yesno:"false,true"}}, callback: {{ callback}}};
         L.Map.djangoMap('{{ name }}', options);
     }
-    if (window.addEventListener) window.addEventListener("load", loadmap, false);
-    else if (window.jQuery) jQuery(window).on("load", loadmap);
+    var loadevents = {% autoescape off %}{{ loadevents }}{% endautoescape %};
+    if (loadevents.length === 0) loadmap();
+    else if (window.addEventListener) for (var i=0; i<loadevents.length; i++) window.addEventListener(loadevents[i], loadmap, false);
+    else if (window.jQuery) jQuery(window).on(loadevents.join(' '), loadmap);
     {% if not NO_GLOBALS %}
     // Put initialization function in global scope (like django-leaflet < 0.7)
     window['loadmap' + '{{ name }}'] = loadmap;

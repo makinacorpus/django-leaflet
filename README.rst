@@ -226,6 +226,11 @@ Advanced usage
   Useful to put the javascript code in the header or footer instead of the
   body of the html document. If used, do not forget to create the div manually.
 
+* ``loadevent``: One or more space-separated *window* events that trigger map initialization.
+  (Default: ``load``, i.e. all page resources loaded).
+  If empty values is provided, then map initialization is immediate.
+  And with a wrong value, the map is never initialized. :)
+
 
 Projection
 ----------

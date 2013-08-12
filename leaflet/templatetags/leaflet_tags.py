@@ -40,7 +40,7 @@ def leaflet_js(plugins=None):
 
 
 @register.inclusion_tag('leaflet/map_fragment.html')
-def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
+def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='load'):
     """
 
     :param name:
@@ -75,6 +75,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
     return {
         # templatetag options
         'name': name,
+        'loadevents': json.dumps(loadevent.split()),
         'creatediv': creatediv,
         'callback': callback,
         # initialization options

@@ -28,13 +28,11 @@ CHANGELOG
 **Features**
 
 * Add ability to associate layers attributions from settings
-
 * Add ``auto-include`` key for entries in ``PLUGINS`` setting, in order
   to implicity load plugins with ``leaflet_css`` and ``leaflet_js`` tags.
-
 * Rewrote map initialization, into less flexible and obstruvise way.
-
 * Use plugin system for Leaflet.MiniMap.
+* Add ``loadevent`` parameter to ``leaflet_map`` tag.
 
 
 0.6.0 (2013-08-08)
