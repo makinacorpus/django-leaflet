@@ -79,6 +79,15 @@ PLUGIN_ALL = 'ALL'
 PLUGINS_DEFAULT = '__default__'
 
 
+# Take advantage of plugin system for Leaflet.MiniMap
+if app_settings.get('MINIMAP'):
+    PLUGINS['minimap'] = {
+        'css': 'leaflet/Control.MiniMap.css',
+        'js': 'leaflet/Control.MiniMap.js',
+        'auto-include': True
+    }
+
+
 def _normalize_plugins_config():
     """
     Normalizes the PLUGINS setting:

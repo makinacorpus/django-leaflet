@@ -20,7 +20,6 @@ def leaflet_css(plugins=None):
     """
     plugin_names = _get_plugin_names(plugins)
     return {
-        "MINIMAP": app_settings.get('MINIMAP'),
         "PLUGINS_CSS": _get_all_resources_for_plugins(plugin_names, 'css'),
     }
 
@@ -37,7 +36,6 @@ def leaflet_js(plugins=None):
     return {
         "DEBUG": settings.TEMPLATE_DEBUG,
         "SRID": SRID,
-        "MINIMAP": app_settings.get('MINIMAP'),
         "PLUGINS_JS": _get_all_resources_for_plugins(plugin_names, 'js'),
     }
 
