@@ -152,4 +152,27 @@ L.Map.DjangoMap = L.Map.extend({
 });
 
 
-L.Map.djangoMap = function (id, options) { return new L.Map.DjangoMap(id, options); };
+L.Map.djangoMap = function (id, options) {
+    var map = new L.Map.DjangoMap(id, options);
+
+    /*
+     * Trigger custome map:init Event
+     */
+    triggerEvent(window, 'map:init', {map: map, options: options});
+
+    return map;
+
+
+    function triggerEvent(target, type, data) {
+        if (window.CustomEvent) {
+            var evt = new CustomEvent(type, data);
+            target.dispatchEvent(evt);
+        }
+        else if (window.jQuery) {
+            var evt = jQuery.Event(type);
+            for (var k in data)
+                evt[k] = data[k];
+            jQuery(target).trigger(evt);
+        }
+    }
+};

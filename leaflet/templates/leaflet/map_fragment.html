@@ -16,11 +16,9 @@
                 {{ callback }}(map, djoptions.extent);
                 return;
             }
-            // Trigger init event
-            var evt = new CustomEvent('map:init', {'map': map, 'init': loadmap});
-            window.dispatchEvent(evt);
         }
-        window.addEventListener("load", loadmap, false);
+        if (window.addEventListener) window.addEventListener("load", loadmap, false);
+        else if (window.jQuery) jQuery(window).on("load", loadmap);
         {% if not NO_GLOBALS %}
         // Put initialization function in global scope
         window['loadmap' + '{{ name }}'] = loadmap;
