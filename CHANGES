@@ -21,6 +21,10 @@ CHANGELOG
   Use event ``map:init`` instead.
   For MSIE 6,7,8 events support, see *Use Leaflet API* section in README.
 
+* Settings lookup is restricted to ``LEAFLET_CONFIG`` dict. Most notably,
+  ``SRID``, ``MAP_SRID`` and ``SPATIAL_EXTENT`` at global settings level 
+  are discouraged.
+
 **Features**
 
 * Add ability to associate layers attributions from settings
