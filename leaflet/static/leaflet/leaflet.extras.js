@@ -174,7 +174,7 @@ L.Map.djangoMap = function (id, options) {
      * django-leaflet < 0.7 callback (deprecated)
      */
     if(typeof options.callback == 'function') {
-        console.warn('DEPRECATED: Use function callback is deprecated, prefer events (see documentation).');
+        console.warn('DEPRECATED: Use function callback ' + options.callback.name + ' is deprecated, prefer events (see documentation).');
         options.callback(map, options.djoptions.extent);
         return;
     }
