@@ -183,15 +183,15 @@ L.Map.djangoMap = function (id, options) {
 
 
     function triggerEvent(target, type, data) {
-        if (window.CustomEvent) {
-            var evt = new CustomEvent(type, data);
-            target.dispatchEvent(evt);
-        }
-        else if (window.jQuery) {
+        if (window.jQuery) {
             var evt = jQuery.Event(type);
             for (var k in data)
                 evt[k] = data[k];
             jQuery(target).trigger(evt);
+        }
+        else if (window.CustomEvent) {
+            var evt = new CustomEvent(type, data);
+            target.dispatchEvent(evt);
         }
     }
 };
