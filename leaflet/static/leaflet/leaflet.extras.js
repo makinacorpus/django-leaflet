@@ -165,18 +165,29 @@ L.Map.djangoMap = function (id, options) {
         window.maps.push(map);
     }
 
+    if (options.callback === null) {
+        /*
+         * Deprecate django-leaflet < 0.7 default callback
+         */
+        var defaultcb = window[id + 'Init'];
+        if (typeof(defaultcb) == 'function') {
+            options.callback = defaultcb;
+            console.warn('DEPRECATED: Use of default callback ' + defaultcb.name + '() is deprecated (see documentation).');
+        }
+    }
+
     /*
-     * Trigger custome map:init Event
+     * Trigger custom map:init Event
      */
     triggerEvent(window, 'map:init', {map: map, options: options});
 
     /*
-     * django-leaflet < 0.7 callback (deprecated)
+     * Run callback if specified
      */
-    if(typeof options.callback == 'function') {
-        console.warn('DEPRECATED: Use function callback ' + options.callback.name + ' is deprecated, prefer events (see documentation).');
-        options.callback(map, options.djoptions.extent);
-        return;
+    if (typeof(options.callback) == 'function') {
+        setTimeout(function () {
+            options.callback(map, options);
+        }, 0);
     }
 
     return map;

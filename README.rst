@@ -49,8 +49,30 @@ USAGE
 Use Leaflet API
 ---------------
 
-You can use the *Leaflet* API as usual. Just grab a reference
-on the map just initialized, using events::
+You can use the *Leaflet* API as usual. There are two ways to
+grab a reference on the just initialized map and options.
+
+
+**Using Javascript callback function**
+
+Simple brutish way :
+
+    <script type="text/javascript">
+        function map_init_basic (map, options) {
+            ...
+            L.marker([50.5, 30.5]).addTo(e.map);
+            ...
+        }
+    </script>
+
+    {% leaflet_map "yourmap" callback="window.map_init_basic" %}
+
+
+**Using events**
+
+More refined and flexible :
+
+::
 
     <script type="text/javascript">
         window.addEventListener("map:init", function (e) {
@@ -59,6 +81,8 @@ on the map just initialized, using events::
             ...
         }, false);
     </script>
+
+Event object has two properties : ``map`` and ``options`` (initialization).
 
 For Internet Explorer 6,7,8 support, we fallback on jQuery if available ::
 
@@ -213,9 +237,7 @@ Advanced usage
 ------------------------------------
 
 * ``callback``: javascript function name for initialization callback.
-  (Default: ``name + Init``). Example::
-  
-      {% leaflet_map "yourmap" callback="window.customMap" %}
+  (Default: None).
 
 * ``fixextent``: control if map initial view shoud be set to extent setting.
   (Default: ``True``). Setting fixextent to ``False`` will prevent view reset

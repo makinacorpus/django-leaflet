@@ -49,13 +49,9 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
     :param creatediv:
     :return:
     """
-    if callback is None:
-        callback = "%sInit" % name
-
-    tiles = app_settings.get('TILES')
-
     extent = None
     if SPATIAL_EXTENT is not None:
+        # Leaflet uses [lat, lng]
         xmin, ymin, xmax, ymax = SPATIAL_EXTENT
         extent = (ymin, xmin, ymax, xmax)
 
@@ -65,7 +61,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
         fitextent=fitextent,
         center=app_settings['DEFAULT_CENTER'],
         zoom=app_settings['DEFAULT_ZOOM'],
-        layers=tiles,
+        layers=app_settings.get('TILES'),
         scale=app_settings.get('SCALE'),
         minimap=app_settings.get('MINIMAP'),
         resetview=app_settings.get('RESET_VIEW'),
