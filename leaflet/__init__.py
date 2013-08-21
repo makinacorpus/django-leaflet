@@ -7,8 +7,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 
 
-DEFAULT_TILES = (_('OSM'), 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                 u'© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')
+DEFAULT_TILES = [(_('OSM'), 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  u'© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')]
 
 LEAFLET_CONFIG = getattr(settings, 'LEAFLET_CONFIG', {})
 
