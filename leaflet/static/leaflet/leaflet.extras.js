@@ -61,7 +61,7 @@ L.Map.DjangoMap = L.Map.extend({
 
         if (djoptions.fitextent && djoptions.extent &&
             !(djoptions.center || djoptions.zoom)) {
-            this.fitBounds(djoptions.extent);
+            this.fitBounds(options.maxBounds);
         }
     },
 

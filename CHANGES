@@ -6,6 +6,7 @@ CHANGELOG
 ==================
 
 * Fix map initialization with default tiles setting
+* Fix map ``fitBounds()`` to ``SPATIAL_EXTENT`` in settings
 
 
 0.7.0 (2013-08-21)
