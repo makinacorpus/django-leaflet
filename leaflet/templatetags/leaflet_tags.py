@@ -62,6 +62,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
         center=app_settings['DEFAULT_CENTER'],
         zoom=app_settings['DEFAULT_ZOOM'],
         layers=app_settings.get('TILES'),
+        attributionprefix=app_settings.get('ATTRIBUTION_PREFIX'),
         scale=app_settings.get('SCALE'),
         minimap=app_settings.get('MINIMAP'),
         resetview=app_settings.get('RESET_VIEW'),

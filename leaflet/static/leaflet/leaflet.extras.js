@@ -57,7 +57,7 @@ L.Map.DjangoMap = L.Map.extend({
         L.Map.prototype.initialize.call(this, id, options);
 
         this._djAddLayers();
-        this._djAddControls();
+        this._djSetupControls();
 
         if (djoptions.fitextent && djoptions.extent &&
             !(djoptions.center || djoptions.zoom)) {
@@ -117,7 +117,13 @@ L.Map.DjangoMap = L.Map.extend({
         }
     },
 
-    _djAddControls: function () {
+    _djSetupControls: function () {
+        // Attribution prefix ?
+        if (this.attributionControl &&
+            this.options.djoptions.attributionprefix !== null) {
+            this.attributionControl.setPrefix(this.options.djoptions.attributionprefix);
+        }
+
         // Scale control ?
         if (this.options.djoptions.scale) {
             this.whenReady(function () {

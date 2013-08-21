@@ -12,7 +12,7 @@ CHANGELOG
   array by default. Use ``LEAFLET_CONFIG['NO_GLOBALS'] = False`` to
   restore these features.
 
-* Initialization callback function no longer receives the map ``bounds`` at second
+* Initialization callback function no longer receives the map ``bounds`` in second
   argument, but the map options object.
 
 **Deprecated**
@@ -37,6 +37,7 @@ CHANGELOG
 * Use plugin system for Leaflet.MiniMap.
 * Add ``loadevent`` parameter to ``leaflet_map`` tag.
 * Map initialization is now idempotent, does nothing if map is already initialized.
+* Add ``ATTRIBUTION_PREFIX`` setting to control prefix globally.
 
 
 0.6.0 (2013-08-08)

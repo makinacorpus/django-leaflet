@@ -165,6 +165,17 @@ If it contains several layers, a layer switcher will then be added automatically
     'TILES': [('Satellite', 'http://server/a/...', '© Big eye'),
               ('Streets', 'http://server/b/...', '© Contributors')]
 
+
+Attribution prefix
+------------------
+
+To globally add an attribution prefix on maps (most likely an empty string) ::
+
+    'ATTRIBUTION_PREFIX': 'Powered by django-leaflet'
+
+Default is ``None``, which leaves the value to `Leaflet's default <http://leafletjs.com/reference.html#control-attribution>`_.
+
+
 Scale control
 -------------
 
