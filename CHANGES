@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.7.1 (unreleased)
+0.7.1 (2013-08-21)
 ==================
 
 * Fix map initialization with default tiles setting
