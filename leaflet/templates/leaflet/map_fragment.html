@@ -15,17 +15,17 @@
 
         {% if srid %}
             var bbox =  {{ tilesextent|safe }},
-                width = bbox[2] - bbox[0],
-                height = bbox[3] - bbox[1],
-                maxResolution = Math.max(width, height) / 256;  // tile size
-            var scale = function(zoom) {
-                return 1 / (maxResolution / Math.pow(2, zoom));
-            };
-            var transformation = new L.Transformation(1, -bbox[0], -1, bbox[3]);
-            var crs = L.CRS.proj4js('EPSG:{{ srid }}', Proj4js.defs['{{ srid }}'], transformation);
-            crs.scale = scale;
+                maxResolution = computeMaxResolution(bbox);
+            // See https://github.com/ajashton/TileCache/blob/master/tilecache/TileCache/Layer.py#L197
+            var resolutions = [];
+            for(var z=0; z<20; z++) {
+                resolutions.push(maxResolution / Math.pow(2, z));
+            }
+            var crs = new L.Proj.CRS('EPSG:{{ srid }}',
+                                     Proj4js.defs['{{ srid }}'],
+                                     {origin: [bbox[0], bbox[3]],
+                                      resolutions: resolutions});
             mapoptions.crs = crs;
-            mapoptions.scale = scale,
             mapoptions.continuousWorld = tilesoptions.continuousWorld = true;
         {% endif %}
 
@@ -92,6 +92,17 @@
         if(typeof {{ callback }} == 'function') {
             {{ callback }}(map, bounds);
         }
+
+
+        function computeMaxResolution(bbox) {
+            // See https://github.com/ajashton/TileCache/blob/master/tilecache/TileCache/Layer.py#L185-L196
+            var size = 256,
+                width  = bbox[2] - bbox[0],
+                height = bbox[3] - bbox[1];
+            var aspect = Math.floor(Math.max(width, height) / Math.min(width, height) + 0.5);
+            return Math.max(width, height) / (size * aspect);
+        }
+
     };
     window.addEventListener("load", loadmap{{ name }});
 </script>
