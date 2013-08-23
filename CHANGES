@@ -7,6 +7,7 @@ CHANGELOG
 
 * Do not use console() to warn about deprecated stuff if not available (<IE9)
 * Fix apparence of Reset view control for Leaflet 0.6
+* Add French locale
 
 0.7.2 (2013-08-23)
 ==================
