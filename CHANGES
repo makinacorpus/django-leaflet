@@ -5,7 +5,7 @@ CHANGELOG
 0.7.2 (unreleased)
 ==================
 
-- Nothing changed yet.
+* Fix JS error when no callback value is provided.
 
 
 0.7.1 (2013-08-21)

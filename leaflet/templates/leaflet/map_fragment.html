@@ -6,7 +6,7 @@
     function loadmap() {
         var djoptions = {% autoescape off %}{{ djoptions }}{% endautoescape %},
             options = {djoptions: djoptions, initfunc: loadmap,
-                       globals: {{ NO_GLOBALS|yesno:"false,true"}}, callback: {{ callback}}};
+                       globals: {{ NO_GLOBALS|yesno:"false,true"}}, callback: {{ callback|default:"null" }}};
         L.Map.djangoMap('{{ name }}', options);
     }
     var loadevents = {% autoescape off %}{{ loadevents }}{% endautoescape %};
