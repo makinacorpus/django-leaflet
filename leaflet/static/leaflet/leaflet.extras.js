@@ -22,8 +22,8 @@ L.Control.ResetView = L.Control.extend({
         }
         map.resetviewControl = this;
 
-        var container = L.DomUtil.create('div', 'leaflet-control-zoom');
-        var link = L.DomUtil.create('a', 'leaflet-control-zoom-out leaflet-bar leaflet-bar-part', container);
+        var container = L.DomUtil.create('div', 'leaflet-control-zoom leaflet-bar');
+        var link = L.DomUtil.create('a', 'leaflet-control-zoom-out leaflet-bar-part', container);
         link.href = '#';
         link.title = L.Control.ResetView.TITLE;
         link.style.backgroundImage = L.Control.ResetView.ICON;
