@@ -5,7 +5,7 @@ CHANGELOG
 0.7.3 (unreleased)
 ==================
 
-- Nothing changed yet.
+* Do not use console() to warn about deprecated stuff if not available (<IE9)
 
 
 0.7.2 (2013-08-23)

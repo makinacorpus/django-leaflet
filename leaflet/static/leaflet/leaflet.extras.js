@@ -178,7 +178,7 @@ L.Map.djangoMap = function (id, options) {
         var defaultcb = window[id + 'Init'];
         if (typeof(defaultcb) == 'function') {
             options.callback = defaultcb;
-            console.warn('DEPRECATED: Use of default callback ' + defaultcb.name + '() is deprecated (see documentation).');
+            if (console) console.warn('DEPRECATED: Use of default callback ' + defaultcb.name + '() is deprecated (see documentation).');
         }
     }
 
