@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.7.3 (unreleased)
+0.7.3 (2013-08-23)
 ==================
 
 * Do not use console() to warn about deprecated stuff if not available (<IE9)
