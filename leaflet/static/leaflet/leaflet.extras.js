@@ -79,8 +79,8 @@ L.Map.DjangoMap = L.Map.extend({
             return 1 / (maxResolution / Math.pow(2, zoom));
         };
         var transformation = new L.Transformation(1, -bbox[0], -1, bbox[3]);
-        var crs = L.Proj.CRS('EPSG:' + djoptions.srid,
-                             Proj4js.defs[''+ djoptions.srid], transformation);
+        var crs = new L.Proj.CRS('EPSG:' + djoptions.srid,
+                                 Proj4js.defs['EPSG:'+ djoptions.srid], transformation);
         crs.scale = scale;
 
         return {
