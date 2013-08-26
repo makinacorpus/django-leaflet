@@ -1,10 +1,5 @@
 {% load i18n static %}
 <script src="{% get_static_prefix %}leaflet/leaflet{% if DEBUG %}-src{% endif %}.js" type="text/javascript"></script>
-<script src="{% static "leaflet/leaflet.extras.js" %}" type="text/javascript"></script>
-<script type="text/javascript">
-    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
-    L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
-</script>
 {% if SRID %}
     <script src="{% static "leaflet/proj4js.js" %}" type="text/javascript"></script>
     <script src="{% static "leaflet/proj4leaflet.js" %}" type="text/javascript"></script>
@@ -15,3 +10,8 @@
         <script src="{{ js }}" type="text/javascript"></script>
     {% endfor %}
 {% endif %}
+<script src="{% static "leaflet/leaflet.extras.js" %}" type="text/javascript"></script>
+<script type="text/javascript">
+    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
+    L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
+</script>
