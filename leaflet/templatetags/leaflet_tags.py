@@ -57,7 +57,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
 
     djoptions = dict(
         srid=SRID,
-        extent=list(extent),
+        extent=[extent[:2], extent[2:4]],
         fitextent=fitextent,
         center=app_settings['DEFAULT_CENTER'],
         zoom=app_settings['DEFAULT_ZOOM'],

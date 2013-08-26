@@ -50,8 +50,7 @@ L.Map.DjangoMap = L.Map.extend({
         options = L.Util.extend(options,
                                 this._projectionOptions(djoptions));
         if (djoptions.extent) {
-            options.maxBounds = [djoptions.extent.slice(0, 2),
-                                 djoptions.extent.slice(2)];
+            options.maxBounds = djoptions.extent;
         }
 
         L.Map.prototype.initialize.call(this, id, options);
@@ -71,7 +70,7 @@ L.Map.DjangoMap = L.Map.extend({
 
         var projopts = {};
 
-        var bbox = djoptions.tileextent,
+        var bbox = djoptions.tilesextent,
             width = bbox[2] - bbox[0],
             height = bbox[3] - bbox[1],
             maxResolution = (djoptions.maxResolution || width / 256);
