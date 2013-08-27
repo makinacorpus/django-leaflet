@@ -71,23 +71,30 @@ L.Map.DjangoMap = L.Map.extend({
         var projopts = {};
 
         var bbox = djoptions.tilesextent,
-            width = bbox[2] - bbox[0],
-            height = bbox[3] - bbox[1],
-            maxResolution = (djoptions.maxResolution || width / 256);
-
-        var scale = function(zoom) {
-            return 1 / (maxResolution / Math.pow(2, zoom));
-        };
-        var transformation = new L.Transformation(1, -bbox[0], -1, bbox[3]);
+            maxResolution = computeMaxResolution(bbox);
+        // See https://github.com/ajashton/TileCache/blob/master/tilecache/TileCache/Layer.py#L197
+        var resolutions = [];
+        for(var z=0; z<20; z++) {
+            resolutions.push(maxResolution / Math.pow(2, z));
+        }
         var crs = new L.Proj.CRS('EPSG:' + djoptions.srid,
-                                 Proj4js.defs['EPSG:'+ djoptions.srid], transformation);
-        crs.scale = scale;
-
+                                 Proj4js.defs['EPSG:' + djoptions.srid],
+                                 {origin: [bbox[0], bbox[3]],
+                                  resolutions: resolutions});
         return {
             crs: crs,
-            scale: scale,
+            scale: crs.scale,
             continuousWorld: true
         };
+
+        function computeMaxResolution(bbox) {
+            // See https://github.com/ajashton/TileCache/blob/master/tilecache/TileCache/Layer.py#L185-L196
+            var size = 256,
+                width  = bbox[2] - bbox[0],
+                height = bbox[3] - bbox[1];
+            var aspect = Math.floor(Math.max(width, height) / Math.min(width, height) + 0.5);
+            return Math.max(width, height) / (size * aspect);
+        }
     },
 
     _djAddLayers: function () {

@@ -10,7 +10,8 @@ L.Proj.Projection = L.Class.extend({
 			this._proj = a;
 		} else {
 			var code = a;
-			Proj4js.defs[code] = def;
+			if (def)
+				Proj4js.defs[code] = def;
 			this._proj = new Proj4js.Proj(code);
 		}
 	},
@@ -136,6 +137,24 @@ L.Proj.TileLayer.TMS = L.TileLayer.extend({
 		return (this.options.tileSize / this.crs.scale(zoom));
 	}
 });
+
+L.Proj.GeoJSON = L.GeoJSON.extend({
+	initialize: function(geojson, options) {
+		if (geojson.crs && geojson.crs.type == 'name') {
+			var crs = new L.Proj.CRS(geojson.crs.properties.name)
+			options = options || {};
+			options.coordsToLatLng = function(coords) {
+				var point = L.point(coords[0], coords[1]);
+				return crs.projection.unproject(point);
+			};
+		}
+		L.GeoJSON.prototype.initialize.call(this, geojson, options);
+	}
+});
+
+L.Proj.geoJson = function(geojson, options) {
+	return new L.Proj.GeoJSON(geojson, options);
+}
 
 if (typeof module !== 'undefined') module.exports = L.Proj;
 

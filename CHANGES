@@ -6,7 +6,8 @@ CHANGELOG
 ==================
 
 * Fix projection download error if not available
-
+* Compute resolutions the same way TileCache does it, and provide
+  example of TileCache configuration.
 
 0.7.3 (2013-08-23)
 ==================

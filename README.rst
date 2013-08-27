@@ -275,11 +275,30 @@ It is possible to setup the map spatial reference in ``LEAFLET_CONFIG``::
 Additional parameter is required to compute scale levels : the tiles extent in
 local projection::
 
-    'TILES_EXTENT': [700000, 6325197, 1060000, 6617738],
+    'TILES_EXTENT': [924861,6375196,985649,6448688],
 
 For more information, `have a look at this example <http://blog.mathieu-leplatre.info/leaflet-tiles-in-lambert-93-projection-2154.html>`_.
 
-By default, Django will try to load the spatial reference from your static
+Example of TileCache configuration compatible with Leaflet:
+
+::
+
+    [scan-portrait]
+    type=WMSLayer
+    layers=scan100,scan25
+    url=http://server/wms?
+    extension=jpg
+    tms_type=google
+    srs=EPSG:2154
+    bbox=924861,6375196,985649,6448688
+
+    [cache]
+    type=GoogleDisk
+    expire=2592000
+    base=/tmp/tiles
+
+
+By default, *django-leaflet* will try to load the spatial reference from your static
 files at "proj4js/{{ srid }}.js". If it fails, it will eventually rely on
 `<spatialreference.org>`_.
 
