@@ -1,0 +1,42 @@
+{% load static leaflet_tags %}
+
+<script type="text/javascript">
+    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
+
+    function {{ id_map_callback }}(map, options) {
+        // Initialize the FeatureGroup to store editable layers
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+
+        // Initialize the draw control and pass it the FeatureGroup of editable layers
+        var drawControl = new L.Control.Draw({
+            edit: {
+                featureGroup: drawnItems
+            }
+        });
+        map.addControl(drawControl);
+    };
+</script>
+
+<style type="text/css">{% block map_css %}
+    #{{ id_map }} { width: {{ map_width }}px; height: {{ map_height }}px; }
+    #{{ id }}_map .aligned label { float: inherit; }
+    #{{ id }}_div_map { position: relative; vertical-align: top; float: {{ LANGUAGE_BIDI|yesno:"right,left" }}; }
+    {% if not display_wkt %}#{{ id }} { display: none; }{% endif %}
+
+    .module .leaflet-draw ul {
+        margin-left: 0px;
+        padding-left: 0px;
+    }
+    .module .leaflet-draw ul li {
+        list-style-type: none;
+    }
+    {% endblock map_css %}
+</style>
+
+<div id="{{ id }}_div_map">
+    {% leaflet_map id_map callback=id_map_callback %}
+</div>
+
+{% if display_wkt %}<p> WKT debugging window:</p>{% endif %}
+<textarea id="{{ id }}" class="vWKTField required" cols="150" rows="10" name="{{ name }}">{{ wkt }}</textarea>

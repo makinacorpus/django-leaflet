@@ -7,12 +7,12 @@ class LeafletGeoAdmin(OSMGeoAdmin):
     widget = LeafletWidget
     map_template = 'leaflet/admin/leaflet.html'
     openlayers_url = 'leaflet/leaflet.js'
-    leaflet_extras_url = 'leaflet/leaflet.extras.js'
-    leaflet_css = 'leaflet/leaflet.css'
 
     @property
     def media(self):
         media = super(LeafletGeoAdmin, self).media
-        media.add_js([self.leaflet_extras_url])
-        media.add_css({'screen': (self.leaflet_css,)})
+        media.add_js(['leaflet/leaflet.extras.js',
+                      'leaflet/draw/leaflet.draw.js'])
+        media.add_css({'screen': ('leaflet/leaflet.css',
+                                  'leaflet/draw/leaflet.draw.css')})
         return media
