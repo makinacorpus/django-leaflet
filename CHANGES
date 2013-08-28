@@ -3,34 +3,34 @@ CHANGELOG
 =========
 
 0.7.4 (unreleased)
-==================
+------------------
 
 * Fix projection download error if not available
 * Compute resolutions the same way TileCache does it, and provide
   example of TileCache configuration.
 
 0.7.3 (2013-08-23)
-==================
+------------------
 
 * Do not use console() to warn about deprecated stuff if not available (<IE9)
 * Fix apparence of Reset view control for Leaflet 0.6
 * Add French and Italian locales
 
 0.7.2 (2013-08-23)
-==================
+------------------
 
 * Fix JS error when no callback value is provided.
 
 
 0.7.1 (2013-08-21)
-==================
+------------------
 
 * Fix map initialization with default tiles setting
 * Fix map ``fitBounds()`` to ``SPATIAL_EXTENT`` in settings
 
 
 0.7.0 (2013-08-21)
-==================
+------------------
 
 **Breaking changes**
 
@@ -68,19 +68,19 @@ CHANGELOG
 
 
 0.6.0 (2013-08-08)
-==================
+------------------
 
 * Upgrade to Leaflet 0.6.4
 
 0.6.0a (2013-07-05)
-===================
+-------------------
 
 * Upgrade to Leaflet 0.6.2
 * Upgrade Leaflet.Minimap (rev 3cd58f7)
 * Upgrade Proj4Leaflet (rev f4f5b6d)
 
 0.5.1 (2013-04-08)
-==================
+------------------
 
 * Add minimap support
 * Drop Leaflet version switching
@@ -89,25 +89,25 @@ CHANGELOG
 * Fix apparence of Reset view button
 
 0.4.1 (2012-11-05)
-==================
+------------------
 
 * Fix div creation test in template.
 
 0.4.0 (2012-11-05)
-==================
+------------------
 
 * Remove imperial scale.
 * Add ``create_div`` parameter
 
 0.3.0 (2012-10-26)
-==================
+------------------
 
 * Remove max resolution setting since it can be computed
 * Allow scale control even if view is not set
 * Upgrade Leaflet to 0.4.5
 
 0.2.0 (2012-09-22)
-==================
+------------------
 
 * Fix packaging of templates
 * Use template for <head> fragment
@@ -119,7 +119,7 @@ CHANGELOG
 * map variable is not global anymore
 
 0.1.0 (2012-08-13)
-==================
+------------------
 
 * Initial support for map projection 
 * Show zoom scale by default
@@ -129,12 +129,12 @@ CHANGELOG
 * Global layers configuration
 
 0.0.2 (2012-03-22)
-==================
+------------------
 
 * Add IE conditional CSS
 
 
 0.0.1 (2012-03-16)
-==================
+------------------
 
 * Initial working version
