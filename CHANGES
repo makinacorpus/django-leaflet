@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.7.4 (unreleased)
+0.7.4 (2013-08-28)
 ------------------
 
 * Fix projection download error if not available
