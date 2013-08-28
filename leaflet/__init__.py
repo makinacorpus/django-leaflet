@@ -50,6 +50,14 @@ if SPATIAL_EXTENT is not None:
     if not isinstance(SPATIAL_EXTENT, (tuple, list)) or len(SPATIAL_EXTENT) != 4:
         raise ImproperlyConfigured(_("Spatial extent should be a tuple (minx, miny, maxx, maxy)"))
 
+
+TILES_EXTENT = app_settings.get("TILES_EXTENT")
+# Due to bug in Leaflet/Proj4Leaflet ()
+# landscape extents are not supported.
+if (TILES_EXTENT[2] - TILES_EXTENT[0] > TILES_EXTENT[3] - TILES_EXTENT[1]):
+    raise ImproperlyConfigured('Landscape tiles extent not supported (%s).' % (TILES_EXTENT,))
+
+
 SRID = app_settings.get("SRID")
 if SRID is None:
     # Deprecate lookup in global Django settings
@@ -61,9 +69,11 @@ if SRID is None:
 if SRID == 3857:  # Leaflet's default, do not setup custom projection machinery
     SRID = None
 
+
 DEFAULT_CENTER = app_settings.get('DEFAULT_CENTER', None)
 if DEFAULT_CENTER is not None and not (isinstance(DEFAULT_CENTER, (list, tuple)) and len(DEFAULT_CENTER) == 2):
     raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_CENTER'] must be an list/tuple with two elements - (lon, lat)")
+
 
 DEFAULT_ZOOM = app_settings.get("DEFAULT_ZOOM", None)
 if DEFAULT_ZOOM is not None and not (isinstance(DEFAULT_ZOOM, int) and (1 <= DEFAULT_ZOOM <= 24)):
