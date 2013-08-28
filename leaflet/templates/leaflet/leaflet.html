@@ -1,0 +1,17 @@
+{% load static leaflet_tags %}
+
+<script type="text/javascript">
+    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
+</script>
+
+<style type="text/css">{% block map_css %}
+    #{{ id_map }} { width: {{ map_width }}px; height: {{ map_height }}px; }
+    #{{ id }}_map .aligned label { float: inherit; }
+    #{{ id }}_div_map { position: relative; vertical-align: top; float: {{ LANGUAGE_BIDI|yesno:"right,left" }}; }
+    {% if not display_wkt %}#{{ id }} { display: none; }{% endif %}
+    {% endblock map_css %}
+</style>
+
+<div id="{{ id }}_div_map">
+    {% leaflet_map id_map %}
+</div>
