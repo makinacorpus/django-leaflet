@@ -54,7 +54,7 @@ if SPATIAL_EXTENT is not None:
 TILES_EXTENT = app_settings.get("TILES_EXTENT")
 # Due to bug in Leaflet/Proj4Leaflet ()
 # landscape extents are not supported.
-if (TILES_EXTENT[2] - TILES_EXTENT[0] > TILES_EXTENT[3] - TILES_EXTENT[1]):
+if TILES_EXTENT and (TILES_EXTENT[2] - TILES_EXTENT[0] > TILES_EXTENT[3] - TILES_EXTENT[1]):
     raise ImproperlyConfigured('Landscape tiles extent not supported (%s).' % (TILES_EXTENT,))
 
 
