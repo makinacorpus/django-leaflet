@@ -44,4 +44,4 @@
 </div>
 
 {% if display_wkt %}<p> WKT debugging window:</p>{% endif %}
-<textarea id="{{ id }}" class="vWKTField required" cols="150" rows="10" name="{{ name }}">{{ wkt }}</textarea>
+<textarea id="{{ id }}" class="vWKTField required" cols="150" rows="10" name="{{ name }}">SRID={{ srid }};{{ wkt }}</textarea>

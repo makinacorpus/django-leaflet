@@ -2,13 +2,16 @@ L.FieldStore = L.Class.extend({
     initialize: function (id, options) {
         this.formfield = document.getElementById(id);
         L.setOptions(this, options);
+
+        this.prefix = 'SRID=' + this.options.srid + ';';
     },
 
     load: function () {
         var wkt = new Wkt.Wkt();
         try {
             if (this.formfield.value) {
-                wkt.read(this.formfield.value);
+                var value = this.formfield.value.replace(this.prefix, '');
+                wkt.read(value);
                 return wkt.toObject(this.options.defaults);
             }
         } catch (e) {  // Ignore empty or malformed WKT strings
@@ -24,7 +27,7 @@ L.FieldStore = L.Class.extend({
 
         if (!is_empty) {
             wkt.fromObject((is_multi ? layer : items[0]));
-            this.formfield.value = 'SRID=' + this.options.srid + ';' + wkt.write();
+            this.formfield.value = this.prefix + wkt.write();
         }
         else {
             this.formfield.value = '';
@@ -91,9 +94,6 @@ L.GeometryField = L.Class.extend({
                 this._map.panTo(geometry.getLatLng());
                 this._map.setZoom(module.default_zoom);
             }
-
-            // TODO: SRID should not be necessary
-            this.store.save(this.drawnItems);
         }
     },
 
