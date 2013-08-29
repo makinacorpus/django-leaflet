@@ -9,8 +9,8 @@ L.FieldStore = L.Class.extend({
     load: function () {
         var wkt = new Wkt.Wkt();
         try {
-            if (this.formfield.value) {
-                var value = this.formfield.value.replace(this.prefix, '');
+            var value = (this.formfield.value || '').replace(this.prefix, '');
+            if (value) {
                 wkt.read(value);
                 return wkt.toObject(this.options.defaults);
             }
