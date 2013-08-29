@@ -250,7 +250,7 @@ Advanced usage
 * ``callback``: javascript function name for initialization callback.
   (Default: None).
 
-* ``fixextent``: control if map initial view shoud be set to extent setting.
+* ``fitextent``: control if map initial view shoud be set to extent setting.
   (Default: ``True``). Setting fixextent to ``False`` will prevent view reset
   and scale controls to be added.
 
