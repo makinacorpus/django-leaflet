@@ -1,6 +1,6 @@
 include README.rst CHANGES LICENSE
 recursive-include leaflet/locale *.mo
-recursive-include leaflet/templates *.html
+recursive-include leaflet/templates *.html *.js
 recursive-include leaflet/static *.js
 recursive-include leaflet/static *.css
 recursive-include leaflet/static *.png

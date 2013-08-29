@@ -18,6 +18,10 @@
 </style>
 
 <script type="text/javascript">
+    {% include "leaflet/admin/_leaflet_draw_i18n.js" %}
+</script>
+
+<script type="text/javascript">
     L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
 
     {% block vars %}var {{ module }} = {};
