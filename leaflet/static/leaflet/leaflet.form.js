@@ -75,36 +75,11 @@ L.GeometryField = L.Class.extend({
         var store_opts = L.Util.extend(this.options, {defaults: map.defaults});
         this.store = new this.options.field_store_class(this.options.id, store_opts);
 
-        if (this.options.is_collection) {
-            // Wicket does not manage generic FeatureGroup
-            // Cast to explicit child-class (MultiPolygon etc.)
-            var type = this.options.collection_type,
-                constructor = L['multi' + type];
-            if (typeof(constructor) != 'function') {
-                throw 'Unsupported geometry type: multi' + type;
-            }
-            this.drawnItems = constructor([], {});
-            this.drawnItems.clearLayers();
-        }
-        else {
-            this.drawnItems = new L.FeatureGroup();
-        }
-
+        this.drawnItems = this._editionLayer();
         map.addLayer(this.drawnItems);
 
         // Initialize the draw control and pass it the FeatureGroup of editable layers
-        var drawControl = new L.Control.Draw({
-            edit: {
-                featureGroup: this.drawnItems
-            },
-            draw: {
-                polyline: this.options.is_linestring,
-                polygon: this.options.is_polygon,
-                circle: false, // Turns off this drawing tool
-                rectangle: this.options.is_polygon,
-                marker: this.options.is_point,
-            }
-        });
+        var drawControl = new L.Control.Draw(this._controlDrawOptions());
 
         if (this.options.modifiable) {
             map.addControl(drawControl);
@@ -171,5 +146,34 @@ L.GeometryField = L.Class.extend({
         var layer = e.layer;
         this.drawnItems.removeLayer(layer);
         this.store.save(this.drawnItems);
+    },
+
+    _editionLayer: function () {
+        if (this.options.is_collection) {
+            // Wicket does not manage generic FeatureGroup
+            // Cast to explicit child-class (MultiPolygon etc.)
+            var type = this.options.collection_type,
+                constructor = L['multi' + type];
+            if (typeof(constructor) != 'function') {
+                throw 'Unsupported geometry type: multi' + type;
+            }
+            return constructor([], {});
+        }
+        return new L.FeatureGroup();
+    },
+
+    _controlDrawOptions: function () {
+        return {
+            edit: {
+                featureGroup: this.drawnItems
+            },
+            draw: {
+                polyline: this.options.is_linestring,
+                polygon: this.options.is_polygon,
+                circle: false, // Turns off this drawing tool
+                rectangle: this.options.is_polygon,
+                marker: this.options.is_point,
+            }
+        };
     }
 });
