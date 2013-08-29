@@ -122,6 +122,12 @@ L.GeometryField = L.Class.extend({
     },
 
     onCreated: function (e) {
+        // Remove previously drawn if field is not collection.
+        if (!this.options.is_collection) {
+            this.drawnItems.eachLayer(function (l) {
+                this._map.removeLayer(l);
+            }, this);
+        }
         var layer = e.layer;
         this._map.addLayer(layer);
         this.drawnItems.addLayer(layer);
