@@ -37,12 +37,28 @@ L.FieldStore = L.Class.extend({
 
 
 L.GeometryField = L.Class.extend({
+    statics: {
+        unsavedText: 'Map geometry is unsaved'
+    },
+
     options: {
         field_store_class: L.FieldStore
     },
 
     initialize: function (options) {
         L.setOptions(this, options);
+
+        this._unsavedChanges = false;
+
+        // Warn if leaving with unsaved changes
+        var _beforeunload = window.onbeforeunload;
+        window.onbeforeunload = L.Util.bind(function(e) {
+            if (this._unsavedChanges)
+                return L.GeometryField.unsavedText;
+            if (typeof(_beforeunload) == 'function')
+                return _beforeunload();
+            return null;
+        }, this);
     },
 
     addTo: function (map) {
@@ -74,6 +90,14 @@ L.GeometryField = L.Class.extend({
             map.on('draw:created', this.onCreated, this);
             map.on('draw:edited', this.onEdited, this);
             map.on('draw:deleted', this.onDeleted, this);
+
+            // Flag for unsaved changes
+            map.on('draw:drawstart draw:editstart', function () {
+                this._unsavedChanges = true;
+            }, this);
+            map.on('draw:drawstop draw:editstop', function () {
+                this._unsavedChanges = false;
+            }, this);
         }
 
         this.load();
