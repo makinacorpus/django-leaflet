@@ -7,9 +7,32 @@ L.FieldStore = L.Class.extend({
     },
 
     load: function () {
+        var value = (this.formfield.value || '');
+        return this._deserialize(value);
+    },
+
+    save: function (layer) {
+        this.formfield.value = this._serialize(layer);
+    },
+
+    _serialize: function (layer) {
+        var items = layer.getLayers(),
+            is_empty = items.length === 0,
+            is_multi = this.options.is_collection || items.length > 1,
+            wkt = new Wkt.Wkt();
+
+        if (!is_empty) {
+            var geom = is_multi ? layer : items[0];
+            wkt.fromObject(geom);
+            return this.prefix + wkt.write();
+        }
+        return '';
+    },
+
+    _deserialize: function (value) {
         var wkt = new Wkt.Wkt();
+        value = value.replace(this.prefix, '');
         try {
-            var value = (this.formfield.value || '').replace(this.prefix, '');
             if (value) {
                 wkt.read(value);
                 return wkt.toObject(this.options.defaults);
@@ -17,21 +40,6 @@ L.FieldStore = L.Class.extend({
         } catch (e) {  // Ignore empty or malformed WKT strings
         }
         return null;
-    },
-
-    save: function (layer) {
-        var items = layer.getLayers(),
-            is_empty = items.length === 0,
-            is_multi = this.options.is_collection || items.length > 1,
-            wkt = new Wkt.Wkt();
-
-        if (!is_empty) {
-            wkt.fromObject((is_multi ? layer : items[0]));
-            this.formfield.value = this.prefix + wkt.write();
-        }
-        else {
-            this.formfield.value = '';
-        }
     }
 });
 
@@ -67,7 +75,21 @@ L.GeometryField = L.Class.extend({
         var store_opts = L.Util.extend(this.options, {defaults: map.defaults});
         this.store = new this.options.field_store_class(this.options.id, store_opts);
 
-        this.drawnItems = new L.FeatureGroup();
+        if (this.options.is_collection) {
+            // Wicket does not manage generic FeatureGroup
+            // Cast to explicit child-class (MultiPolygon etc.)
+            var type = this.options.collection_type,
+                constructor = L['multi' + type];
+            if (typeof(constructor) != 'function') {
+                throw 'Unsupported geometry type: multi' + type;
+            }
+            this.drawnItems = constructor([], {});
+            this.drawnItems.clearLayers();
+        }
+        else {
+            this.drawnItems = new L.FeatureGroup();
+        }
+
         map.addLayer(this.drawnItems);
 
         // Initialize the draw control and pass it the FeatureGroup of editable layers
@@ -108,7 +130,14 @@ L.GeometryField = L.Class.extend({
         if (geometry) {
             // Add initial geometry to the map
             geometry.addTo(this._map);
-            this.drawnItems.addLayer(geometry);
+            if (geometry instanceof L.LayerGroup) {
+                geometry.eachLayer(function (l) {
+                    this.drawnItems.addLayer(l);
+                }, this);
+            }
+            else {
+                this.drawnItems.addLayer(geometry);
+            }
 
             // And fit view extent.
             if (typeof(geometry.getBounds) == 'function') {
