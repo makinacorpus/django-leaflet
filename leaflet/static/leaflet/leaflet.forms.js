@@ -56,10 +56,11 @@ L.GeometryField = L.Class.extend({
     initialize: function (options) {
 
         var geom_type = options.geom_type.toLowerCase();
-        options.is_collection = /^multi/.test(geom_type);
-        options.is_linestring = /linestring$/.test(geom_type);
-        options.is_polygon = /polygon$/.test(geom_type);
-        options.is_point = /point$/.test(geom_type);
+        options.is_generic = /geometry/.test(geom_type);
+        options.is_collection = /(^multi|collection$)/.test(geom_type);
+        options.is_linestring = /linestring$/.test(geom_type) || options.is_generic;
+        options.is_polygon = /polygon$/.test(geom_type) || options.is_generic;
+        options.is_point = /point$/.test(geom_type) || options.is_generic;
         options.collection_type = ({
             'multilinestring': 'multiPolyline',
             'multipolygon': 'multiPolygon',
