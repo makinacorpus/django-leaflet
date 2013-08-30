@@ -268,6 +268,10 @@ In forms
 --------
 
 ::
+    from django import forms
+
+    from leaflet.forms.fields import PointField
+
 
     class WeatherStationForm(forms.ModelForm):
         geom = PointField()
