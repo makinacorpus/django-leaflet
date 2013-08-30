@@ -1,7 +1,10 @@
 try:
     from django.contrib.gis.forms.widgets import BaseGeometryWidget
 except ImportError:
-    from floppyforms.fields import BaseGeometryWidget  # noqa
+    try:
+        from floppyforms.widgets import BaseGeometryWidget  # noqa
+    except ImportError:
+        from django.forms.widgets import Textarea as BaseGeometryWidget  # fallback
 
 
 class LeafletWidget(BaseGeometryWidget):
