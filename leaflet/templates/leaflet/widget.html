@@ -16,7 +16,6 @@
     {{ module }}.fieldid = '{{ id }}';
     {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};
     {{ module }}.geom_type = '{{ geom_type }}';
-    {{ module }}.default_zoom = {{ default_zoom }};
     {{ module }}.srid = {{ map_srid }};
     {{ module }}.store_class = {{ field_store_class }};
     {% endblock vars %}
