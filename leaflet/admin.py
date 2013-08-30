@@ -10,7 +10,6 @@ class LeafletGeoAdmin(ModelAdmin):
     modifiable = True
     map_width = LeafletWidget.map_width
     map_height = LeafletWidget.map_height
-    allow_3d = False
 
     @property
     def media(self):
@@ -28,7 +27,7 @@ class LeafletGeoAdmin(ModelAdmin):
         in form field init params.
         """
         if isinstance(db_field, models.GeometryField) and \
-           (db_field.dim < 3 or self.allow_3d):
+           (db_field.dim < 3 or self.widget.supports_3d):
             kwargs.pop('request', None)  # unsupported for form field
             # Setting the widget with the newly defined widget.
             kwargs['widget'] = self.get_map_widget(db_field)

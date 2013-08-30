@@ -1,4 +1,7 @@
-from django.contrib.gis.forms.widgets import BaseGeometryWidget
+try:
+    from django.contrib.gis.forms.widgets import BaseGeometryWidget
+except ImportError:
+    from floppyforms.fields import BaseGeometryWidget  # noqa
 
 
 class LeafletWidget(BaseGeometryWidget):
@@ -6,6 +9,7 @@ class LeafletWidget(BaseGeometryWidget):
     map_width = '100%'
     map_height = 400
     modifiable = True
+    supports_3d = False
 
     class Media:
         js = ('leaflet/leaflet.js',
