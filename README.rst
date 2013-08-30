@@ -241,6 +241,86 @@ To include all plugins configured in ``LEAFLET_CONFIG['PLUGINS']``, use::
     {% leaflet_css plugins="ALL" %}
 
 
+Forms
+=====
+
+With Django>=1.6, a Leaflet widget is provided to edit geometry fields.
+In previous versions, it falls back to simple text areas.
+
+It embeds Leaflet.draw in version *0.2.1dev*.
+
+
+In Adminsite
+------------
+
+::
+
+
+    from leaflet.admin import LeafletGeoAdmin
+
+    from .models import WeatherStation
+
+
+    admin.site.register(WeatherStation, LeafletGeoAdmin)
+
+
+In forms
+--------
+
+::
+
+    class WeatherStationForm(forms.ModelForm):
+        geom = PointField()
+
+        class Meta:
+            model = WeatherStation
+            fields = ('name', 'geom')
+
+
+The related template would look like this:
+
+::
+
+    <html>
+      <head>
+       {% leaflet_js plugins="forms" %}
+       {% leaflet_css plugins="forms" %}
+      </head>
+      <body>
+        <h1>Edit {{ object }}</h1>
+        <form action="POST">
+            {{ form }}
+            <input type="submit"/>
+        </form>
+      </body>
+    </html>
+
+
+Plugins
+-------
+
+It's possible to add extras JS/CSS or auto-include *forms* plugins
+everywhere: ::
+
+    LEAFLET_CONFIG = {
+        'PLUGINS': {
+            'auto-include': True
+        }
+    }
+
+( *It will be merged over default minimal set required for edition* )
+
+
+Details
+-------
+
+* It relies on global settings for map initialization.
+* It works with local map projections. But SRID is specified globally
+  through ``LEAFLET_CONFIG['SRID']`` as described below.
+* Javascript component for de/serializing fields value is pluggable.
+* Javascript component for Leaflet.draw behaviour initialization is pluggable.
+
+
 Advanced usage
 ==============
 
