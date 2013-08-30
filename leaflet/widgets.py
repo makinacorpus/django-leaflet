@@ -1,3 +1,4 @@
+from django import forms
 try:
     from django.contrib.gis.forms.widgets import BaseGeometryWidget
 except ImportError:
@@ -15,7 +16,8 @@ class LeafletWidget(BaseGeometryWidget):
     modifiable = True
     supports_3d = False
 
-    class Media:
+    @property
+    def media(self):
         js = ('leaflet/leaflet.js',
               'leaflet/draw/leaflet.draw.js',
               'leaflet/leaflet.extras.js',
@@ -25,6 +27,7 @@ class LeafletWidget(BaseGeometryWidget):
 
         css = ('leaflet/leaflet.css',
                'leaflet/draw/leaflet.draw.css')
+        return forms.Media(js=js, css={'screen': css})
 
     def render(self, name, value, attrs=None):
         attrs = attrs or {}

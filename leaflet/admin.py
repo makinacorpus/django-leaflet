@@ -11,16 +11,6 @@ class LeafletGeoAdmin(ModelAdmin):
     map_width = LeafletWidget.map_width
     map_height = LeafletWidget.map_height
 
-    @property
-    def media(self):
-        """
-        Load widget medias into Admin body page.
-        """
-        media = super(LeafletGeoAdmin, self).media
-        media.add_js(self.widget.Media.js)
-        media.add_css({'screen': self.widget.Media.css})
-        return media
-
     def formfield_for_dbfield(self, db_field, **kwargs):
         """
         Overloaded from ModelAdmin to set Leaflet widget
