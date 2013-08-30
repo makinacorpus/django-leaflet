@@ -29,14 +29,12 @@ class LeafletWidget(BaseGeometryWidget):
         return forms.Media(js=js, css={'screen': css})
 
     def render(self, name, value, attrs=None):
-        attrs = attrs or {}
         assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
+
+        attrs = attrs or {}
         attrs.update(id_map=attrs.get('id', '') + '_map',
                      id_map_callback=attrs.get('id', '') + '_map_callback',
                      modifiable=self.modifiable,
-                     map_srid=self.map_srid,
-                     map_width=self.map_width,
-                     map_height=self.map_height,
                      geometry_field_class=attrs.get('geometry_field_class', 'L.GeometryField'),
                      field_store_class=attrs.get('field_store_class', 'L.FieldStore'))
         return super(LeafletWidget, self).render(name, value, attrs)
