@@ -7,7 +7,7 @@ except ImportError:
     except ImportError:
         from django.forms.widgets import Textarea as BaseGeometryWidget  # fallback
 
-from . import PLUGINS, PLUGIN_FORMS
+from .. import PLUGINS, PLUGIN_FORMS
 
 
 class LeafletWidget(BaseGeometryWidget):
