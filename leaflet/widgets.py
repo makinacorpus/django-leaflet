@@ -21,7 +21,7 @@ class LeafletWidget(BaseGeometryWidget):
         js = ('leaflet/leaflet.js',
               'leaflet/draw/leaflet.draw.js',
               'leaflet/leaflet.extras.js',
-              'leaflet/leaflet.form.js',
+              'leaflet/leaflet.forms.js',
               'leaflet/wicket/wicket.js',
               'leaflet/wicket/wicket-leaflet.js')
 
