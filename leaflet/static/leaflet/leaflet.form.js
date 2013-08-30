@@ -1,6 +1,6 @@
 L.FieldStore = L.Class.extend({
-    initialize: function (id, options) {
-        this.formfield = document.getElementById(id);
+    initialize: function (fieldid, options) {
+        this.formfield = document.getElementById(fieldid);
         L.setOptions(this, options);
 
         this.prefix = 'SRID=' + this.options.srid + ';';
@@ -73,7 +73,7 @@ L.GeometryField = L.Class.extend({
         this._map = map;
 
         var store_opts = L.Util.extend(this.options, {defaults: map.defaults});
-        this.store = new this.options.field_store_class(this.options.id, store_opts);
+        this.store = new this.options.field_store_class(this.options.fieldid, store_opts);
 
         this.drawnItems = this._editionLayer();
         map.addLayer(this.drawnItems);
