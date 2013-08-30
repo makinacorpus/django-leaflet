@@ -54,6 +54,17 @@ L.GeometryField = L.Class.extend({
     },
 
     initialize: function (options) {
+
+        var geom_type = options.geom_type.toLowerCase();
+        options.is_collection = /^multi/.test(geom_type);
+        options.is_linestring = '/linestring$/'.test(geom_type);
+        options.is_polygon = '/polygon$/'.test(geom_type);
+        options.is_point = '/point$/'.test(geom_type);
+        options.collection_type = ({
+            'multilinestring': 'multiPolyline',
+            'multipolygon': 'multiPolygon',
+        })[geom_type] || 'featureGroup';
+
         L.setOptions(this, options);
 
         this._unsavedChanges = false;
@@ -149,17 +160,12 @@ L.GeometryField = L.Class.extend({
     },
 
     _editionLayer: function () {
-        if (this.options.is_collection) {
-            // Wicket does not manage generic FeatureGroup
-            // Cast to explicit child-class (MultiPolygon etc.)
-            var type = this.options.collection_type,
-                constructor = L['multi' + type];
-            if (typeof(constructor) != 'function') {
-                throw 'Unsupported geometry type: multi' + type;
-            }
-            return constructor([], {});
+        var type = this.options.collection_type,
+            constructor = L[type];
+        if (typeof(constructor) != 'function') {
+            throw 'Unsupported geometry type: ' + type;
         }
-        return new L.FeatureGroup();
+        return constructor([], {});
     },
 
     _controlDrawOptions: function () {
