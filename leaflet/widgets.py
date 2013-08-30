@@ -7,6 +7,8 @@ except ImportError:
     except ImportError:
         from django.forms.widgets import Textarea as BaseGeometryWidget  # fallback
 
+from . import PLUGINS, PLUGIN_FORMS
+
 
 class LeafletWidget(BaseGeometryWidget):
     template_name = 'leaflet/widget.html'
@@ -15,18 +17,15 @@ class LeafletWidget(BaseGeometryWidget):
     map_height = 400
     modifiable = True
     supports_3d = False
+    include_media = False
 
     @property
     def media(self):
-        js = ('leaflet/leaflet.js',
-              'leaflet/draw/leaflet.draw.js',
-              'leaflet/leaflet.extras.js',
-              'leaflet/leaflet.forms.js',
-              'leaflet/wicket/wicket.js',
-              'leaflet/wicket/wicket-leaflet.js')
+        if not self.include_media:
+            return forms.Media()
 
-        css = ('leaflet/leaflet.css',
-               'leaflet/draw/leaflet.draw.css')
+        js = PLUGINS[PLUGIN_FORMS]['js']
+        css = PLUGINS[PLUGIN_FORMS]['css']
         return forms.Media(js=js, css={'screen': css})
 
     def render(self, name, value, attrs=None):

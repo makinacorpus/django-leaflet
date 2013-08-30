@@ -89,6 +89,21 @@ if not (isinstance(PLUGINS, dict) and all([isinstance(el, dict) for el in PLUGIN
 PLUGIN_ALL = 'ALL'
 PLUGINS_DEFAULT = '__default__'
 
+# Add plugins required for forms (not auto-included)
+PLUGIN_FORMS = 'forms'
+_forms_js = ['leaflet/leaflet.js',
+             'leaflet/draw/leaflet.draw.js',
+             'leaflet/leaflet.extras.js',
+             'leaflet/leaflet.forms.js',
+             'leaflet/wicket/wicket.js',
+             'leaflet/wicket/wicket-leaflet.js']
+_forms_css = ['leaflet/leaflet.css',
+              'leaflet/draw/leaflet.draw.css']
+_forms_plugins = PLUGINS.setdefault(PLUGIN_FORMS, {})
+_forms_plugins.setdefault('js', []).extend(_forms_js)
+_forms_plugins.setdefault('css', []).extend(_forms_css)
+_forms_plugins.setdefault('auto-include', False)
+PLUGINS[PLUGIN_FORMS] = _forms_plugins
 
 # Take advantage of plugin system for Leaflet.MiniMap
 if app_settings.get('MINIMAP'):

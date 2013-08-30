@@ -31,6 +31,7 @@ class LeafletGeoAdmin(ModelAdmin):
         """
         class LeafletMap(self.widget):
             template_name = self.map_template
+            include_media = True
             geom_type = db_field.geom_type
             modifiable = self.modifiable,
             map_width = self.map_width
