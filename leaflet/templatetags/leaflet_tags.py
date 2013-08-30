@@ -39,7 +39,7 @@ def leaflet_js(plugins=None):
     }
 
 
-@register.inclusion_tag('leaflet/map_fragment.html')
+@register.inclusion_tag('leaflet/_leaflet_map.html')
 def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='load'):
     """
 
