@@ -1,0 +1,23 @@
+{% extends "leaflet/widget.html" %}
+
+{% block mapcss %}
+    {{ block.super }}
+    #{{ id }}_map .aligned label { float: inherit; }
+    #{{ id }}_div_map { position: relative; vertical-align: top; float: {{ LANGUAGE_BIDI|yesno:"right,left" }}; }
+
+    /* Fixes for Django base.css */
+    .module .leaflet-draw ul {
+        margin-left: 0px;
+        padding-left: 0px;
+    }
+    .module .leaflet-draw ul li {
+        list-style-type: none;
+    }
+{% endblock mapcss %}
+
+
+{% endblock map %}
+<div id="{{ id }}_div_map">
+    {{ block.super }}
+</div>
+{% endblock map %}
