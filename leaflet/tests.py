@@ -1,6 +1,6 @@
 from django.test import SimpleTestCase
 
-from leaflet import PLUGINS, _normalize_plugins_config
+from leaflet import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config
 from leaflet.templatetags import leaflet_tags
 
 
@@ -26,6 +26,7 @@ class PluginListingTest(SimpleTestCase):
             'c': {'css': 'c'},
         })
         PLUGINS.pop('ALL')
+        PLUGINS.pop(PLUGIN_FORMS)
         PLUGINS.pop('__is_normalized__')
         _normalize_plugins_config()
 
