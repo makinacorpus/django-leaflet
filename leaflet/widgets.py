@@ -27,6 +27,7 @@ class LeafletWidget(BaseGeometryWidget):
 
     def render(self, name, value, attrs=None):
         attrs = attrs or {}
+        assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
         attrs.update(id_map=attrs.get('id', '') + '_map',
                      id_map_callback = attrs.get('id', '') + '_map_callback',
                      modifiable=self.modifiable,
