@@ -29,6 +29,12 @@ class LeafletWidget(BaseGeometryWidget):
         assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
 
         attrs = attrs or {}
+
+        # In BaseGeometryWidget, geom_type is set using gdal, and fails with generic.
+        # See https://code.djangoproject.com/ticket/21021
+        if self.geom_type == 'GEOMETRY':
+            attrs['geom_type'] = 'Geometry'
+
         attrs.update(id_map=attrs.get('id', name) + '_map',
                      id_map_callback=attrs.get('id', name) + '_map_callback',
                      modifiable=self.modifiable,
