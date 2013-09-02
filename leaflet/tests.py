@@ -1,7 +1,10 @@
 from django.test import SimpleTestCase
+from django.db import models
+from django.contrib.gis.db import models as gismodels
 
 from . import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config
 from .templatetags import leaflet_tags
+from .admin import LeafletGeoAdmin
 from .forms.widgets import LeafletWidget
 from .forms import fields
 
@@ -99,3 +102,44 @@ class LeafletFieldsWidgetsTest(SimpleTestCase):
                     'MultiLineString', 'MultiPolygon']:
             f = getattr(fields, typ + 'Field')()
         self.assertEquals(f.widget.attrs['geom_type'], typ.upper())
+
+
+class DummyModel(gismodels.Model):
+    geom = gismodels.PointField()
+
+
+class LeafletGeoAdminTest(SimpleTestCase):
+    def setUp(self):
+        self.modeladmin = LeafletGeoAdmin(DummyModel, None)
+        self.geomfield = DummyModel._meta.get_field('geom')
+        self.formfield = self.modeladmin.formfield_for_dbfield(self.geomfield)
+
+    def test_widget_for_field(self):
+        widget = self.formfield.widget
+        self.assertTrue(issubclass(widget.__class__, LeafletWidget))
+
+    def test_widget_parameters(self):
+        widget = self.formfield.widget
+        self.assertEquals(widget.geom_type, 'POINT')
+        self.assertFalse(widget.map_height is None)
+        self.assertFalse(widget.map_width is None)
+        self.assertTrue(widget.modifiable)
+
+    def test_widget_media(self):
+        widget = self.formfield.widget
+        media = widget.media
+        media_js = "".join(media.render_js())
+        media_css = "".join(media.render_css())
+        self.assertIn('leaflet/leaflet.js', media_js)
+        self.assertIn('leaflet/leaflet.extras.js', media_js)
+        self.assertIn('leaflet/leaflet.forms.js', media_js)
+        self.assertIn('leaflet/draw/leaflet.draw.js', media_js)
+
+        self.assertIn('leaflet/leaflet.css', media_css)
+        self.assertIn('leaflet/draw/leaflet.draw.css', media_css)
+
+    def test_widget_template_overriden(self):
+        widget = self.formfield.widget
+        output = widget.render('geom', '', {'id': 'geom'})
+        self.assertIn(".module .leaflet-draw ul", output)
+        self.assertIn('<div id="geom_div_map">', output)

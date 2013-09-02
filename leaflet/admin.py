@@ -1,7 +1,7 @@
 from django.contrib.admin import ModelAdmin
 from django.contrib.gis.db import models
 
-from .widgets import LeafletWidget
+from .forms.widgets import LeafletWidget
 
 
 class LeafletGeoAdmin(ModelAdmin):
@@ -20,12 +20,12 @@ class LeafletGeoAdmin(ModelAdmin):
            (db_field.dim < 3 or self.widget.supports_3d):
             kwargs.pop('request', None)  # unsupported for form field
             # Setting the widget with the newly defined widget.
-            kwargs['widget'] = self.get_map_widget(db_field)
+            kwargs['widget'] = self._get_map_widget(db_field)
             return db_field.formfield(**kwargs)
         else:
             return super(LeafletGeoAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
-    def get_map_widget(self, db_field):
+    def _get_map_widget(self, db_field):
         """
         Overriden LeafletWidget with LeafletGeoAdmin params.
         """
