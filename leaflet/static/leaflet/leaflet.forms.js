@@ -143,6 +143,7 @@ L.GeometryField = L.Class.extend({
             this.drawnItems.eachLayer(function (l) {
                 this._map.removeLayer(l);
             }, this);
+            this.drawnItems.clearLayers();
         }
         var layer = e.layer;
         this._map.addLayer(layer);
