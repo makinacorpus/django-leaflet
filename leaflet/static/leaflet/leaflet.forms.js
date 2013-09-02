@@ -17,46 +17,35 @@ L.FieldStore = L.Class.extend({
 
     _serialize: function (layer) {
         var items = typeof(layer.getLayers) == 'function' ? layer.getLayers() : [layer],
-            is_empty = items.length === 0,
             is_multi = this.options.is_collection || items.length > 1,
-            wkt = new Wkt.Wkt();
+            is_empty = items.length === 0;
 
         if (is_empty)
             return '';
 
-        if (is_multi && this.options.is_generic) {
-            // Wicket does not support GeometryCollection. Do it here.
-            return this.__serialize_geometrycollection(layer);
-        }
-
         var geom = is_multi ? layer : items[0];
-        wkt.fromObject(geom);
-        return this.prefix + wkt.write();
+        if (typeof geom.toGeoJSON != 'function') {
+            throw 'Unsupported layer type ' + geom.constructor.name;
+        }
+        var geojson = geom.toGeoJSON();
+        if (is_multi) {
+            var flat = {type: 'GeometryCollection', geometries: []};
+            for (var i=0; i < geojson.features.length; i++) {
+                flat.geometries.push(geojson.features[i].geometry);
+            }
+            geojson = flat;
+        }
+        else {
+            geojson = geojson.geometry;
+        }
+        return JSON.stringify(geojson);
     },
 
     _deserialize: function (value) {
-        var wkt = new Wkt.Wkt();
-        value = value.replace(this.prefix, '');
-        try {
-            if (value) {
-                wkt.read(value);
-                return wkt.toObject(this.options.defaults);
-            }
-        } catch (e) {  // Ignore empty or malformed WKT strings
+        if (/^\s*$/.test(value)) {
+            return null;
         }
-        return null;
-    },
-
-    __serialize_geometrycollection: function (layer) {
-        var is_collection = this.options.is_collection;
-        this.options.is_collection = false;
-        var wkts = [];
-        layer.eachLayer(function (l) {
-            var ewkt = this._serialize(l);
-            wkts.push(ewkt.replace(this.prefix, ''));
-        }, this);
-        this.options.is_collection = is_collection;
-        return this.prefix + 'GEOMETRYCOLLECTION(' + wkts.join(',') + ')';
+        return L.GeoJSON.geometryToLayer(JSON.parse(value));
     },
 });
 

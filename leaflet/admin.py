@@ -10,7 +10,7 @@ class LeafletGeoAdmin(ModelAdmin):
     modifiable = True
     map_width = '100%'
     map_height = '400px'
-    display_wkt = False
+    display_raw = False
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         """
@@ -37,5 +37,5 @@ class LeafletGeoAdmin(ModelAdmin):
             modifiable = self.modifiable,
             map_width = self.map_width
             map_height = self.map_height
-            display_wkt = self.display_wkt
+            display_raw = self.display_raw
         return LeafletMap

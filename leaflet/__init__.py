@@ -94,9 +94,7 @@ PLUGIN_FORMS = 'forms'
 _forms_js = ['leaflet/leaflet.js',
              'leaflet/draw/leaflet.draw.js',
              'leaflet/leaflet.extras.js',
-             'leaflet/leaflet.forms.js',
-             'leaflet/wicket/wicket.js',
-             'leaflet/wicket/wicket-leaflet.js']
+             'leaflet/leaflet.forms.js']
 _forms_css = ['leaflet/leaflet.css',
               'leaflet/draw/leaflet.draw.css']
 _forms_plugins = PLUGINS.setdefault(PLUGIN_FORMS, {})
