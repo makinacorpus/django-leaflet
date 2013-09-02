@@ -16,17 +16,22 @@ L.FieldStore = L.Class.extend({
     },
 
     _serialize: function (layer) {
-        var items = layer.getLayers(),
+        var items = typeof(layer.getLayers) == 'function' ? layer.getLayers() : [layer],
             is_empty = items.length === 0,
             is_multi = this.options.is_collection || items.length > 1,
             wkt = new Wkt.Wkt();
 
-        if (!is_empty) {
-            var geom = is_multi ? layer : items[0];
-            wkt.fromObject(geom);
-            return this.prefix + wkt.write();
+        if (is_empty)
+            return '';
+
+        if (is_multi && this.options.is_generic) {
+            // Wicket does not support GeometryCollection. Do it here.
+            return this.__serialize_geometrycollection(layer);
         }
-        return '';
+
+        var geom = is_multi ? layer : items[0];
+        wkt.fromObject(geom);
+        return this.prefix + wkt.write();
     },
 
     _deserialize: function (value) {
@@ -40,7 +45,19 @@ L.FieldStore = L.Class.extend({
         } catch (e) {  // Ignore empty or malformed WKT strings
         }
         return null;
-    }
+    },
+
+    __serialize_geometrycollection: function (layer) {
+        var is_collection = this.options.is_collection;
+        this.options.is_collection = false;
+        var wkts = [];
+        layer.eachLayer(function (l) {
+            var ewkt = this._serialize(l);
+            wkts.push(ewkt.replace(this.prefix, ''));
+        }, this);
+        this.options.is_collection = is_collection;
+        return this.prefix + 'GEOMETRYCOLLECTION(' + wkts.join(',') + ')';
+    },
 });
 
 

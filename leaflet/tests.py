@@ -99,7 +99,7 @@ class LeafletWidgetRenderingTest(SimpleTestCase):
 class LeafletFieldsWidgetsTest(SimpleTestCase):
     def test_default_widget(self):
         for typ in ['Geometry', 'Point', 'MultiPoint', 'LineString', 'Polygon', 
-                    'MultiLineString', 'MultiPolygon']:
+                    'MultiLineString', 'MultiPolygon', 'GeometryCollection']:
             f = getattr(fields, typ + 'Field')()
         self.assertEquals(f.widget.attrs['geom_type'], typ.upper())
 
