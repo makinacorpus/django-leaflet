@@ -1,7 +1,7 @@
 {% load static leaflet_tags %}
 
 <style type="text/css">{% block map_css %}
-    #{{ id_map }} { width: {{ map_width }}; height: {{ map_height }}; }
+    {% if map_width and map_height %}#{{ id_map }} { width: {{ map_width }}; height: {{ map_height }}; }{% endif %}
     {% if not display_wkt %}#{{ id }} { display: none; }{% endif %}
     {% endblock map_css %}
 </style>

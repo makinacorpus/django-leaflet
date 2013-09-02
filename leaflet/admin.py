@@ -8,8 +8,8 @@ class LeafletGeoAdmin(ModelAdmin):
     widget = LeafletWidget
     map_template = 'leaflet/admin/widget.html'
     modifiable = True
-    map_width = LeafletWidget.map_width
-    map_height = LeafletWidget.map_height
+    map_width = '100%'
+    map_height = '400px'
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         """

@@ -10,8 +10,8 @@ from .. import PLUGINS, PLUGIN_FORMS
 class LeafletWidget(BaseGeometryWidget):
     template_name = 'leaflet/widget.html'
     map_srid = 4326
-    map_width = '100%'
-    map_height = '400px'
+    map_width = None
+    map_height = None
     modifiable = True
     supports_3d = False
     include_media = False
