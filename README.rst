@@ -10,6 +10,15 @@ It embeds Leaflet in version *0.6.4*.
     :target: https://coveralls.io/r/makinacorpus/django-leaflet
 
 
+Main purposes of having a python package for the Leaflet Javascript library :
+
+* Install and enjoy ;
+* Do not embed Leaflet assets in every Django project ;
+* Enjoy geometry edition with Leaflet form widget ( *Django* >= 1.6 ) ;
+* Control apparence and settings of maps from Django settings (e.g. at deployment) ;
+* Reuse Leaflet map initialization code (e.g. local projections) ;
+
+
 =======
 INSTALL
 =======
@@ -43,7 +52,7 @@ USAGE
         ...
     </body>
 
-* Your maps shows up!
+* Your map shows up!
 
 
 Use Leaflet API
@@ -56,6 +65,8 @@ grab a reference on the just initialized map and options.
 **Using Javascript callback function**
 
 Simple brutish way :
+
+::
 
     <script type="text/javascript">
         function map_init_basic (map, options) {
@@ -99,6 +110,8 @@ Add it in ``<head>`` this way ::
 Customize map size
 ------------------
 
+CSS is your friend:
+
 ::
 
     <style>
@@ -125,6 +138,8 @@ settings::
     LEAFLET_CONFIG = {
         # conf here
     }
+
+And add some of the following entries.
 
 
 Spatial extent
@@ -244,7 +259,7 @@ To include all plugins configured in ``LEAFLET_CONFIG['PLUGINS']``, use::
 Forms
 =====
 
-With Django>=1.6, a Leaflet widget is provided to edit geometry fields.
+With *Django* >= 1.6, a Leaflet widget is provided to edit geometry fields.
 In previous versions, it falls back to simple text areas.
 
 It embeds *Leaflet.draw* in version *0.2.1dev*.
@@ -308,7 +323,9 @@ everywhere: ::
 
     LEAFLET_CONFIG = {
         'PLUGINS': {
-            'auto-include': True
+            'forms': {
+                'auto-include': True
+            }
         }
     }
 
