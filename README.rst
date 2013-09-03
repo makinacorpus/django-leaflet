@@ -130,7 +130,7 @@ CSS is your friend:
 
 
 Configuration
-=============
+-------------
 
 In order to configure *django-leaflet*, just add a new section in your
 settings::
@@ -143,7 +143,7 @@ And add some of the following entries.
 
 
 Spatial extent
---------------
+~~~~~~~~~~~~~~
 
 You can configure a global spatial extent for your maps, that will
 automatically center your maps, restrict panning and add reset view and scale
@@ -153,7 +153,7 @@ controls. (*See advanced usage to tweak that.*)::
 
 
 Initial map center and zoom level
----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In addition to limiting your maps with ``SPATIAL_EXTENT``, you can also specify
 initial map center and zoom level::
@@ -165,7 +165,7 @@ The tuple/list must contain (lat,lng) coords.
 
 
 Default tiles layer
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 To globally add a tiles layer to your maps::
 
@@ -182,7 +182,7 @@ If it contains several layers, a layer switcher will then be added automatically
 
 
 Attribution prefix
-------------------
+~~~~~~~~~~~~~~~~~~
 
 To globally add an attribution prefix on maps (most likely an empty string) ::
 
@@ -192,14 +192,14 @@ Default is ``None``, which leaves the value to `Leaflet's default <http://leafle
 
 
 Scale control
--------------
+~~~~~~~~~~~~~
 
 Disable scale control with km and miles::
 
     'SCALE': False
 
 Minimap control
----------------
+~~~~~~~~~~~~~~~
 
 Shows a small map in the corner which shows the same as the main map with a 
 set zoom offset::
@@ -212,7 +212,7 @@ By default it shows the tiles of the first layer in the list.
 
 
 Plugins
--------
+~~~~~~~
 
 To ease the usage of plugins, django-leaflet allows specifying a set of plugins, that can
 later be referred to from the template tags by name::
@@ -228,12 +228,12 @@ later be referred to from the template tags by name::
 
 Both 'css' and 'js' support identical features for specifying resource URLs:
 
-    * can be either a plain string or a list of URLs
-    * each string can be:
+* can be either a plain string or a list of URLs
+* each string can be:
 
-        - absolute URL - will be included as-is; **example**: ``http://absolute-url.example.com/path/to/script.js``
-        - a URL beginning from the root - will be included as-is;  **example**: ``/root/path/to/stylesheet.css``
-        - a relative URL - settings.STATIC_URL will be prepended; **example**: ``relative/path/to/stylesheet.css`` will be included as **/static/relative/path/to/stylesheet.css** (depending on your setting for STATIC_URL)
+  * absolute URL - will be included as-is; **example**: ``http://absolute-url.example.com/path/to/script.js``
+  * a URL beginning from the root - will be included as-is;  **example**: ``/root/path/to/stylesheet.css``
+  * a relative URL - settings.STATIC_URL will be prepended; **example**: ``relative/path/to/stylesheet.css`` will be included as **/static/relative/path/to/stylesheet.css** (depending on your setting for STATIC_URL)
 
 Now, use ``leaflet_js`` and ``leaflet_css`` tags to load CSS and JS resources of 
 configured Leaflet plugins.
@@ -246,8 +246,8 @@ To include specific plugins in the page, specify plugin names, comma separated::
 
     <head>
         ...
-        {% leaflet_js  plugins="bouncemarker, draw" %}
-        {% leaflet_css plugins="bouncemarker, draw"%}
+        {% leaflet_js  plugins="bouncemarker,draw" %}
+        {% leaflet_css plugins="bouncemarker,draw" %}
     </head>
 
 To include all plugins configured in ``LEAFLET_CONFIG['PLUGINS']``, use::
@@ -256,8 +256,9 @@ To include all plugins configured in ``LEAFLET_CONFIG['PLUGINS']``, use::
     {% leaflet_css plugins="ALL" %}
 
 
-Forms
-=====
+
+Leaflet map forms widgets
+-------------------------
 
 With *Django* >= 1.6, a Leaflet widget is provided to edit geometry fields.
 In previous versions, it falls back to simple text areas.
@@ -265,8 +266,11 @@ In previous versions, it falls back to simple text areas.
 It embeds *Leaflet.draw* in version *0.2.1dev*.
 
 
+.. image :: https://f.cloud.github.com/assets/546692/1048836/78b6ad94-1094-11e3-86d8-c3e88626a31d.png
+
+
 In Adminsite
-------------
+~~~~~~~~~~~~
 
 ::
 
@@ -279,7 +283,7 @@ In Adminsite
 
 
 In forms
---------
+~~~~~~~~
 
 ::
 
@@ -316,7 +320,7 @@ The related template would look like this:
 
 
 Plugins
--------
+~~~~~~~
 
 It's possible to add extras JS/CSS or auto-include *forms* plugins
 everywhere: ::
@@ -333,7 +337,7 @@ everywhere: ::
 
 
 Details
--------
+~~~~~~~
 
 * It relies on global settings for map initialization.
 * It works with local map projections. But SRID is specified globally
@@ -342,11 +346,13 @@ Details
 * Javascript component for Leaflet.draw behaviour initialization is pluggable.
 
 
+
 Advanced usage
-==============
+--------------
+
 
 ``{% leaflet_map %}`` tag parameters
-------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * ``callback``: javascript function name for initialization callback.
   (Default: None).
@@ -367,7 +373,7 @@ Advanced usage
 
 
 Projection
-----------
+~~~~~~~~~~
 
 It is possible to setup the map spatial reference in ``LEAFLET_CONFIG``::
 
@@ -402,6 +408,14 @@ Example of TileCache configuration compatible with Leaflet:
 By default, *django-leaflet* will try to load the spatial reference from your static
 files at "proj4js/{{ srid }}.js". If it fails, it will eventually rely on
 `<spatialreference.org>`_.
+
+
+=========
+TUTORIALS
+=========
+
+* `GeoDjango maps with Leaflet <http://blog.mathieu-leplatre.info/geodjango-maps-with-leaflet.html>`_
+
 
 =======
 AUTHORS
