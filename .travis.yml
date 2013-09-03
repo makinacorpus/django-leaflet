@@ -8,6 +8,18 @@ env:
   - DJANGO_VERSION=1.5.1
 
 install:
+   # GeoDjango dependencies
+ - sudo apt-get install -y python-software-properties
+ - sudo apt-add-repository -y ppa:ubuntugis/ppa
+ - sudo apt-get update > /dev/null
+ - sudo apt-get install -y libgdal-dev libproj-dev libgeos-dev libspatialite-dev
+ - wget http://pysqlite.googlecode.com/files/pysqlite-2.6.3.tar.gz
+ - tar -zxvf pysqlite-2.6.3.tar.gz
+ - cd pysqlite-2.6.3
+ - sed -i "s/define=SQLITE_OMIT_LOAD_EXTENSION//g" setup.cfg
+ - python setup.py install
+ - cd ..
+
    # This is a dependency of our Django test script
  - pip install argparse --use-mirrors
 

@@ -1,0 +1,21 @@
+{% extends "leaflet/widget.html" %}
+
+{% block map_css %}
+    {{ block.super }}
+
+    /* Fixes for Django base.css */
+    .module .leaflet-draw ul {
+        margin-left: 0px;
+        padding-left: 0px;
+    }
+    .module .leaflet-draw ul li {
+        list-style-type: none;
+    }
+{% endblock map_css %}
+
+
+{% block map %}
+<div id="{{ id }}_div_map">
+    {{ block.super }}
+</div>
+{% endblock map %}

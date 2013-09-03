@@ -70,18 +70,18 @@ if SRID == 3857:  # Leaflet's default, do not setup custom projection machinery
     SRID = None
 
 
-DEFAULT_CENTER = app_settings.get('DEFAULT_CENTER', None)
+DEFAULT_CENTER = app_settings['DEFAULT_CENTER']
 if DEFAULT_CENTER is not None and not (isinstance(DEFAULT_CENTER, (list, tuple)) and len(DEFAULT_CENTER) == 2):
     raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_CENTER'] must be an list/tuple with two elements - (lon, lat)")
 
 
-DEFAULT_ZOOM = app_settings.get("DEFAULT_ZOOM", None)
+DEFAULT_ZOOM = app_settings['DEFAULT_ZOOM']
 if DEFAULT_ZOOM is not None and not (isinstance(DEFAULT_ZOOM, int) and (1 <= DEFAULT_ZOOM <= 24)):
     raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_ZOOM'] must be an int between 1 and 24.")
 
 
-PLUGINS = app_settings.get("PLUGINS", None)
-if PLUGINS is not None and not (isinstance(PLUGINS, dict) and all(map(lambda el: isinstance(el, dict), PLUGINS.itervalues()))):
+PLUGINS = app_settings['PLUGINS']
+if not (isinstance(PLUGINS, dict) and all([isinstance(el, dict) for el in PLUGINS.values()])):
     error_msg = """LEAFLET_CONFIG['PLUGINS'] must be dict of dicts in the format:
     { '[plugin_name]': { 'js': '[path-to-js]', 'css': '[path-to-css]' } } .)"""
     raise ImproperlyConfigured(error_msg)
@@ -89,6 +89,19 @@ if PLUGINS is not None and not (isinstance(PLUGINS, dict) and all(map(lambda el:
 PLUGIN_ALL = 'ALL'
 PLUGINS_DEFAULT = '__default__'
 
+# Add plugins required for forms (not auto-included)
+PLUGIN_FORMS = 'forms'
+_forms_js = ['leaflet/leaflet.js',
+             'leaflet/draw/leaflet.draw.js',
+             'leaflet/leaflet.extras.js',
+             'leaflet/leaflet.forms.js']
+_forms_css = ['leaflet/leaflet.css',
+              'leaflet/draw/leaflet.draw.css']
+_forms_plugins = PLUGINS.setdefault(PLUGIN_FORMS, {})
+_forms_plugins.setdefault('js', []).extend(_forms_js)
+_forms_plugins.setdefault('css', []).extend(_forms_css)
+_forms_plugins.setdefault('auto-include', False)
+PLUGINS[PLUGIN_FORMS] = _forms_plugins
 
 # Take advantage of plugin system for Leaflet.MiniMap
 if app_settings.get('MINIMAP'):
