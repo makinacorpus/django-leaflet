@@ -247,14 +247,13 @@ Forms
 With Django>=1.6, a Leaflet widget is provided to edit geometry fields.
 In previous versions, it falls back to simple text areas.
 
-It embeds Leaflet.draw in version *0.2.1dev*.
+It embeds *Leaflet.draw* in version *0.2.1dev*.
 
 
 In Adminsite
 ------------
 
 ::
-
 
     from leaflet.admin import LeafletGeoAdmin
 
@@ -268,6 +267,7 @@ In forms
 --------
 
 ::
+
     from django import forms
 
     from leaflet.forms.fields import PointField
