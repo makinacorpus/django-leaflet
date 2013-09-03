@@ -1,5 +1,4 @@
 from django.test import SimpleTestCase
-from django.db import models
 from django.contrib.gis.db import models as gismodels
 
 from . import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config
@@ -98,7 +97,7 @@ class LeafletWidgetRenderingTest(SimpleTestCase):
 
 class LeafletFieldsWidgetsTest(SimpleTestCase):
     def test_default_widget(self):
-        for typ in ['Geometry', 'Point', 'MultiPoint', 'LineString', 'Polygon', 
+        for typ in ['Geometry', 'Point', 'MultiPoint', 'LineString', 'Polygon',
                     'MultiLineString', 'MultiPolygon', 'GeometryCollection']:
             f = getattr(fields, typ + 'Field')()
         self.assertEquals(f.widget.attrs['geom_type'], typ.upper())

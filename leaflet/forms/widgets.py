@@ -2,7 +2,7 @@ from django import forms
 try:
     from django.contrib.gis.forms.widgets import BaseGeometryWidget
 except ImportError:
-    from django.forms.widgets import Textarea as BaseGeometryWidget  # fallback
+    from django.forms.widgets import Textarea as BaseGeometryWidget  # noqa
 
 from .. import PLUGINS, PLUGIN_FORMS
 

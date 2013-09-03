@@ -17,8 +17,8 @@ class LeafletGeoAdmin(ModelAdmin):
         Overloaded from ModelAdmin to set Leaflet widget
         in form field init params.
         """
-        if isinstance(db_field, models.GeometryField) and \
-           (db_field.dim < 3 or self.widget.supports_3d):
+        if isinstance(db_field, models.GeometryField) and (db_field.dim < 3 or
+                                                           self.widget.supports_3d):
             kwargs.pop('request', None)  # unsupported for form field
             # Setting the widget with the newly defined widget.
             kwargs['widget'] = self._get_map_widget(db_field)

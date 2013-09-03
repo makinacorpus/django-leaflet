@@ -1,7 +1,7 @@
 try:
     from django.contrib.gis.forms.fields import GeometryField
 except ImportError:
-    from django.forms import Field as GeometryField
+    from django.forms import Field as GeometryField  # noqa
 
 from .widgets import LeafletWidget
 
