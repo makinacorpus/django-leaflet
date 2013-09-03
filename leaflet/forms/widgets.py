@@ -32,12 +32,6 @@ class LeafletWidget(BaseGeometryWidget):
     def serialize(self, value):
         return value.geojson if value else ''
 
-    def deserialize(self, value):
-        value = super(LeafletWidget, self).deserialize(value)
-        if value:
-            value.srid = self.map_srid
-        return value
-
     def render(self, name, value, attrs=None):
         assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
 
