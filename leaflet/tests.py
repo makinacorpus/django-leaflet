@@ -143,7 +143,6 @@ if django.VERSION >= (1, 6, 0):
             self.assertIn('#geometry { display: none; }', output)
             self.assertIn('function geometry_map_callback(map, options)', output)
 
-
     class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
 
         def test_widget_template_overriden(self):

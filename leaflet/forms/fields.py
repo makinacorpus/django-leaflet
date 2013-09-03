@@ -5,7 +5,7 @@ if django.VERSION >= (1, 6, 0):
 else:
     from django.contrib.gis.forms.fields import GeometryField as BaseField
 
-    class GeometryField(BaseField):
+    class GeometryField(BaseField):  # noqa
         geom_type = 'GEOMETRY'
 
         def __init__(self, *args, **kwargs):
