@@ -1,7 +1,12 @@
+import django
 from django.test import SimpleTestCase
+from django.contrib.gis.db import models as gismodels
 
-from leaflet import PLUGINS, _normalize_plugins_config
-from leaflet.templatetags import leaflet_tags
+from . import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config
+from .templatetags import leaflet_tags
+from .admin import LeafletGeoAdmin
+from .forms.widgets import LeafletWidget
+from .forms import fields
 
 
 class PluginListingTest(SimpleTestCase):
@@ -26,6 +31,7 @@ class PluginListingTest(SimpleTestCase):
             'c': {'css': 'c'},
         })
         PLUGINS.pop('ALL')
+        PLUGINS.pop(PLUGIN_FORMS)
         PLUGINS.pop('__is_normalized__')
         _normalize_plugins_config()
 
@@ -45,3 +51,102 @@ class PluginListingTest(SimpleTestCase):
         names = leaflet_tags._get_plugin_names('a,c')
         resources = leaflet_tags._get_all_resources_for_plugins(names, 'css')
         self.assertEquals(['a', 'c'], sorted(resources))
+
+
+class LeafletWidgetRenderingTest(SimpleTestCase):
+    def test_default_media(self):
+        widget = LeafletWidget()
+        media = widget.media
+        self.assertEquals([], media.render_js())
+        self.assertEquals([], list(media.render_css()))
+
+    def test_admin_media(self):
+        class LeafletWidgetMedia(LeafletWidget):
+            include_media = True
+
+        widget = LeafletWidgetMedia()
+        media = widget.media
+        media_js = "".join(media.render_js())
+        media_css = "".join(media.render_css())
+        self.assertIn('leaflet/leaflet.js', media_js)
+        self.assertIn('leaflet/leaflet.extras.js', media_js)
+        self.assertIn('leaflet/leaflet.forms.js', media_js)
+        self.assertIn('leaflet/draw/leaflet.draw.js', media_js)
+
+        self.assertIn('leaflet/leaflet.css', media_css)
+        self.assertIn('leaflet/draw/leaflet.draw.css', media_css)
+
+
+class LeafletFieldsWidgetsTest(SimpleTestCase):
+    def test_default_widget(self):
+        for typ in ['Geometry', 'Point', 'MultiPoint', 'LineString', 'Polygon',
+                    'MultiLineString', 'MultiPolygon', 'GeometryCollection']:
+            f = getattr(fields, typ + 'Field')()
+        self.assertEquals(f.widget.attrs['geom_type'], typ.upper())
+
+
+class DummyModel(gismodels.Model):
+    geom = gismodels.PointField()
+
+
+class LeafletGeoAdminTest(SimpleTestCase):
+    def setUp(self):
+        self.modeladmin = LeafletGeoAdmin(DummyModel, None)
+        self.geomfield = DummyModel._meta.get_field('geom')
+        self.formfield = self.modeladmin.formfield_for_dbfield(self.geomfield)
+
+    def test_widget_for_field(self):
+        widget = self.formfield.widget
+        self.assertTrue(issubclass(widget.__class__, LeafletWidget))
+
+    def test_widget_parameters(self):
+        widget = self.formfield.widget
+        self.assertEquals(widget.geom_type, 'POINT')
+        self.assertFalse(widget.map_height is None)
+        self.assertFalse(widget.map_width is None)
+        self.assertTrue(widget.modifiable)
+
+    def test_widget_media(self):
+        widget = self.formfield.widget
+        media = widget.media
+        media_js = "".join(media.render_js())
+        media_css = "".join(media.render_css())
+        self.assertIn('leaflet/leaflet.js', media_js)
+        self.assertIn('leaflet/leaflet.extras.js', media_js)
+        self.assertIn('leaflet/leaflet.forms.js', media_js)
+        self.assertIn('leaflet/draw/leaflet.draw.js', media_js)
+
+        self.assertIn('leaflet/leaflet.css', media_css)
+        self.assertIn('leaflet/draw/leaflet.draw.css', media_css)
+
+
+if django.VERSION >= (1, 6, 0):
+
+    class LeafletWidgetMapTest(SimpleTestCase):
+
+        def test_default_parameters(self):
+            widget = LeafletWidget()
+            output = widget.render('geom', '', {'id': 'geom'})
+            self.assertIn(".fieldid = 'geom'", output)
+            self.assertIn(".srid = 4326", output)
+            self.assertIn(".geom_type = 'Geometry'", output)
+            self.assertIn('#geom { display: none; }', output)
+            self.assertIn('function geom_map_callback(map, options)', output)
+
+        def test_overriden_parameters(self):
+            class PolygonWidget(LeafletWidget):
+                geom_type = 'POLYGON'
+            widget = PolygonWidget()
+            output = widget.render('geometry', '', {'id': 'geometry'})
+            self.assertIn(".fieldid = 'geometry'", output)
+            self.assertIn(".geom_type = 'Polygon'", output)
+            self.assertIn('#geometry { display: none; }', output)
+            self.assertIn('function geometry_map_callback(map, options)', output)
+
+    class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
+
+        def test_widget_template_overriden(self):
+            widget = self.formfield.widget
+            output = widget.render('geom', '', {'id': 'geom'})
+            self.assertIn(".module .leaflet-draw ul", output)
+            self.assertIn('<div id="geom_div_map">', output)

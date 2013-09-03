@@ -1,0 +1,34 @@
+{% load static leaflet_tags %}
+
+<style type="text/css">{% block map_css %}
+    {% if map_width and map_height %}#{{ id_map }} { width: {{ map_width }}; height: {{ map_height }}; }{% endif %}
+    {% if not display_raw %}#{{ id }} { display: none; }{% endif %}
+    {% endblock map_css %}
+</style>
+
+<script type="text/javascript">
+    {% block constants %}
+    {% include "leaflet/_leaflet_draw_i18n.js" %}
+    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
+    {% endblock constants %}
+
+    {% block vars %}var {{ module }} = {};
+    {{ module }}.fieldid = '{{ id }}';
+    {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};
+    {{ module }}.geom_type = '{{ geom_type }}';
+    {{ module }}.srid = {{ map_srid }};
+    {{ module }}.store_class = {{ field_store_class }};
+    {% endblock vars %}
+
+    function {{ id_map_callback }}(map, options) {
+        (new {{ geometry_field_class}}({{ module }})).addTo(map);
+        {% block callback %}{% endblock callback %}
+    };
+</script>
+
+{% block map %}
+    {% leaflet_map id_map callback=id_map_callback %}
+{% endblock map %}
+
+{% if display_raw %}<p> Geometry:</p>{% endif %}
+<textarea id="{{ id }}" class="vWKTField required" cols="150" rows="10" name="{{ name }}">{{ serialized }}</textarea>
