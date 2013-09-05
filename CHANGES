@@ -6,6 +6,7 @@ CHANGELOG
 ------------------
 
 * Renamed Leaflet map fragment template
+* Leaflet map geometry widgets for adminsite and forms (requires Django 1.6)
 
 0.7.5 (unreleased)
 ------------------
