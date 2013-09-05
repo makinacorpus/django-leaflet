@@ -1,4 +1,5 @@
 include README.rst CHANGES LICENSE
+recursive-include leaflet/forms *.py
 recursive-include leaflet/locale *.mo
 recursive-include leaflet/templates *.html *.js
 recursive-include leaflet/static *.js
