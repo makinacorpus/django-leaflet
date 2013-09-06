@@ -23,9 +23,19 @@ Main purposes of having a python package for the Leaflet Javascript library :
 INSTALL
 =======
 
+Last stable version:
+
 ::
 
     pip install django-leaflet
+
+
+Last development version (master branch):
+
+::
+
+    pip install -e git+https://github.com/makinacorpus/django-leaflet.git#egg=django-leaflet
+
 
 =====
 USAGE
