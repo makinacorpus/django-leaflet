@@ -303,17 +303,18 @@ In forms
 
 
     class WeatherStationForm(forms.ModelForm):
-        geom = PointField()
 
         class Meta:
             model = WeatherStation
             fields = ('name', 'geom')
+            widgets = {'geom': LeafletWidget()}
 
 
 The related template would look like this:
 
 ::
 
+    {% load leaflet_tags %}
     <html>
       <head>
        {% leaflet_js plugins="forms" %}
