@@ -35,6 +35,9 @@ class LeafletWidget(BaseGeometryWidget):
     def render(self, name, value, attrs=None):
         assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
 
+        # Retrieve params from Field init (if any)
+        self.geom_type = self.attrs.get('geom_type', self.geom_type)
+
         attrs = attrs or {}
 
         # In BaseGeometryWidget, geom_type is set using gdal, and fails with generic.

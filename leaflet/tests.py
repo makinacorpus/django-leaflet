@@ -144,6 +144,28 @@ if django.VERSION >= (1, 6, 0):
             self.assertIn('#geometry { display: none; }', output)
             self.assertIn('function geometry_map_callback(map, options)', output)
 
+
+    class LeafletModelFormTest(SimpleTestCase):
+
+        def test_modelform_field_conformity(self):
+            class DummyForm(django.forms.ModelForm):
+                geom = fields.PointField()
+                class Meta:
+                    model = DummyModel
+            form = DummyForm()
+            output = form.as_p()
+            self.assertIn(".geom_type = 'Point'", output)
+
+        def test_modelform_widget_conformity(self):
+            class DummyForm(django.forms.ModelForm):
+                class Meta:
+                    model = DummyModel
+                    widgets = {'geom': LeafletWidget()}
+            form = DummyForm()
+            output = form.as_p()
+            self.assertIn(".geom_type = 'Point'", output)
+
+
     class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
 
         def test_widget_template_overriden(self):
