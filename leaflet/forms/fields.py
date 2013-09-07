@@ -1,53 +1,53 @@
 import django
 
 if django.VERSION >= (1, 6, 0):
-    from django.contrib.gis.forms.fields import GeometryField
+    from django.contrib.gis.forms.fields import GeometryField as BaseGeometryField
 else:
     from django.contrib.gis.forms.fields import GeometryField as BaseField
 
-    class GeometryField(BaseField):  # noqa
+    class BaseGeometryField(BaseField):  # noqa
         geom_type = 'GEOMETRY'
 
         def __init__(self, *args, **kwargs):
             kwargs['geom_type'] = self.geom_type
-            super(GeometryField, self).__init__(*args, **kwargs)
+            super(BaseGeometryField, self).__init__(*args, **kwargs)
 
 
 from .widgets import LeafletWidget
 
 
-class LeafletGeometryField(GeometryField):
+class GeometryField(BaseGeometryField):
     widget = LeafletWidget
     geom_type = 'GEOMETRY'
 
     def __init__(self, *args, **kwargs):
-        super(LeafletGeometryField, self).__init__(*args, **kwargs)
+        super(GeometryField, self).__init__(*args, **kwargs)
         self.widget.geom_type = self.geom_type
 
 
-class GeometryCollectionField(LeafletGeometryField):
+class GeometryCollectionField(GeometryField):
     geom_type = 'GEOMETRYCOLLECTION'
 
 
-class PointField(LeafletGeometryField):
+class PointField(GeometryField):
     geom_type = 'POINT'
 
 
-class MultiPointField(LeafletGeometryField):
+class MultiPointField(GeometryField):
     geom_type = 'MULTIPOINT'
 
 
-class LineStringField(LeafletGeometryField):
+class LineStringField(GeometryField):
     geom_type = 'LINESTRING'
 
 
-class MultiLineStringField(LeafletGeometryField):
+class MultiLineStringField(GeometryField):
     geom_type = 'MULTILINESTRING'
 
 
-class PolygonField(LeafletGeometryField):
+class PolygonField(GeometryField):
     geom_type = 'POLYGON'
 
 
-class MultiPolygonField(LeafletGeometryField):
+class MultiPolygonField(GeometryField):
     geom_type = 'MULTIPOLYGON'
