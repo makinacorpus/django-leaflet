@@ -82,7 +82,8 @@ class LeafletFieldsWidgetsTest(SimpleTestCase):
         for typ in ['Geometry', 'Point', 'MultiPoint', 'LineString', 'Polygon',
                     'MultiLineString', 'MultiPolygon', 'GeometryCollection']:
             f = getattr(fields, typ + 'Field')()
-        self.assertEquals(f.widget.geom_type, typ.upper())
+            self.assertTrue(isinstance(f.widget, LeafletWidget))
+            self.assertEquals(f.widget.geom_type, typ.upper())
 
 
 class DummyModel(gismodels.Model):
