@@ -7,6 +7,7 @@ CHANGELOG
 
 * Renamed Leaflet map fragment template
 * Leaflet map geometry widgets for adminsite and forms (requires Django 1.6)
+* Fix geometry type restriction in form fields (fixes #32)
 
 0.7.4 (2013-08-28)
 ------------------

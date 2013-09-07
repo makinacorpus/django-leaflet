@@ -11,7 +11,6 @@ else:
         def __init__(self, *args, **kwargs):
             kwargs['geom_type'] = self.geom_type
             super(GeometryField, self).__init__(*args, **kwargs)
-            self.widget.attrs['geom_type'] = self.geom_type
 
 
 from .widgets import LeafletWidget
@@ -20,6 +19,10 @@ from .widgets import LeafletWidget
 class LeafletGeometryField(GeometryField):
     widget = LeafletWidget
     geom_type = 'GEOMETRY'
+
+    def __init__(self, *args, **kwargs):
+        super(LeafletGeometryField, self).__init__(*args, **kwargs)
+        self.widget.geom_type = self.geom_type
 
 
 class GeometryCollectionField(LeafletGeometryField):
