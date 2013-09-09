@@ -299,7 +299,7 @@ In forms
 
     from django import forms
 
-    from leaflet.forms.fields import PointField
+    from leaflet.forms.widgets import LeafletWidget
 
 
     class WeatherStationForm(forms.ModelForm):
