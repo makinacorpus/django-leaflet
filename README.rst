@@ -74,7 +74,7 @@ grab a reference on the just initialized map and options.
 
 **Using Javascript callback function**
 
-Simple brutish way :
+The easy way :
 
 ::
 
@@ -91,7 +91,7 @@ Simple brutish way :
 
 **Using events**
 
-More refined and flexible :
+If you don't want to expose global callbacks :
 
 ::
 
