@@ -91,12 +91,10 @@ PLUGINS_DEFAULT = '__default__'
 
 # Add plugins required for forms (not auto-included)
 PLUGIN_FORMS = 'forms'
-_forms_js = ['leaflet/leaflet.js',
-             'leaflet/draw/leaflet.draw.js',
+_forms_js = ['leaflet/draw/leaflet.draw.js',
              'leaflet/leaflet.extras.js',
              'leaflet/leaflet.forms.js']
-_forms_css = ['leaflet/leaflet.css',
-              'leaflet/draw/leaflet.draw.css']
+_forms_css = ['leaflet/draw/leaflet.draw.css']
 _forms_plugins = PLUGINS.setdefault(PLUGIN_FORMS, {})
 _forms_plugins.setdefault('js', []).extend(_forms_js)
 _forms_plugins.setdefault('css', []).extend(_forms_css)

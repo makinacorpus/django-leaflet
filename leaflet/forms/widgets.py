@@ -25,8 +25,10 @@ class LeafletWidget(BaseGeometryWidget):
         if not self.include_media:
             return forms.Media()
 
-        js = PLUGINS[PLUGIN_FORMS]['js']
-        css = PLUGINS[PLUGIN_FORMS]['css']
+        # We assume that including media for widget means there is
+        # no Leaflet at all in the page.
+        js = 'leaflet/leaflet.js' + PLUGINS[PLUGIN_FORMS]['js']
+        css = 'leaflet/leaflet.css' + PLUGINS[PLUGIN_FORMS]['css']
         return forms.Media(js=js, css={'screen': css})
 
     def serialize(self, value):

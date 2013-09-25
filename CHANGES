@@ -5,7 +5,7 @@ CHANGELOG
 0.8.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+* Fix Leaflet library inclusion with "plugins=ALL" outside Admin.
 
 
 0.8.0 (2013-09-18)
@@ -67,7 +67,7 @@ CHANGELOG
   Use ``TILES`` instead.
 
 * Settings lookup is restricted to ``LEAFLET_CONFIG`` dict. Most notably,
-  ``SRID``, ``MAP_SRID`` and ``SPATIAL_EXTENT`` at global Django settings level 
+  ``SRID``, ``MAP_SRID`` and ``SPATIAL_EXTENT`` at global Django settings level
   are discouraged.
 
 **New features**
@@ -136,7 +136,7 @@ CHANGELOG
 0.1.0 (2012-08-13)
 ------------------
 
-* Initial support for map projection 
+* Initial support for map projection
 * Show zoom scale by default
 * Spatial extent configuration
 * Initialization callback instead of global JS variable
