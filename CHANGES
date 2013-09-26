@@ -7,6 +7,7 @@ CHANGELOG
 
 * Fix Leaflet library inclusion with "plugins=ALL" outside Admin.
 * Do not include translations in every widgets outside Admin.
+* Fix syntax error if form widget translations contains quotes.
 
 0.8.0 (2013-09-18)
 ------------------
