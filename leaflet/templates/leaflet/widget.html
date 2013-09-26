@@ -7,11 +7,6 @@
 </style>
 
 <script type="text/javascript">
-    {% block constants %}
-    {% include "leaflet/_leaflet_draw_i18n.js" %}
-    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
-    {% endblock constants %}
-
     {% block vars %}var {{ module }} = {};
     {{ module }}.fieldid = '{{ id }}';
     {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};

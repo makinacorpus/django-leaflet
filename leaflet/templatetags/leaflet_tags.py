@@ -3,7 +3,8 @@ import json
 from django import template
 from django.conf import settings
 
-from leaflet import app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT
+from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
+                     PLUGIN_ALL, PLUGIN_FORMS)
 
 
 register = template.Library()
@@ -32,10 +33,12 @@ def leaflet_js(plugins=None):
     :return:
     """
     plugin_names = _get_plugin_names(plugins)
+    with_forms = PLUGIN_FORMS in plugin_names or PLUGIN_ALL in plugin_names
     return {
         "DEBUG": settings.TEMPLATE_DEBUG,
         "SRID": SRID,
         "PLUGINS_JS": _get_all_resources_for_plugins(plugin_names, 'js'),
+        "with_forms": with_forms
     }
 
 
