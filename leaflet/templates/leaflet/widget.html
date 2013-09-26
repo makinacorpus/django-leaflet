@@ -12,10 +12,10 @@
     {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};
     {{ module }}.geom_type = '{{ geom_type }}';
     {{ module }}.srid = {{ map_srid }};
-    {{ module }}.store_class = {{ field_store_class }};
     {% endblock vars %}
 
     function {{ id_map_callback }}(map, options) {
+        {{ module }}.store_class = {{ field_store_class }};
         (new {{ geometry_field_class}}({{ module }})).addTo(map);
         {% block callback %}{% endblock callback %}
     };
