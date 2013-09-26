@@ -3,6 +3,12 @@ in your `Django <https://www.djangoproject.com>`_ projects.
 
 It embeds Leaflet in version *0.6.4*.
 
+.. image:: https://pypip.in/v/django-leaflet/badge.png
+        :target: https://pypi.python.org/pypi/django-leaflet
+
+.. image:: https://pypip.in/d/django-leaflet/badge.png
+        :target: https://pypi.python.org/pypi/django-leaflet
+
 .. image:: https://travis-ci.org/makinacorpus/django-leaflet.png
     :target: https://travis-ci.org/makinacorpus/django-leaflet
 
@@ -46,7 +52,7 @@ USAGE
 * Add the HTML header::
 
     {% load leaflet_tags %}
-    
+
     <head>
         ...
         {% leaflet_js %}
@@ -54,7 +60,7 @@ USAGE
     </head>
 
 * Add the map in your page, providing a name::
-    
+
     ...
     <body>
         ...
@@ -125,16 +131,16 @@ CSS is your friend:
 ::
 
     <style>
-    
+
         .leaflet-container {  /* all maps */
             width:  600px;
             height: 400px;
         }
-        
+
         #specialbigmap {
             height: 800px;
         }
-        
+
     </style>
 
 
@@ -211,7 +217,7 @@ Disable scale control with km and miles::
 Minimap control
 ~~~~~~~~~~~~~~~
 
-Shows a small map in the corner which shows the same as the main map with a 
+Shows a small map in the corner which shows the same as the main map with a
 set zoom offset::
 
     'MINIMAP': True
@@ -245,7 +251,7 @@ Both 'css' and 'js' support identical features for specifying resource URLs:
   * a URL beginning from the root - will be included as-is;  **example**: ``/root/path/to/stylesheet.css``
   * a relative URL - settings.STATIC_URL will be prepended; **example**: ``relative/path/to/stylesheet.css`` will be included as **/static/relative/path/to/stylesheet.css** (depending on your setting for STATIC_URL)
 
-Now, use ``leaflet_js`` and ``leaflet_css`` tags to load CSS and JS resources of 
+Now, use ``leaflet_js`` and ``leaflet_css`` tags to load CSS and JS resources of
 configured Leaflet plugins.
 
 By default only plugins with ``'auto-include'`` as True will be included.
