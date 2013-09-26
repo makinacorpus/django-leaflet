@@ -2,8 +2,6 @@ L.FieldStore = L.Class.extend({
     initialize: function (fieldid, options) {
         this.formfield = document.getElementById(fieldid);
         L.setOptions(this, options);
-
-        this.prefix = 'SRID=' + this.options.srid + ';';
     },
 
     load: function () {
