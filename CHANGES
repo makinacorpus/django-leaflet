@@ -9,6 +9,7 @@ CHANGELOG
 * Do not include translations in every widgets outside Admin.
 * Fix syntax error if form widget translations contains quotes.
 * Fix dependency error if Leaflet is loaded after the form widget in the DOM.
+* Respect plugins declaration order using OrderedDicts
 
 0.8.0 (2013-09-18)
 ------------------

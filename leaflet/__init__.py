@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 import urlparse
 import warnings
+from collections import OrderedDict
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -24,7 +25,7 @@ app_settings = dict({
     'MINIMAP': False,
     'RESET_VIEW': True,
     'NO_GLOBALS': True,
-    'PLUGINS': {},
+    'PLUGINS': OrderedDict(),
 }, **LEAFLET_CONFIG)
 
 
@@ -124,8 +125,8 @@ def _normalize_plugins_config():
         return
 
     listed_plugins = PLUGINS.keys()
-    PLUGINS[PLUGINS_DEFAULT] = dict()
-    PLUGINS[PLUGIN_ALL] = dict()
+    PLUGINS[PLUGINS_DEFAULT] = OrderedDict()
+    PLUGINS[PLUGIN_ALL] = OrderedDict()
 
     RESOURCE_TYPE_KEYS = ['css', 'js']
 
