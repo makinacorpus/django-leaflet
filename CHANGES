@@ -10,6 +10,7 @@ CHANGELOG
 * Fix syntax error if form widget translations contains quotes.
 * Fix dependency error if Leaflet is loaded after the form widget in the DOM.
 * Respect plugins declaration order using OrderedDicts
+* Prepend forms assets (instead of extend) if PLUGINS['forms'] already exists.
 
 0.8.0 (2013-09-18)
 ------------------

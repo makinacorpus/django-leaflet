@@ -89,16 +89,17 @@ if not (isinstance(PLUGINS, dict) and all([isinstance(el, dict) for el in PLUGIN
 
 PLUGIN_ALL = 'ALL'
 PLUGINS_DEFAULT = '__default__'
+PLUGIN_FORMS = 'forms'
 
 # Add plugins required for forms (not auto-included)
-PLUGIN_FORMS = 'forms'
+# Assets will be preprended to any existing entry in PLUGINS['forms']
 _forms_js = ['leaflet/draw/leaflet.draw.js',
              'leaflet/leaflet.extras.js',
              'leaflet/leaflet.forms.js']
 _forms_css = ['leaflet/draw/leaflet.draw.css']
 _forms_plugins = PLUGINS.setdefault(PLUGIN_FORMS, {})
-_forms_plugins.setdefault('js', []).extend(_forms_js)
-_forms_plugins.setdefault('css', []).extend(_forms_css)
+_forms_plugins['js'] = _forms_js + _forms_plugins.get('js', [])
+_forms_plugins['css'] = _forms_css + _forms_plugins.get('css', [])
 _forms_plugins.setdefault('auto-include', False)
 PLUGINS[PLUGIN_FORMS] = _forms_plugins
 
