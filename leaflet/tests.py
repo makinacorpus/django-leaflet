@@ -60,7 +60,7 @@ class LeafletWidgetRenderingTest(SimpleTestCase):
         self.assertEquals([], media.render_js())
         self.assertEquals([], list(media.render_css()))
 
-    def test_admin_media(self):
+    def test_included_media(self):
         class LeafletWidgetMedia(LeafletWidget):
             include_media = True
 
