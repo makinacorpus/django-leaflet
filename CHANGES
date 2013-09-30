@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.8.1 (unreleased)
+0.8.1 (2013-09-30)
 ------------------
 
 * Fix Leaflet library inclusion with "plugins=ALL" outside Admin.
