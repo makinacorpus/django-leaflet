@@ -132,6 +132,7 @@ L.GeometryField = L.Class.extend({
             }
         }
         this._setView();
+        return geometry;
     },
 
     _setView: function () {
