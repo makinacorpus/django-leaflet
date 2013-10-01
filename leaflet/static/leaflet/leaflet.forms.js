@@ -16,6 +16,7 @@ L.FieldStore = L.Class.extend({
     _serialize: function (layer) {
         var items = typeof(layer.getLayers) == 'function' ? layer.getLayers() : [layer],
             is_multi = this.options.is_collection || items.length > 1,
+            is_generic = this.options.is_generic,
             is_empty = items.length === 0;
 
         if (is_empty)
@@ -26,7 +27,7 @@ L.FieldStore = L.Class.extend({
             throw 'Unsupported layer type ' + geom.constructor.name;
         }
         var geojson = geom.toGeoJSON();
-        if (is_multi) {
+        if (is_multi && is_generic) {
             var flat = {type: 'GeometryCollection', geometries: []};
             for (var i=0; i < geojson.features.length; i++) {
                 flat.geometries.push(geojson.features[i].geometry);

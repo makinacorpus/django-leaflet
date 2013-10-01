@@ -5,7 +5,7 @@ CHANGELOG
 0.8.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+* Fix drawing of multi-polygon (fixes #37)
 
 
 0.8.1 (2013-09-30)
