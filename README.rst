@@ -103,17 +103,24 @@ If you don't want to expose global callbacks :
 
     <script type="text/javascript">
         window.addEventListener("map:init", function (e) {
+            var detail = e.detail;
             ...
-            L.marker([50.5, 30.5]).addTo(e.map);
+            L.marker([50.5, 30.5]).addTo(detail.map);
             ...
         }, false);
     </script>
 
 Event object has two properties : ``map`` and ``options`` (initialization).
 
-For Internet Explorer 6,7,8 support, we fallback on jQuery if available ::
+For Internet Explorer support, we fallback on jQuery if available ::
 
-    $(window).on('map:init', function (e) { ... });
+    $(window).on('map:init', function (e) {
+        var detail = e.originalEvent ?
+                     e.originalEvent.detail : e.detail;
+        ...
+        L.marker([50.5, 30.5]).addTo(detail.map);
+        ...
+    });
 
 If you want to support archaic browsers **and** still avoid jQuery,
 *django-leaflet* comes with a minimalist polyfill for events.
