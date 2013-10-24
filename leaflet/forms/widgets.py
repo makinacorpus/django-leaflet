@@ -47,8 +47,9 @@ class LeafletWidget(BaseGeometryWidget):
         if self.geom_type == 'GEOMETRY':
             attrs['geom_type'] = 'Geometry'
 
-        attrs.update(id_map=attrs.get('id', name) + '_map',
-                     id_map_callback=attrs.get('id', name) + '_map_callback',
+        map_id = attrs.get('id', name).replace('-','_')  # JS-safe
+        attrs.update(id_map=map_id + '_map',
+                     id_map_callback=map_id + '_map_callback',
                      modifiable=self.modifiable,
                      geometry_field_class=attrs.get('geometry_field_class', 'L.GeometryField'),
                      field_store_class=attrs.get('field_store_class', 'L.FieldStore'))

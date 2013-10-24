@@ -7,7 +7,7 @@ CHANGELOG
 
 * Fix drawing of multi-polygon (fixes #37)
 * Fix attached data for events with jQuery fallback (fixes #38)
-
+* Fix Javascript syntax errors when using form prefixes (fixes #40)
 
 0.8.1 (2013-09-30)
 ------------------

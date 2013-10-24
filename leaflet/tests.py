@@ -144,6 +144,13 @@ if django.VERSION >= (1, 6, 0):
             self.assertIn('#geometry { display: none; }', output)
             self.assertIn('function geometry_map_callback(map, options)', output)
 
+        def test_javascript_safe_callback_name(self):
+            widget = LeafletWidget()
+            output = widget.render('prefix-geom', '')
+            self.assertIn('function prefix_geom_map_callback(map, options)', output)
+            output = widget.render('geom', '', {'id': 'prefix-geom'})
+            self.assertIn('function prefix_geom_map_callback(map, options)', output)
+
     class LeafletModelFormTest(SimpleTestCase):
 
         def test_modelform_field_conformity(self):
