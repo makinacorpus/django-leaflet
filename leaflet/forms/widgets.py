@@ -8,7 +8,7 @@ except ImportError:
         geom_type = 'GEOMETRY'
         display_raw = False
 
-from .. import PLUGINS, PLUGIN_FORMS
+from leaflet import PLUGINS, PLUGIN_FORMS
 
 
 class LeafletWidget(BaseGeometryWidget):
