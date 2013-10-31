@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.8.2 (unreleased)
+0.8.2 (2013-10-31)
 ------------------
 
 * Fix drawing of multi-polygon (fixes #37)
