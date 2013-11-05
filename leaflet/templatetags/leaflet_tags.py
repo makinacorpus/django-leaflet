@@ -64,7 +64,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
         fitextent=fitextent,
         center=app_settings['DEFAULT_CENTER'],
         zoom=app_settings['DEFAULT_ZOOM'],
-        layers=[(unicode(name), url, attrs) for (name, url, attrs) in app_settings.get('TILES')],
+        layers=[(unicode(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
         attributionprefix=app_settings.get('ATTRIBUTION_PREFIX'),
         scale=app_settings.get('SCALE'),
         minimap=app_settings.get('MINIMAP'),
