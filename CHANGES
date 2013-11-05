@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.8.4 (unreleased)
+0.8.4 (2013-11-05)
 ------------------
 
 * Fix regression in Django leaflet options serialization.
