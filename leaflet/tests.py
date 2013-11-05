@@ -53,6 +53,14 @@ class PluginListingTest(SimpleTestCase):
         self.assertEquals(['a', 'c'], sorted(resources))
 
 
+class TemplateTagTest(SimpleTestCase):
+
+    def test_default_layer_in_leaflet_map(self):
+        context = leaflet_tags.leaflet_map('map')
+        self.assertTrue('"OSM", "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"' in
+                        context['djoptions'])
+
+
 class LeafletWidgetRenderingTest(SimpleTestCase):
     def test_default_media(self):
         widget = LeafletWidget()
