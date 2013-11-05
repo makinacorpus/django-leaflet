@@ -5,7 +5,7 @@ CHANGELOG
 0.8.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+* Switch to lazy gettext in leaflet module init.
 
 
 0.8.2 (2013-10-31)
