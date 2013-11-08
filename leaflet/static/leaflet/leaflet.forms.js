@@ -82,7 +82,6 @@ L.GeometryField = L.Class.extend({
                 return L.GeometryField.unsavedText;
             if (typeof(_beforeunload) == 'function')
                 return _beforeunload();
-            return null;
         }, this);
     },
 
