@@ -5,7 +5,7 @@ CHANGELOG
 0.8.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+* Fix unsaved warning being always triggered on Internet Explorer.
 
 
 0.8.5 (2013-11-05)
