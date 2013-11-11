@@ -18,10 +18,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 msgid "Reset view"
-msgstr ""
+msgstr "Ansicht zurücksetzen"
 
 msgid "OSM"
-msgstr ""
+msgstr "OSM"
 
 msgid "Background"
 msgstr "Hintergrund"
