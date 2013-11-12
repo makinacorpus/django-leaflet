@@ -6,6 +6,7 @@ CHANGELOG
 ------------------
 
 * Fix unsaved warning being always triggered on Internet Explorer.
+* Added DE locale (thanks @rosscdh)
 
 
 0.8.5 (2013-11-05)
