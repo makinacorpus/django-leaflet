@@ -113,6 +113,7 @@ L.GeometryField = L.Class.extend({
             }, this);
         }
 
+        this._drawControl = drawControl;
         this.load();
     },
 

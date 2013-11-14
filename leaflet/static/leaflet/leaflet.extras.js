@@ -199,6 +199,10 @@ L.Map.djangoMap = function (id, options) {
     if (typeof(options.callback) == 'function') {
         setTimeout(function () {
             options.callback(map, options);
+            /*
+             * Trigger custom map:aftercallback Event
+             */
+            triggerEvent(window, 'map:aftercallback', {map: map, options: options});
         }, 0);
     }
 
