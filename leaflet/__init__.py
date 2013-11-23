@@ -1,7 +1,12 @@
 # -*- coding: utf8 -*-
 import urlparse
 import warnings
-from collections import OrderedDict
+
+try:
+    from collections import OrderedDict
+except ImportError:
+    # python 2.6 compatibility (need to install ordereddict package).
+    from ordereddict import OrderedDict
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
