@@ -1,7 +1,12 @@
 import os
 from setuptools import setup, find_packages
+import sys
 
 here = os.path.abspath(os.path.dirname(__file__))
+
+requires = ['Django']
+if sys.version_info < (2, 7):
+    requires += ['ordereddict']
 
 setup(
     name='django-leaflet',
@@ -14,7 +19,7 @@ setup(
     long_description=open(os.path.join(here, 'README.rst')).read() + '\n\n' + 
                      open(os.path.join(here, 'CHANGES')).read(),
     license='LPGL, see LICENSE file.',
-    install_requires=['Django'],
+    install_requires=requires,
     packages=find_packages(),
     include_package_data = True,
     zip_safe = False,
