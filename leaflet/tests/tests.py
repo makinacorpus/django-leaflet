@@ -2,11 +2,11 @@ import django
 from django.test import SimpleTestCase
 from django.contrib.gis.db import models as gismodels
 
-from . import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config
-from .templatetags import leaflet_tags
-from .admin import LeafletGeoAdmin
-from .forms.widgets import LeafletWidget
-from .forms import fields
+from .. import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config
+from ..templatetags import leaflet_tags
+from ..admin import LeafletGeoAdmin
+from ..forms.widgets import LeafletWidget
+from ..forms import fields
 
 
 class PluginListingTest(SimpleTestCase):
