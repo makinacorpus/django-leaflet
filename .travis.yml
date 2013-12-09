@@ -26,12 +26,14 @@ install:
  - pip install flake8 --use-mirrors
 
  - python setup.py develop
+ - npm install --dev leaflet/tests/
 
 before_script:
  - flake8 --ignore=E501 leaflet
 
 script:
  - python quicktest.py leaflet
+ - node node_modules/django-leaflet-tests/node_modules/mocha-phantomjs/bin/mocha-phantomjs leaflet/tests/index.html
 
 after_success:
  - coverage run quicktest.py leaflet

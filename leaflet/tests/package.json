@@ -1,0 +1,13 @@
+{
+    "name": "django-leaflet-tests",
+    "version": "0.8.0",
+    "description": "Fake package for tests purposes only",
+    "dependencies": {
+        "leaflet": "*",
+        "happen": "*",
+        "mocha": "1.9.x",
+        "chai": "1.6.x",
+        "sinon": "1.7.x",
+        "mocha-phantomjs": "2.0.x"
+    }
+}
