@@ -1,0 +1,30 @@
+var assert = chai.assert;
+
+
+describe('Test Leaflet Forms', function() {
+
+    describe('L.FieldStore', function() {
+
+        it("should serialize and store", function () {
+            var store = new L.FieldStore("formfield");
+            store.save(L.polyline([[0, 0], [1, 1]]));
+            assert.equal(store.formfield.value, '{"type":"LineString","coordinates":[[0,0],[1,1]]}');
+        });
+    });
+
+
+    describe('L.GeometryField', function() {
+
+        it("should detect geometry type", function (done) {
+            var field = new L.GeometryField({geom_type: 'GEOMETRY'});
+            assert.isTrue(field.options.is_generic);
+            field = new L.GeometryField({geom_type: 'POLYGON'});
+            assert.isTrue(field.options.is_polygon);
+            field = new L.GeometryField({geom_type: 'LINESTRING'});
+            assert.isTrue(field.options.is_linestring);
+            field = new L.GeometryField({geom_type: 'POINT'});
+            assert.isTrue(field.options.is_point);
+            done();
+        });
+    });
+});
