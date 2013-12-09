@@ -95,7 +95,7 @@ L.GeometryField = L.Class.extend({
         map.addLayer(this.drawnItems);
 
         // Initialize the draw control and pass it the FeatureGroup of editable layers
-        var drawControl = new L.Control.Draw(this._controlDrawOptions());
+        var drawControl = map.drawControl = new L.Control.Draw(this._controlDrawOptions());
 
         if (this.options.modifiable) {
             map.addControl(drawControl);
@@ -114,6 +114,8 @@ L.GeometryField = L.Class.extend({
         }
 
         this.load();
+
+        map.fire('map:loadfield', {field: this, fieldid: this.options.fieldid});
     },
 
     load: function () {
