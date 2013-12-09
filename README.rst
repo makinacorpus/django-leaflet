@@ -233,6 +233,21 @@ By default it shows the tiles of the first layer in the list.
 
 (`More info... <https://github.com/Norkart/Leaflet-MiniMap>`_)
 
+Reset view button
+~~~~~~~~~~~~~~~~~
+By default, a button appears below the zoom controls and, when clicked, shows the entire map.
+To remove this button, set::
+
+    'RESET_VIEW': False
+
+
+Global initialization functions and ``window.maps``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Since 0.7.0, the ``leaflet_map`` template tag no longer registers initialization functions in global scope,
+and no longer adds map objects into ``window.maps`` array by default. To restore these features, use::
+
+    'NO_GLOBALS' = False
+
 
 Plugins
 ~~~~~~~

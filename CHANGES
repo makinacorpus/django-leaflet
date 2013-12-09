@@ -5,7 +5,9 @@ CHANGELOG
 0.8.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+* Fix unsaved warning being always triggered on Internet Explorer.
+* Added DE locale (thanks @rosscdh)
+* Fix installation with python 2.6 (thanks @ollb)
 
 
 0.8.5 (2013-11-05)
