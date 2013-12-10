@@ -1,7 +1,7 @@
 *django-leaflet* allows you to use `Leaflet <http://leafletjs.com>`_
 in your `Django <https://www.djangoproject.com>`_ projects.
 
-It embeds Leaflet in version *0.6.4*.
+It embeds Leaflet in version *0.7.1*.
 
 .. image:: https://pypip.in/v/django-leaflet/badge.png
         :target: https://pypi.python.org/pypi/django-leaflet
@@ -301,7 +301,7 @@ Leaflet map forms widgets
 With *Django* >= 1.6, a Leaflet widget is provided to edit geometry fields.
 In previous versions, it falls back to simple text areas.
 
-It embeds *Leaflet.draw* in version *0.2.1dev*.
+It embeds *Leaflet.draw* in version *0.2.2*.
 
 
 .. image :: https://f.cloud.github.com/assets/546692/1048836/78b6ad94-1094-11e3-86d8-c3e88626a31d.png
