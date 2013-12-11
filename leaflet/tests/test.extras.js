@@ -37,7 +37,8 @@ describe('Test Leaflet Extras', function() {
     describe('L.Map.DjangoMap', function() {
 
         it("should not fail with minimal options", function(done) {
-            new L.Map.DjangoMap('map', {djoptions: {layers: []}});
+            var map = new L.Map.DjangoMap('map', {djoptions: {layers: []}});
+            map.remove();
             done();
         });
 
