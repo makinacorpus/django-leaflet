@@ -16,7 +16,8 @@
 
     function {{ id_map_callback }}(map, options) {
         {{ module }}.store_class = {{ field_store_class }};
-        (new {{ geometry_field_class}}({{ module }})).addTo(map);
+        {{ module }}.geometry_field = new {{ geometry_field_class}}({{ module }});
+        {{ module }}.geometry_field.addTo(map);
         {% block callback %}{% endblock callback %}
     };
 </script>
