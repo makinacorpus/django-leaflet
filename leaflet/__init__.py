@@ -1,7 +1,6 @@
 # -*- coding: utf8 -*-
 from __future__ import unicode_literals
 
-import urlparse
 import warnings
 
 try:
@@ -13,6 +12,7 @@ except ImportError:
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
+from django.utils.six.moves.urllib.parse import urlparse, urljoin
 
 
 DEFAULT_TILES = [(_('OSM'), 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -155,12 +155,12 @@ def _normalize_plugins_config():
 
             # normalize the URLs - see the docstring for details
             for i, url in enumerate(urls):
-                url_parts = urlparse.urlparse(url)
+                url_parts = urlparse(url)
                 if url_parts.scheme or url_parts.path.startswith('/'):
                     # absolute URL or a URL starting at root
                     pass
                 else:
-                    urls[i] = urlparse.urljoin(settings.STATIC_URL, url)
+                    urls[i] = urljoin(settings.STATIC_URL, url)
 
             plugin_dict[resource_type] = urls
 
