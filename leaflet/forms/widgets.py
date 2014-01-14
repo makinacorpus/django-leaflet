@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django import forms
 try:
     from django.contrib.gis.forms.widgets import BaseGeometryWidget
