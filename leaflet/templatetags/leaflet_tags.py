@@ -5,6 +5,7 @@ import json
 
 from django import template
 from django.conf import settings
+from django.utils import six
 
 from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
                      PLUGIN_ALL, PLUGIN_FORMS)
@@ -67,7 +68,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
         fitextent=fitextent,
         center=app_settings['DEFAULT_CENTER'],
         zoom=app_settings['DEFAULT_ZOOM'],
-        layers=[(unicode(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
+        layers=[(six.text_type(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
         attributionprefix=app_settings.get('ATTRIBUTION_PREFIX'),
         scale=app_settings.get('SCALE'),
         minimap=app_settings.get('MINIMAP'),
@@ -107,7 +108,7 @@ def _get_plugin_names(plugin_names_from_tag_parameter):
     :param pluging_names_parameter:
     :return:
     """
-    if isinstance(plugin_names_from_tag_parameter, (str, unicode)):
+    if isinstance(plugin_names_from_tag_parameter, (six.binary_type, six.text_type)):
         names = plugin_names_from_tag_parameter.split(',')
         return [n.strip() for n in names]
     else:

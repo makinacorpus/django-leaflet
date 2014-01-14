@@ -5,6 +5,8 @@ import os
 import sys
 import argparse
 from django.conf import settings
+from django.utils import six
+
 
 class QuickDjangoTest(object):
     """
@@ -64,6 +66,6 @@ if __name__ == '__main__':
         usage="[args]",
         description="Run Django tests on the provided applications."
     )
-    parser.add_argument('apps', nargs='+', type=str)
+    parser.add_argument('apps', nargs='+', type=six.binary_type)
     args = parser.parse_args()
     QuickDjangoTest(*args.apps)
