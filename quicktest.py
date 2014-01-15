@@ -37,12 +37,9 @@ class QuickDjangoTest(object):
         settings.configure(
             DATABASES={
                 'default': {
-                    'ENGINE': 'django.contrib.gis.db.backends.spatialite',
-                    'NAME': os.path.join(self.DIRNAME, 'database.db'),
-                    'USER': '',
-                    'PASSWORD': '',
-                    'HOST': '',
-                    'PORT': '',
+                'ENGINE': 'django.contrib.gis.db.backends.postgis',
+                'NAME': 'database',
+                'HOST': '127.0.0.1',
                 }
             },
             INSTALLED_APPS=self.INSTALLED_APPS + self.apps,

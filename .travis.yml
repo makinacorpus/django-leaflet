@@ -25,7 +25,8 @@ install:
  - sudo apt-add-repository -y ppa:ubuntugis/ppa
  - sudo apt-get update > /dev/null
  - sudo apt-get install -y libgdal-dev libproj-dev libgeos-dev libspatialite-dev
- - pip install git+git://github.com/tinio/pysqlite.git@extension-enabled#egg=pysqlite
+
+ - pip install psycopg2
 
    # This is a dependency of our Django test script
  - pip install argparse --use-mirrors
