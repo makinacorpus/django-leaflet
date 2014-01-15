@@ -37,8 +37,11 @@ class QuickDjangoTest(object):
             DATABASES={
                 'default': {
                 'ENGINE': 'django.contrib.gis.db.backends.postgis',
-                'NAME': 'database',
+                'NAME': 'test_db',
                 'HOST': '127.0.0.1',
+                'USER': 'postgres',
+                'PASSWORD': '',
+
                 }
             },
             INSTALLED_APPS=self.INSTALLED_APPS + self.apps,
