@@ -16,6 +16,9 @@ matrix:
    - python: 3.3
      env: DJANGO_VERSION=1.5.5
 
+before_install:
+  - sudo apt-get update
+
 install:
    # GeoDjango dependencies
  - sudo apt-get install -y python-software-properties
