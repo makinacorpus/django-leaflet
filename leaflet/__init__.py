@@ -1,6 +1,10 @@
 # -*- coding: utf8 -*-
 from __future__ import unicode_literals
 
+try:
+    from urllib.parse import urlparse, urljoin
+except ImportError:
+    from urlparse import urlparse, urljoin
 import warnings
 
 try:
@@ -12,7 +16,6 @@ except ImportError:
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
-from django.utils.six.moves.urllib.parse import urlparse, urljoin
 from django.utils import six
 
 
