@@ -136,7 +136,7 @@ def _normalize_plugins_config():
     if '__is_normalized__' in PLUGINS:  # already normalized
         return
 
-    listed_plugins = PLUGINS.keys()
+    listed_plugins = list(PLUGINS.keys())
     PLUGINS[PLUGINS_DEFAULT] = OrderedDict()
     PLUGINS[PLUGIN_ALL] = OrderedDict()
 
