@@ -5,6 +5,7 @@ import os
 import sys
 import argparse
 from django.conf import settings
+import django
 
 class QuickDjangoTest(object):
     """
@@ -56,6 +57,8 @@ class QuickDjangoTest(object):
             DATABASES=databases,
             INSTALLED_APPS=self.INSTALLED_APPS + self.apps,
         )
+        if django.VERSION >= (1, 7, 0):
+            django.setup()
         from django.test.simple import DjangoTestSuiteRunner
         failures = DjangoTestSuiteRunner().run_tests(self.apps, verbosity=1)
         if failures:  # pragma: no cover

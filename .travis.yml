@@ -11,6 +11,8 @@ env:
   - DJANGO_VERSION=1.5.5 DATABASE=sqlite
   - DJANGO_VERSION=1.6 DATABASE=postgres
   - DJANGO_VERSION=1.6 DATABASE=sqlite
+  - DJANGO_VERSION=dev DATABASE=postgres
+  - DJANGO_VERSION=dev DATABASE=sqlite
 
 matrix:
   exclude:
@@ -22,6 +24,8 @@ matrix:
       env: DJANGO_VERSION=1.5.5 DATABASE=postgres
     - python: 3.3
       env: DJANGO_VERSION=1.6 DATABASE=sqlite
+    - python: 3.3
+      env: DJANGO_VERSION=dev DATABASE=sqlite
 
 before_install:
   - sudo apt-get update
@@ -38,8 +42,10 @@ install:
 
    # This is a dependency of our Django test script
  - pip install argparse --use-mirrors
+ - if [[ $DJANGO_VERSION == dev ]]; then pip
+   install https://github.com/django/django/tarball/master/django.tar.gz#egg=django; else pip
+   install -q Django==$DJANGO_VERSION --use-mirrors; fi
 
- - pip install -q Django==$DJANGO_VERSION --use-mirrors
 
  - pip install coverage
 
@@ -62,3 +68,11 @@ after_success:
  - coverage run quicktest.py leaflet --db=$DATABASE
  - pip install coveralls
  - coveralls
+
+allow_failures:
+  - python: 3.3
+    env: DJANGO_VERSION=dev DATABASE=postgres
+  - python: 2.7
+    env: DJANGO_VERSION=dev DATABASE=sqlite
+  - python: 2.7
+    env: DJANGO_VERSION=dev DATABASE=postgres
