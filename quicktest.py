@@ -80,4 +80,4 @@ if __name__ == '__main__':
     parser.add_argument('apps', nargs='+', type=str)
     parser.add_argument('--db', nargs='?', type=str, default='sqlite')
     args = parser.parse_args()
-    QuickDjangoTest(apps=args.apps, db=args.db )
+    QuickDjangoTest(apps=args.apps, db=args.db)
