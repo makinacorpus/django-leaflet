@@ -1,3 +1,6 @@
+# -*- coding: utf8 -*-
+from __future__ import unicode_literals
+
 import django
 from django.test import SimpleTestCase
 from django.contrib.gis.db import models as gismodels

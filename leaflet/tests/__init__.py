@@ -1,1 +1,1 @@
-from tests import *  # noqa
+from .tests import *  # noqa
