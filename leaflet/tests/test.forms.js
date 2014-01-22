@@ -26,5 +26,30 @@ describe('Test Leaflet Forms', function() {
             assert.isTrue(field.options.is_point);
             done();
         });
+
+        describe('Events', function () {
+
+            var map;
+
+            beforeEach(function () {
+                map = L.map('map').fitWorld();
+            });
+
+            afterEach(function () {
+                map.remove();
+            });
+
+            it("should emit event when field is loaded", function (done) {
+                var field = new L.GeometryField({geom_type: 'GEOMETRY', fieldid: 'formfield'});
+                map.on('map:loadfield', function (e) {
+                    assert.equal(e.target, map);
+                    assert.equal(e.field, field);
+                    assert.equal(e.fieldid, 'formfield');
+                    assert.isDefined(map.drawControl);
+                    done();
+                });
+                field.addTo(map);
+            });
+        });
     });
 });
