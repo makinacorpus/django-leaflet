@@ -52,6 +52,17 @@ if 'TILES_URL' in LEAFLET_CONFIG:
 if isinstance(app_settings.get('TILES'), six.string_types):
     app_settings['TILES'] = [(_('Background'), app_settings.get('TILES'), '')]
 
+
+# Verify that scale setting is valid.  For backwards-compatibility, interpret 'True' as 'metric'.
+SCALE = app_settings.get("SCALE")
+if SCALE in [None, False]:
+    app_settings['SCALE'] = None
+elif SCALE is True:
+    app_settings["SCALE"] = 'metric'
+elif SCALE not in ['metric', 'imperial', 'both']:
+    raise ImproperlyConfigured("LEAFLET_CONFIG['SCALE'] must be True, False, None, 'metric', 'imperial' or 'both'.")
+
+
 SPATIAL_EXTENT = app_settings.get("SPATIAL_EXTENT")
 if SPATIAL_EXTENT is None:
     # Deprecate lookup in global Django settings

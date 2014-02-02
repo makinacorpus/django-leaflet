@@ -133,7 +133,10 @@ L.Map.DjangoMap = L.Map.extend({
         // Scale control ?
         if (this.options.djoptions.scale) {
             this.whenReady(function () {
-                new L.Control.Scale({imperial: false}).addTo(this);
+                var scale_opt = this.options.djoptions.scale;
+                var show_imperial = !!(scale_opt == 'imperial' || scale_opt == 'both');
+                var show_metric = !!(scale_opt == 'metric' || scale_opt == 'both');
+                new L.Control.Scale({imperial: show_imperial, metric: show_metric}).addTo(this);
             }, this);
         }
 

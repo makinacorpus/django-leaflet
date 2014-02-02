@@ -217,9 +217,26 @@ Default is ``None``, which leaves the value to `Leaflet's default <http://leafle
 Scale control
 ~~~~~~~~~~~~~
 
-Disable scale control with km and miles::
+Scale control may be set to show metric (m/km) or imperial (mi/ft) scale
+lines, or both.  For backwards-compatibility, ``True`` is the default, and
+is interpreted as showing metric only.
 
-    'SCALE': False
+Enable metric scale control::
+
+    'SCALE': 'metric'  # or True
+
+Enable imperial scale control::
+
+    'SCALE': 'imperial'
+
+Enable metric and imperial scale control::
+
+    'SCALE': 'both'
+
+Disable scale control::
+
+    'SCALE': None  # or False
+
 
 Minimap control
 ~~~~~~~~~~~~~~~
