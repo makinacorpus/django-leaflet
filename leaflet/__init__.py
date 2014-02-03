@@ -54,12 +54,10 @@ if isinstance(app_settings.get('TILES'), six.string_types):
 
 
 # Verify that scale setting is valid.  For backwards-compatibility, interpret 'True' as 'metric'.
-SCALE = app_settings.get("SCALE", False)
-if SCALE in (None, False):
-    app_settings['SCALE'] = None
-elif SCALE is True:
+SCALE = app_settings.get("SCALE", None)
+if SCALE is True:
     app_settings["SCALE"] = 'metric'
-elif SCALE not in ('metric', 'imperial', 'both'):
+elif SCALE not in ('metric', 'imperial', 'both', None, False):
     raise ImproperlyConfigured("LEAFLET_CONFIG['SCALE'] must be True, False, None, 'metric', 'imperial' or 'both'.")
 
 
