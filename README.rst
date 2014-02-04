@@ -469,9 +469,20 @@ TUTORIALS
 AUTHORS
 =======
 
-* Mathieu Leplatre <mathieu.leplatre@makina-corpus.com>
-* Ariel Núñez <http://ingenieroariel.com>
-* Boris Chervenkov <https://github.com/boris-chervenkov>
+* `Mathieu Leplatre <http://mathieu-leplatre.info>`_
+* `Ariel Núñez <http://ingenieroariel.com>`_
+* `Boris Chervenkov <https://github.com/boris-chervenkov>`_
+* `Marco Badan <https://github.com/itbabu>`_
+* `Bruno Renié <https://github.com/brutasse>`_
+* `Simon Thépot <https://github.com/djcoin>`_
+* `Thibault Jouannic <https://github.com/thibault>`_
+* `jnm <https://github.com/jnm>`_
+* `Manel Clos <https://github.com/manelclos>`_
+* `Gaël Utard <https://github.com/gutard>`_
+* `Alex Marandon <https://github.com/amarandon>`_
+* `ollb <https://github.com/ollb>`_
+* `smcoll <https://github.com/smcoll>`_
+
 
 |makinacom|_
 

@@ -2,10 +2,10 @@
 CHANGELOG
 =========
 
-0.10.2 (unreleased)
+0.11.0 (unreleased)
 -------------------
 
-- Nothing changed yet.
+* Add control of `metric` and `imperial` in `SCALE` option (thanks @smcoll)
 
 
 0.10.1 (2014-02-03)
