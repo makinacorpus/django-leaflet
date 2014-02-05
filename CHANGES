@@ -6,6 +6,7 @@ CHANGELOG
 -------------------
 
 * Add control of `metric` and `imperial` in `SCALE` option (thanks @smcoll)
+* Upgrade to Leaflet.draw 0.2.3
 
 
 0.10.1 (2014-02-03)
