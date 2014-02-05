@@ -92,8 +92,20 @@ msgstr "Annuler"
 msgid "Cancel drawing"
 msgstr "Annuler le dessin"
 
+msgid "Delete last point drawn"
+msgstr "Supprimer le dernier point dessiné"
+
+msgid "Delete last point"
+msgstr "Supprimer le dernier point"
+
 msgid "Edit layers"
 msgstr "Éditer les objets"
+
+msgid "No layers to edit."
+msgstr "Aucun objet à éditer"
+
+msgid "No layers to delete."
+msgstr "Aucun objet à supprimer."
 
 msgid "Delete layers"
 msgstr "Supprimer des objets"

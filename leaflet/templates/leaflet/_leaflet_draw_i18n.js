@@ -6,6 +6,10 @@ L.drawLocal = {
                 title: "{% trans "Cancel drawing" %}",
                 text: "{% trans "Cancel" %}"
             },
+            undo: {
+                title: "{% trans "Delete last point drawn" %}",
+                text: "{% trans "Delete last point" %}"
+            },
             buttons: {
                 polyline: "{% trans "Draw a polyline" %}",
                 polygon: "{% trans "Draw a polygon" %}",
@@ -66,7 +70,9 @@ L.drawLocal = {
             },
             buttons: {
                 edit: "{% trans "Edit layers" %}",
-                remove: "{% trans "Delete layers" %}"
+                editDisabled: "{% trans "No layers to edit." %}",
+                remove: "{% trans "Delete layers" %}",
+                removeDisabled: "{% trans "No layers to delete." %}"
             }
         },
         handlers: {
