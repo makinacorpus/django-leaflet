@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.11.1 (unreleased)
+0.11.1 (2014-02-12)
 -------------------
 
 * Do not complain about tile extent if SRID is 3857
