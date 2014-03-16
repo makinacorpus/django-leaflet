@@ -5,15 +5,7 @@ import django
 if django.VERSION >= (1, 6, 0):
     from django.contrib.gis.forms.fields import GeometryField as BaseGeometryField
 else:
-    from django.contrib.gis.forms.fields import GeometryField as BaseField
-
-    class BaseGeometryField(BaseField):  # noqa
-        geom_type = 'GEOMETRY'
-
-        def __init__(self, *args, **kwargs):
-            kwargs['geom_type'] = self.geom_type
-            super(BaseGeometryField, self).__init__(*args, **kwargs)
-
+    from .backport import GeometryField as BaseGeometryField
 
 from .widgets import LeafletWidget
 
