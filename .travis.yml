@@ -26,6 +26,13 @@ matrix:
       env: DJANGO_VERSION=1.6 DATABASE=sqlite
     - python: 3.3
       env: DJANGO_VERSION=dev DATABASE=sqlite
+  allow_failures:
+    - python: 3.3
+      env: DJANGO_VERSION=dev DATABASE=postgres
+    - python: 2.7
+      env: DJANGO_VERSION=dev DATABASE=sqlite
+    - python: 2.7
+      env: DJANGO_VERSION=dev DATABASE=postgres
 
 before_install:
   - sudo apt-get update
@@ -68,11 +75,3 @@ after_success:
  - coverage run quicktest.py leaflet --db=$DATABASE
  - pip install coveralls
  - coveralls
-
-allow_failures:
-  - python: 3.3
-    env: DJANGO_VERSION=dev DATABASE=postgres
-  - python: 2.7
-    env: DJANGO_VERSION=dev DATABASE=sqlite
-  - python: 2.7
-    env: DJANGO_VERSION=dev DATABASE=postgres
