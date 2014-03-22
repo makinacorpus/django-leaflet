@@ -24,6 +24,10 @@ Main purposes of having a python package for the Leaflet Javascript library :
 * Control apparence and settings of maps from Django settings (e.g. at deployment) ;
 * Reuse Leaflet map initialization code (e.g. local projections) ;
 
+:note:
+
+    *django-leaflet* is compatible with `django-geojson <https://github.com/makinacorpus/django-geojson.git>`_ fields, which
+    allow handling geographic data without spatial database.
 
 =======
 INSTALL
