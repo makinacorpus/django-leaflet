@@ -20,7 +20,7 @@ Main purposes of having a python package for the Leaflet Javascript library :
 
 * Install and enjoy ;
 * Do not embed Leaflet assets in every Django project ;
-* Enjoy geometry edition with Leaflet form widget ( *Django* >= 1.6 ) ;
+* Enjoy geometry edition with Leaflet form widget ;
 * Control apparence and settings of maps from Django settings (e.g. at deployment) ;
 * Reuse Leaflet map initialization code (e.g. local projections) ;
 
@@ -306,9 +306,7 @@ To include all plugins configured in ``LEAFLET_CONFIG['PLUGINS']``, use::
 Leaflet map forms widgets
 -------------------------
 
-With *Django* >= 1.6, a Leaflet widget is provided to edit geometry fields.
-In previous versions, it falls back to simple text areas.
-
+A Leaflet widget is provided to edit geometry fields.
 It embeds *Leaflet.draw* in version *0.2.2*.
 
 
@@ -332,6 +330,8 @@ In Adminsite
 In forms
 ~~~~~~~~
 
+With *Django* >= 1.6:
+
 ::
 
     from django import forms
@@ -346,6 +346,21 @@ In forms
             fields = ('name', 'geom')
             widgets = {'geom': LeafletWidget()}
 
+With all *Django* versions:
+
+::
+
+    from django import forms
+
+    from leaflet.forms.fields import PointField
+
+
+    class WeatherStationForm(forms.ModelForm):
+        geom = PointField()
+
+        class Meta:
+            model = WeatherStation
+            fields = ('name', 'geom')
 
 The related template would look like this:
 
