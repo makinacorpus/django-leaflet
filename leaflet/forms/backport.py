@@ -4,10 +4,10 @@
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #
-#     1. Redistributions of source code must retain the above copyright notice, 
+#     1. Redistributions of source code must retain the above copyright notice,
 #        this list of conditions and the following disclaimer.
 #
-#     2. Redistributions in binary form must reproduce the above copyright 
+#     2. Redistributions in binary form must reproduce the above copyright
 #        notice, this list of conditions and the following disclaimer in the
 #        documentation and/or other materials provided with the distribution.
 #
@@ -34,7 +34,7 @@ import warnings
 
 from django.conf import settings
 from django.contrib.gis import gdal
-from django.contrib.gis.geos import GEOSGeometry, GEOSException, fromstr
+from django.contrib.gis.geos import GEOSGeometry, GEOSException
 from django.forms.widgets import Widget
 from django.template import loader
 from django.utils import translation
@@ -74,8 +74,7 @@ class BaseGeometryWidget(Widget):
             return GEOSGeometry(value, self.map_srid)
         except (GEOSException, ValueError) as err:
             logger.error(
-                "Error creating geometry from value '%s' (%s)" % (
-                value, err)
+                "Error creating geometry from value '%s' (%s)" % (value, err)
             )
         return None
 
@@ -94,13 +93,14 @@ class BaseGeometryWidget(Widget):
                     value = ogr
                 except gdal.OGRException as err:
                     logger.error(
-                        "Error transforming geometry from srid '%s' to srid '%s' (%s)" % (
-                        value.srid, self.map_srid, err)
+                        "Error transforming geometry from srid '%s' to srid "
+                        "'%s' (%s)" % (value.srid, self.map_srid, err)
                     )
 
-        context = self.build_attrs(attrs,
+        context = self.build_attrs(
+            attrs,
             name=name,
-            module='geodjango_%s' % name.replace('-','_'),  # JS-safe
+            module='geodjango_%s' % name.replace('-', '_'),  # JS-safe
             serialized=self.serialize(value),
             geom_type=gdal.OGRGeomType(self.attrs['geom_type']),
             STATIC_URL=settings.STATIC_URL,
@@ -118,12 +118,12 @@ class GeometryField(forms.Field):
     geom_type = 'GEOMETRY'
 
     default_error_messages = {
-        'required' : _('No geometry value provided.'),
-        'invalid_geom' : _('Invalid geometry value.'),
-        'invalid_geom_type' : _('Invalid geometry type.'),
-        'transform_error' : _('An error occurred when transforming the geometry '
-                              'to the SRID of the geometry form field.'),
-        }
+        'required': _('No geometry value provided.'),
+        'invalid_geom': _('Invalid geometry value.'),
+        'invalid_geom_type': _('Invalid geometry type.'),
+        'transform_error': _('An error occurred when transforming the geometry '
+                             'to the SRID of the geometry form field.'),
+    }
 
     def __init__(self, **kwargs):
         # Pop out attributes from the database field, or use sensible
@@ -132,8 +132,8 @@ class GeometryField(forms.Field):
         self.geom_type = kwargs.pop('geom_type', self.geom_type)
         if 'null' in kwargs:
             kwargs.pop('null', True)
-            warnings.warn("Passing 'null' keyword argument to GeometryField is deprecated.",
-                DeprecationWarning, stacklevel=2)
+            warnings.warn("Passing 'null' keyword argument to GeometryField is"
+                          "deprecated.", DeprecationWarning, stacklevel=2)
         super(GeometryField, self).__init__(**kwargs)
         self.widget.attrs['geom_type'] = self.geom_type
 
@@ -190,7 +190,7 @@ class GeometryField(forms.Field):
         try:
             data = self.to_python(data)
             initial = self.to_python(initial)
-        except ValidationError:
+        except forms.ValidationError:
             return True
 
         # Only do a geographic comparison if both values are available
