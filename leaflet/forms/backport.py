@@ -37,6 +37,7 @@ from django.contrib.gis import gdal
 from django.contrib.gis.geos import GEOSGeometry, GEOSException
 from django.forms.widgets import Widget
 from django.template import loader
+from django.utils import six
 from django.utils import translation
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -81,7 +82,7 @@ class BaseGeometryWidget(Widget):
     def render(self, name, value, attrs=None):
         # If a string reaches here (via a validation error on another
         # field) then just reconstruct the Geometry.
-        if isinstance(value, basestring):
+        if isinstance(value, six.string_types):
             value = self.deserialize(value)
 
         if value:
