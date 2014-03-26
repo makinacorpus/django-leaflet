@@ -5,11 +5,7 @@ from django import forms
 try:
     from django.contrib.gis.forms.widgets import BaseGeometryWidget
 except ImportError:
-    from django.forms.widgets import Textarea
-
-    class BaseGeometryWidget(Textarea):
-        geom_type = 'GEOMETRY'
-        display_raw = False
+    from .backport import BaseGeometryWidget
 
 from leaflet import PLUGINS, PLUGIN_FORMS
 

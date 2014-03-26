@@ -133,49 +133,49 @@ class LeafletGeoAdminTest(SimpleTestCase):
         self.assertIn('leaflet/draw/leaflet.draw.css', media_css)
 
 
-if django.VERSION >= (1, 6, 0):
+class LeafletWidgetMapTest(SimpleTestCase):
 
-    class LeafletWidgetMapTest(SimpleTestCase):
+    def test_default_parameters(self):
+        widget = LeafletWidget()
+        output = widget.render('geom', '', {'id': 'geom'})
+        self.assertIn(".fieldid = 'geom'", output)
+        self.assertIn(".srid = 4326", output)
+        self.assertIn(".geom_type = 'Geometry'", output)
+        self.assertIn('#geom { display: none; }', output)
+        self.assertIn('function geom_map_callback(map, options)', output)
 
-        def test_default_parameters(self):
-            widget = LeafletWidget()
-            output = widget.render('geom', '', {'id': 'geom'})
-            self.assertIn(".fieldid = 'geom'", output)
-            self.assertIn(".srid = 4326", output)
-            self.assertIn(".geom_type = 'Geometry'", output)
-            self.assertIn('#geom { display: none; }', output)
-            self.assertIn('function geom_map_callback(map, options)', output)
+    def test_overriden_parameters(self):
+        class PolygonWidget(LeafletWidget):
+            geom_type = 'POLYGON'
+        widget = PolygonWidget()
+        output = widget.render('geometry', '', {'id': 'geometry'})
+        self.assertIn(".fieldid = 'geometry'", output)
+        self.assertIn(".geom_type = 'Polygon'", output)
+        self.assertIn('#geometry { display: none; }', output)
+        self.assertIn('function geometry_map_callback(map, options)', output)
 
-        def test_overriden_parameters(self):
-            class PolygonWidget(LeafletWidget):
-                geom_type = 'POLYGON'
-            widget = PolygonWidget()
-            output = widget.render('geometry', '', {'id': 'geometry'})
-            self.assertIn(".fieldid = 'geometry'", output)
-            self.assertIn(".geom_type = 'Polygon'", output)
-            self.assertIn('#geometry { display: none; }', output)
-            self.assertIn('function geometry_map_callback(map, options)', output)
+    def test_javascript_safe_callback_name(self):
+        widget = LeafletWidget()
+        output = widget.render('prefix-geom', '')
+        self.assertIn('function prefix_geom_map_callback(map, options)', output)
+        output = widget.render('geom', '', {'id': 'prefix-geom'})
+        self.assertIn('function prefix_geom_map_callback(map, options)', output)
 
-        def test_javascript_safe_callback_name(self):
-            widget = LeafletWidget()
-            output = widget.render('prefix-geom', '')
-            self.assertIn('function prefix_geom_map_callback(map, options)', output)
-            output = widget.render('geom', '', {'id': 'prefix-geom'})
-            self.assertIn('function prefix_geom_map_callback(map, options)', output)
 
-    class LeafletModelFormTest(SimpleTestCase):
+class LeafletModelFormTest(SimpleTestCase):
 
-        def test_modelform_field_conformity(self):
-            class DummyForm(django.forms.ModelForm):
-                geom = fields.PointField()
+    def test_modelform_field_conformity(self):
+        class DummyForm(django.forms.ModelForm):
+            geom = fields.PointField()
 
-                class Meta:
-                    model = DummyModel
+            class Meta:
+                model = DummyModel
 
-            form = DummyForm()
-            output = form.as_p()
-            self.assertIn(".geom_type = 'Point'", output)
+        form = DummyForm()
+        output = form.as_p()
+        self.assertIn(".geom_type = 'Point'", output)
 
+    if django.VERSION >= (1, 6, 0):
         def test_modelform_widget_conformity(self):
             class DummyForm(django.forms.ModelForm):
                 class Meta:
@@ -185,10 +185,11 @@ if django.VERSION >= (1, 6, 0):
             output = form.as_p()
             self.assertIn(".geom_type = 'Point'", output)
 
-    class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
 
-        def test_widget_template_overriden(self):
-            widget = self.formfield.widget
-            output = widget.render('geom', '', {'id': 'geom'})
-            self.assertIn(".module .leaflet-draw ul", output)
-            self.assertIn('<div id="geom_div_map">', output)
+class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
+
+    def test_widget_template_overriden(self):
+        widget = self.formfield.widget
+        output = widget.render('geom', '', {'id': 'geom'})
+        self.assertIn(".module .leaflet-draw ul", output)
+        self.assertIn('<div id="geom_div_map">', output)
