@@ -5,7 +5,7 @@ CHANGELOG
 0.13 (unreleased)
 -----------------
 
-- Nothing changed yet.
+* Add support of Leaflet form fields on Django >= 1.4.2 (thanks Gaël Utard)
 
 
 0.12 (2014-03-22)
