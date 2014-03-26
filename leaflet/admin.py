@@ -44,7 +44,7 @@ class LeafletGeoAdmin(ModelAdmin):
             template_name = self.map_template
             include_media = True
             geom_type = db_field.geom_type
-            modifiable = self.modifiable,
+            modifiable = self.modifiable
             map_width = self.map_width
             map_height = self.map_height
             display_raw = self.display_raw
