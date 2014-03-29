@@ -46,6 +46,8 @@ L.Map.DjangoMap = L.Map.extend({
         var djoptions = options.djoptions;
         options.zoom = djoptions.zoom;
         options.center = djoptions.center;
+        options.minZoom = djoptions.minzoom;
+        options.maxZoom = djoptions.maxzoom;
         // Translate to native options
         options = L.Util.extend(options,
                                 this._projectionOptions(djoptions));
