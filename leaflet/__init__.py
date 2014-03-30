@@ -29,6 +29,8 @@ app_settings = dict({
     'ATTRIBUTION_PREFIX': None,
     'SPATIAL_EXTENT': None,
     'DEFAULT_ZOOM': None,
+    'MIN_ZOOM': None,
+    'MAX_ZOOM': None,
     'DEFAULT_CENTER': None,
     'SRID': None,
     'TILES_EXTENT': [],
