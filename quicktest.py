@@ -15,7 +15,7 @@ class QuickDjangoTest(object):
 
         >>> QuickDjangoTest(apps=['app1', 'app2'], db='sqlite')
 
-    Based on a script published by Lukasz Dziedzia at: 
+    Based on a script published by Lukasz Dziedzia at:
     http://stackoverflow.com/questions/3841725/how-to-launch-tests-for-django-reusable-app
     """
     DIRNAME = os.path.dirname(__file__)
@@ -56,6 +56,7 @@ class QuickDjangoTest(object):
         settings.configure(
             DATABASES=databases,
             INSTALLED_APPS=self.INSTALLED_APPS + self.apps,
+            STATIC_URL='/static/'
         )
         if django.VERSION >= (1, 7, 0):
             django.setup()

@@ -25,7 +25,7 @@ class PluginListingTest(SimpleTestCase):
 
         names = leaflet_tags._get_plugin_names(None)
         resources = leaflet_tags._get_all_resources_for_plugins(names, 'css')
-        self.assertEquals(['b'], resources)
+        self.assertEquals(['/static/b'], resources)
 
     def test_all_resources(self):
         PLUGINS.update({
@@ -40,7 +40,8 @@ class PluginListingTest(SimpleTestCase):
 
         names = leaflet_tags._get_plugin_names('ALL')
         resources = leaflet_tags._get_all_resources_for_plugins(names, 'css')
-        self.assertEquals(['a', 'b', 'c'], sorted(resources))
+        self.assertEquals(['/static/a', '/static/b', '/static/c'],
+                          sorted(resources))
 
     def test_explicit_resources(self):
         PLUGINS.update({
@@ -53,7 +54,7 @@ class PluginListingTest(SimpleTestCase):
 
         names = leaflet_tags._get_plugin_names('a,c')
         resources = leaflet_tags._get_all_resources_for_plugins(names, 'css')
-        self.assertEquals(['a', 'c'], sorted(resources))
+        self.assertEquals(['/static/a', '/static/c'], sorted(resources))
 
 
 class TemplateTagTest(SimpleTestCase):
