@@ -20,6 +20,7 @@ class QuickDjangoTest(object):
     """
     DIRNAME = os.path.dirname(__file__)
     INSTALLED_APPS = [
+        'django.contrib.staticfiles',
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
