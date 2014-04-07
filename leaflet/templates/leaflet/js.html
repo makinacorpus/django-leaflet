@@ -1,9 +1,14 @@
-{% load i18n static %}
-<script src="{% get_static_prefix %}leaflet/leaflet{% if DEBUG %}-src{% endif %}.js" type="text/javascript"></script>
+{% load i18n %}
+{% load static from staticfiles %}
+{% if DEBUG %}
+<script src="{% static "leaflet/leaflet-src.js" %}" type="text/javascript"></script>
+{% else %}
+<script src="{% static "leaflet/leaflet.js" %}" type="text/javascript"></script>
+{% endif %}
 {% if SRID %}
     <script src="{% static "leaflet/proj4js.js" %}" type="text/javascript"></script>
     <script src="{% static "leaflet/proj4leaflet.js" %}" type="text/javascript"></script>
-    <script src="{% get_static_prefix %}proj4js/{{ SRID }}.js" type="text/javascript"></script>
+    <script src="{% static "proj4js/"|add:SRID|add:".js" %}" type="text/javascript"></script>
 {% endif %}
 {% if PLUGINS_JS %}
     {% for js in PLUGINS_JS %}
