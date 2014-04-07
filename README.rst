@@ -53,7 +53,7 @@ USAGE
 
 * Add ``leaflet`` to your ``INSTALLED_APPS``
 
-* Make sure ``django.contrib.staticfiles`` is also in your ``INSTALLED_APPS``; Django >= 1.3 `includes this by default <https://docs.djangoproject.com/en/1.3/intro/tutorial01/#database-setup>`_
+* Make sure ``django.contrib.staticfiles`` is also in your ``INSTALLED_APPS``; Django >= 1.3 `includes this contrib app by default <https://docs.djangoproject.com/en/1.3/intro/tutorial01/#database-setup>`_
 
 * Add the HTML header::
 
@@ -505,6 +505,7 @@ AUTHORS
 * `Alex Marandon <https://github.com/amarandon>`_
 * `ollb <https://github.com/ollb>`_
 * `smcoll <https://github.com/smcoll>`_
+* `jnm <https://github.com/jnm>`_
 
 
 |makinacom|_

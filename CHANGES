@@ -6,6 +6,7 @@ CHANGELOG
 -------------------
 
 * Add minZoom and maxZoom to map initialization
+* Add support of advanced static files locations, like S3 (thanks @jnm)
 
 
 0.13.0 (2014-03-26)
