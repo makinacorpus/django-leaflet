@@ -9,10 +9,10 @@ except ImportError:
     GeoJSONField = type(object)
 try:
     from django.contrib.gis.db.models import GeometryField
+    from .forms.widgets import LeafletWidget
 except ImportError:
     GeometryField = type(object)
-
-from .forms.widgets import LeafletWidget
+    from django.forms.widgets import Textarea as LeafletWidget
 
 
 class LeafletGeoAdmin(ModelAdmin):
