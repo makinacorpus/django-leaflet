@@ -2,9 +2,17 @@
 from __future__ import unicode_literals
 
 from django.contrib.admin import ModelAdmin
-from django.contrib.gis.db import models
 
-from .forms.widgets import LeafletWidget
+try:
+    from djgeojson.fields import GeoJSONField
+except ImportError:
+    GeoJSONField = type(object)
+try:
+    from django.contrib.gis.db.models import GeometryField
+    from .forms.widgets import LeafletWidget
+except ImportError:
+    GeometryField = type(object)
+    from django.forms.widgets import Textarea as LeafletWidget
 
 
 class LeafletGeoAdmin(ModelAdmin):
@@ -20,11 +28,7 @@ class LeafletGeoAdmin(ModelAdmin):
         Overloaded from ModelAdmin to set Leaflet widget
         in form field init params.
         """
-        try:
-            from djgeojson.fields import GeoJSONField
-        except ImportError:
-            GeoJSONField = type(object)
-        is_geometry = isinstance(db_field, (models.GeometryField, GeoJSONField))
+        is_geometry = isinstance(db_field, (GeometryField, GeoJSONField))
         is_editable = is_geometry and (db_field.dim < 3 or
                                        self.widget.supports_3d)
 
