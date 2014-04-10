@@ -5,6 +5,7 @@ CHANGELOG
 0.13.1 (unreleased)
 -------------------
 
+* Fix GEOS dependency, back as optional for geometry edition only (fixes #65)
 * Add minZoom and maxZoom to map initialization
 * Add support of advanced static files locations, like S3 (thanks @jnm)
 
