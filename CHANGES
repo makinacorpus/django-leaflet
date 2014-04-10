@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.13.1 (unreleased)
+0.13.1 (2014-04-10)
 -------------------
 
 * Fix GEOS dependency, back as optional for geometry edition only (fixes #65)
