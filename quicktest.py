@@ -47,13 +47,22 @@ class QuickDjangoTest(object):
                 }
             }
 
-        else:
+        elif self.database == 'spatialite':
             databases = {
                 'default': {
                     'ENGINE': 'django.contrib.gis.db.backends.spatialite',
                     'NAME': os.path.join(self.DIRNAME, 'database.db'),
                 }
             }
+
+        else:
+            databases = {
+                'default': {
+                    'ENGINE': 'django.db.backends.sqlite3',
+                    'NAME': os.path.join(self.DIRNAME, 'database.db'),
+                }
+            }
+
         settings.configure(
             DATABASES=databases,
             INSTALLED_APPS=self.INSTALLED_APPS + self.apps,

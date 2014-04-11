@@ -6,33 +6,45 @@ python:
 
 env:
   matrix:
+  - DJANGO_VERSION=1.4.10 DATABASE=spatialite
   - DJANGO_VERSION=1.4.10 DATABASE=sqlite
   - DJANGO_VERSION=1.5.5 DATABASE=postgres
+  - DJANGO_VERSION=1.5.5 DATABASE=spatialite
   - DJANGO_VERSION=1.5.5 DATABASE=sqlite
   - DJANGO_VERSION=1.6 DATABASE=postgres
   - DJANGO_VERSION=1.6 DATABASE=sqlite
+  - DJANGO_VERSION=1.6 DATABASE=spatialite
   - DJANGO_VERSION=dev DATABASE=postgres
   - DJANGO_VERSION=dev DATABASE=sqlite
+  - DJANGO_VERSION=dev DATABASE=spatialite
 
 matrix:
   exclude:
     - python: 3.3
+      env: DJANGO_VERSION=1.4.10 DATABASE=spatialite
+    - python: 3.3
       env: DJANGO_VERSION=1.4.10 DATABASE=sqlite
     - python: 3.3
-      env: DJANGO_VERSION=1.5.5 DATABASE=sqlite
+      env: DJANGO_VERSION=1.5.5 DATABASE=spatialite
     - python: 3.3
       env: DJANGO_VERSION=1.5.5 DATABASE=postgres
     - python: 3.3
-      env: DJANGO_VERSION=1.6 DATABASE=sqlite
+      env: DJANGO_VERSION=1.5.5 DATABASE=sqlite
     - python: 3.3
-      env: DJANGO_VERSION=dev DATABASE=sqlite
+      env: DJANGO_VERSION=1.6 DATABASE=spatialite
+    - python: 3.3
+      env: DJANGO_VERSION=dev DATABASE=spatialite
   allow_failures:
     - python: 3.3
       env: DJANGO_VERSION=dev DATABASE=postgres
-    - python: 2.7
+    - python: 3.3
       env: DJANGO_VERSION=dev DATABASE=sqlite
     - python: 2.7
+      env: DJANGO_VERSION=dev DATABASE=spatialite
+    - python: 2.7
       env: DJANGO_VERSION=dev DATABASE=postgres
+    - python: 2.7
+      env: DJANGO_VERSION=dev DATABASE=sqlite
 
 before_install:
   - sudo apt-get update
@@ -42,8 +54,8 @@ install:
  - sudo apt-get install -y python-software-properties
  - sudo apt-add-repository -y ppa:ubuntugis/ppa
  - sudo apt-get update > /dev/null
- - sudo apt-get install -y libgdal-dev libproj-dev libgeos-dev libspatialite-dev
- - if [[ $DATABASE == sqlite ]]; then pip
+ - if [[ $DATABASE != sqlite ]]; then sudo apt-get install -y libgdal-dev libproj-dev libgeos-dev libspatialite-dev; fi
+ - if [[ $DATABASE != postgres ]]; then pip
    install git+git://github.com/tinio/pysqlite.git@extension-enabled#egg=pysqlite; fi
  - if [[ $DATABASE == postgres ]]; then pip install psycopg2; fi
 
@@ -65,7 +77,6 @@ before_script:
  - flake8 --ignore=E501 leaflet
  - if [[ $DATABASE == postgres ]]; then psql -c 'create database test_db;' -U postgres; fi
  - if [[ $DATABASE == postgres ]]; then psql -c 'CREATE EXTENSION postgis;' -U postgres -d test_db; fi
- - if [[ $DATABASE == postgres ]]; then psql -c 'CREATE EXTENSION postgis_topology;' -U postgres -d test_db; fi
 
 script:
  - python quicktest.py leaflet --db=$DATABASE

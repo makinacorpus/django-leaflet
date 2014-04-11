@@ -176,15 +176,14 @@ class LeafletModelFormTest(SimpleTestCase):
         output = form.as_p()
         self.assertIn(".geom_type = 'Point'", output)
 
-    if django.VERSION >= (1, 6, 0):
-        def test_modelform_widget_conformity(self):
-            class DummyForm(django.forms.ModelForm):
-                class Meta:
-                    model = DummyModel
-                    widgets = {'geom': LeafletWidget()}
-            form = DummyForm()
-            output = form.as_p()
-            self.assertIn(".geom_type = 'Point'", output)
+    def test_modelform_widget_conformity(self):
+        class DummyForm(django.forms.ModelForm):
+            class Meta:
+                model = DummyModel
+                widgets = {'geom': LeafletWidget()}
+        form = DummyForm()
+        output = form.as_p()
+        self.assertIn(".geom_type = 'Point'", output)
 
 
 class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
