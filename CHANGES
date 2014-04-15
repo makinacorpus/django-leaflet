@@ -5,7 +5,7 @@ CHANGELOG
 0.13.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+* Fix regression where maps have null as max zoom
 
 
 0.13.1 (2014-04-10)
