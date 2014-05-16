@@ -5,7 +5,8 @@ CHANGELOG
 0.13.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+* Renamed widget attribute ``modifiable`` to its opposite ``readonly``,
+  a lot more conventional.
 
 
 0.13.2 (2014-04-15)

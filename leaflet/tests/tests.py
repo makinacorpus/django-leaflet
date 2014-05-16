@@ -118,7 +118,7 @@ class LeafletGeoAdminTest(SimpleTestCase):
         self.assertEquals(widget.geom_type, 'POINT')
         self.assertFalse(widget.map_height is None)
         self.assertFalse(widget.map_width is None)
-        self.assertTrue(widget.modifiable)
+        self.assertFalse(widget.readonly)
 
     def test_widget_media(self):
         widget = self.formfield.widget

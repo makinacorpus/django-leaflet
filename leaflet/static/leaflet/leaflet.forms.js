@@ -97,7 +97,7 @@ L.GeometryField = L.Class.extend({
         // Initialize the draw control and pass it the FeatureGroup of editable layers
         var drawControl = map.drawControl = new L.Control.Draw(this._controlDrawOptions());
 
-        if (this.options.modifiable) {
+        if (!this.options.readonly) {
             map.addControl(drawControl);
 
             map.on('draw:created', this.onCreated, this);

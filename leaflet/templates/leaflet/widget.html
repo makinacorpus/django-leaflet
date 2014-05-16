@@ -10,7 +10,7 @@
 <script type="text/javascript">
     {% block vars %}var {{ module }} = {};
     {{ module }}.fieldid = '{{ id }}';
-    {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};
+    {{ module }}.readonly = {{ readonly|yesno:"true,false" }};
     {{ module }}.geom_type = '{{ geom_type }}';
     {{ module }}.srid = {{ map_srid }};
     {% endblock vars %}

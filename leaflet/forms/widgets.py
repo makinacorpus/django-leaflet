@@ -15,7 +15,7 @@ class LeafletWidget(BaseGeometryWidget):
     map_srid = 4326
     map_width = None
     map_height = None
-    modifiable = True
+    readonly = False
     supports_3d = False
     include_media = False
 
@@ -49,7 +49,7 @@ class LeafletWidget(BaseGeometryWidget):
         map_id = attrs.get('id', name).replace('-', '_')  # JS-safe
         attrs.update(id_map=map_id + '_map',
                      id_map_callback=map_id + '_map_callback',
-                     modifiable=self.modifiable,
+                     readonly=self.readonly,
                      geometry_field_class=attrs.get('geometry_field_class', 'L.GeometryField'),
                      field_store_class=attrs.get('field_store_class', 'L.FieldStore'))
         return super(LeafletWidget, self).render(name, value, attrs)

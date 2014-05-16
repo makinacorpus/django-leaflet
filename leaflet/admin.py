@@ -18,7 +18,7 @@ except ImportError:
 class LeafletGeoAdmin(ModelAdmin):
     widget = LeafletWidget
     map_template = 'leaflet/admin/widget.html'
-    modifiable = True
+    readonly = False
     map_width = '100%'
     map_height = '400px'
     display_raw = False
@@ -48,7 +48,7 @@ class LeafletGeoAdmin(ModelAdmin):
             template_name = self.map_template
             include_media = True
             geom_type = db_field.geom_type
-            modifiable = self.modifiable
+            readonly = self.readonly
             map_width = self.map_width
             map_height = self.map_height
             display_raw = self.display_raw
