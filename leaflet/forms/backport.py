@@ -34,7 +34,6 @@ import warnings
 
 from django.conf import settings
 from django.contrib.gis import gdal
-from django.contrib.gis.geos import GEOSGeometry, GEOSException
 from django.forms.widgets import Widget
 from django.template import loader
 from django.utils import six
@@ -42,6 +41,16 @@ from django.utils import translation
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.core import validators
+
+try:
+    from django.contrib.gis.geos import GEOSGeometry
+except ImportError:
+    from .nogeos import GEOSGeometry
+
+try:
+    from django.contrib.gis.geos import GEOSException
+except ImportError:
+    from .nogeos import GEOSException
 
 logger = logging.getLogger('django.contrib.gis')
 
