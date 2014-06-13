@@ -5,7 +5,7 @@ CHANGELOG
 0.13.5 (unreleased)
 -------------------
 
-- Nothing changed yet.
+* Prevent SRID download when default is used
 
 
 0.13.4 (2014-06-13)

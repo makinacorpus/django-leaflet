@@ -40,7 +40,7 @@ def leaflet_js(plugins=None):
     with_forms = PLUGIN_FORMS in plugin_names or PLUGIN_ALL in plugin_names
     return {
         "DEBUG": settings.TEMPLATE_DEBUG,
-        "SRID": str(SRID),
+        "SRID": str(SRID) if SRID else None,
         "PLUGINS_JS": _get_all_resources_for_plugins(plugin_names, 'js'),
         "with_forms": with_forms
     }
