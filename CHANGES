@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.13.4 (unreleased)
+0.13.4 (2014-06-13)
 -------------------
 
 * Fix SRID projection file not being loaded
