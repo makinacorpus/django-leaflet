@@ -38,12 +38,11 @@ before_install:
   - sudo apt-get update
 
 install:
-   # GeoDjango dependencies
- - sudo apt-get install -y python-software-properties
- - sudo apt-add-repository -y ppa:ubuntugis/ppa
- - sudo apt-get update > /dev/null
- - sudo apt-get install -y libgdal-dev libproj-dev libgeos-dev libspatialite-dev
- - if [[ $DATABASE == sqlite ]]; then pip
+ # GeoDjango dependencies
+ - sudo apt-get update -qq
+ - sudo apt-get install -y libproj-dev libgeos-dev
+
+ - if [[ $DATABASE == sqlite ]]; then sudo apt-get install -y libspatialite-dev && pip
    install git+git://github.com/tinio/pysqlite.git@extension-enabled#egg=pysqlite; fi
  - if [[ $DATABASE == postgres ]]; then pip install psycopg2; fi
 
@@ -53,10 +52,8 @@ install:
    install https://github.com/django/django/tarball/master/django.tar.gz#egg=django; else pip
    install -q Django==$DJANGO_VERSION --use-mirrors; fi
 
-
  - pip install coverage
-
- - pip install flake8 --use-mirrors
+ - pip install flake8
 
  - python setup.py develop
  - npm install leaflet/tests/
@@ -65,7 +62,6 @@ before_script:
  - flake8 --ignore=E501 leaflet
  - if [[ $DATABASE == postgres ]]; then psql -c 'create database test_db;' -U postgres; fi
  - if [[ $DATABASE == postgres ]]; then psql -c 'CREATE EXTENSION postgis;' -U postgres -d test_db; fi
- - if [[ $DATABASE == postgres ]]; then psql -c 'CREATE EXTENSION postgis_topology;' -U postgres -d test_db; fi
 
 script:
  - python quicktest.py leaflet --db=$DATABASE
