@@ -5,7 +5,7 @@ CHANGELOG
 0.13.6 (unreleased)
 -------------------
 
-- Nothing changed yet.
+* Django Leaflet forms fiels without libgeos installed (thanks Florent Lebreton)
 
 
 0.13.5 (2014-06-18)
