@@ -118,6 +118,11 @@ PLUGIN_FORMS = 'forms'
 _forms_js = ['leaflet/draw/leaflet.draw.js',
              'leaflet/leaflet.extras.js',
              'leaflet/leaflet.forms.js']
+if SRID:
+    _forms_js += ['leaflet/proj4js.js',
+                  'leaflet/proj4leaflet.js',
+                  'proj4j/%s.js' % SRID]
+
 _forms_css = ['leaflet/draw/leaflet.draw.css']
 _forms_plugins = PLUGINS.setdefault(PLUGIN_FORMS, {})
 _forms_plugins['js'] = _forms_js + _forms_plugins.get('js', [])

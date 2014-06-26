@@ -5,6 +5,7 @@ CHANGELOG
 0.13.6 (unreleased)
 -------------------
 
+* Setup Projection machinery in Leaflet forms if necessary
 * Django Leaflet forms fiels without libgeos installed (thanks Florent Lebreton)
 
 
