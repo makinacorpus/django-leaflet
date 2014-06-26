@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.13.6 (unreleased)
+0.13.6 (2014-06-26)
 -------------------
 
 * Setup Projection machinery in Leaflet forms if necessary
