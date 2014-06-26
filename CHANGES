@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.13.7 (unreleased)
+0.13.7 (2014-06-26)
 -------------------
 
 * Fix typo in default proj4js path (ref #71)
