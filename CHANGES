@@ -5,7 +5,7 @@ CHANGELOG
 0.13.8 (unreleased)
 -------------------
 
-- Nothing changed yet.
+* Fix GeoJSON serialization when creating new MultiPoint records
 
 
 0.13.7 (2014-06-26)

@@ -26,6 +26,14 @@ L.FieldStore = L.Class.extend({
         if (typeof geom.toGeoJSON != 'function') {
             throw 'Unsupported layer type ' + geom.constructor.name;
         }
+
+        // Leaflet requires access to original feature attribute for GeoJSON
+        // serialization. (see https://github.com/Leaflet/Leaflet/blob/v0.7.3/src/layer/GeoJSON.js#L256-L258)
+        // When creating new records, it's empty so we force it here.
+        if (!geom.feature) {
+            geom.feature = {geometry: {type: this.options.geom_type}};
+        }
+
         var geojson = geom.toGeoJSON();
         if (is_multi && is_generic) {
             var flat = {type: 'GeometryCollection', geometries: []};
