@@ -10,7 +10,7 @@ if sys.version_info < (2, 7):
 
 setup(
     name='django-leaflet',
-    version='0.14.0',
+    version='0.14.1.dev0',
     author='Mathieu Leplatre',
     author_email='mathieu.leplatre@makina-corpus.com',
     url='https://github.com/makinacorpus/django-leaflet',
