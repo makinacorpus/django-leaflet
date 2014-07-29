@@ -201,7 +201,7 @@ L.Map.djangoMap = function (id, options) {
     /*
      * Trigger custom map:init Event
      */
-    triggerEvent(window, 'map:init', {map: map, options: options});
+    triggerEvent(window, 'map:init', {id: id, map: map, options: options});
 
     /*
      * Run callback if specified
