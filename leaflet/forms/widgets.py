@@ -18,6 +18,9 @@ class LeafletWidget(BaseGeometryWidget):
     modifiable = True
     supports_3d = False
     include_media = False
+    geometry_field_class = 'L.GeometryField'
+    field_store_class = 'L.FieldStore'
+    target_map = None
 
     @property
     def media(self):
@@ -34,22 +37,24 @@ class LeafletWidget(BaseGeometryWidget):
         return value.geojson if value else ''
 
     def render(self, name, value, attrs=None):
-        assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
+        context = self.build_attrs(attrs)
 
-        # Retrieve params from Field init (if any)
-        self.geom_type = self.attrs.get('geom_type', self.geom_type)
+        id_map = context.get('id', name).replace('-', '_')
+        context.setdefault('id_map', id_map + '_map')  # JS-safe
+        context.setdefault('id_map_callback', id_map + '_map_callback')
 
-        attrs = attrs or {}
+        override_at_class = ['geom_type', 'modifiable', 'map_srid', 'target_map',
+                             'geometry_field_class', 'field_store_class']
+        for key in override_at_class:
+            context.setdefault(key, getattr(self, key))
+
+        assert context['map_srid'] == 4326, 'Leaflet vectors should be decimal degrees.'
 
         # In BaseGeometryWidget, geom_type is set using gdal, and fails with generic.
+        # https://github.com/django/django/blob/1.6.5/django/contrib/gis/forms/widgets.py#L73
         # See https://code.djangoproject.com/ticket/21021
-        if self.geom_type == 'GEOMETRY':
-            attrs['geom_type'] = 'Geometry'
+        if context['geom_type'] == 'GEOMETRY':
+            context['geom_type'] = 'Geometry'
+        self.attrs['geom_type'] = context['geom_type']
 
-        map_id = attrs.get('id', name).replace('-', '_')  # JS-safe
-        attrs.update(id_map=map_id + '_map',
-                     id_map_callback=map_id + '_map_callback',
-                     modifiable=self.modifiable,
-                     geometry_field_class=attrs.get('geometry_field_class', 'L.GeometryField'),
-                     field_store_class=attrs.get('field_store_class', 'L.FieldStore'))
-        return super(LeafletWidget, self).render(name, value, attrs)
+        return super(LeafletWidget, self).render(name, value, context)
