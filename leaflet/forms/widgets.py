@@ -50,6 +50,7 @@ class LeafletWidget(BaseGeometryWidget):
         attrs.update(id_map=map_id + '_map',
                      id_map_callback=map_id + '_map_callback',
                      modifiable=self.modifiable,
+                     target_map=attrs.get('target_map', getattr(self, 'target_map', None)),
                      geometry_field_class=attrs.get('geometry_field_class', getattr(self, 'geometry_field_class', 'L.GeometryField')),
                      field_store_class=attrs.get('field_store_class', getattr(self, 'field_store_class', 'L.FieldStore')))
         return super(LeafletWidget, self).render(name, value, attrs)
