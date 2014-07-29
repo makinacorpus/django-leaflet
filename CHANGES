@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.13.8 (unreleased)
+0.14.0 (2014-07-29)
 -------------------
 
 * Fix GeoJSON serialization when creating new MultiPoint records
