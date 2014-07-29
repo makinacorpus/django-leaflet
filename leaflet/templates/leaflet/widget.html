@@ -23,10 +23,11 @@
 
     {% if target_map %}
     window.addEventListener('map:init', function (e) {
-        e.detail.map.on('map:loadfield', function (me) {
+        var target_map = e.detail.map;
+        target_map.on('map:loadfield', function (me) {
             if (me.fieldid == 'id_{{ target_map }}') {
                 setTimeout(function () {
-                    {{ id_map_callback }}(e.detail.map, e.detail.options);
+                    {{ id_map_callback }}(target_map, e.detail.options);
                 }, 0);
             }
         });

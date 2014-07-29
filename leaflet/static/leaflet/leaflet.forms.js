@@ -107,6 +107,7 @@ L.GeometryField = L.Class.extend({
 
         if (this.options.modifiable) {
             map.addControl(drawControl);
+            L.DomUtil.addClass(drawControl._container, this.options.fieldid);
 
             map.on('draw:created', this.onCreated, this);
             map.on('draw:edited', this.onEdited, this);
