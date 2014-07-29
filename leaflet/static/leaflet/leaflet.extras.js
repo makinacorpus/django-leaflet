@@ -105,6 +105,11 @@ L.Map.DjangoMap = L.Map.extend({
 
         if (layers.length == 1) {
             var layer = l2d(layers[0]);
+            // make the only layer match the map max/min_zoom
+            layer.options = L.Util.extend(layer.options, {
+            			'minZoom': this.options['minZoom'],
+            			'maxZoom': this.options['maxZoom']
+            		});
             L.tileLayer(layer.url, layer.options).addTo(this);
             return;
         }
