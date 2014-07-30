@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.14.1 (unreleased)
+0.14.1 (2014-07-30)
 -------------------
 
 - Fix draw events being received for each draw control on the map.
