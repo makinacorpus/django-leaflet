@@ -40,7 +40,11 @@ describe('Test Leaflet Forms', function() {
             });
 
             it("should emit event when field is loaded", function (done) {
-                var field = new L.GeometryField({geom_type: 'GEOMETRY', fieldid: 'formfield'});
+                var field = new L.GeometryField({
+                    geom_type: 'GEOMETRY',
+                    modifiable: true,
+                    fieldid: 'formfield'
+                });
                 map.on('map:loadfield', function (e) {
                     assert.equal(e.target, map);
                     assert.equal(e.field, field);
