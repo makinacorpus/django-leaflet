@@ -45,7 +45,7 @@ describe('Test Leaflet Forms', function() {
                     assert.equal(e.target, map);
                     assert.equal(e.field, field);
                     assert.equal(e.fieldid, 'formfield');
-                    assert.isDefined(map.drawControl);
+                    assert.isDefined(map.drawControlformfield);
                     done();
                 });
                 field.addTo(map);

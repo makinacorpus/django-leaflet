@@ -5,7 +5,8 @@ CHANGELOG
 0.14.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix draw events being received for each draw control on the map.
+  (**Caution**: ``map.drawControl`` attribute is not set anymore)
 
 
 0.14.0 (2014-07-29)

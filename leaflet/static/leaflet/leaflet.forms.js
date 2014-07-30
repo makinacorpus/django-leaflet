@@ -81,6 +81,7 @@ L.GeometryField = L.Class.extend({
 
         L.setOptions(this, options);
 
+        this._drawControl = null;
         this._unsavedChanges = false;
 
         // Warn if leaving with unsaved changes
@@ -103,28 +104,46 @@ L.GeometryField = L.Class.extend({
         map.addLayer(this.drawnItems);
 
         // Initialize the draw control and pass it the FeatureGroup of editable layers
-        var drawControl = map.drawControl = new L.Control.Draw(this._controlDrawOptions());
+        var drawControl = this._drawControl = new L.Control.Draw(this._controlDrawOptions());
 
         if (this.options.modifiable) {
             map.addControl(drawControl);
             L.DomUtil.addClass(drawControl._container, this.options.fieldid);
 
-            map.on('draw:created', this.onCreated, this);
-            map.on('draw:edited', this.onEdited, this);
-            map.on('draw:deleted', this.onDeleted, this);
+            //
+            // In case there is several draw controls on the same map (target map option)
+            map['drawControl' + this.options.fieldid] = drawControl;
+            // We use a flag to ignore events of other draw controls
+            for (var toolbar in drawControl._toolbars) {
+                drawControl._toolbars[toolbar].on('enable disable', function (e) {
+                    this._acceptDrawEvents = e.type === 'enable';
+                }, this);
+            }
+
+            map.on('draw:created draw:edited draw:deleted', function (e) {
+                // Ignore if coming from other Draw controls
+                if (!this._acceptDrawEvents)
+                    return;
+                // Call onCreated(), onEdited(), onDeleted()
+                var eventName = e.type.replace('draw:', ''),
+                    method = 'on' + eventName.charAt(0).toUpperCase() + eventName.slice(1);
+                this[method](e);
+            }, this);
 
             // Flag for unsaved changes
             map.on('draw:drawstart draw:editstart', function () {
-                this._unsavedChanges = true;
+                if (this._acceptDrawEvents) this._unsavedChanges = true;
             }, this);
             map.on('draw:drawstop draw:editstop', function () {
-                this._unsavedChanges = false;
+                if (this._acceptDrawEvents) this._unsavedChanges = false;
             }, this);
         }
 
         this.load();
 
         map.fire('map:loadfield', {field: this, fieldid: this.options.fieldid});
+
+        return this;
     },
 
     load: function () {
