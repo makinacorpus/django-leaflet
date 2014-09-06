@@ -389,8 +389,19 @@ The related template would look like this:
       </body>
     </html>
 
-If you need to customize the map used by the widget, first subclass the LeafletWidget to declare a custom geometry_field_class, then in js define the custom field by extending GeometryField and overriding appropriate functions.
+If you need to customize the map used by the widget, first override the js field behaviour by extending GeometryField, then in django subclass the LeafletWidget to specify the custom geometry_field_class.
 
+::
+
+    YourGeometryField = L.GeometryField.extend({
+        addTo: function (map) {
+            L.GeometryField.prototype.addTo.call(this, map);
+            // Customize map for field
+            console.log(this);
+        },
+        // See GeometryField source (static/leaflet/leaflet.forms.js) to override more stuff...
+    });
+    
 ::
 
     class YourMapWidget(LeafletWidget):
@@ -401,20 +412,6 @@ If you need to customize the map used by the widget, first subclass the LeafletW
             model = YourModel
             fields = ('name', 'geom')
             widgets = {'geom': YourMapWidget()}
-    
-    # Note: a shortcut would be useful to pass the
-    #``geometry_field_class`` to the form instead of having to subclass ``LeafletWidget``
-
-::
-
-    YourGeometryField = L.GeometryField.extend({
-        addTo: function (map) {
-            L.GeometryField.prototype.addTo.call(this, map);
-            // Customize map for field
-            console.log(this);
-        },
-        // See source to override more stuff...
-    });
     
 Plugins
 ~~~~~~~
