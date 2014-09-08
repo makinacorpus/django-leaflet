@@ -389,7 +389,30 @@ The related template would look like this:
       </body>
     </html>
 
+If you need to customize the map used by the widget, first override the JavaScript field behaviour by extending ``L.GeometryField``, then in Django subclass the ``LeafletWidget`` to specify the custom ``geometry_field_class``.
 
+::
+
+    YourGeometryField = L.GeometryField.extend({
+        addTo: function (map) {
+            L.GeometryField.prototype.addTo.call(this, map);
+            // Customize map for field
+            console.log(this);
+        },
+        // See GeometryField source (static/leaflet/leaflet.forms.js) to override more stuff...
+    });
+    
+::
+
+    class YourMapWidget(LeafletWidget):
+        geometry_field_class = 'YourGeometryField'
+    
+    class YourForm(forms.ModelForm):
+        class Meta:
+            model = YourModel
+            fields = ('name', 'geom')
+            widgets = {'geom': YourMapWidget()}
+    
 Plugins
 ~~~~~~~
 
