@@ -542,6 +542,9 @@ AUTHORS
 * `ollb <https://github.com/ollb>`_
 * `smcoll <https://github.com/smcoll>`_
 * `jnm <https://github.com/jnm>`_
+* `OKso <https://github.com/oksome>`_
+* `Florent Lebreton <https://github.com/fle/>`_
+* `rgreenemun <https://github.com/rgreenemun>`_
 
 
 |makinacom|_
