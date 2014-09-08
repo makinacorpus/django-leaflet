@@ -389,7 +389,20 @@ The related template would look like this:
       </body>
     </html>
 
-If you need to customize the map used by the widget, first override the JavaScript field behaviour by extending ``L.GeometryField``, then in Django subclass the ``LeafletWidget`` to specify the custom ``geometry_field_class``.
+
+Every map field will trigger an event you can use to add your custom machinery :
+
+::
+
+    map.on('map:loadfield', function (e) {
+        ...
+        // Customize map for field 
+        console.log(e.field, e.fieldid);
+        ...
+    });
+
+
+If you need a reusable customization of widgets maps, first override the JavaScript field behaviour by extending ``L.GeometryField``, then in Django subclass the ``LeafletWidget`` to specify the custom ``geometry_field_class``.
 
 ::
 
