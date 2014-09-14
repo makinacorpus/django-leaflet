@@ -171,6 +171,7 @@ class LeafletModelFormTest(SimpleTestCase):
 
             class Meta:
                 model = DummyModel
+                fields = ['geom']
 
         form = DummyForm()
         output = form.as_p()
@@ -181,6 +182,7 @@ class LeafletModelFormTest(SimpleTestCase):
             class DummyForm(django.forms.ModelForm):
                 class Meta:
                     model = DummyModel
+                    fields = ['geom']
                     widgets = {'geom': LeafletWidget()}
             form = DummyForm()
             output = form.as_p()

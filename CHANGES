@@ -5,7 +5,7 @@ CHANGELOG
 0.14.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+* Fix Django 1.7 support in tests (thanks Marco Badan)
 
 
 0.14.1 (2014-07-30)
