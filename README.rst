@@ -546,6 +546,7 @@ AUTHORS
 * `Florent Lebreton <https://github.com/fle/>`_
 * `rgreenemun <https://github.com/rgreenemun>`_
 * `Marco Badan <https://github.com/itbabu>`_
+* David Martinez Morata
 
 |makinacom|_
 

@@ -6,7 +6,7 @@ CHANGELOG
 -------------------
 
 * Fix Django 1.7 support in tests (thanks Marco Badan)
-
+* Add spanish translations (thanks David Martinez)
 
 0.14.1 (2014-07-30)
 -------------------
