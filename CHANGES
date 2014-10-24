@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.14.2 (unreleased)
+0.14.2 (2014-10-24)
 -------------------
 
 * Fix Django 1.7 support in tests (thanks Marco Badan)
