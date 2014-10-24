@@ -212,6 +212,17 @@ If it contains several layers, a layer switcher will then be added automatically
               ('Streets', 'http://server/b/...', '© Contributors')]
 
 
+Overlay layers
+~~~~~~~~~~~~~~
+
+To globally add an overlay layer, use the same syntax as tiles::
+
+    'OVERLAYS': [('Cadastral', 'http://server/a/{z}/{x}/{y}.png', '© IGN')]
+
+Currently, overlay layers from settings are limited to tiles. For vectorial overlays, you
+will have to add them via JavaScript (see events).
+
+
 Attribution prefix
 ~~~~~~~~~~~~~~~~~~
 
@@ -396,7 +407,7 @@ Every map field will trigger an event you can use to add your custom machinery :
 
     map.on('map:loadfield', function (e) {
         ...
-        // Customize map for field 
+        // Customize map for field
         console.log(e.field, e.fieldid);
         ...
     });
@@ -414,18 +425,18 @@ If you need a reusable customization of widgets maps, first override the JavaScr
         },
         // See GeometryField source (static/leaflet/leaflet.forms.js) to override more stuff...
     });
-    
+
 ::
 
     class YourMapWidget(LeafletWidget):
         geometry_field_class = 'YourGeometryField'
-    
+
     class YourForm(forms.ModelForm):
         class Meta:
             model = YourModel
             fields = ('name', 'geom')
             widgets = {'geom': YourMapWidget()}
-    
+
 Plugins
 ~~~~~~~
 

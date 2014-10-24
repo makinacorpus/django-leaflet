@@ -101,9 +101,10 @@ L.Map.DjangoMap = L.Map.extend({
 
     _djAddLayers: function () {
         var layers = this.options.djoptions.layers,
+            overlays = this.options.djoptions.overlays || [],
             continuousWorld = this.options.continuousWorld;
 
-        if (layers.length == 1) {
+        if (layers.length == 1 && overlays.length == 0) {
             var layer = l2d(layers[0]);
             // Make the only layer match the map max/min_zoom
             layer.options = L.Util.extend(layer.options, {
@@ -121,6 +122,11 @@ L.Map.DjangoMap = L.Map.extend({
             this.layerscontrol.addBaseLayer(l, layer.name);
             // Show first one as default
             if (i === 0) l.addTo(this);
+        }
+        for (var i = 0, n = overlays.length; i < n; i++) {
+            var layer = l2d(overlays[i]),
+                l = L.tileLayer(layer.url, layer.options);
+            this.layerscontrol.addOverlay(l, layer.name);
         }
 
         function l2d(l) {

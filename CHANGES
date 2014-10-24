@@ -5,8 +5,7 @@ CHANGELOG
 0.14.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+* Add ability to add overlay tile layers via new setting ``OVERLAYS``.
 
 0.14.2 (2014-10-24)
 -------------------
