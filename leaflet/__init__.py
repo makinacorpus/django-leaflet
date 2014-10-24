@@ -26,6 +26,7 @@ LEAFLET_CONFIG = getattr(settings, 'LEAFLET_CONFIG', {})
 
 app_settings = dict({
     'TILES': DEFAULT_TILES,
+    'OVERLAYS': [],
     'ATTRIBUTION_PREFIX': None,
     'SPATIAL_EXTENT': None,
     'DEFAULT_ZOOM': None,

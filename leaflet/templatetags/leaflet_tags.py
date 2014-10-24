@@ -71,6 +71,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
         minzoom=app_settings['MIN_ZOOM'],
         maxzoom=app_settings['MAX_ZOOM'],
         layers=[(six.text_type(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
+        overlays=[(six.text_type(label), url, attrs) for (label, url, attrs) in app_settings.get('OVERLAYS')],
         attributionprefix=app_settings.get('ATTRIBUTION_PREFIX'),
         scale=app_settings.get('SCALE'),
         minimap=app_settings.get('MINIMAP'),
