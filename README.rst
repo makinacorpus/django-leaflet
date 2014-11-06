@@ -208,8 +208,8 @@ If it contains several layers, a layer switcher will then be added automatically
 
 ::
 
-    'TILES': [('Satellite', 'http://server/a/...', '© Big eye'),
-              ('Streets', 'http://server/b/...', '© Contributors')]
+    'TILES': [('Satellite', 'http://server/a/...', '&copy; Big eye'),
+              ('Streets', 'http://server/b/...', '&copy; Contributors')]
 
 
 Overlay layers
@@ -217,7 +217,7 @@ Overlay layers
 
 To globally add an overlay layer, use the same syntax as tiles::
 
-    'OVERLAYS': [('Cadastral', 'http://server/a/{z}/{x}/{y}.png', '© IGN')]
+    'OVERLAYS': [('Cadastral', 'http://server/a/{z}/{x}/{y}.png', '&copy; IGN')]
 
 Currently, overlay layers from settings are limited to tiles. For vectorial overlays, you
 will have to add them via JavaScript (see events).
