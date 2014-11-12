@@ -57,7 +57,7 @@ msgid "Click to continue drawing shape."
 msgstr "Cliquer pour continuer le dessin de la forme."
 
 msgid "Click first point to close this shape."
-msgstr "Cliquer le premier point pour fermer la forme"
+msgstr "Cliquer sur le premier point pour fermer la forme"
 
 msgid "<strong>Error:</strong> shape edges cannot cross!"
 msgstr "<strong>Erreur:</strong> les segments ne peuvent se croiser!"
