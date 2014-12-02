@@ -5,7 +5,8 @@ CHANGELOG
 0.15.1 (unreleased)
 -------------------
 
-* Fix translation in French (fixces #86)
+* Fix translation in French (fixes #86)
+* Allow to set any leaflet tileLayer option in ``TILES`` and ``OVERLAYS`` settings (fixes #70).
 
 
 0.15.0 (2014-10-24)

@@ -202,14 +202,15 @@ To globally add a tiles layer to your maps::
 
     'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
-This setting can also be a list of tuples ``(name, url, attributions)``.
+This setting can also be a list of tuples ``(name, url, options)``.
+The python dict ``options`` accepts all the Leaflet tileLayers options.
 
 If it contains several layers, a layer switcher will then be added automatically.
 
 ::
 
-    'TILES': [('Satellite', 'http://server/a/...', '&copy; Big eye'),
-              ('Streets', 'http://server/b/...', '&copy; Contributors')]
+    'TILES': [('Satellite', 'http://server/a/...', {'attribution': '&copy; Big eye', 'maxZoom': 16}),
+              ('Streets', 'http://server/b/...', {'attribution': '&copy; Contributors'})]
 
 
 Overlay layers
@@ -217,7 +218,7 @@ Overlay layers
 
 To globally add an overlay layer, use the same syntax as tiles::
 
-    'OVERLAYS': [('Cadastral', 'http://server/a/{z}/{x}/{y}.png', '&copy; IGN')]
+    'OVERLAYS': [('Cadastral', 'http://server/a/{z}/{x}/{y}.png', {'attribution': '&copy; IGN'})]
 
 Currently, overlay layers from settings are limited to tiles. For vectorial overlays, you
 will have to add them via JavaScript (see events).
