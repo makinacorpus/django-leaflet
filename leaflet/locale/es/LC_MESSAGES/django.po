@@ -63,8 +63,7 @@ msgstr "Haz click en el primer punto para cerrar la geometría."
 
 msgid "<strong>Error:</strong> shape edges cannot cross!"
 msgstr ""
-"<strong>Errorr:</strong> ¡los segmentos no se pueden cruzarles segments ne "
-"peuvent se croiser!\n"
+"<strong>Error:</strong> ¡los segmentos no se pueden cruzarles!"
 
 msgid "Click to start drawing line."
 msgstr "Haz click para comenzar a dibujar una linea."
