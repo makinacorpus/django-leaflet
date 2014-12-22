@@ -130,8 +130,13 @@ L.Map.DjangoMap = L.Map.extend({
         }
 
         function l2d(l) {
-            var options = {'attribution': l[2],
-                           'continuousWorld': continuousWorld};
+            var options = {'continuousWorld': continuousWorld};
+            if (typeof l[2] === 'string') {
+                // remain compatible with django-leaflet <= 0.15.0
+                options = L.Util.extend(options, {'attribution': l[2]});
+            } else {
+                options = L.Util.extend(options, l[2]);
+            }
             return {name: l[0], url: l[1], options: options};
         }
     },

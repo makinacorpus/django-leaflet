@@ -68,8 +68,6 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
         fitextent=fitextent,
         center=app_settings['DEFAULT_CENTER'],
         zoom=app_settings['DEFAULT_ZOOM'],
-        minzoom=app_settings['MIN_ZOOM'],
-        maxzoom=app_settings['MAX_ZOOM'],
         layers=[(six.text_type(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
         overlays=[(six.text_type(label), url, attrs) for (label, url, attrs) in app_settings.get('OVERLAYS')],
         attributionprefix=app_settings.get('ATTRIBUTION_PREFIX'),
@@ -78,6 +76,10 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
         resetview=app_settings.get('RESET_VIEW'),
         tilesextent=list(app_settings.get('TILES_EXTENT', []))
     )
+    if app_settings['MIN_ZOOM'] is not None:
+        djoptions['minzoom'] = app_settings['MIN_ZOOM']
+    if app_settings['MAX_ZOOM'] is not None:
+        djoptions['maxzoom'] = app_settings['MAX_ZOOM']
 
     return {
         # templatetag options
