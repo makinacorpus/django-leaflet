@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.15.2 (unreleased)
+0.15.2 (2014-12-22)
 -------------------
 
 * Allow to set any leaflet tileLayer option in ``TILES`` and ``OVERLAYS`` settings (fixes #70).
