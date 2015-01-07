@@ -218,9 +218,7 @@ L.Map.djangoMap = function (id, options) {
      * Run callback if specified
      */
     if (typeof(options.callback) == 'function') {
-        setTimeout(function () {
-            options.callback(map, options);
-        }, 0);
+        options.callback(map, options);
     }
 
     return map;
