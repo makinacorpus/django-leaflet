@@ -5,7 +5,7 @@ CHANGELOG
 0.15.3dev (unreleased)
 -------------------
 
-*
+* Map attribution can be translated using ugettext_lazy
 
 
 0.15.2 (2014-12-22)

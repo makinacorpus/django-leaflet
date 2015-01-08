@@ -6,6 +6,7 @@ import json
 from django import template
 from django.conf import settings
 from django.utils import six
+from django.utils.encoding import force_text
 
 from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
                      PLUGIN_ALL, PLUGIN_FORMS)
@@ -68,9 +69,9 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
         fitextent=fitextent,
         center=app_settings['DEFAULT_CENTER'],
         zoom=app_settings['DEFAULT_ZOOM'],
-        layers=[(six.text_type(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
-        overlays=[(six.text_type(label), url, attrs) for (label, url, attrs) in app_settings.get('OVERLAYS')],
-        attributionprefix=app_settings.get('ATTRIBUTION_PREFIX'),
+        layers=[(force_text(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
+        overlays=[(force_text(label), url, attrs) for (label, url, attrs) in app_settings.get('OVERLAYS')],
+        attributionprefix=force_text(app_settings.get('ATTRIBUTION_PREFIX'), strings_only=True),
         scale=app_settings.get('SCALE'),
         minimap=app_settings.get('MINIMAP'),
         resetview=app_settings.get('RESET_VIEW'),
