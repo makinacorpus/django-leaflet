@@ -20,4 +20,7 @@
     {% if with_forms %}{% include "leaflet/_leaflet_draw_i18n.js" %}{% endif %}
     L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
     L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
+    {% if SET_IMAGE_PATH_MANUALLY %}
+    L.Icon.Default.imagePath = "{% static "leaflet/images" %}";
+    {% endif %}
 </script>

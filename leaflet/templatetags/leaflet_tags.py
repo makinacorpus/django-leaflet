@@ -38,11 +38,13 @@ def leaflet_js(plugins=None):
     """
     plugin_names = _get_plugin_names(plugins)
     with_forms = PLUGIN_FORMS in plugin_names or PLUGIN_ALL in plugin_names
+    SET_IMAGE_PATH_MANUALLY = app_settings.get('SET_IMAGE_PATH_MANUALLY')
     return {
         "DEBUG": settings.TEMPLATE_DEBUG,
         "SRID": str(SRID) if SRID else None,
         "PLUGINS_JS": _get_all_resources_for_plugins(plugin_names, 'js'),
-        "with_forms": with_forms
+        "with_forms": with_forms,
+        "SET_IMAGE_PATH_MANUALLY": SET_IMAGE_PATH_MANUALLY
     }
 
 
