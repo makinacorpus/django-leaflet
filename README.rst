@@ -286,7 +286,7 @@ turn it will break the method ``L.Icon.Default.imagePath()``.
 To use Django's own knowledge of its static files to set this value manually,
 use::
 
-    'SET_IMAGE_PATH_MANUALLY': True
+    'FORCE_IMAGE_PATH': True
 
 This will append to the output html::
 
