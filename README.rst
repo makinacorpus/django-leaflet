@@ -276,21 +276,17 @@ and no longer adds map objects into ``window.maps`` array by default. To restore
 
     'NO_GLOBALS' = False
 
-Manually specify image path
+Force Leaflet image path
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If you are using staticfiles compression libraries such as django_compressor,
 which can do any of compressing, concatenating or renaming javascript files.
 This may break Leaflet's own ability to determine its installed path, and in
 turn it will break the method ``L.Icon.Default.imagePath()``.
 
-To use Django's own knowledge of its static files to set this value manually,
-use::
+To use Django's own knowledge of its static files to force this value
+explicitly, use::
 
     'FORCE_IMAGE_PATH': True
-
-This will append to the output html::
-
-    L.Icon.Default.imagePath = "{% static "leaflet/images" %}";
 
 Plugins
 ~~~~~~~
