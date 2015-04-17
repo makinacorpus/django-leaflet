@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.admin import ModelAdmin
+from django.core.exceptions import ImproperlyConfigured
 
 try:
     from djgeojson.fields import GeoJSONField
@@ -9,7 +10,8 @@ except ImportError:
     GeoJSONField = type(object)
 try:
     from django.contrib.gis.db.models import GeometryField
-except ImportError:
+except (ImportError, ImproperlyConfigured):
+    # When GEOS is not installed
     GeometryField = type(object)
 
 from .forms.widgets import LeafletWidget
