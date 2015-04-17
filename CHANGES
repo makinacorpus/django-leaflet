@@ -5,7 +5,7 @@ CHANGELOG
 0.15.3dev (unreleased)
 -------------------
 
-*
+* Fix widgets hanging forever with points (fixes #90)
 
 
 0.15.2 (2014-12-22)
