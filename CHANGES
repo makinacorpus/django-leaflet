@@ -16,6 +16,7 @@ CHANGELOG
 
 * Fix widgets hanging forever with points (thanks @Azimkhan, fixes #90)
 * Remove setTimeout when calling setView() (thanks @manelclos, fixes #89)
+* Fix minZoom/maxZoom when undefined in settings (thanks Manuel Clos)
 
 
 0.15.2 (2014-12-22)
