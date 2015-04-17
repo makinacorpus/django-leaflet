@@ -10,6 +10,7 @@ CHANGELOG
 * Add setting ``FORCE_IMAGE_PATH`` to bypass Leaflet guess on image paths
   (*useful when using django-compressor*) (thanks @nimasmi)
 * Add Hebrew translations (thanks @nonZero)
+* Map attribution can be translated using ugettext_lazy
 
 **Bug fixes**
 
