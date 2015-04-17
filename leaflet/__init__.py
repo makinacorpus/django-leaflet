@@ -33,6 +33,7 @@ app_settings = dict({
     'MIN_ZOOM': None,
     'MAX_ZOOM': None,
     'DEFAULT_CENTER': None,
+    'FORCE_IMAGE_PATH': False,
     'SRID': None,
     'TILES_EXTENT': [],
     'SCALE': 'metric',
