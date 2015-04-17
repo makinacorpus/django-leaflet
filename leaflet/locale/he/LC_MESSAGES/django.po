@@ -1,0 +1,130 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: django-leaflet\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Udi Oron <udioron@gmail.com>\n"
+"Language-Team:  <LL@li.org>\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "OSM"
+msgstr ""
+
+msgid "Remove TILES_URL and keep TILES value."
+msgstr ""
+
+msgid "Background"
+msgstr "רקע"
+
+msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
+msgstr ""
+
+msgid "No geometry value provided."
+msgstr "לא סופק ערך גיאומטרי."
+
+msgid "Invalid geometry value."
+msgstr "ערך גאומטרי שגוי."
+
+msgid "Invalid geometry type."
+msgstr "סוג גיאומטרי שגוי."
+
+msgid ""
+"An error occurred when transforming the geometry to the SRID of the geometry "
+"form field."
+msgstr "הייתה בעיה עם השינוי של הצורה לסוג של השדה."
+
+msgid "Cancel drawing"
+msgstr "ביטול ציור"
+
+msgid "Cancel"
+msgstr "ביטול"
+
+msgid "Delete last point drawn"
+msgstr "מחיקת הנקודה האחרונה שצוירה"
+
+msgid "Delete last point"
+msgstr "מחיקת הנקודה האחרונה"
+
+msgid "Draw a polyline"
+msgstr "ציור קו"
+
+msgid "Draw a polygon"
+msgstr "ציור פוליגון"
+
+msgid "Draw a rectangle"
+msgstr "ציור מרובע"
+
+msgid "Draw a circle"
+msgstr "ציור עיגול"
+
+msgid "Draw a marker"
+msgstr "ציור נקודת ציון"
+
+msgid "Click and drag to draw circle."
+msgstr "לחץ וגרור בכדי לצייר עיגול."
+
+msgid "Click map to place marker."
+msgstr "לחץ על המפה לציור נקודת ציון."
+
+msgid "Click to start drawing shape."
+msgstr "לחץ על מנת להתחיל לצייר צורה חדשה."
+
+msgid "Click to continue drawing shape."
+msgstr "לחץ בכדי להמשיך לצייר"
+
+msgid "Click first point to close this shape."
+msgstr "לחץ על הנקודה הראשונה בכדי לסגור את הצורה."
+
+msgid "<strong>Error:</strong> shape edges cannot cross!"
+msgstr "<strong>שגיאה:</strong> דפנות הצורה אינם יכולים לחצות זה את זה!"
+
+msgid "Click to start drawing line."
+msgstr "לחץ בכדי להתחיל לצייר קו."
+
+msgid "Click to continue drawing line."
+msgstr "לחץ על מנת להמשיך לצייר את הקו."
+
+msgid "Click last point to finish line."
+msgstr "לחץ על הנקודה האחרונה שנית על מנת לסיים את הקו."
+
+msgid "Click and drag to draw rectangle."
+msgstr "לחץ וגרור על מנת לצייר מרובע."
+
+msgid "Release mouse to finish drawing."
+msgstr "שחרר את הלחצן על מנת לסיים את הציור."
+
+msgid "Save changes."
+msgstr "שמירת שינויים."
+
+msgid "Save"
+msgstr "שמור"
+
+msgid "Cancel editing, discards all changes."
+msgstr "בטל עריכה, כל השינויים יבוטלו."
+
+msgid "Edit layers"
+msgstr "עריכת שכבות"
+
+msgid "No layers to edit."
+msgstr "אין שכבות לעריכה"
+
+msgid "Delete layers"
+msgstr "מחיקת שכבות"
+
+msgid "No layers to delete."
+msgstr "אין שכבות למחיקה"
+
+msgid "Drag handles, or marker to edit feature."
+msgstr "גרור נקודות שליטה או את נקודת הציון על מנת לערוך פריט."
+
+msgid "Click cancel to undo changes."
+msgstr "לחץ על ביטול בכדי לבטל את השינויים."
+
+msgid "Click on a feature to remove"
+msgstr "לחץ על פריט בכדי להסירו."
+
+msgid "Reset view"
+msgstr "איפוס תצוגה"

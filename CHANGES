@@ -5,7 +5,13 @@ CHANGELOG
 0.15.3dev (unreleased)
 -------------------
 
-* Fix widgets hanging forever with points (fixes #90)
+**New features**
+
+* Added Hebrew translations (thanks @nonZero)
+
+**Bug fixes**
+
+* Fix widgets hanging forever with points (thanks @Azimkhan, fixes #90)
 
 
 0.15.2 (2014-12-22)
