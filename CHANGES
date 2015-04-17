@@ -16,6 +16,7 @@ CHANGELOG
 
 * Fix widgets hanging forever with points (thanks @Azimkhan, fixes #90)
 * Remove setTimeout when calling setView() (thanks @manelclos, fixes #89)
+* Fix minZoom/maxZoom when undefined in settings (thanks Manel Clos)
 
 
 0.15.2 (2014-12-22)
@@ -54,7 +55,7 @@ CHANGELOG
 -------------------
 
 * Fix GeoJSON serialization when creating new MultiPoint records
-* Make the only layer match the map max/min_zoom (fixes #67) (thanks Manuel Clos)
+* Make the only layer match the map max/min_zoom (fixes #67) (thanks Manel Clos)
 * Added widget attribute to edit several fields on the same map
 
 
