@@ -7,7 +7,9 @@ CHANGELOG
 
 **New features**
 
-* Added Hebrew translations (thanks @nonZero)
+* Add setting ``FORCE_IMAGE_PATH`` to bypass Leaflet guess on image paths
+  (*useful when using django-compressor*) (thanks @nimasmi)
+* Add Hebrew translations (thanks @nonZero)
 
 **Bug fixes**
 
