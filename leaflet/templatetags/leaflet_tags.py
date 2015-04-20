@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 import json
@@ -50,7 +50,7 @@ def leaflet_js(plugins=None):
 
 
 @register.inclusion_tag('leaflet/_leaflet_map.html')
-def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='load'):
+def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='load', settings_overrides={}):
     """
 
     :param name:
@@ -64,6 +64,10 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='
         # Leaflet uses [lat, lng]
         xmin, ymin, xmax, ymax = SPATIAL_EXTENT
         extent = (ymin, xmin, ymax, xmax)
+
+    if settings_overrides == '':
+        settings_overrides = {}
+    app_settings.update(**settings_overrides)
 
     djoptions = dict(
         srid=SRID,
