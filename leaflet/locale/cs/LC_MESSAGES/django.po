@@ -1,0 +1,115 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-05 16:25+0200\n"
+"PO-Revision-Date: 2013-09-02 13:41+0100\n"
+"Last-Translator: Petr Dlouhý <petr.dlouhy@email.cz>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+msgid "Reset view"
+msgstr "Resetovat pohled"
+
+msgid "OSM"
+msgstr "OSM"
+
+msgid "Background"
+msgstr "Pozadí"
+
+msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
+msgstr "Rozsah mapy by měl být udaný jako výraz (minx, miny, maxx, maxy)"
+
+msgid "Draw a polyline"
+msgstr "Nakreslit trasu"
+
+msgid "Draw a polygon"
+msgstr "Nakreslit polygon"
+
+msgid "Draw a rectangle"
+msgstr "Nakreslit obdélník"
+
+msgid "Draw a circle"
+msgstr "Nakreslit kruh"
+
+msgid "Draw a marker"
+msgstr "Nakreslit značku"
+
+msgid "Click and drag to draw circle."
+msgstr "Pro nakreslení kruhu klikněte a táhněte."
+
+msgid "Click map to place marker."
+msgstr "Pro nakreslení značky klikněte a táhněte."
+
+msgid "Click to start drawing shape."
+msgstr "Nakreslení útvaru začnete kliknutím."
+
+msgid "Click to continue drawing shape."
+msgstr "Pro pokračování v malování útvaru klikněte."
+
+msgid "Click first point to close this shape."
+msgstr "Klikněte na první bod pro ukončení kterslení tohoto útvaru"
+
+msgid "<strong>Error:</strong> shape edges cannot cross!"
+msgstr "<strong>Chyba:</strong> hrany útvaru se nesmějí křižit!"
+
+msgid "Click to start drawing line."
+msgstr "Kliknutím do mapy začnete kreslit trasu."
+
+msgid "Click to continue drawing line."
+msgstr "Kliknutím pokračujete v kreslení trasy. Tažením posunujete mapu."
+
+msgid "Click last point to finish line."
+msgstr "Druhým kliknutím na poslední bod zkompletujete trasu."
+
+msgid "Click and drag to draw rectangle."
+msgstr "Kliknutím a tažením nakreslíte obdélník."
+
+msgid "Release mouse to finish drawing."
+msgstr "Pro ukončení kresby pusťte tlačítko myši."
+
+msgid "Save changes."
+msgstr "Uložit změny."
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Cancel editing, discards all changes."
+msgstr "Zrušit úpravy, zahodit veškeré změny."
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "Cancel drawing"
+msgstr "Zrušit kresbu"
+
+msgid "Edit layers"
+msgstr "Upravit objekty"
+
+msgid "Delete layers"
+msgstr "Smazat objekty"
+
+msgid "Delete last point drawn"
+msgstr "Smazat poslední nakreslený bod"
+
+msgid "Delete last point"
+msgstr "Smazat poslední bod"
+
+msgid "Drag handles, or marker to edit feature."
+msgstr "Tažením za bod upravíte objekt; tažením za fiktivní bod v půlce hrany přidáte další bod."
+
+msgid "Click cancel to undo changes."
+msgstr "Kliknutím na zrušit vrátíte změny."
+
+msgid "Click on a feature to remove"
+msgstr "Kliknutím na objekt ho zrušíte"
+
