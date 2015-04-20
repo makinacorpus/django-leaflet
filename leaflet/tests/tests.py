@@ -163,6 +163,18 @@ class LeafletWidgetMapTest(SimpleTestCase):
         self.assertIn('function prefix_geom_map_callback(map, options)', output)
 
 
+class SettingsOverridesTest(SimpleTestCase):
+
+    def test_settings_overrides(self):
+        widget = LeafletWidget(attrs={
+            'settings_overrides': {
+                'DEFAULT_CENTER': (8.0, 3.14),
+            }
+        })
+        output = widget.render('geom', '', {'id': 'geom'})
+        self.assertIn('"center": [8.0, 3.14]', output)
+
+
 class LeafletModelFormTest(SimpleTestCase):
 
     def test_modelform_field_conformity(self):
