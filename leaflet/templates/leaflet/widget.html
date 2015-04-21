@@ -37,7 +37,7 @@
 
 {% if not target_map %}
 {% block map %}
-    {% leaflet_map id_map callback=id_map_callback %}
+    {% leaflet_map id_map callback=id_map_callback settings_overrides=settings_overrides %}
 {% endblock map %}
 {% endif %}
 

@@ -5,6 +5,9 @@ CHANGELOG
 0.16.1 (unreleased)
 -------------------
 
+**New features**
+
+* Allow to override settings at the template tag level (thanks @PetrDiouhy, fixes #59)
 - Nothing changed yet.
 
 

@@ -501,6 +501,29 @@ Advanced usage
   If empty values is provided, then map initialization is immediate.
   And with a wrong value, the map is never initialized. :)
 
+* ``settings_overrides``: Map with overrides to the default LEAFLET_CONFIG settings.
+  (Default: {}).
+
+Config overrides
+~~~~~~~~~~~~~~~~
+
+It is possible to dynamically override settings in LeafletWidget initi:
+
+::
+
+    from leaflet.forms.widgets import LeafletWidget
+
+
+    class WeatherStationForm(forms.ModelForm):
+
+        class Meta:
+            model = WeatherStation
+            fields = ('name', 'geom')
+            widgets = {'geom': LeafletWidget(attrs={
+                'settings_overrides': {
+                    'DEFAULT_CENTER': (6.0, 45.0),
+                }
+            })}
 
 Projection
 ~~~~~~~~~~
