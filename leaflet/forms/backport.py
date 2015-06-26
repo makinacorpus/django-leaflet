@@ -31,6 +31,7 @@ from __future__ import unicode_literals
 
 import logging
 import warnings
+import json
 
 from django.conf import settings
 from django.contrib.gis import gdal
@@ -93,6 +94,9 @@ class BaseGeometryWidget(Widget):
         # field) then just reconstruct the Geometry.
         if isinstance(value, six.string_types):
             value = self.deserialize(value)
+
+        if isinstance(value, dict):
+            value = GEOSGeometry(json.dumps(value), srid=self.map_srid)
 
         if value:
             # Check that srid of value and map match
