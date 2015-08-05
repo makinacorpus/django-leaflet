@@ -116,6 +116,11 @@ L.Map.DjangoMap = L.Map.extend({
                 minZoom: this.options.minZoom,
                 maxZoom: this.options.maxZoom
             });
+            // Google maps Plugin
+            if (layer.url.substr(0,6) == 'GOOGLE') {
+                this.addLayer(new L.Google(layer.url.substr(7), layer.options));
+                return;
+            }
             L.tileLayer(layer.url, layer.options).addTo(this);
             return;
         }
@@ -123,10 +128,17 @@ L.Map.DjangoMap = L.Map.extend({
         this.layerscontrol = L.control.layers().addTo(this);
         for (var i = 0, n = layers.length; i < n; i++) {
             var layer = l2d(layers[i]),
+                l = undefined;
+            // Google maps Plugin
+            if (layer.url.substr(0,6) == 'GOOGLE') {
+                l = new L.Google(layer.url.substr(7), layer.options)
+            }
+            else {
                 l = L.tileLayer(layer.url, layer.options);
+            }
             this.layerscontrol.addBaseLayer(l, layer.name);
             // Show first one as default
-            if (i === 0) l.addTo(this);
+            if (i === 0) this.addLayer(l);
         }
         for (var i = 0, n = overlays.length; i < n; i++) {
             var layer = l2d(overlays[i]),
