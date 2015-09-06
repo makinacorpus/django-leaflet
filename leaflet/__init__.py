@@ -19,7 +19,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import six
 
 
-DEFAULT_TILES = [(_('OSM'), 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+DEFAULT_TILES = [(_('OSM'), '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                   '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')]
 
 LEAFLET_CONFIG = getattr(settings, 'LEAFLET_CONFIG', {})
