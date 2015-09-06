@@ -593,6 +593,7 @@ AUTHORS
 * `rgreenemun <https://github.com/rgreenemun>`_
 * `Marco Badan <https://github.com/itbabu>`_
 * David Martinez Morata
+* `NotSqrt <https://github.com/NotSqrt>`_
 
 |makinacom|_
 
