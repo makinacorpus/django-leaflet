@@ -2,48 +2,313 @@
 CHANGELOG
 =========
 
-0.5.1
-=====
+0.16.1 (unreleased)
+-------------------
 
-* Update Leaflet.Minimap
-* Fix apparence of Reset view button
+**New features**
+
+* Allow to override settings at the template tag level (thanks @PetrDiouhy, fixes #59)
+- Nothing changed yet.
 
 
-0.5.2 (unreleased)
-==================
+0.16.0 (2015-04-17)
+-------------------
 
-- Use Django's staticfiles app for expanding static URLS (@dyve)
+**New features**
 
+* Add setting ``FORCE_IMAGE_PATH`` to bypass Leaflet guess on image paths
+  (*useful when using django-compressor*) (thanks @nimasmi)
+* Add Hebrew translations (thanks @nonZero)
+* Map attribution can be translated using ugettext_lazy
+
+**Bug fixes**
+
+* Fix widgets hanging forever with points (thanks @Azimkhan, fixes #90)
+* Remove setTimeout when calling setView() (thanks @manelclos, fixes #89)
+* Fix minZoom/maxZoom when undefined in settings (thanks Manel Clos)
+
+
+0.15.2 (2014-12-22)
+-------------------
+
+* Allow to set any leaflet tileLayer option in ``TILES`` and ``OVERLAYS`` settings (fixes #70).
+
+
+0.15.1 (2014-12-04)
+-------------------
+
+* Remove special characters in README (fixes #82)
+* Fix translation in French (fixes #86)
+* Fix es localization
+
+
+0.15.0 (2014-10-24)
+-------------------
+
+* Add ability to add overlay tile layers via new setting ``OVERLAYS``.
+
+0.14.2 (2014-10-24)
+-------------------
+
+* Fix Django 1.7 support in tests (thanks Marco Badan)
+* Add spanish translations (thanks David Martinez)
+
+0.14.1 (2014-07-30)
+-------------------
+
+* Fix draw events being received for each draw control on the map.
+  (**Caution**: ``map.drawControl`` attribute is not set anymore)
+
+
+0.14.0 (2014-07-29)
+-------------------
+
+* Fix GeoJSON serialization when creating new MultiPoint records
+* Make the only layer match the map max/min_zoom (fixes #67) (thanks Manel Clos)
+* Added widget attribute to edit several fields on the same map
+
+
+0.13.7 (2014-06-26)
+-------------------
+
+* Fix typo in default proj4js path (ref #71)
+
+
+0.13.6 (2014-06-26)
+-------------------
+
+* Setup Projection machinery in Leaflet forms if necessary
+* Django Leaflet forms fiels without libgeos installed (thanks Florent Lebreton)
+
+
+0.13.5 (2014-06-18)
+-------------------
+
+* Prevent SRID download when default is used
+
+
+0.13.4 (2014-06-13)
+-------------------
+
+* Fix SRID projection file not being loaded
+
+
+0.13.3 (2014-06-10)
+-------------------
+
+* Upgrade to Leaflet 0.7.3
+
+
+0.13.2 (2014-04-15)
+-------------------
+
+* Fix regression where maps have null as max zoom
+
+
+0.13.1 (2014-04-10)
+-------------------
+
+* Fix GEOS dependency, back as optional for geometry edition only (fixes #65)
+* Add minZoom and maxZoom to map initialization
+* Add support of advanced static files locations, like S3 (thanks @jnm)
+
+
+0.13.0 (2014-03-26)
+-------------------
+
+* Add support of Leaflet form fields on Django >= 1.4.2 (thanks Gaël Utard)
+
+
+0.12 (2014-03-22)
+-----------------
+
+* Add support of GeoJSON fields
+
+
+0.11.1 (2014-02-12)
+-------------------
+
+* Do not complain about tile extent if SRID is 3857
+
+
+0.11.0 (2014-02-07)
+-------------------
+
+* Add control of `metric` and `imperial` in `SCALE` option (thanks @smcoll)
+* Upgrade to Leaflet.draw 0.2.3
+
+
+0.10.1 (2014-02-03)
+-------------------
+
+* Upgrade to Leaflet 0.7.2
+
+
+0.10.0 (2014-01-22)
+-------------------
+
+* Python 3 support (thanks @itbabu)
+* Added JavaScript test using Mocha
+
+0.9.0 (2013-12-11)
+------------------
+
+* Upgrade to Leaflet 0.7.1
+* Fix unsaved warning being always triggered on Internet Explorer.
+* Added DE locale (thanks @rosscdh)
+* Fix installation with python 2.6 (thanks @ollb)
+
+
+0.8.5 (2013-11-05)
+------------------
+
+* Fix name collision.
+
+
+0.8.4 (2013-11-05)
+------------------
+
+* Fix regression in Django leaflet options serialization.
+
+
+0.8.3 (2013-11-05)
+------------------
+
+* Switch to lazy gettext in leaflet module init.
+
+
+0.8.2 (2013-10-31)
+------------------
+
+* Fix drawing of multi-polygon (fixes #37)
+* Fix attached data for events with jQuery fallback (fixes #38)
+* Fix Javascript syntax errors when using form prefixes (fixes #40)
+
+0.8.1 (2013-09-30)
+------------------
+
+* Fix Leaflet library inclusion with "plugins=ALL" outside Admin.
+* Do not include translations in every widgets outside Admin.
+* Fix syntax error if form widget translations contains quotes.
+* Fix dependency error if Leaflet is loaded after the form widget in the DOM.
+* Respect plugins declaration order using OrderedDicts
+* Prepend forms assets (instead of extend) if PLUGINS['forms'] already exists.
+
+0.8.0 (2013-09-18)
+------------------
+
+* Renamed Leaflet map fragment template
+* Leaflet map geometry widgets for adminsite and forms (requires Django 1.6)
+* Fix geometry type restriction in form fields (fixes #32)
+* Use jQuery for triggering events, only if CustomEvent constructor is not available (fixes #27, fixes #34)
+
+0.7.4 (2013-08-28)
+------------------
+
+* Fix projection download error if not available
+* Compute resolutions the same way TileCache does it, and provide
+  example of TileCache configuration.
+* Raise ImproperlyConfigured if TILES_EXTENT is not portrait (since not supported)
+
+0.7.3 (2013-08-23)
+------------------
+
+* Do not use console() to warn about deprecated stuff if not available (<IE9)
+* Fix apparence of Reset view control for Leaflet 0.6
+* Add French and Italian locales
+
+0.7.2 (2013-08-23)
+------------------
+
+* Fix JS error when no callback value is provided.
+
+
+0.7.1 (2013-08-21)
+------------------
+
+* Fix map initialization with default tiles setting
+* Fix map ``fitBounds()`` to ``SPATIAL_EXTENT`` in settings
+
+
+0.7.0 (2013-08-21)
+------------------
+
+**Breaking changes**
+
+* The ``leaflet_map`` template tag no longer registers initialization
+  functions in global scope, and no longer adds map objects into ``window.maps``
+  array by default. Use ``LEAFLET_CONFIG['NO_GLOBALS'] = False`` to
+  restore these features.
+
+* Initialization callback function no longer receives the map ``bounds`` in second
+  argument, but the map options object.
+
+**Deprecated**
+
+* JS default callback function ( *<name>Init()* ) for map initialization is **deprecated**.
+  Use explicit ``callback`` parameter in template tag,  or listen to window event ``map:init`` instead.
+  (See *Use Leaflet API* section in README.)
+
+* ``TILES_URL`` entry in ``LEAFLET_CONFIG`` is **deprecated**.
+  Use ``TILES`` instead.
+
+* Settings lookup is restricted to ``LEAFLET_CONFIG`` dict. Most notably,
+  ``SRID``, ``MAP_SRID`` and ``SPATIAL_EXTENT`` at global Django settings level
+  are discouraged.
+
+**New features**
+
+* Add ability to associate layers attributions from settings
+* Add ``auto-include`` key for entries in ``PLUGINS`` setting, in order
+  to implicity load plugins with ``leaflet_css`` and ``leaflet_js`` tags.
+* Rewrote map initialization, into less flexible and obstruvise way.
+* Use plugin system for Leaflet.MiniMap.
+* Add ``loadevent`` parameter to ``leaflet_map`` tag.
+* Map initialization is now idempotent, does nothing if map is already initialized.
+* Add ``ATTRIBUTION_PREFIX`` setting to control prefix globally.
+
+
+0.6.0 (2013-08-08)
+------------------
+
+* Upgrade to Leaflet 0.6.4
+
+0.6.0a (2013-07-05)
+-------------------
+
+* Upgrade to Leaflet 0.6.2
+* Upgrade Leaflet.Minimap (rev 3cd58f7)
+* Upgrade Proj4Leaflet (rev f4f5b6d)
 
 0.5.1 (2013-04-08)
-==================
+------------------
 
 * Add minimap support
 * Drop Leaflet version switching
 * Update Leaflet to 0.5.1
-
+* Update Leaflet.Minimap
+* Fix apparence of Reset view button
 
 0.4.1 (2012-11-05)
-==================
+------------------
 
 * Fix div creation test in template.
 
-
 0.4.0 (2012-11-05)
-==================
+------------------
 
 * Remove imperial scale.
 * Add ``create_div`` parameter
 
 0.3.0 (2012-10-26)
-==================
+------------------
 
 * Remove max resolution setting since it can be computed
 * Allow scale control even if view is not set
 * Upgrade Leaflet to 0.4.5
 
 0.2.0 (2012-09-22)
-==================
+------------------
 
 * Fix packaging of templates
 * Use template for <head> fragment
@@ -55,9 +320,9 @@ CHANGELOG
 * map variable is not global anymore
 
 0.1.0 (2012-08-13)
-==================
+------------------
 
-* Initial support for map projection 
+* Initial support for map projection
 * Show zoom scale by default
 * Spatial extent configuration
 * Initialization callback instead of global JS variable
@@ -65,12 +330,12 @@ CHANGELOG
 * Global layers configuration
 
 0.0.2 (2012-03-22)
-==================
+------------------
 
 * Add IE conditional CSS
 
 
 0.0.1 (2012-03-16)
-==================
+------------------
 
 * Initial working version

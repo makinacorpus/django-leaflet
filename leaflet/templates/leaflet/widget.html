@@ -1,0 +1,45 @@
+{% load leaflet_tags %}
+{% load static from staticfiles %}
+
+<style type="text/css">{% block map_css %}
+    {% if map_width and map_height %}#{{ id_map }} { width: {{ map_width }}; height: {{ map_height }}; }{% endif %}
+    {% if not display_raw %}#{{ id }} { display: none; }{% endif %}
+    {% endblock map_css %}
+</style>
+
+<script type="text/javascript">
+    {% block vars %}var {{ module }} = {};
+    {{ module }}.fieldid = '{{ id }}';
+    {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};
+    {{ module }}.geom_type = '{{ geom_type }}';
+    {{ module }}.srid = {{ map_srid }};
+    {% endblock vars %}
+
+    function {{ id_map_callback }}(map, options) {
+        {{ module }}.store_class = {{ field_store_class }};
+        (new {{ geometry_field_class}}({{ module }})).addTo(map);
+        {% block callback %}{% endblock callback %}
+    };
+
+    {% if target_map %}
+    window.addEventListener('map:init', function (e) {
+        var target_map = e.detail.map;
+        target_map.on('map:loadfield', function (me) {
+            if (me.fieldid == 'id_{{ target_map }}') {
+                setTimeout(function () {
+                    {{ id_map_callback }}(target_map, e.detail.options);
+                }, 0);
+            }
+        });
+    }, false);
+    {% endif %}
+</script>
+
+{% if not target_map %}
+{% block map %}
+    {% leaflet_map id_map callback=id_map_callback settings_overrides=settings_overrides %}
+{% endblock map %}
+{% endif %}
+
+{% if display_raw %}<p> Geometry:</p>{% endif %}
+<textarea id="{{ id }}" class="required" cols="150" rows="10" name="{{ name }}">{{ serialized }}</textarea>

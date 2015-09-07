@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-05 16:25+0200\n"
+"PO-Revision-Date: 2013-09-02 13:41+0100\n"
+"Last-Translator: Mathieu Leplatre <contact@mathieu-leplatre.info>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+msgid "Reset view"
+msgstr "Ansicht zurücksetzen"
+
+msgid "OSM"
+msgstr "OSM"
+
+msgid "Background"
+msgstr "Hintergrund"
+
+msgid "Räumliche Ausdehnung sollte ein Tupel sein (minx, miny, maxx, maxy)"
+msgstr ""
+
+msgid "Draw a polyline"
+msgstr "Zeichnen Sie eine Polylinie"
+
+msgid "Draw a polygon"
+msgstr "Zeichnen Sie ein Polygon"
+
+msgid "Draw a rectangle"
+msgstr "Zeichnen Sie ein Rechteck"
+
+msgid "Draw a circle"
+msgstr "Zeichnen Sie einen Kreis"
+
+msgid "Draw a marker"
+msgstr "Zeichnen Sie einen Marker"
+
+msgid "Click and drag to draw circle."
+msgstr "Klicken und ziehen Sie einen Kreis zu zeichnen."
+
+msgid "Click map to place marker."
+msgstr "Karte anklicken Marker zu platzieren."
+
+msgid "Click to start drawing shape."
+msgstr "Klicken, um Zeichnungsform starten."
+
+msgid "Click to continue drawing shape."
+msgstr "Klicken, um weiter zeichnen Form."
+
+msgid "Click first point to close this shape."
+msgstr "Klicken erste Punkt, um diese Form zu schließen."
+
+msgid "<strong>Fehler:</strong> Form Kanten nicht überqueren!"
+msgstr ""
+
+msgid "Click to start drawing line."
+msgstr "Klicken Sie auf Zeichnung Zeile zu beginnen."
+
+msgid "Click to continue drawing line."
+msgstr "Klicken Sie auf Zeichnung Linie fortzusetzen."
+
+msgid "Click last point to finish line."
+msgstr "Klicken letzten Punkt zu Linie zu beenden."
+
+msgid "Click and drag to draw rectangle."
+msgstr "Klicken und ziehen, um Rechteck zu zeichnen."
+
+msgid "Release mouse to finish drawing."
+msgstr "Lassen Sie die Maustaste, um die Zeichnung abzuschließen."
+
+msgid "Save changes."
+msgstr "Speichern Änderungen."
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Cancel editing, discards all changes."
+msgstr "Abbrechen-Bearbeitung, werden alle Änderungen verworfen."
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Cancel drawing"
+msgstr "Abbrechen Zeichnung"
+
+msgid "Edit layers"
+msgstr "Schichten bearbeiten"
+
+msgid "Delete layers"
+msgstr "Schichten löschen"
+
+msgid "Drag handles, or marker to edit feature."
+msgstr "Drag Griffe oder Marker-Funktion zu bearbeiten."
+
+msgid "Click cancel to undo changes."
+msgstr "Klicken Sie auf Abbrechen, um Änderungen rückgängig zu machen."
+
+msgid "Click on a feature to remove"
+msgstr "Klicken Sie auf eine Funktion zum Entfernen von"
+

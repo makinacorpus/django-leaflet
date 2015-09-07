@@ -1,14 +1,19 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import json
 
 from django import template
-from django.template import Context
 from django.conf import settings
+from django.utils import six
+from django.utils.encoding import force_text
 
-from leaflet import app_settings, SPATIAL_EXTENT, SRID
-from leaflet import PLUGINS
+from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
+                     PLUGIN_ALL, PLUGIN_FORMS)
 
 
 register = template.Library()
+
 
 @register.inclusion_tag('leaflet/css.html')
 def leaflet_css(plugins=None):
@@ -20,7 +25,6 @@ def leaflet_css(plugins=None):
     """
     plugin_names = _get_plugin_names(plugins)
     return {
-        "MINIMAP": app_settings.get('MINIMAP'),
         "PLUGINS_CSS": _get_all_resources_for_plugins(plugin_names, 'css'),
     }
 
@@ -34,16 +38,19 @@ def leaflet_js(plugins=None):
     :return:
     """
     plugin_names = _get_plugin_names(plugins)
+    with_forms = PLUGIN_FORMS in plugin_names or PLUGIN_ALL in plugin_names
+    FORCE_IMAGE_PATH = app_settings.get('FORCE_IMAGE_PATH')
     return {
         "DEBUG": settings.TEMPLATE_DEBUG,
-        "SRID": SRID,
-        "MINIMAP": app_settings.get('MINIMAP'),
-        "PLUGINS_JS":  _get_all_resources_for_plugins(plugin_names, 'js'),
+        "SRID": str(SRID) if SRID else None,
+        "PLUGINS_JS": _get_all_resources_for_plugins(plugin_names, 'js'),
+        "with_forms": with_forms,
+        "FORCE_IMAGE_PATH": FORCE_IMAGE_PATH
     }
 
 
-@register.simple_tag
-def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
+@register.inclusion_tag('leaflet/_leaflet_map.html')
+def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='load', settings_overrides={}):
     """
 
     :param name:
@@ -52,32 +59,45 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True):
     :param creatediv:
     :return:
     """
-    if callback is None:
-        callback = "%sInit" % name
-
-    tilesurl = app_settings.get('TILES_URL')
-    if tilesurl and isinstance(tilesurl, basestring):
-        tilesurl = (('background', tilesurl),)
-
     extent = None
     if SPATIAL_EXTENT is not None:
+        # Leaflet uses [lat, lng]
         xmin, ymin, xmax, ymax = SPATIAL_EXTENT
         extent = (ymin, xmin, ymax, xmax)
 
-    t = template.loader.get_template("leaflet/map_fragment.html")
-    return t.render(Context(dict(name=name,
-                                 creatediv=creatediv,
-                                 srid=SRID,
-                                 extent=list(extent),
-                                 center=app_settings['DEFAULT_CENTER'],
-                                 zoom=app_settings['DEFAULT_ZOOM'],
-                                 fitextent=fitextent,
-                                 tilesurl=[list(url) for url in tilesurl],
-                                 callback=callback,
-                                 scale=app_settings.get('SCALE'),
-                                 minimap=app_settings.get('MINIMAP'),
-                                 tilesextent=list(app_settings.get('TILES_EXTENT', [])),
-                                )))
+    if settings_overrides == '':
+        settings_overrides = {}
+    app_settings.update(**settings_overrides)
+
+    djoptions = dict(
+        srid=SRID,
+        extent=[extent[:2], extent[2:4]],
+        fitextent=fitextent,
+        center=app_settings['DEFAULT_CENTER'],
+        zoom=app_settings['DEFAULT_ZOOM'],
+        minzoom=app_settings['MIN_ZOOM'],
+        maxzoom=app_settings['MAX_ZOOM'],
+        layers=[(force_text(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
+        overlays=[(force_text(label), url, attrs) for (label, url, attrs) in app_settings.get('OVERLAYS')],
+        attributionprefix=force_text(app_settings.get('ATTRIBUTION_PREFIX'), strings_only=True),
+        scale=app_settings.get('SCALE'),
+        minimap=app_settings.get('MINIMAP'),
+        resetview=app_settings.get('RESET_VIEW'),
+        tilesextent=list(app_settings.get('TILES_EXTENT', []))
+    )
+
+    return {
+        # templatetag options
+        'name': name,
+        'loadevents': json.dumps(loadevent.split()),
+        'creatediv': creatediv,
+        'callback': callback,
+        # initialization options
+        'djoptions': json.dumps(djoptions),
+        # settings
+        'NO_GLOBALS': app_settings.get('NO_GLOBALS'),
+    }
+
 
 @register.simple_tag
 def leaflet_json_config():
@@ -85,11 +105,10 @@ def leaflet_json_config():
 
     if SPATIAL_EXTENT is not None:
         xmin, ymin, xmax, ymax = settings_as_json.pop('SPATIAL_EXTENT')
-        settings_as_json['SPATIAL_EXTENT'] = { 'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax }
+        settings_as_json['SPATIAL_EXTENT'] = {'xmin': xmin, 'ymin': ymin,
+                                              'xmax': xmax, 'ymax': ymax}
 
     return json.dumps(settings_as_json)
-
-
 
 
 def _get_plugin_names(plugin_names_from_tag_parameter):
@@ -99,12 +118,11 @@ def _get_plugin_names(plugin_names_from_tag_parameter):
     :param pluging_names_parameter:
     :return:
     """
-    if isinstance(plugin_names_from_tag_parameter, (str,unicode)):
+    if isinstance(plugin_names_from_tag_parameter, (six.binary_type, six.text_type)):
         names = plugin_names_from_tag_parameter.split(',')
-        return map(lambda n: n.strip(), names)
+        return [n.strip() for n in names]
     else:
-        return []
-
+        return [PLUGINS_DEFAULT]
 
 
 def _get_all_resources_for_plugins(plugin_names, resource_type):
@@ -120,4 +138,3 @@ def _get_all_resources_for_plugins(plugin_names, resource_type):
             result.extend(PLUGINS[plugin_name].get(resource_type, []))
 
     return result
-

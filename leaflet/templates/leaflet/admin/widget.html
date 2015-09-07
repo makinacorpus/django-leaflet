@@ -1,0 +1,32 @@
+{% extends "leaflet/widget.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+
+
+{% block map_css %}
+    {{ block.super }}
+
+    /* Fixes for Django base.css */
+    .module .leaflet-draw ul {
+        margin-left: 0px;
+        padding-left: 0px;
+    }
+    .module .leaflet-draw ul li {
+        list-style-type: none;
+    }
+{% endblock map_css %}
+
+
+{% block vars %}
+    {{ block.super }}
+
+    {% include "leaflet/_leaflet_draw_i18n.js" %}
+    L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
+    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
+{% endblock vars %}
+
+{% block map %}
+<div id="{{ id }}_div_map">
+    {{ block.super }}
+</div>
+{% endblock map %}

@@ -1,0 +1,33 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Django Leaflet Tests</title>
+  <link rel="stylesheet" href="../../node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="map" style="display: none; height: 300px"></div>
+  <div id="mocha"></div>
+
+  <script src="../../node_modules/django-leaflet-tests/node_modules/happen/happen.js"></script>
+  <script src="../../node_modules/django-leaflet-tests/node_modules/chai/chai.js"></script>
+  <script src="../../node_modules/django-leaflet-tests/node_modules/mocha/mocha.js"></script>
+  <script src="../../node_modules/django-leaflet-tests/node_modules/sinon/lib/sinon.js"></script>
+  <script src="../../node_modules/django-leaflet-tests/node_modules/sinon/lib/sinon/spy.js"></script>
+  <script src="../../node_modules/django-leaflet-tests/node_modules/leaflet/build/deps.js"></script>
+  <script src="../../node_modules/django-leaflet-tests/node_modules/leaflet/debug/leaflet-include.js"></script>
+
+  <script src="../../leaflet/static/leaflet/draw/leaflet.draw.js"></script>
+
+  <script src="../../leaflet/static/leaflet/leaflet.extras.js"></script>
+  <script src="../../leaflet/static/leaflet/leaflet.forms.js"></script>
+
+  <textarea id="formfield"></textarea>
+
+  <script>mocha.setup('bdd')</script>
+  <script src="test.extras.js"></script>
+  <script src="test.forms.js"></script>
+  <script>
+    (window.mochaPhantomJS || window.mocha).run();
+  </script>
+</body>
+</html>
