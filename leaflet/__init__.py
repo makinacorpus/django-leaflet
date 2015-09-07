@@ -2,9 +2,9 @@
 from __future__ import unicode_literals
 
 try:
-    from urllib.parse import urlparse, urljoin
+    from urllib.parse import urlparse
 except ImportError:
-    from urlparse import urlparse, urljoin
+    from urlparse import urlparse
 import warnings
 
 try:
