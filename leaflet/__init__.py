@@ -15,6 +15,7 @@ except ImportError:
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.translation import ugettext_lazy as _
 from django.utils import six
 
@@ -182,7 +183,8 @@ def _normalize_plugins_config():
                     # absolute URL or a URL starting at root
                     pass
                 else:
-                    urls[i] = urljoin(settings.STATIC_URL, url)
+                    # pass relative URL through django.contrib.staticfiles
+                    urls[i] = static(url)
 
             plugin_dict[resource_type] = urls
 

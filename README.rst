@@ -594,6 +594,7 @@ AUTHORS
 * `Marco Badan <https://github.com/itbabu>`_
 * David Martinez Morata
 * `NotSqrt <https://github.com/NotSqrt>`_
+* `Dylan Verheul <https://github.com/dyve>`_
 
 |makinacom|_
 
