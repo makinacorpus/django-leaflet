@@ -1,7 +1,9 @@
 import urlparse
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 
 DEFAULT_TILES_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -85,7 +87,8 @@ def _normalize_plugins_config():
                     # absolute URL or a URL starting at root
                     pass
                 else:
-                    urls[i] = urlparse.urljoin(settings.STATIC_URL, url)
+                    # use django.contrib.staticfiles to expand relative URLS
+                    urls[i] = static(url)
 
             plugin_dict[resource_type] = urls
 

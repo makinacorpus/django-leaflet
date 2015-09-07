@@ -12,7 +12,7 @@ CHANGELOG
 0.5.2 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Use Django's staticfiles app for expanding static URLS (@dyve)
 
 
 0.5.1 (2013-04-08)

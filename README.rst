@@ -178,7 +178,7 @@ Both 'css' and 'js' support identical features for specifying resource URLs:
 
         - absolute URL - will be included as-is; **example**: ``http://absolute-url.example.com/path/to/script.js``
         - a URL beginning from the root - will be included as-is;  **example**: ``/root/path/to/stylesheet.css``
-        - a relative URL - settings.STATIC_URL will be prepended; **example**: ``relative/path/to/stylesheet.css`` will be included as **/static/relative/path/to/stylesheet.css** (depending on your setting for STATIC_URL)
+        - a relative URL - will be run through Django's staticfiles app; **example**: ``relative/path/to/stylesheet.css`` will be included as **/static/relative/path/to/stylesheet.css** (depending on your settings for static files)
 
 
 Advanced usage
@@ -227,6 +227,7 @@ AUTHORS
 * Mathieu Leplatre <mathieu.leplatre@makina-corpus.com>
 * Ariel Núñez <http://ingenieroariel.com>
 * Boris Chervenkov <https://github.com/boris-chervenkov>
+* Dylan Verheul <https://github.com/dyve>
 
 |makinacom|_
 
