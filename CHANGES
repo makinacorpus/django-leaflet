@@ -9,6 +9,7 @@ CHANGELOG
 
 * Pass relative URLs for static files through django.contrib.staticfiles (thanks @dyve, fixes #111)
 * Allow to override settings at the template tag level (thanks @PetrDiouhy, fixes #59)
+* Update Leaflet to 0.7.5 (@dyve)
 - Nothing changed yet.
 
 
