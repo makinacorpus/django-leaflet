@@ -43,7 +43,7 @@ def leaflet_js(plugins=None):
     if hasattr(settings,'TEMPLATE_DEBUG'):
         debug = settings.TEMPLATE_DEBUG
     else:
-        if settings.TEMPLATES[0]['OPTIONS'].haskey('debug'):
+        if 'debug' in settings.TEMPLATES[0]['OPTIONS']:
             debug = settings.TEMPLATES[0]['OPTIONS']['debug']
         else:
             debug = False
