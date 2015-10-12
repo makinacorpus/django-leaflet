@@ -40,8 +40,15 @@ def leaflet_js(plugins=None):
     plugin_names = _get_plugin_names(plugins)
     with_forms = PLUGIN_FORMS in plugin_names or PLUGIN_ALL in plugin_names
     FORCE_IMAGE_PATH = app_settings.get('FORCE_IMAGE_PATH')
+    try:
+        debug = settings.TEMPLATE_DEBUG
+    except AttributeError:
+        try:
+            debug = settings.TEMPLATES[0]['OPTIONS']['debug']
+        except KeyError:
+            debug = False
     return {
-        "DEBUG": settings.TEMPLATE_DEBUG,
+        "DEBUG": debug,
         "SRID": str(SRID) if SRID else None,
         "PLUGINS_JS": _get_all_resources_for_plugins(plugin_names, 'js'),
         "with_forms": with_forms,
