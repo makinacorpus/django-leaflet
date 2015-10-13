@@ -41,7 +41,7 @@ def leaflet_js(plugins=None):
     with_forms = PLUGIN_FORMS in plugin_names or PLUGIN_ALL in plugin_names
     FORCE_IMAGE_PATH = app_settings.get('FORCE_IMAGE_PATH')
 
-    if hasattr(settings,'TEMPLATE_DEBUG'):
+    if hasattr(settings, 'TEMPLATE_DEBUG'):
         debug = settings.TEMPLATE_DEBUG
     elif 'debug' in settings.TEMPLATES[0]['OPTIONS']:
         debug = settings.TEMPLATES[0]['OPTIONS']['debug']
