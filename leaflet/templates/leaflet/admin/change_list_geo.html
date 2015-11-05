@@ -1,0 +1,99 @@
+{% extends 'admin/change_list.html' %}
+{% load leaflet_tags %}
+{% load admin_list_leaflet %}
+
+
+{% block stylesheets %}
+    {{ block.super }}
+    {% include 'leaflet/css.html' %}
+
+    <style>
+    .leaflet-container-default{
+    		min-width: 300px;
+    }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    {% include 'leaflet/js.html' %}
+{% endblock %}
+
+
+{% block result_list %}
+{% if cl.model_admin.list_geom_field %}
+
+{% leaflet_map "map" %}
+
+<script type="text/javascript">
+
+(function($) {
+
+	$('#map').addClass('grp-module');
+
+	// GeoJSON object 
+    var geojsonFeatures = {
+    	"type": "FeatureCollection",
+	    "features": [
+{% for result in cl.result_list %}
+		{
+	        	"type": "Feature",
+	        	"geometry": {{result|geom_field:cl.model_admin.list_geom_field|safe}},
+	        	"properties": {"pk": "{{result.pk}}",}
+	    }
+	    {% if not forloop.last %},{% endif %}
+{% endfor %}
+	    ]
+	}
+
+
+	window.addEventListener('map:init', function (e) {
+
+        var target_map = e.detail.map;
+
+        
+		// 1. We create and add the layer to the map
+		var featuresLayer = L.geoJson(geojsonFeatures, {
+    		onEachFeature: onEachFeature
+		});
+		featuresLayer.addTo(target_map);
+		target_map.fitBounds(featuresLayer.getBounds());
+
+		// 2. We hook into _selection_actions checkboxes to provide selection features
+		$('input[name="_selected_action"]').click(function(){
+        	var id = $(this).val();
+        	var checkbox = $('input[name="_selected_action"][value="'+id+'"]');
+        	var checked = $(checkbox).is(':checked');
+        	featuresLayer.eachLayer(function (layer) {  
+			  if(layer.feature.properties.pk == id) { 
+			  	if(!checked){
+			    	layer.setStyle({fillColor :'blue'}) 
+			  	}
+			  	else{
+			    	layer.setStyle({fillColor :'yellow'}) 
+			  	}
+			  }
+			});
+        });        
+    }, false);
+
+	// This functions add click and doubleclick handlers to the layer
+    function onEachFeature(feature, layer) {
+        	layer.on('click',function(){
+        		var checkbox = $('input[name="_selected_action"][value="'+this.feature.properties.pk+'"]');
+        		checkbox.click();
+        	});
+        	layer.on('dblclick',function(){
+        		window.location = "{% url 'admin:index' %}{{cl.opts.app_label}}/{{cl.opts.model_name}}/"+this.feature.properties.pk+'/';
+        	});
+		}
+
+})(grp.jQuery);
+
+</script>
+
+
+{% endif %}
+{{block.super}}
+{% endblock %}

@@ -24,6 +24,7 @@ class LeafletGeoAdmin(ModelAdmin):
     map_width = '100%'
     map_height = '400px'
     display_raw = False
+    list_geom_field = None
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         """
@@ -55,3 +56,6 @@ class LeafletGeoAdmin(ModelAdmin):
             map_height = self.map_height
             display_raw = self.display_raw
         return LeafletMap
+
+
+    change_list_template = 'leaflet/admin/change_list_geo.html'

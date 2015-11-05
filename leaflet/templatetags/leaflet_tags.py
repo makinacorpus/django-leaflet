@@ -110,6 +110,10 @@ def leaflet_json_config():
 
     return json.dumps(settings_as_json)
 
+@register.filter
+def geom_field(instance, field_name):
+    return getattr(instance, field_name).json
+
 
 def _get_plugin_names(plugin_names_from_tag_parameter):
     """
