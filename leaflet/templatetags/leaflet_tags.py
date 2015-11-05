@@ -112,7 +112,23 @@ def leaflet_json_config():
 
 @register.filter
 def geom_field(instance, field_name):
-    return getattr(instance, field_name).json
+    """
+    Returns the geojson representation for a model instance given the geometry field name. Works accross relations with the objA__objB notation.
+    """
+    fields = field_name.split("__")
+    try:
+        obj = instance
+        for field in fields:
+            obj = getattr( obj, field )
+        geom_field = obj
+    except AttributeError:
+        geom_field = None
+    
+    # geom_field = getattr(instance, field_name)
+    if geom_field:
+        return geom_field.json
+    else:
+        return 'null'
 
 
 def _get_plugin_names(plugin_names_from_tag_parameter):
