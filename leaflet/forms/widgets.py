@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django import forms
+from django.template.defaultfilters import slugify
 try:
     from django.contrib.gis.forms.widgets import BaseGeometryWidget
 except ImportError:
@@ -46,8 +47,10 @@ class LeafletWidget(BaseGeometryWidget):
         if self.geom_type == 'GEOMETRY':
             attrs['geom_type'] = 'Geometry'
 
-        map_id = attrs.get('id', name).replace('-', '_')  # JS-safe
-        attrs.update(id_map=map_id + '_map',
+        map_id = slugify(attrs.get('id', name)).replace('-', '_')  # JS-safe
+        attrs.update(id=map_id,
+                     module='geodjango_%s' % map_id,
+                     id_map=map_id + '_map',
                      id_map_callback=map_id + '_map_callback',
                      modifiable=self.modifiable,
                      target_map=attrs.get('target_map', getattr(self, 'target_map', None)),
