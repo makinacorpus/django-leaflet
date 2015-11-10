@@ -46,9 +46,13 @@ class LeafletWidget(BaseGeometryWidget):
         if self.geom_type == 'GEOMETRY':
             attrs['geom_type'] = 'Geometry'
 
+        # A little bit of doc
+        loadevent = self.attrs.get('loadevent', 'load')
+
         map_id = attrs.get('id', name).replace('-', '_')  # JS-safe
         attrs.update(id_map=map_id + '_map',
                      id_map_callback=map_id + '_map_callback',
+                     loadevent=loadevent,
                      modifiable=self.modifiable,
                      target_map=attrs.get('target_map', getattr(self, 'target_map', None)),
                      geometry_field_class=attrs.get('geometry_field_class', getattr(self, 'geometry_field_class', 'L.GeometryField')),
