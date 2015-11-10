@@ -39,15 +39,15 @@ class LeafletWidget(BaseGeometryWidget):
         # Retrieve params from Field init (if any)
         self.geom_type = self.attrs.get('geom_type', self.geom_type)
 
+        # Setting 'loadevent' added in the widget constructor
+        loadevent = self.attrs.get('loadevent', 'load')
+
         attrs = attrs or {}
 
         # In BaseGeometryWidget, geom_type is set using gdal, and fails with generic.
         # See https://code.djangoproject.com/ticket/21021
         if self.geom_type == 'GEOMETRY':
             attrs['geom_type'] = 'Geometry'
-
-        # A little bit of doc
-        loadevent = self.attrs.get('loadevent', 'load')
 
         map_id = attrs.get('id', name).replace('-', '_')  # JS-safe
         attrs.update(id_map=map_id + '_map',
