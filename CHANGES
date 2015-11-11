@@ -5,7 +5,8 @@ CHANGELOG
 0.17.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+* Update Leaflet to 0.7.7.
+* Update Leaflet-draw to 0.2.4
 
 
 0.17.0 (2015-11-11)
