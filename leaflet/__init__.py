@@ -29,6 +29,7 @@ app_settings = dict({
     'TILES': DEFAULT_TILES,
     'OVERLAYS': [],
     'ATTRIBUTION_PREFIX': None,
+    'LOADEVENT': 'load',
     'SPATIAL_EXTENT': None,
     'DEFAULT_ZOOM': None,
     'MIN_ZOOM': None,

@@ -7,7 +7,7 @@ try:
 except ImportError:
     from .backport import BaseGeometryWidget
 
-from leaflet import PLUGINS, PLUGIN_FORMS
+from leaflet import app_settings, PLUGINS, PLUGIN_FORMS
 
 
 class LeafletWidget(BaseGeometryWidget):
@@ -40,7 +40,7 @@ class LeafletWidget(BaseGeometryWidget):
         self.geom_type = self.attrs.get('geom_type', self.geom_type)
 
         # Setting 'loadevent' added in the widget constructor
-        loadevent = self.attrs.get('loadevent', 'load')
+        loadevent = self.attrs.get('loadevent', app_settings.get('LOADEVENT'))
 
         attrs = attrs or {}
 

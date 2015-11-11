@@ -58,13 +58,17 @@ def leaflet_js(plugins=None):
 
 
 @register.inclusion_tag('leaflet/_leaflet_map.html')
-def leaflet_map(name, callback=None, fitextent=True, creatediv=True, loadevent='load', settings_overrides={}):
+def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
+                loadevent=app_settings.get('LOADEVENT'),
+                settings_overrides={}):
     """
 
     :param name:
     :param callback:
     :param fitextent:
     :param creatediv:
+    :param loadevent:
+    :param settings_overrides:
     :return:
     """
     extent = None
