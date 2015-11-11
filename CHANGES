@@ -10,7 +10,14 @@ CHANGELOG
 * Pass relative URLs for static files through django.contrib.staticfiles (thanks @dyve, fixes #111)
 * Allow to override settings at the template tag level (thanks @PetrDiouhy, fixes #59)
 * Update Leaflet to 0.7.5 (@dyve)
-- Nothing changed yet.
+* Add Czech locale (thanks @PetrDiouhy)
+
+**Bug fixes**
+
+* Fix interaction with django-geojson (#106, thanks @batisteo)
+* Use protocol independant URLs in default OSM tiles (thanks @NotSqrt)
+* Fix deprecated TEMPLATE_DEBUG (#121, thanks @josenaka)
+* Fix errors with multi-word field names (#123, thanks @josemazo)
 
 
 0.16.0 (2015-04-17)
