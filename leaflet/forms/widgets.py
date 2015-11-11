@@ -8,7 +8,7 @@ try:
 except ImportError:
     from .backport import BaseGeometryWidget
 
-from leaflet import PLUGINS, PLUGIN_FORMS
+from leaflet import app_settings, PLUGINS, PLUGIN_FORMS
 
 
 class LeafletWidget(BaseGeometryWidget):
@@ -40,6 +40,9 @@ class LeafletWidget(BaseGeometryWidget):
         # Retrieve params from Field init (if any)
         self.geom_type = self.attrs.get('geom_type', self.geom_type)
 
+        # Setting 'loadevent' added in the widget constructor
+        loadevent = self.attrs.get('loadevent', app_settings.get('LOADEVENT'))
+
         attrs = attrs or {}
 
         # In BaseGeometryWidget, geom_type is set using gdal, and fails with generic.
@@ -52,6 +55,7 @@ class LeafletWidget(BaseGeometryWidget):
                      module='geodjango_%s' % map_id,
                      id_map=map_id + '_map',
                      id_map_callback=map_id + '_map_callback',
+                     loadevent=loadevent,
                      modifiable=self.modifiable,
                      target_map=attrs.get('target_map', getattr(self, 'target_map', None)),
                      geometry_field_class=attrs.get('geometry_field_class', getattr(self, 'geometry_field_class', 'L.GeometryField')),
