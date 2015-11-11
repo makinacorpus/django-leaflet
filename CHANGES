@@ -18,6 +18,7 @@ CHANGELOG
 * Use protocol independant URLs in default OSM tiles (thanks @NotSqrt)
 * Fix deprecated TEMPLATE_DEBUG (#121, thanks @josenaka)
 * Fix errors with multi-word field names (#123, thanks @josemazo)
+* Fix loadevent not being taken into account in forms (#127, thanks @josemazo)
 
 
 0.16.0 (2015-04-17)
