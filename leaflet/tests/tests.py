@@ -89,6 +89,11 @@ class LeafletWidgetRenderingTest(SimpleTestCase):
         self.assertIn('leaflet/leaflet.css', media_css)
         self.assertIn('leaflet/draw/leaflet.draw.css', media_css)
 
+    def test_widget_geometry_is_empty_string(self):
+        widget = LeafletWidget()
+        widget.render('geom', '', {'id': 'geom'})
+        self.assertTrue(True, 'We should\'t accept blank geometry in value.')
+
 
 class LeafletFieldsWidgetsTest(SimpleTestCase):
     def test_default_widget(self):
