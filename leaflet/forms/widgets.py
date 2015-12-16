@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django import forms
+from django.core import validators
 from django.template.defaultfilters import slugify
 try:
     from django.contrib.gis.forms.widgets import BaseGeometryWidget
@@ -36,6 +37,8 @@ class LeafletWidget(BaseGeometryWidget):
 
     def render(self, name, value, attrs=None):
         assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
+
+        value = None if value in validators.EMPTY_VALUES else value
 
         # Retrieve params from Field init (if any)
         self.geom_type = self.attrs.get('geom_type', self.geom_type)
