@@ -28,24 +28,20 @@ matrix:
       env: DJANGO_VERSION=1.4.15 DATABASE=sqlite
     - python: 3.3
       env: DJANGO_VERSION=1.6 DATABASE=sqlite
-
-  allow_failures:
-    - python: 3.5
-      env: DJANGO_VERSION=dev DATABASE=sqlite
-    - python: 3.5
-      env: DJANGO_VERSION=dev DATABASE=postgres
-    - python: 3.4
-      env: DJANGO_VERSION=dev DATABASE=sqlite
-    - python: 3.4
-      env: DJANGO_VERSION=dev DATABASE=postgres
-    - python: 3.3
-      env: DJANGO_VERSION=dev DATABASE=sqlite
-    - python: 3.3
-      env: DJANGO_VERSION=dev DATABASE=postgres
     - python: 3.3
       env: DJANGO_VERSION=1.9 DATABASE=sqlite
     - python: 3.3
       env: DJANGO_VERSION=1.9 DATABASE=postgres
+
+  allow_failures:
+    - python: 3.4
+      env: DJANGO_VERSION=dev DATABASE=sqlite
+    - python: 3.4
+      env: DJANGO_VERSION=dev DATABASE=postgres
+    - python: 3.3
+      env: DJANGO_VERSION=dev DATABASE=sqlite
+    - python: 3.3
+      env: DJANGO_VERSION=dev DATABASE=postgres
     - python: 2.7
       env: DJANGO_VERSION=dev DATABASE=sqlite
     - python: 2.7
