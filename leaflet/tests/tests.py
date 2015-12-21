@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import json
 
 import django
 from django.test import SimpleTestCase
 from django.contrib.gis.db import models as gismodels
 
-from .. import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config
+from .. import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config, JSONLazyTranslationEncoder
+from django.utils import six
+from django.utils.translation import ugettext_lazy
 from ..templatetags import leaflet_tags
 from ..admin import LeafletGeoAdmin
 from ..forms.widgets import LeafletWidget
@@ -213,3 +216,11 @@ class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
         output = widget.render('geom', '', {'id': 'geom'})
         self.assertIn(".module .leaflet-draw ul", output)
         self.assertIn('<div id="geom_div_map">', output)
+
+class JSONLazyTranslationEncoderTest(SimpleTestCase):
+
+    def test_lazy_translation_encoding(self):
+        text = ugettext_lazy('text')
+        ret = json.dumps(text, cls=JSONLazyTranslationEncoder)
+        self.assertIsInstance(ret, six.string_types)
+        self.assertEqual(ret, '"text"')
