@@ -14,6 +14,7 @@ from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAUL
 
 register = template.Library()
 
+
 @register.inclusion_tag('leaflet/css.html')
 def leaflet_css(plugins=None):
     """
@@ -79,9 +80,6 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
     if settings_overrides == '':
         settings_overrides = {}
     app_settings.update(**settings_overrides)
-
-
-
 
     djoptions = dict(
         srid=SRID,
