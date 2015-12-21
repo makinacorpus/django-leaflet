@@ -7,6 +7,7 @@ from django import template
 from django.conf import settings
 from django.utils import six
 from django.utils.encoding import force_text
+from django.utils.translation import get_language
 
 from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
                      PLUGIN_ALL, PLUGIN_FORMS)
@@ -81,6 +82,26 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
         settings_overrides = {}
     app_settings.update(**settings_overrides)
 
+    tiles = app_settings.get('TILES')
+    edited_tiles = []
+    for tile in tiles:
+        label = tile[0]
+        url = tile[1]
+        attrs = tile[2]
+        if len(tile) == 4:
+            replacements = tile[3]
+            values = {}
+            if settings.USE_I18N and replacements.get('languages'):
+                languages = replacements['languages']
+                if get_language() in languages:
+                    values['language'] = languages[get_language()]
+                else:
+                    values['language'] = languages[0]
+            url = url % values
+        edited_tiles.append((label, url, attrs))
+
+
+
     djoptions = dict(
         srid=SRID,
         extent=[extent[:2], extent[2:4]],
@@ -89,7 +110,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
         zoom=app_settings['DEFAULT_ZOOM'],
         minzoom=app_settings['MIN_ZOOM'],
         maxzoom=app_settings['MAX_ZOOM'],
-        layers=[(force_text(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
+        layers=[(force_text(label), url, attrs) for (label, url, attrs) in edited_tiles],
         overlays=[(force_text(label), url, attrs) for (label, url, attrs) in app_settings.get('OVERLAYS')],
         attributionprefix=force_text(app_settings.get('ATTRIBUTION_PREFIX'), strings_only=True),
         scale=app_settings.get('SCALE'),
