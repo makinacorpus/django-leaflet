@@ -217,6 +217,7 @@ class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
         self.assertIn(".module .leaflet-draw ul", output)
         self.assertIn('<div id="geom_div_map">', output)
 
+
 class JSONLazyTranslationEncoderTest(SimpleTestCase):
 
     def test_lazy_translation_encoding(self):

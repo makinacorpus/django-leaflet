@@ -203,10 +203,9 @@ def _normalize_plugins_config():
 
 _normalize_plugins_config()
 
+
 class JSONLazyTranslationEncoder(DjangoJSONEncoder):
     def default(self, obj):
         if isinstance(obj, Promise):
             return force_text(obj)
         return super(JSONLazyTranslationEncoder, self).default(obj)
-
-

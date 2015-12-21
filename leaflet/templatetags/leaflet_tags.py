@@ -101,11 +101,11 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
     return {
         # templatetag options
         'name': name,
-        'loadevents': json.dumps(loadevent.split(),  cls=JSONLazyTranslationEncoder),
+        'loadevents': json.dumps(loadevent.split(), cls=JSONLazyTranslationEncoder),
         'creatediv': creatediv,
         'callback': callback,
         # initialization options
-        'djoptions': json.dumps(djoptions,  cls=JSONLazyTranslationEncoder),
+        'djoptions': json.dumps(djoptions, cls=JSONLazyTranslationEncoder),
         # settings
         'NO_GLOBALS': app_settings.get('NO_GLOBALS'),
     }
@@ -120,7 +120,7 @@ def leaflet_json_config():
         settings_as_json['SPATIAL_EXTENT'] = {'xmin': xmin, 'ymin': ymin,
                                               'xmax': xmax, 'ymax': ymax}
 
-    return json.dumps(settings_as_json,  cls=JSONLazyTranslationEncoder)
+    return json.dumps(settings_as_json, cls=JSONLazyTranslationEncoder)
 
 
 def _get_plugin_names(plugin_names_from_tag_parameter):
