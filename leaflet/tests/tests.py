@@ -108,9 +108,15 @@ class DummyModel(gismodels.Model):
     geom = gismodels.PointField()
 
 
+class DummyAdmin(LeafletGeoAdmin):
+    settings_overrides = {
+        'DEFAULT_CENTER': (8.0, 3.15),
+    }
+
+
 class LeafletGeoAdminTest(SimpleTestCase):
     def setUp(self):
-        self.modeladmin = LeafletGeoAdmin(DummyModel, None)
+        self.modeladmin = DummyAdmin(DummyModel, None)
         self.geomfield = DummyModel._meta.get_field('geom')
         self.formfield = self.modeladmin.formfield_for_dbfield(self.geomfield)
 
@@ -121,6 +127,7 @@ class LeafletGeoAdminTest(SimpleTestCase):
     def test_widget_parameters(self):
         widget = self.formfield.widget
         self.assertEquals(widget.geom_type, 'POINT')
+        self.assertEquals(widget.settings_overrides, {'DEFAULT_CENTER': (8.0, 3.15), })
         self.assertFalse(widget.map_height is None)
         self.assertFalse(widget.map_width is None)
         self.assertTrue(widget.modifiable)

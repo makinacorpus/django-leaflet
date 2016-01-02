@@ -20,6 +20,7 @@ class LeafletWidget(BaseGeometryWidget):
     modifiable = True
     supports_3d = False
     include_media = False
+    settings_overrides = {}
 
     @property
     def media(self):
@@ -42,6 +43,7 @@ class LeafletWidget(BaseGeometryWidget):
 
         # Retrieve params from Field init (if any)
         self.geom_type = self.attrs.get('geom_type', self.geom_type)
+        self.settings_overrides = self.attrs.get('settings_overrides', self.settings_overrides)
 
         # Setting 'loadevent' added in the widget constructor
         loadevent = self.attrs.get('loadevent', app_settings.get('LOADEVENT'))
@@ -61,6 +63,7 @@ class LeafletWidget(BaseGeometryWidget):
                      loadevent=loadevent,
                      modifiable=self.modifiable,
                      target_map=attrs.get('target_map', getattr(self, 'target_map', None)),
+                     settings_overrides=attrs.get('settings_overrides', getattr(self, 'settings_overrides', None)),
                      geometry_field_class=attrs.get('geometry_field_class', getattr(self, 'geometry_field_class', 'L.GeometryField')),
                      field_store_class=attrs.get('field_store_class', getattr(self, 'field_store_class', 'L.FieldStore')))
         return super(LeafletWidget, self).render(name, value, attrs)

@@ -507,7 +507,7 @@ Advanced usage
 Config overrides
 ~~~~~~~~~~~~~~~~
 
-It is possible to dynamically override settings in LeafletWidget initi:
+It is possible to dynamically override settings in ``LeafletWidget`` init:
 
 ::
 
@@ -524,6 +524,16 @@ It is possible to dynamically override settings in LeafletWidget initi:
                     'DEFAULT_CENTER': (6.0, 45.0),
                 }
             })}
+
+For overriding the settings in ``LeafletGeoAdmin``, use set the appropriate property:
+
+::
+
+    class WeatherStationAdminAdmin(LeafletGeoAdmin):
+        settings_overrides = {
+           'DEFAULT_CENTER': (6.0, 45.0),
+        }
+
 
 Projection
 ~~~~~~~~~~
