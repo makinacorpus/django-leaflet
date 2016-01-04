@@ -24,6 +24,7 @@ class LeafletGeoAdmin(ModelAdmin):
     map_width = '100%'
     map_height = '400px'
     display_raw = False
+    settings_overrides = {}
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         """
@@ -54,4 +55,5 @@ class LeafletGeoAdmin(ModelAdmin):
             map_width = self.map_width
             map_height = self.map_height
             display_raw = self.display_raw
+            settings_overrides = self.settings_overrides
         return LeafletMap
