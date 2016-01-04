@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.encoding import force_text
+from django.utils.functional import Promise
 
 try:
     from urllib.parse import urlparse
@@ -199,3 +202,10 @@ def _normalize_plugins_config():
     PLUGINS['__is_normalized__'] = True
 
 _normalize_plugins_config()
+
+
+class JSONLazyTranslationEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Promise):
+            return force_text(obj)
+        return super(JSONLazyTranslationEncoder, self).default(obj)
