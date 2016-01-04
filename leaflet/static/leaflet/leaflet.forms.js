@@ -35,7 +35,8 @@ L.FieldStore = L.Class.extend({
         }
 
         var geojson = geom.toGeoJSON();
-        if (is_multi && is_generic) {
+        var is_geometrycollection = (geojson.geometry.type == 'GeometryCollection');
+        if (is_multi && is_generic && !is_geometrycollection) {
             var flat = {type: 'GeometryCollection', geometries: []};
             for (var i=0; i < geojson.features.length; i++) {
                 flat.geometries.push(geojson.features[i].geometry);
