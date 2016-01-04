@@ -605,6 +605,8 @@ AUTHORS
 * David Martinez Morata
 * `NotSqrt <https://github.com/NotSqrt>`_
 * `Dylan Verheul <https://github.com/dyve>`_
+* `Mactory <https://github.com/Mactory>`_
+* `Petr Dlouhy <https://github.com/PetrDlouhy>`_
 
 |makinacom|_
 

@@ -5,7 +5,15 @@ CHANGELOG
 0.17.2 (unreleased)
 -------------------
 
-*
+**New features**
+
+* Use a LazyEncoder to allow lazy translations in settings (#132, thanks @Mactory)
+* Enable settings_overrides also for admin (fixes #120, thanks @PetrDiouhy)
+* Add tests for Django 1.9 and Python 3.5 (thanks @itbabu)
+
+**Bug fixes**
+
+* Fix LeafletWidget behaviour on GeometryCollectionField (fixes #135)
 
 
 0.17.1 (2015-12-16)
