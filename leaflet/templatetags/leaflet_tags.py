@@ -74,34 +74,38 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
 
     if settings_overrides == '':
         settings_overrides = {}
-    app_settings.update(**settings_overrides)
+
+    instance_app_settings = app_settings.copy() #Allow not overidding global settings_overrides
+    instance_app_settings.update(**settings_overrides)
 
     def computeSpatialExtent(app_settings):
-        if app_settings['SPATIAL_EXTENT'] is not None:
+        if instance_app_settings['SPATIAL_EXTENT'] is not None:
             # Leaflet uses [lat, lng]
-            xmin, ymin, xmax, ymax = app_settings['SPATIAL_EXTENT']
+            xmin, ymin, xmax, ymax = instance_app_settings['SPATIAL_EXTENT']
             extent = (ymin, xmin, ymax, xmax)
             return [extent[:2], extent[2:4]]
         else:
             return None
 
+    extent = computeSpatialExtent(app_settings)
+
     djoptions = dict(
         srid=SRID,
-        extent=computeSpatialExtent(app_settings),
+        extent=extent,
         fitextent=fitextent,
-        center=app_settings['DEFAULT_CENTER'],
-        zoom=app_settings['DEFAULT_ZOOM'],
-        minzoom=app_settings['MIN_ZOOM'],
-        maxzoom=app_settings['MAX_ZOOM'],
-        layers=[(force_text(label), url, attrs) for (label, url, attrs) in app_settings.get('TILES')],
-        overlays=[(force_text(label), url, attrs) for (label, url, attrs) in app_settings.get('OVERLAYS')],
-        attributionprefix=force_text(app_settings.get('ATTRIBUTION_PREFIX'), strings_only=True),
-        scale=app_settings.get('SCALE'),
-        minimap=app_settings.get('MINIMAP'),
-        resetview=app_settings.get('RESET_VIEW'),
-        tilesextent=list(app_settings.get('TILES_EXTENT', []))
+        center=instance_app_settings['DEFAULT_CENTER'],
+        zoom=instance_app_settings['DEFAULT_ZOOM'],
+        minzoom=instance_app_settings['MIN_ZOOM'],
+        maxzoom=instance_app_settings['MAX_ZOOM'],
+        layers=[(force_text(label), url, attrs) for (label, url, attrs) in instance_app_settings.get('TILES')],
+        overlays=[(force_text(label), url, attrs) for (label, url, attrs) in instance_app_settings.get('OVERLAYS')],
+        attributionprefix=force_text(instance_app_settings.get('ATTRIBUTION_PREFIX'), strings_only=True),
+        scale=instance_app_settings.get('SCALE'),
+        minimap=instance_app_settings.get('MINIMAP'),
+        resetview=instance_app_settings.get('RESET_VIEW'),
+        tilesextent=list(instance_app_settings.get('TILES_EXTENT', []))
     )
-    
+
     return {
         # templatetag options
         'name': name,
@@ -111,7 +115,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
         # initialization options
         'djoptions': json.dumps(djoptions, cls=JSONLazyTranslationEncoder),
         # settings
-        'NO_GLOBALS': app_settings.get('NO_GLOBALS'),
+        'NO_GLOBALS': instance_app_settings.get('NO_GLOBALS'),
     }
 
 
