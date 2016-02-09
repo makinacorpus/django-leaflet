@@ -71,19 +71,23 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
     :param settings_overrides:
     :return:
     """
-    extent = None
-    if SPATIAL_EXTENT is not None:
-        # Leaflet uses [lat, lng]
-        xmin, ymin, xmax, ymax = SPATIAL_EXTENT
-        extent = (ymin, xmin, ymax, xmax)
 
     if settings_overrides == '':
         settings_overrides = {}
     app_settings.update(**settings_overrides)
 
+    def computeSpatialExtent(app_settings):
+        if app_settings['SPATIAL_EXTENT'] is not None:
+            # Leaflet uses [lat, lng]
+            xmin, ymin, xmax, ymax = app_settings['SPATIAL_EXTENT']
+            extent = (ymin, xmin, ymax, xmax)
+            return [extent[:2], extent[2:4]]
+        else:
+            return None
+
     djoptions = dict(
         srid=SRID,
-        extent=[extent[:2], extent[2:4]],
+        extent=computeSpatialExtent(app_settings),
         fitextent=fitextent,
         center=app_settings['DEFAULT_CENTER'],
         zoom=app_settings['DEFAULT_ZOOM'],
@@ -97,7 +101,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
         resetview=app_settings.get('RESET_VIEW'),
         tilesextent=list(app_settings.get('TILES_EXTENT', []))
     )
-
+    print(djoptions)
     return {
         # templatetag options
         'name': name,
