@@ -75,7 +75,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
     if settings_overrides == '':
         settings_overrides = {}
 
-    instance_app_settings = app_settings.copy()  # Allow not overidding global settings_overrides
+    instance_app_settings = app_settings.copy()  # Allow not overidding global app_settings
     instance_app_settings.update(**settings_overrides)
 
     def computeSpatialExtent():
