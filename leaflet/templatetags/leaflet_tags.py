@@ -78,16 +78,12 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
     instance_app_settings = app_settings.copy()  # Allow not overidding global app_settings
     instance_app_settings.update(**settings_overrides)
 
-    def computeSpatialExtent():
-        if instance_app_settings['SPATIAL_EXTENT'] is not None:
-            # Leaflet uses [lat, lng]
-            xmin, ymin, xmax, ymax = instance_app_settings['SPATIAL_EXTENT']
-            extent = (ymin, xmin, ymax, xmax)
-            return [extent[:2], extent[2:4]]
-        else:
-            return None
-
-    extent = computeSpatialExtent()
+    extent = None
+    if instance_app_settings['SPATIAL_EXTENT'] is not None:
+        # Leaflet uses [lat, lng]
+        xmin, ymin, xmax, ymax = instance_app_settings['SPATIAL_EXTENT']
+        bbox = (ymin, xmin, ymax, xmax)
+        extent = [bbox[:2], bbox[2:4]]
 
     djoptions = dict(
         srid=SRID,

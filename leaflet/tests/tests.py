@@ -189,6 +189,24 @@ class SettingsOverridesTest(SimpleTestCase):
         output = widget.render('geom', '', {'id': 'geom'})
         self.assertIn('"center": [8.0, 3.14]', output)
 
+    def test_spatial_extent_settings_overrides(self):
+        widget = LeafletWidget(attrs={
+            'settings_overrides': {
+                'SPATIAL_EXTENT': (
+                    3.812255859375,
+                    50.387507803003146,
+                    4.0869140625,
+                    50.523904629228625,
+                ),
+                'DEFAULT_ZOOM': None,
+                'DEFAULT_CENTER': None,
+            }
+        })
+        output = widget.render('geom', '', {'id': 'geom'})
+        self.assertIn('"extent": [[50.387507803003146, 3.812255859375], [50.523904629228625, 4.0869140625]]', output)
+        self.assertIn('"center": null', output)
+        self.assertIn('"zoom": null', output)
+
 
 class LeafletModelFormTest(SimpleTestCase):
 
