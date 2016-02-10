@@ -3,10 +3,10 @@ in your `Django <https://www.djangoproject.com>`_ projects.
 
 It embeds Leaflet in version *0.7.5*.
 
-.. image:: https://pypip.in/v/django-leaflet/badge.png
+.. image:: https://img.shields.io/pypi/v/django-leaflet.svg
         :target: https://pypi.python.org/pypi/django-leaflet
 
-.. image:: https://pypip.in/d/django-leaflet/badge.png
+.. image:: https://img.shields.io/pypi/dm/django-leaflet.svg
         :target: https://pypi.python.org/pypi/django-leaflet
 
 .. image:: https://travis-ci.org/makinacorpus/django-leaflet.png
