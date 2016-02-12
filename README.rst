@@ -213,6 +213,17 @@ If it contains several layers, a layer switcher will then be added automatically
               ('Streets', 'http://server/b/...', {'attribution': '&copy; Contributors'})]
 
 
+If you omit this setting, a default OpenSTreetMap layer will be created for your convenience. If you do not want
+a default layers (perhaps to add them in your own JavaScript code on map initialization), set the value to an empty
+list, as shown below.
+
+::
+
+    'TILES': []
+
+Note that this will also prevent any overlays defined in settings from being displayed.
+
+
 Overlay layers
 ~~~~~~~~~~~~~~
 
