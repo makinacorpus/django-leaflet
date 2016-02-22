@@ -5,7 +5,7 @@ CHANGELOG
 0.18.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- If the TILES setting contains an empty list, no default tiles layer is generated (@dyve).
 
 
 0.18.0 (2016-01-04)

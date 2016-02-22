@@ -11,7 +11,9 @@ L.Control.ResetView = L.Control.extend({
     initialize: function (bounds, options) {
         // Accept function as argument to bounds
         this.getBounds = typeof(bounds) == 'function' ? bounds :
-                                                        function() { return bounds; };
+            function () {
+                return bounds;
+            };
 
         L.Util.setOptions(this, options);
     },
@@ -29,10 +31,10 @@ L.Control.ResetView = L.Control.extend({
         link.style.backgroundImage = L.Control.ResetView.ICON;
 
         L.DomEvent.addListener(link, 'click', L.DomEvent.stopPropagation)
-                  .addListener(link, 'click', L.DomEvent.preventDefault)
-                  .addListener(link, 'click', L.Util.bind(function() {
-                      map.fitBounds(this.getBounds());
-                   }, this));
+            .addListener(link, 'click', L.DomEvent.preventDefault)
+            .addListener(link, 'click', L.Util.bind(function () {
+                map.fitBounds(this.getBounds());
+            }, this));
         return container;
     }
 });
@@ -55,7 +57,7 @@ L.Map.DjangoMap = L.Map.extend({
 
         // Translate to native options
         options = L.Util.extend(options,
-                                this._projectionOptions(djoptions));
+            this._projectionOptions(djoptions));
         if (djoptions.extent) {
             options.maxBounds = djoptions.extent;
         }
@@ -65,8 +67,7 @@ L.Map.DjangoMap = L.Map.extend({
         this._djAddLayers();
         this._djSetupControls();
 
-        if (djoptions.fitextent && djoptions.extent &&
-            !(djoptions.center || djoptions.zoom)) {
+        if (djoptions.fitextent && djoptions.extent && !(djoptions.center || djoptions.zoom)) {
             this.fitBounds(options.maxBounds);
         }
     },
@@ -81,13 +82,15 @@ L.Map.DjangoMap = L.Map.extend({
             maxResolution = computeMaxResolution(bbox);
         // See https://github.com/ajashton/TileCache/blob/master/tilecache/TileCache/Layer.py#L197
         var resolutions = [];
-        for(var z=0; z<20; z++) {
+        for (var z = 0; z < 20; z++) {
             resolutions.push(maxResolution / Math.pow(2, z));
         }
         var crs = new L.Proj.CRS('EPSG:' + djoptions.srid,
-                                 Proj4js.defs['EPSG:' + djoptions.srid],
-                                 {origin: [bbox[0], bbox[3]],
-                                  resolutions: resolutions});
+            Proj4js.defs['EPSG:' + djoptions.srid],
+            {
+                origin: [bbox[0], bbox[3]],
+                resolutions: resolutions
+            });
         return {
             crs: crs,
             scale: crs.scale,
@@ -97,7 +100,7 @@ L.Map.DjangoMap = L.Map.extend({
         function computeMaxResolution(bbox) {
             // See https://github.com/ajashton/TileCache/blob/master/tilecache/TileCache/Layer.py#L185-L196
             var size = 256,
-                width  = bbox[2] - bbox[0],
+                width = bbox[2] - bbox[0],
                 height = bbox[3] - bbox[1];
             var aspect = Math.floor(Math.max(width, height) / Math.min(width, height) + 0.5);
             return Math.max(width, height) / (size * aspect);
@@ -105,9 +108,14 @@ L.Map.DjangoMap = L.Map.extend({
     },
 
     _djAddLayers: function () {
-        var layers = this.options.djoptions.layers,
-            overlays = this.options.djoptions.overlays || [],
-            continuousWorld = this.options.continuousWorld;
+        var layers = this.options.djoptions.layers;
+        var overlays = this.options.djoptions.overlays || [];
+        var continuousWorld = this.options.continuousWorld;
+
+        if (!layers || !layers.length) {
+            // No layers, we're done (ignoring overlays)
+            return;
+        }
 
         if (layers.length == 1 && overlays.length == 0) {
             var layer = l2d(layers[0]);
@@ -171,7 +179,7 @@ L.Map.DjangoMap = L.Map.extend({
             this.minimapcontrol = null;
             this.whenReady(function () {
                 this.minimapcontrol = new L.Control.MiniMap(layer,
-                                                            {toggleDisplay: true}).addTo(this);
+                    {toggleDisplay: true}).addTo(this);
             }, this);
         }
 
