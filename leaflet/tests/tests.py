@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 import json
 
 import django
+from django.contrib.staticfiles.storage import StaticFilesStorage
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.test import SimpleTestCase
 from django.contrib.gis.db import models as gismodels
 
@@ -13,6 +15,40 @@ from ..templatetags import leaflet_tags
 from ..admin import LeafletGeoAdmin
 from ..forms.widgets import LeafletWidget
 from ..forms import fields
+
+
+class DummyStaticFilesStorage(StaticFilesStorage):
+
+    def url(self, name):
+        raise ValueError
+
+
+class AppLoadingTest(SimpleTestCase):
+
+    def test_init_with_non_default_staticfiles_storage(self):
+        """
+        Non-default STATICFILES_STORAGE (ex. django.contrib.staticfiles.storage.ManifestStaticFilesStorage)
+        might raise ValueError when file could not be found by this storage and DEBUG is set to False.
+
+        Ensure that _normalize_plugins_config calls `static` lazily, in order to let `collectstatic` command to run.
+
+        """
+
+        with self.settings(STATICFILES_STORAGE='leaflet.tests.tests.DummyStaticFilesStorage', STATIC_ROOT="/", DEBUG=False):
+            # staticfiles_storage._setup()  # reset already initialized default STATICFILES_STORAGE
+
+            try:
+                static("a")
+                self.fail("static must raise an exception")
+            except ValueError:
+                pass
+
+            PLUGINS.update({
+                'a': {'css': 'a'},
+            })
+
+            PLUGINS.pop('__is_normalized__')
+            _normalize_plugins_config()
 
 
 class PluginListingTest(SimpleTestCase):
