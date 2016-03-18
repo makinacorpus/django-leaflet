@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import json
 
 import django
-from django.contrib.staticfiles.storage import StaticFilesStorage
+from django.contrib.staticfiles.storage import StaticFilesStorage, staticfiles_storage
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.test import SimpleTestCase
 from django.contrib.gis.db import models as gismodels
@@ -34,20 +34,24 @@ class AppLoadingTest(SimpleTestCase):
 
         """
 
-        with self.settings(STATICFILES_STORAGE='leaflet.tests.tests.DummyStaticFilesStorage', STATIC_ROOT="/", DEBUG=False):
-            # staticfiles_storage._setup()  # reset already initialized default STATICFILES_STORAGE
+        try:
+            with self.settings(STATICFILES_STORAGE='leaflet.tests.tests.DummyStaticFilesStorage', STATIC_ROOT="/", DEBUG=False):
+                staticfiles_storage._setup()  # reset already initialized (and memoized) default STATICFILES_STORAGE
 
-            try:
-                static("a")
-                self.fail("static must raise an exception")
-            except ValueError:
-                pass
+                try:
+                    static("a")
+                    self.fail("static must raise an exception")
+                except ValueError:
+                    pass
 
-            PLUGINS.update({
-                'a': {'css': 'a'},
-            })
+                PLUGINS.update({
+                    'a': {'css': 'a'},
+                })
 
-            PLUGINS.pop('__is_normalized__')
+                PLUGINS.pop('__is_normalized__')
+                _normalize_plugins_config()
+        finally:
+            staticfiles_storage._setup()
             _normalize_plugins_config()
 
 
