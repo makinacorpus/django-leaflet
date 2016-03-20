@@ -27,6 +27,12 @@ class QuickDjangoTest(object):
         'django.contrib.sessions',
         'django.contrib.admin',
     ]
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'APP_DIRS': True,
+        },
+    ]
 
     def __init__(self, *args, **kwargs):
         self.apps = kwargs.get('apps', [])
@@ -58,6 +64,7 @@ class QuickDjangoTest(object):
         settings.configure(
             DATABASES=databases,
             INSTALLED_APPS=self.INSTALLED_APPS + self.apps,
+            TEMPLATES = self.TEMPLATES,
             STATIC_URL='/static/'
         )
         if django.VERSION >= (1, 7, 0):

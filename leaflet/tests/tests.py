@@ -110,6 +110,9 @@ class LeafletFieldsWidgetsTest(SimpleTestCase):
 class DummyModel(gismodels.Model):
     geom = gismodels.PointField()
 
+    class Meta:
+        app_label = "leaflet"
+
 
 class DummyAdmin(LeafletGeoAdmin):
     settings_overrides = {
