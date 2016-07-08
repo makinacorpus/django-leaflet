@@ -17,7 +17,7 @@ except (ImportError, ImproperlyConfigured):
 from .forms.widgets import LeafletWidget
 
 
-class LeafletGeoAdmin(ModelAdmin):
+class LeafletGeoAdminMixin(object):
     widget = LeafletWidget
     map_template = 'leaflet/admin/widget.html'
     modifiable = True
@@ -41,7 +41,7 @@ class LeafletGeoAdmin(ModelAdmin):
             kwargs['widget'] = self._get_map_widget(db_field)
             return db_field.formfield(**kwargs)
         else:
-            return super(LeafletGeoAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+            return super(LeafletGeoAdminMixin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def _get_map_widget(self, db_field):
         """
@@ -57,3 +57,7 @@ class LeafletGeoAdmin(ModelAdmin):
             display_raw = self.display_raw
             settings_overrides = self.settings_overrides
         return LeafletMap
+
+
+class LeafletGeoAdmin(LeafletGeoAdminMixin, ModelAdmin):
+    pass
