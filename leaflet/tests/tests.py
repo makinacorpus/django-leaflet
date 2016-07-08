@@ -4,13 +4,15 @@ import json
 
 import django
 from django.test import SimpleTestCase
+from django.contrib.admin import ModelAdmin, StackedInline
+from django.contrib.admin.options import BaseModelAdmin, InlineModelAdmin
 from django.contrib.gis.db import models as gismodels
 
 from .. import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config, JSONLazyTranslationEncoder
 from django.utils import six
 from django.utils.translation import ugettext_lazy
 from ..templatetags import leaflet_tags
-from ..admin import LeafletGeoAdmin
+from ..admin import LeafletGeoAdmin, LeafletGeoAdminMixin
 from ..forms.widgets import LeafletWidget
 from ..forms import fields
 
@@ -107,6 +109,15 @@ class LeafletFieldsWidgetsTest(SimpleTestCase):
             self.assertEquals(f.widget.geom_type, typ.upper())
 
 
+class DummyAdminSite(object):
+    """
+    Mock adminsite, which is required by InlineModelAdmin.__init__
+    """
+
+    def is_registered(self, model):
+        return True
+
+
 class DummyModel(gismodels.Model):
     geom = gismodels.PointField()
 
@@ -114,15 +125,19 @@ class DummyModel(gismodels.Model):
         app_label = "leaflet"
 
 
-class DummyAdmin(LeafletGeoAdmin):
-    settings_overrides = {
-        'DEFAULT_CENTER': (8.0, 3.15),
-    }
+class DummyInlineModel(gismodels.Model):
+    geom = gismodels.PointField()
+
+    class Meta:
+        app_label = "leaflet"
 
 
-class LeafletGeoAdminTest(SimpleTestCase):
+class BaseLeafletGeoAdminTest(object):
+    modeladmin_class = None  # type: BaseModelAdmin
+    leafletgeoadmin_class = None  # type: LeafletGeoAdmin
+
     def setUp(self):
-        self.modeladmin = DummyAdmin(DummyModel, None)
+        self.modeladmin = self.leafletgeoadmin_class(DummyModel, DummyAdminSite())
         self.geomfield = DummyModel._meta.get_field('geom')
         self.formfield = self.modeladmin.formfield_for_dbfield(self.geomfield)
 
@@ -150,6 +165,45 @@ class LeafletGeoAdminTest(SimpleTestCase):
 
         self.assertIn('leaflet/leaflet.css', media_css)
         self.assertIn('leaflet/draw/leaflet.draw.css', media_css)
+
+    def test_is_subclass_of_modeladmin(self):
+        self.assertTrue(issubclass(self.leafletgeoadmin_class, self.modeladmin_class))
+
+
+class DummyAdminSettingsOverridesMixin(object):
+    settings_overrides = {
+        'DEFAULT_CENTER': (8.0, 3.15),
+    }
+
+
+class DummyMixinModelAdmin(DummyAdminSettingsOverridesMixin, LeafletGeoAdminMixin, ModelAdmin):
+    pass
+
+
+class LeafletGeoAdminMixinTest(BaseLeafletGeoAdminTest, SimpleTestCase):
+    modeladmin_class = ModelAdmin
+    leafletgeoadmin_class = DummyMixinModelAdmin
+
+    def test_is_not_subclass_of_modeladmin(self):
+        self.assertFalse(issubclass(LeafletGeoAdminMixin, BaseModelAdmin))
+
+
+class DummyModelAdmin(DummyAdminSettingsOverridesMixin, LeafletGeoAdmin):
+    pass
+
+
+class LeafletGeoAdminTest(BaseLeafletGeoAdminTest, SimpleTestCase):
+    modeladmin_class = ModelAdmin
+    leafletgeoadmin_class = DummyModelAdmin
+
+
+class DummyMixinStackedInline(DummyAdminSettingsOverridesMixin, LeafletGeoAdminMixin, StackedInline):
+    model = DummyInlineModel
+
+
+class LeafletGeoAdminStackedInlineTest(BaseLeafletGeoAdminTest, SimpleTestCase):
+    modeladmin_class = InlineModelAdmin
+    leafletgeoadmin_class = DummyMixinStackedInline
 
 
 class LeafletWidgetMapTest(SimpleTestCase):
