@@ -65,7 +65,7 @@ class QuickDjangoTest(object):
             }
         conf = {
             'DATABASES': databases,
-            'INSTALLED_APPS'': self.INSTALLED_APPS + self.apps,
+            'INSTALLED_APPS': self.INSTALLED_APPS + self.apps,
             'STATIC_URL': '/static/',
         }
         if django.VERSION >= (1, 8, 0):
