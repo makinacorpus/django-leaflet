@@ -27,12 +27,14 @@ class QuickDjangoTest(object):
         'django.contrib.sessions',
         'django.contrib.admin',
     ]
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'APP_DIRS': True,
-        },
-    ]
+
+    if django.VERSION >= (1, 8, 0):
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'APP_DIRS': True,
+            },
+        ]
 
     def __init__(self, *args, **kwargs):
         self.apps = kwargs.get('apps', [])
@@ -61,12 +63,14 @@ class QuickDjangoTest(object):
                     'NAME': os.path.join(self.DIRNAME, 'database.db'),
                 }
             }
-        settings.configure(
-            DATABASES=databases,
-            INSTALLED_APPS=self.INSTALLED_APPS + self.apps,
-            TEMPLATES = self.TEMPLATES,
-            STATIC_URL='/static/'
-        )
+        conf = {
+            'DATABASES': databases,
+            'INSTALLED_APPS': self.INSTALLED_APPS + self.apps,
+            'STATIC_URL': '/static/',
+        }
+        if django.VERSION >= (1, 8, 0):
+            conf['TEMPLATES'] = self.TEMPLATES,
+        settings.configure(**conf)
         if django.VERSION >= (1, 7, 0):
             # see: https://docs.djangoproject.com/en/dev/releases/1.7/#standalone-scripts
             django.setup()
