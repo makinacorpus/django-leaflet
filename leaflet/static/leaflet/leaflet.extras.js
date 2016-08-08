@@ -33,7 +33,7 @@ L.Control.ResetView = L.Control.extend({
         L.DomEvent.addListener(link, 'click', L.DomEvent.stopPropagation)
             .addListener(link, 'click', L.DomEvent.preventDefault)
             .addListener(link, 'click', L.Util.bind(function () {
-                map.fitBounds(this.getBounds());
+                map.fitBounds(this.getBounds(), {'padding': L.point([20, 20])});
             }, this));
         return container;
     }
