@@ -1,7 +1,7 @@
 *django-leaflet* allows you to use `Leaflet <http://leafletjs.com>`_
 in your `Django <https://www.djangoproject.com>`_ projects.
 
-It embeds Leaflet version *0.7.7*.
+It embeds Leaflet version *1.0.0-rc2*.
 
 .. image:: https://img.shields.io/pypi/v/django-leaflet.svg
         :target: https://pypi.python.org/pypi/django-leaflet

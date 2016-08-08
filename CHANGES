@@ -5,7 +5,8 @@ CHANGELOG
 0.18.2 (unreleased)
 -------------------
 
-- Fix compatibility with Django <= 1.7
+* Update to leaflet 1.0.0-rc2
+* Fix compatibility with Django <= 1.7
 
 
 0.18.1 (2016-04-07)
