@@ -55,6 +55,12 @@ L.Map.DjangoMap = L.Map.extend({
         if (!isNaN(parseInt(djoptions.maxzoom, 10)))
             options.maxZoom = djoptions.maxzoom;
 
+        if (!isNaN(parseInt(djoptions.zoomsnap, 10)))
+            options.zoomSnap = djoptions.zoomsnap;
+
+        if (!isNaN(parseInt(djoptions.zoomdelta, 10)))
+            options.zoomDelta = djoptions.zoomdelta;
+
         // Translate to native options
         options = L.Util.extend(options,
             this._projectionOptions(djoptions));

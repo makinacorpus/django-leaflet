@@ -38,6 +38,8 @@ app_settings = dict({
     'DEFAULT_ZOOM': None,
     'MIN_ZOOM': None,
     'MAX_ZOOM': None,
+    'ZOOM_SNAP': 1,
+    'ZOOM_DELTA': 1,
     'DEFAULT_CENTER': None,
     'FORCE_IMAGE_PATH': False,
     'SRID': None,
