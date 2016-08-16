@@ -29,12 +29,10 @@ class QuickDjangoTest(object):
     ]
 
     if django.VERSION >= (1, 8, 0):
-        TEMPLATES = [
-            {
-                'BACKEND': 'django.template.backends.django.DjangoTemplates',
-                'APP_DIRS': True,
-            },
-        ]
+        TEMPLATES = {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'APP_DIRS': True,
+        }
 
     def __init__(self, *args, **kwargs):
         self.apps = kwargs.get('apps', [])
@@ -65,7 +63,7 @@ class QuickDjangoTest(object):
             }
         conf = {
             'DATABASES': databases,
-            'INSTALLED_APPS'': self.INSTALLED_APPS + self.apps,
+            'INSTALLED_APPS': self.INSTALLED_APPS + self.apps,
             'STATIC_URL': '/static/',
         }
         if django.VERSION >= (1, 8, 0):
