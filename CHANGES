@@ -2,7 +2,8 @@
 CHANGELOG
 =========
 
-0.18.2 (unreleased)
+
+0.18.2 (2016-08-16)
 -------------------
 
 - Fix compatibility with Django <= 1.7
@@ -16,6 +17,7 @@ CHANGELOG
 - Fix settings override (#142, thanks @ndufrane)
 - Fix for templatetags.leflet_js debug setting (#148, thanks @arctelix)
 - Fixes for Django 1.10 compatibility (#138, thanks @PetrDiouhy)
+
 
 0.18.0 (2016-01-04)
 -------------------
