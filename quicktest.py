@@ -29,12 +29,11 @@ class QuickDjangoTest(object):
     ]
 
     if django.VERSION >= (1, 8, 0):
-        TEMPLATES = [
+        TEMPLATES = \
             {
                 'BACKEND': 'django.template.backends.django.DjangoTemplates',
                 'APP_DIRS': True,
-            },
-        ]
+            }
 
     def __init__(self, *args, **kwargs):
         self.apps = kwargs.get('apps', [])
