@@ -6,7 +6,10 @@ CHANGELOG
 0.18.3 (unreleased)
 -------------------
 
--
+**New features**
+
+- Added ``leaflet.admin.LeafletGeoAdminMixin``, useful for stacked or tabular
+  inline forms (thanks @KostyaEsmukov, @Xowap)
 
 
 0.18.2 (2016-08-16)

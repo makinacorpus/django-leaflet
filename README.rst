@@ -369,6 +369,17 @@ In Adminsite
     admin.site.register(WeatherStation, LeafletGeoAdmin)
 
 
+A mixin is also available for inline forms:
+
+::
+
+    from django.contrib import admin
+    from leaflet.admin import LeafletGeoAdminMixin
+
+    class PoiLocationInline(LeafletGeoAdminMixin, admin.StackedInline):
+        model = PoiLocation
+
+
 In forms
 ~~~~~~~~
 
