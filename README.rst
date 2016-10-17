@@ -76,6 +76,11 @@ USAGE
 
 * Your map shows up!
 
+Example
+-------
+
+Check out the `example project <https://github.com/makinacorpus/django-leaflet/tree/master/example>`_
+ifor a complete integration!
 
 Use Leaflet API
 ---------------
