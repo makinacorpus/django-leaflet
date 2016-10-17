@@ -17,7 +17,7 @@ Initialize database tables:
 
 .. code-block:: bash
 
-    python manage.py migrate --run-syncdb
+    python manage.py migrate
 
 Create a super-user for the admin:
 
