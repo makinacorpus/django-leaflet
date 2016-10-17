@@ -7,9 +7,10 @@
       .leaflet-container { height: 100%; }
     </style>
     <script type="text/javascript">
-      var staticurl = '{}';
       var dataurl = '{% url "data" %}';
-      function main_map_init(map, options) {
+
+      window.addEventListener("map:init", function (event) {
+        var map = event.detail.map;
         // Download GeoJSON data with Ajax
         fetch(dataurl)
           .then(function(resp) {
@@ -23,11 +24,11 @@
                 layer.bindPopup(content);
             }}).addTo(map);
           });
-      }
+      });
     </script>
   </head>
   <body>
     <h1>Mushrooms Spots</h1>
-    {% leaflet_map "main" callback="main_map_init" %}
+    {% leaflet_map "main" %}
   </body>
 </html>
