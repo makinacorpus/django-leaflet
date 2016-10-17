@@ -7,15 +7,21 @@
       .leaflet-container { height: 100%; }
     </style>
     <script type="text/javascript">
+      var staticurl = '{}';
+      var dataurl = '{% url "data" %}';
       function main_map_init(map, options) {
-        var dataurl = '{% url "data" %}';
         // Download GeoJSON data with Ajax
         fetch(dataurl)
           .then(function(resp) {
             return resp.json();
           })
           .then(function(data) {
-            L.geoJson(data).addTo(map);
+            L.geoJson(data, {
+              onEachFeature: function onEachFeature(feature, layer) {
+                var props = feature.properties;
+                var content = `<img width="300" src="${props.picture_url}"/><h3>${props.title}</h3><p>${props.description}</p>`;
+                layer.bindPopup(content);
+            }}).addTo(map);
           });
       }
     </script>
