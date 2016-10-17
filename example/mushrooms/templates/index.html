@@ -1,0 +1,27 @@
+{% load leaflet_tags %}
+<html>
+  <head>
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <style>
+      .leaflet-container { height: 100%; }
+    </style>
+    <script type="text/javascript">
+      function main_map_init(map, options) {
+        var dataurl = '{% url "data" %}';
+        // Download GeoJSON data with Ajax
+        fetch(dataurl)
+          .then(function(resp) {
+            return resp.json();
+          })
+          .then(function(data) {
+            L.geoJson(data).addTo(map);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Mushrooms Spots</h1>
+    {% leaflet_map "main" callback="main_map_init" %}
+  </body>
+</html>
