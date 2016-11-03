@@ -177,12 +177,7 @@ L.GeometryField = L.Class.extend({
         // Change view extent
         if (this.drawnItems.getLayers().length > 0) {
             var bounds = this.drawnItems.getBounds();
-            // In case of points, fitBounds() fails.
-            // https://github.com/makinacorpus/django-leaflet/issues/90
-            if (!bounds._southWest.equals(bounds._northEast))
-                this._map.fitBounds(bounds);
-            else
-                this._map.setView(bounds._northEast, this.default_zoom);
+            this._map.fitBounds(this.drawnItems.getBounds());
         }
         // Else keep view extent set by django-leaflet template tag
     },
