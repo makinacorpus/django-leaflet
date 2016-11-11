@@ -1,7 +1,7 @@
 *django-leaflet* allows you to use `Leaflet <http://leafletjs.com>`_
 in your `Django <https://www.djangoproject.com>`_ projects.
 
-It embeds Leaflet in version *0.7.5*.
+It embeds Leaflet version *0.7.7*.
 
 .. image:: https://img.shields.io/pypi/v/django-leaflet.svg
         :target: https://pypi.python.org/pypi/django-leaflet
@@ -76,6 +76,11 @@ USAGE
 
 * Your map shows up!
 
+Example
+-------
+
+Check out the `example project <https://github.com/makinacorpus/django-leaflet/tree/master/example>`_
+ifor a complete integration!
 
 Use Leaflet API
 ---------------
@@ -367,6 +372,17 @@ In Adminsite
 
 
     admin.site.register(WeatherStation, LeafletGeoAdmin)
+
+
+A mixin is also available for inline forms:
+
+::
+
+    from django.contrib import admin
+    from leaflet.admin import LeafletGeoAdminMixin
+
+    class PoiLocationInline(LeafletGeoAdminMixin, admin.StackedInline):
+        model = PoiLocation
 
 
 In forms

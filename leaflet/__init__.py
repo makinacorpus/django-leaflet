@@ -21,6 +21,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.translation import ugettext_lazy as _
 from django.utils import six
+import django
 
 from .utils import memoized_lazy_function, ListWithLazyItems, ListWithLazyItemsRawIterator
 
@@ -212,7 +213,14 @@ def _normalize_plugins_config():
 
     PLUGINS['__is_normalized__'] = True
 
-_normalize_plugins_config()
+
+default_app_config = 'leaflet.apps.LeafletConfig'
+
+if django.VERSION >= (1, 8, 0):  # otherwise is called in apps.py
+    if django.apps.apps.ready:
+        _normalize_plugins_config()
+else:
+    _normalize_plugins_config()
 
 
 class JSONLazyTranslationEncoder(DjangoJSONEncoder):

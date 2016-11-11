@@ -2,10 +2,36 @@
 CHANGELOG
 =========
 
-0.18.1 (unreleased)
+
+0.20.0 (unreleased)
 -------------------
 
-- If the TILES setting contains an empty list, no default tiles layer is generated (@dyve).
+- Nothing changed yet.
+
+
+0.19.0 (2016-08-22)
+-------------------
+
+**New features**
+
+- Added ``leaflet.admin.LeafletGeoAdminMixin``, useful for stacked or tabular
+  inline forms (thanks @KostyaEsmukov, @Xowap)
+
+
+0.18.2 (2016-08-16)
+-------------------
+
+- Fix compatibility with Django <= 1.7
+
+
+0.18.1 (2016-04-07)
+-------------------
+
+- If the TILES setting contains an empty list, no default tiles layer is generated (thanks @dyve).
+- Fix to allow multipoints saving (fixes #130, thanks @rukayaj)
+- Fix settings override (#142, thanks @ndufrane)
+- Fix for templatetags.leflet_js debug setting (#148, thanks @arctelix)
+- Fixes for Django 1.10 compatibility (#138, thanks @PetrDiouhy)
 
 
 0.18.0 (2016-01-04)

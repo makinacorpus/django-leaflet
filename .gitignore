@@ -3,3 +3,4 @@
 /dist/
 /django_leaflet.egg-info/
 .idea/
+.coverage
