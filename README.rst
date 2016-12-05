@@ -354,7 +354,7 @@ Leaflet map forms widgets
 -------------------------
 
 A Leaflet widget is provided to edit geometry fields.
-It embeds *Leaflet.draw* in version *0.2.2*.
+It embeds *Leaflet.draw* version *0.3.0-dev*.
 
 
 .. image :: https://f.cloud.github.com/assets/546692/1048836/78b6ad94-1094-11e3-86d8-c3e88626a31d.png
