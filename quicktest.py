@@ -66,6 +66,15 @@ class QuickDjangoTest(object):
             'INSTALLED_APPS': self.INSTALLED_APPS + self.apps,
             'STATIC_URL': '/static/',
         }
+        if 'SPATIALITE_LIBRARY_PATH' in os.environ:
+            # If you get SpatiaLite-related errors, refer to this document
+            # to find out the proper SPATIALITE_LIBRARY_PATH value
+            # for your platform.
+            # https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/spatialite/
+            #
+            # Example for macOS (with spatialite-tools installed using brew):
+            # $ export SPATIALITE_LIBRARY_PATH='/usr/local/lib/mod_spatialite.dylib'
+            conf['SPATIALITE_LIBRARY_PATH'] = os.getenv('SPATIALITE_LIBRARY_PATH')
         if django.VERSION >= (1, 8, 0):
             conf['TEMPLATES'] = self.TEMPLATES,
         settings.configure(**conf)
