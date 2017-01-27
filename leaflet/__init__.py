@@ -23,6 +23,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import six
 import django
 
+from .utils import memoized_lazy_function, ListWithLazyItems, ListWithLazyItemsRawIterator
+
 
 DEFAULT_TILES = [(_('OSM'), '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                   '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')]
@@ -178,27 +180,36 @@ def _normalize_plugins_config():
                 urls = list(urls)
             elif isinstance(urls, list):  # already a list
                 pass
+            elif isinstance(urls, ListWithLazyItems):
+                # prevent evaluating Promises too early
+                urls = ListWithLazyItemsRawIterator(urls)
             else:  # css/js has not been specified or the wrong type
                 urls = []
 
             # normalize the URLs - see the docstring for details
             for i, url in enumerate(urls):
+                if ListWithLazyItems.is_lazy_item(url):
+                    # If it is a Promise, then we have already
+                    # seen this url and have lazily applied the `static` call
+                    # to it, so we can safely skip the check below.
+                    continue
                 url_parts = urlparse(url)
                 if url_parts.scheme or url_parts.path.startswith('/'):
                     # absolute URL or a URL starting at root
                     pass
                 else:
                     # pass relative URL through django.contrib.staticfiles
-                    urls[i] = static(url)
+                    urls[i] = memoized_lazy_function(static, url)  # lazy variant of `static(url)`
 
+            urls = ListWithLazyItems(urls)
             plugin_dict[resource_type] = urls
 
             # Append it to the DEFAULT pseudo-plugin if auto-include
             if plugin_dict.get('auto-include', False):
-                PLUGINS[PLUGINS_DEFAULT].setdefault(resource_type, []).extend(urls)
+                PLUGINS[PLUGINS_DEFAULT].setdefault(resource_type, ListWithLazyItems()).extend(urls)
 
             # also append it to the ALL pseudo-plugin;
-            PLUGINS[PLUGIN_ALL].setdefault(resource_type, []).extend(urls)
+            PLUGINS[PLUGIN_ALL].setdefault(resource_type, ListWithLazyItems()).extend(urls)
 
     PLUGINS['__is_normalized__'] = True
 

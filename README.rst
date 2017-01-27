@@ -634,6 +634,7 @@ AUTHORS
 * `Dylan Verheul <https://github.com/dyve>`_
 * `Mactory <https://github.com/Mactory>`_
 * `Petr Dlouhy <https://github.com/PetrDlouhy>`_
+* `Kostya Esmukov <https://github.com/KostyaEsmukov>`_
 
 |makinacom|_
 
