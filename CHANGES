@@ -3,7 +3,7 @@ CHANGELOG
 =========
 
 
-0.20.0 (unreleased)
+0.20.0 (2017-01-27)
 -------------------
 
 **New features**
@@ -194,7 +194,7 @@ Many thanks to @KostyaEsmukov, @cleder, @sikmir and @seav for their contribution
 0.13.0 (2014-03-26)
 -------------------
 
-* Add support of Leaflet form fields on Django >= 1.4.2 (thanks Gaël Utard)
+* Add support of Leaflet form fields on Django >= 1.4.2 (thanks GaĂŤl Utard)
 
 
 0.12 (2014-03-22)
