@@ -49,6 +49,7 @@ app_settings = dict({
     'RESET_VIEW': True,
     'NO_GLOBALS': True,
     'PLUGINS': OrderedDict(),
+    'SPATIAL_EXTENT': (-180, -90, 180, 90),
 }, **LEAFLET_CONFIG)
 
 
