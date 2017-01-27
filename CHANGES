@@ -6,7 +6,21 @@ CHANGELOG
 0.20.0 (unreleased)
 -------------------
 
-- Nothing changed yet.
+**New features**
+
+- Update Leaflet to 1.0.3 (#169)
+- Update Leaflet-draw to 0.4.0 (#169)
+- Update Proj4Leaflet to 1.0.0 (#169)
+- Made `static` calls lazy, to fix issues with non-default STATICFILES_STORAGE (#149)
+- Add example application (#168)
+
+**Bug fixes**
+
+- Use SpatiaLite library path from environment variable for running test (#173)
+- Fix max zoom level (#165)
+- Add SPATIAL_EXTENT default value to the default settings (#167)
+
+Many thanks to @KostyaEsmukov, @cleder, @sikmir and @seav for their contributions!
 
 
 0.19.0 (2016-08-22)
