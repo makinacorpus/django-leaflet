@@ -36,7 +36,6 @@ app_settings = dict({
     'OVERLAYS': [],
     'ATTRIBUTION_PREFIX': None,
     'LOADEVENT': 'load',
-    'SPATIAL_EXTENT': None,
     'DEFAULT_ZOOM': None,
     'MIN_ZOOM': None,
     'MAX_ZOOM': None,
