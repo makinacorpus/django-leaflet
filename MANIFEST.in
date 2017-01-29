@@ -4,3 +4,4 @@ recursive-include leaflet/templates *.html *.js
 recursive-include leaflet/static *.js
 recursive-include leaflet/static *.css
 recursive-include leaflet/static *.png
+recursive-include leaflet/static *.svg
