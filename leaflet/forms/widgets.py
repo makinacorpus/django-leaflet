@@ -55,10 +55,12 @@ class LeafletWidget(BaseGeometryWidget):
         if self.geom_type == 'GEOMETRY':
             attrs['geom_type'] = 'Geometry'
 
-        map_id = slugify(attrs.get('id', name)).replace('-', '_')  # JS-safe
+        map_id_css = slugify(attrs.get('id', name))  # id need to have - for the inline formset to replace the prefix
+        map_id = map_id_css.replace('-', '_')  # JS-safe
         attrs.update(id=map_id,
+                     id_css=map_id_css,
                      module='geodjango_%s' % map_id,
-                     id_map=map_id + '_map',
+                     id_map=map_id_css + '-map',
                      id_map_callback=map_id + '_map_callback',
                      loadevent=loadevent,
                      modifiable=self.modifiable,

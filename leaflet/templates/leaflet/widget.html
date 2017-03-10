@@ -3,13 +3,13 @@
 
 <style type="text/css">{% block map_css %}
     {% if map_width and map_height %}#{{ id_map }} { width: {{ map_width }}; height: {{ map_height }}; }{% endif %}
-    {% if not display_raw %}#{{ id }} { display: none; }{% endif %}
+    {% if not display_raw %}#{{ id_css }} { display: none; }{% endif %}
     {% endblock map_css %}
 </style>
 
 <script type="text/javascript">
     {% block vars %}var {{ module }} = {};
-    {{ module }}.fieldid = '{{ id }}';
+    {{ module }}.fieldid = '{{ id_css }}';
     {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};
     {{ module }}.geom_type = '{{ geom_type }}';
     {{ module }}.srid = {{ map_srid }};
@@ -42,4 +42,4 @@
 {% endif %}
 
 {% if display_raw %}<p> Geometry:</p>{% endif %}
-<textarea id="{{ id }}" class="required" cols="150" rows="10" name="{{ name }}">{{ serialized }}</textarea>
+<textarea id="{{ id_css }}" class="required" cols="150" rows="10" name="{{ name }}">{{ serialized }}</textarea>

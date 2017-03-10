@@ -7,6 +7,7 @@ CHANGELOG
 -------------------
 
 - Set a default max zoom in leaflet.forms _setView to avoid an error.
+- Fix the div ids to work with admin inlines.
 
 
 0.21.0 (2017-02-28)
