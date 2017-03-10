@@ -6,7 +6,7 @@ CHANGELOG
 0.22.0 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Set a default max zoom in leaflet.forms _setView to avoid an error.
 
 
 0.21.0 (2017-02-28)

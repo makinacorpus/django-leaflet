@@ -177,7 +177,10 @@ L.GeometryField = L.Class.extend({
         // Change view extent
         if (this.drawnItems.getLayers().length > 0) {
             var bounds = this.drawnItems.getBounds();
-            this._map.fitBounds(this.drawnItems.getBounds());
+            var options = {
+                maxZoom: this._map.maxZoom || 15
+            };
+            this._map.fitBounds(bounds, options);
         }
         // Else keep view extent set by django-leaflet template tag
     },
