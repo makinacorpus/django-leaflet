@@ -338,7 +338,7 @@ class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
         widget = self.formfield.widget
         output = widget.render('geom', '', {'id': 'geom'})
         self.assertIn(".module .leaflet-draw ul", output)
-        self.assertIn('<div id="geom_div_map">', output)
+        self.assertIn('<div id="geom-div-map">', output)
 
 
 class JSONLazyTranslationEncoderTest(SimpleTestCase):
