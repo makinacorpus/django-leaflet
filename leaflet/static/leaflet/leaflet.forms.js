@@ -83,10 +83,7 @@ L.GeometryField = L.Class.extend({
         options.is_linestring = /linestring$/.test(geom_type) || options.is_generic;
         options.is_polygon = /polygon$/.test(geom_type) || options.is_generic;
         options.is_point = /point$/.test(geom_type) || options.is_generic;
-        options.collection_type = ({
-            'multilinestring': 'multiPolyline',
-            'multipolygon': 'multiPolygon',
-        })[geom_type] || 'featureGroup';
+        options.collection_type = 'featureGroup';
 
         L.setOptions(this, options);
 
