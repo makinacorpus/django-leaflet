@@ -45,7 +45,7 @@ L.FieldStore = L.Class.extend({
             geojson = flat;
         }
         // Special case for MultiPolyline/MultiPolygon because it was removed from leaflet 1.0
-        else if (collection_type != 'featureGroup') {
+        else if (is_multi && collection_type != 'featureGroup') {
             var latlngs = [];
             for (var i = 0; i < geojson.features.length; i++) {
                 var latlng = [];

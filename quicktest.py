@@ -31,6 +31,11 @@ class QuickDjangoTest(object):
     if django.VERSION >= (1, 8, 0):
         TEMPLATES = {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'OPTIONS': {
+                'context_processors': [
+                    'django.contrib.auth.context_processors.auth',
+                ]
+            },
             'APP_DIRS': True,
         }
 

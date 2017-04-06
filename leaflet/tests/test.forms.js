@@ -5,10 +5,16 @@ describe('Test Leaflet Forms', function() {
 
     describe('L.FieldStore', function() {
 
+        afterEach(function () {
+            document.getElementById('formfield').value = '';
+        });
+
         it("should serialize and store", function () {
-            var store = new L.FieldStore("formfield");
-            store.save(L.point(1, 2));
-            assert.equal(store.formfield.value, '{"type":"Point","coordinates":[1, 2]}');
+            var store = new L.FieldStore("formfield", {
+                collection_type: "featureGroup"
+            });
+            store.save(L.polyline([[1, 2], [3, 4]]));
+            assert.equal(store.formfield.value, '{"type":"LineString","coordinates":[[2,1],[4,3]]}');
         });
     });
 
