@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from distutils.version import LooseVersion
 
+from django import get_version
 from django import forms
 from django.core import validators
 from django.template.defaultfilters import slugify
@@ -36,10 +38,8 @@ class LeafletWidget(BaseGeometryWidget):
     def serialize(self, value):
         return value.geojson if value else ''
 
-    def render(self, name, value, attrs=None):
+    def _get_attrs(self, name, attrs=None):
         assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
-
-        value = None if value in validators.EMPTY_VALUES else value
 
         # Retrieve params from Field init (if any)
         self.geom_type = self.attrs.get('geom_type', self.geom_type)
@@ -68,4 +68,17 @@ class LeafletWidget(BaseGeometryWidget):
                      settings_overrides=attrs.get('settings_overrides', getattr(self, 'settings_overrides', None)),
                      geometry_field_class=attrs.get('geometry_field_class', getattr(self, 'geometry_field_class', 'L.GeometryField')),
                      field_store_class=attrs.get('field_store_class', getattr(self, 'field_store_class', 'L.FieldStore')))
-        return super(LeafletWidget, self).render(name, value, attrs)
+        return attrs
+
+    # Django 1.11 changed how the widgets are rendered
+    if LooseVersion(get_version()) >= LooseVersion('1.11'):
+        def get_context(self, name, value, attrs):
+            value = None if value in validators.EMPTY_VALUES else value
+            context = super(LeafletWidget, self).get_context(name, value, attrs)
+            context.update(self._get_attrs(name, attrs))
+            return context
+    else:
+        def render(self, name, value, attrs=None):
+            attrs = self._get_attrs(name, attrs)
+            value = None if value in validators.EMPTY_VALUES else value
+            return super(LeafletWidget, self).render(name, value, attrs)

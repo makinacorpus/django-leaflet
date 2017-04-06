@@ -75,6 +75,10 @@ matrix:
       env: DJANGO_VERSION=dev DATABASE=sqlite
     - python: 3.5
       env: DJANGO_VERSION=dev DATABASE=postgres
+    - python: 3.6
+      env: DJANGO_VERSION=dev DATABASE=sqlite
+    - python: 3.6
+      env: DJANGO_VERSION=dev DATABASE=postgres
 
 before_install:
   - sudo apt-get update
