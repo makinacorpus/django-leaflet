@@ -185,7 +185,8 @@ L.GeometryField = L.Class.extend({
                     this.drawnItems.addLayer(l);
                 }, this);
             }
-            else if (geometry instanceof L.Polygon || geometry instanceof L.Polyline) {
+            else if (this.options.collection_type !== 'featureGroup'
+                        && (geometry instanceof L.Polygon || geometry instanceof L.Polyline)) {
                 var latlngs = geometry.getLatLngs();
                 for (var i = 0; i < latlngs.length; i++) {
                     this.drawnItems.addLayer(L[this.options.collection_type](latlngs[i]));
