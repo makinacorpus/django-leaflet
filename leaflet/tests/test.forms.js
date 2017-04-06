@@ -7,8 +7,8 @@ describe('Test Leaflet Forms', function() {
 
         it("should serialize and store", function () {
             var store = new L.FieldStore("formfield");
-            store.save(L.polyline([[0, 0], [1, 1]]));
-            assert.equal(store.formfield.value, '{"type":"LineString","coordinates":[[0,0],[1,1]]}');
+            store.save(L.point(1, 2));
+            assert.equal(store.formfield.value, '{"type":"Point","coordinates":[1, 2]}');
         });
     });
 
