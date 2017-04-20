@@ -1,5 +1,5 @@
-{% load leaflet_tags %}
-{% load static from staticfiles l10n %}
+{% load leaflet_tags l10n %}
+{% load static from staticfiles %}
 
 <style type="text/css">{% block map_css %}
     {% if map_width and map_height %}#{{ id_map }} { width: {{ map_width|unlocalize }}; height: {{ map_height|unlocalize }}; }{% endif %}
