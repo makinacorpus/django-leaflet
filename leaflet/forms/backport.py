@@ -161,6 +161,7 @@ except (ImportError, ImproperlyConfigured):
 
 logger = logging.getLogger('django.contrib.gis')
 
+
 class BaseGeometryWidget(Widget):
     """
     The base class for rich geometry widgets.
@@ -211,7 +212,7 @@ class BaseGeometryWidget(Widget):
                         ogr = value.ogr
                         ogr.transform(self.map_srid)
                         value = ogr
-                    except GEOSException as err:
+                    except OGRException as err:
                         logger.error(
                             "Error transforming geometry from srid '%s' to srid '%s' (%s)",
                             value.srid, self.map_srid, err
@@ -248,7 +249,7 @@ class BaseGeometryWidget(Widget):
                         ogr = value.ogr
                         ogr.transform(self.map_srid)
                         value = ogr
-                    except GEOSException as err:
+                    except OGRException as err:
                         logger.error(
                             "Error transforming geometry from srid '%s' to srid "
                             "'%s' (%s)" % (value.srid, self.map_srid, err)
@@ -264,6 +265,7 @@ class BaseGeometryWidget(Widget):
                 LANGUAGE_BIDI=translation.get_language_bidi(),
             )
             return loader.render_to_string(self.template_name, context)
+
 
 class GeometryField(forms.Field):
     """
