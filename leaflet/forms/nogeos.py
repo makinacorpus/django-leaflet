@@ -14,3 +14,7 @@ class GEOSGeometry(object):
 
 class GEOSException(Exception):
     pass
+
+
+class OGRException(Exception):
+    pass
