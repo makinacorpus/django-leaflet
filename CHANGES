@@ -6,7 +6,8 @@ CHANGELOG
 0.23.0 (unreleased)
 -------------------
 
-- *Nothing yet*
+- Fix fatal bug with Django => 1.11.2 for non-GIS databases
+- fixes #188 Better replace for icon image
 
 0.22.0 (2017-04-06)
 -------------------
