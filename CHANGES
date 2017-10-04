@@ -10,6 +10,7 @@ CHANGELOG
 - fixes #188 Better replace for icon image
 - Add Russian translation
 - Add Hungarian translation
+- Allow storing global leaflet map instances
 
 0.22.0 (2017-04-06)
 -------------------
