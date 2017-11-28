@@ -59,14 +59,14 @@ class ListWithLazyItems(Sequence):
         self._list.extend(iterable)
 
     def __radd__(self, iterable):
-        l = type(self)(iterable)  # copy
-        l.extend(self)
-        return l
+        lazy_list = type(self)(iterable)  # copy
+        lazy_list.extend(self)
+        return lazy_list
 
     def __add__(self, iterable):
-        l = type(self)(self)  # copy
-        l.extend(iterable)
-        return l
+        lazy_list = type(self)(self)  # copy
+        lazy_list.extend(iterable)
+        return lazy_list
 
     @classmethod
     def _resolve_lazy_item(cls, item):
