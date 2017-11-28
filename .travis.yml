@@ -120,7 +120,8 @@ before_script:
 
 script:
  - python quicktest.py leaflet --db=$DATABASE
- - node node_modules/django-leaflet-tests/node_modules/mocha-phantomjs/bin/mocha-phantomjs leaflet/tests/index.html
+ - node --version
+ - node node_modules/mocha-phantomjs/bin/mocha-phantomjs leaflet/tests/index.html
 
 after_success:
  - coverage run quicktest.py leaflet --db=$DATABASE
