@@ -89,7 +89,7 @@ class LeafletWidgetRenderingTest(SimpleTestCase):
         self.assertIn('leaflet/leaflet.js', media_js)
         self.assertIn('leaflet/leaflet.extras.js', media_js)
         self.assertIn('leaflet/leaflet.forms.js', media_js)
-        self.assertIn('leaflet/draw/leaflet.draw.js', media_js)
+        self.assertIn('leaflet/draw/leaflet.draw-src.js', media_js)
 
         self.assertIn('leaflet/leaflet.css', media_css)
         self.assertIn('leaflet/draw/leaflet.draw.css', media_css)
@@ -161,7 +161,7 @@ class BaseLeafletGeoAdminTest(object):
         self.assertIn('leaflet/leaflet.js', media_js)
         self.assertIn('leaflet/leaflet.extras.js', media_js)
         self.assertIn('leaflet/leaflet.forms.js', media_js)
-        self.assertIn('leaflet/draw/leaflet.draw.js', media_js)
+        self.assertIn('leaflet/draw/leaflet.draw-src.js', media_js)
 
         self.assertIn('leaflet/leaflet.css', media_css)
         self.assertIn('leaflet/draw/leaflet.draw.css', media_css)

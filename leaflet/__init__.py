@@ -123,7 +123,7 @@ PLUGIN_FORMS = 'forms'
 
 # Add plugins required for forms (not auto-included)
 # Assets will be preprended to any existing entry in PLUGINS['forms']
-_forms_js = ['leaflet/draw/leaflet.draw.js',
+_forms_js = ['leaflet/draw/leaflet.draw-src.js',
              'leaflet/leaflet.extras.js',
              'leaflet/leaflet.forms.js']
 if SRID:
