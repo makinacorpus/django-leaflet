@@ -15,13 +15,19 @@ L.drawLocal = {
                 polygon: "{% trans "Draw a polygon" %}",
                 rectangle: "{% trans "Draw a rectangle" %}",
                 circle: "{% trans "Draw a circle" %}",
-                marker: "{% trans "Draw a marker" %}"
+                circlemarker: "{% trans "Draw a circle" %}",
+                marker: "{% trans "Draw a circlemarker" %}"
             }
         },
         handlers: {
             circle: {
                 tooltip: {
                     start: "{% trans "Click and drag to draw circle." %}"
+                }
+            },
+            circlemarker: {
+                tooltip: {
+                    start: "{% trans "Click and drag to draw circlemarker." %}"
                 }
             },
             marker: {

@@ -28,7 +28,8 @@ L.drawLocal = {
 				polygon: 'Draw a polygon',
 				rectangle: 'Draw a rectangle',
 				circle: 'Draw a circle',
-				marker: 'Draw a marker'
+				marker: 'Draw a marker',
+                circlemarker: 'Draw a circlemarker'
 			}
 		},
 		handlers: {
@@ -37,6 +38,11 @@ L.drawLocal = {
 					start: 'Click and drag to draw circle.'
 				},
 				radius: 'Radius'
+            },
+            circlemarker: {
+                tooltip: {
+                    start: 'Click map to place circle marker.'
+                }
 			},
 			marker: {
 				tooltip: {
@@ -1049,6 +1055,48 @@ L.Draw.Marker = L.Draw.Feature.extend({
 	}
 });
 
+L.Draw.CircleMarker = L.Draw.Marker.extend({
+    statics: {
+        TYPE: 'circlemarker'
+    },
+
+    options: {
+        stroke: true,
+        color: '#3388ff',
+        weight: 4,
+        opacity: 0.5,
+        fill: true,
+        fillColor: null, //same as color by default
+        fillOpacity: 0.2,
+        clickable: true,
+        zIndexOffset: 2000 // This should be > than the highest z-index any markers
+    },
+
+    // @method initialize(): void
+    initialize: function (map, options) {
+        // Save the type so super can fire, need to do this as cannot do this.TYPE :(
+        this.type = L.Draw.CircleMarker.TYPE;
+
+        this._initialLabelText = L.drawLocal.draw.handlers.circlemarker.tooltip.start;
+
+        L.Draw.Feature.prototype.initialize.call(this, map, options);
+    },
+
+
+    _fireCreatedEvent: function () {
+        var circleMarker = new L.Circle(this._marker.getLatLng(), this.options.radius, this.options);
+        L.Draw.Feature.prototype._fireCreatedEvent.call(this, circleMarker);
+    },
+
+    _createMarker: function (latlng) {
+        radius = this.options.radius;
+        if (radius instanceof Function) {
+            radius = radius();
+        }
+        return new L.Circle(latlng, radius, this.options);
+    }
+});
+
 
 L.Edit = L.Edit || {};
 
@@ -1745,6 +1793,55 @@ L.Circle.addInitHook(function () {
 	});
 });
 
+L.Edit.CircleMarker = L.Edit.SimpleShape.extend({
+    _createMoveMarker: function () {
+        var center = this._shape.getLatLng();
+
+        this._moveMarker = this._createMarker(center, this.options.moveIcon);
+    },
+
+    _createResizeMarker: function () {
+        // To avoid an undefined check in L.Edit.SimpleShape.removeHooks
+        this._resizeMarkers = [];
+    },
+
+    _move: function (latlng) {
+        if (this._resizeMarkers.length) {
+            var resizemarkerPoint = this._getResizeMarkerPoint(latlng);
+            // Move the resize marker
+            this._resizeMarkers[0].setLatLng(resizemarkerPoint);
+        }
+
+        // Move the circle
+        this._shape.setLatLng(latlng);
+
+        this._map.fire(L.Draw.Event.EDITMOVE, { layer: this._shape });
+    },
+});
+
+L.CircleMarker.addInitHook(function () {
+    if (L.Edit.CircleMarker) {
+        this.editing = new L.Edit.CircleMarker(this);
+
+        if (this.options.editable) {
+            this.editing.enable();
+        }
+    }
+
+    this.on('add', function () {
+        if (this.editing && this.editing.enabled()) {
+            this.editing.addHooks();
+        }
+    });
+
+    this.on('remove', function () {
+        if (this.editing && this.editing.enabled()) {
+            this.editing.removeHooks();
+        }
+    });
+});
+
+
 /*
  * L.LatLngUtil contains different utility functions for LatLngs.
  */
@@ -2436,7 +2533,12 @@ L.DrawToolbar = L.Toolbar.extend({
 				enabled: this.options.marker,
 				handler: new L.Draw.Marker(map, this.options.marker),
 				title: L.drawLocal.draw.toolbar.buttons.marker
-			}
+			},
+            {
+                enabled: this.options.circlemarker,
+                handler: new L.Draw.CircleMarker(map, this.options.circlemarker),
+                title: L.drawLocal.draw.toolbar.buttons.circlemarker
+            }
 		];
 	},
 
@@ -2742,7 +2844,7 @@ L.EditToolbar.Edit = L.Handler.extend({
 					latlng: L.LatLngUtil.cloneLatLng(layer.getLatLng()),
 					radius: layer.getRadius()
 				};
-			} else if (layer instanceof L.Marker) { // Marker
+			} else if (layer instanceof L.Marker || layer instanceof L.CircleMarker) { // Marker
 				this._uneditedLayerProps[id] = {
 					latlng: L.LatLngUtil.cloneLatLng(layer.getLatLng())
 				};
@@ -2760,7 +2862,7 @@ L.EditToolbar.Edit = L.Handler.extend({
 			} else if (layer instanceof L.Circle) {
 				layer.setLatLng(this._uneditedLayerProps[id].latlng);
 				layer.setRadius(this._uneditedLayerProps[id].radius);
-			} else if (layer instanceof L.Marker) { // Marker
+			} else if (layer instanceof L.Marker || layer instanceof L.CircleMarker) { // Marker
 				layer.setLatLng(this._uneditedLayerProps[id].latlng);
 			}
 
