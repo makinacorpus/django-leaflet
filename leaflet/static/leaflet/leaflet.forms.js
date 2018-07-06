@@ -145,6 +145,7 @@ L.GeometryField = L.Class.extend({
             }, this);
             map.on('draw:drawstop draw:editstop', function () {
                 if (this._acceptDrawEvents) this._unsavedChanges = false;
+                this.store.save(this.drawnItems);
             }, this);
         }
 
