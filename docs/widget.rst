@@ -8,7 +8,7 @@ It embeds *Leaflet.draw* in version *0.4.0*.
 .. image :: https://f.cloud.github.com/assets/546692/1048836/78b6ad94-1094-11e3-86d8-c3e88626a31d.png
 
 
-In Adminsite
+In admin.py
 ------------
 
 ::
@@ -17,9 +17,23 @@ In Adminsite
     from leaflet.admin import LeafletGeoAdmin
 
     from .models import WeatherStation
+    from .models import WeatherSensor
 
-
+    # A Basic Example
     admin.site.register(WeatherStation, LeafletGeoAdmin)
+
+   """A More Complicated Example
+      Notice ModelAdmin(admin.ModelAdmin) also has to change to modelAdmin(LeafletGeoAdmin)
+      @admin.register() decorator not required for Django-Leaflet, but is for inlines.
+   """
+   class WeatherSensorInline(admin.TabularInline):
+       model = WeatherSensor
+       fields = ['manufacturer, 'model', 'sensor_type']
+   
+   @admin.register(WeatherSensor)
+   class WeatherSensorAdmin(LeafletGeoAdmin)
+       model = WeatherSensor
+       inlines = [WeatherSensorInline,]
 
 
 A mixin is also available for inline forms:
@@ -33,7 +47,7 @@ A mixin is also available for inline forms:
         model = PoiLocation
 
 
-In forms
+In forms.py
 --------
 
 With *Django* >= 1.6:
