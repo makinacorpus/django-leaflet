@@ -9,7 +9,7 @@ It embeds *Leaflet.draw* in version *0.4.0*.
 
 
 In admin.py
-------------
+-----------
 
 ::
 
@@ -48,7 +48,7 @@ A mixin is also available for inline forms:
 
 
 In forms.py
---------
+-----------
 
 With *Django* >= 1.6:
 
