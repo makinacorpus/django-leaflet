@@ -5,7 +5,7 @@ CHANGELOG
 0.25.0 (unreleased)
 -------------------
 
--
+- #225 changes in staticfiles for django 1.11.14
 
 0.24.0 (2018-06-07)
 -------------------
