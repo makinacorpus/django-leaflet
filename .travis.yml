@@ -6,6 +6,7 @@ python:
   - 3.4
   - 3.5
   - 3.6
+  - 3.7
 
 addons:
   postgresql: 9.6
@@ -15,20 +16,76 @@ addons:
 
 env:
   matrix:
-  - DJANGO_VERSION=1.11.14 DATABASE=postgres
-  - DJANGO_VERSION=1.11.14 DATABASE=sqlite
-  - DJANGO_VERSION=2.0.7 DATABASE=postgres
-  - DJANGO_VERSION=2.0.7 DATABASE=sqlite
+  - DJANGO_VERSION=1.6.11 DATABASE=postgres
+  - DJANGO_VERSION=1.6.11 DATABASE=sqlite
+  - DJANGO_VERSION=1.7.11 DATABASE=postgres
+  - DJANGO_VERSION=1.7.11 DATABASE=sqlite
+  - DJANGO_VERSION=1.8.18 DATABASE=postgres
+  - DJANGO_VERSION=1.8.19 DATABASE=sqlite
+  - DJANGO_VERSION=1.9.13 DATABASE=postgres
+  - DJANGO_VERSION=1.9.13 DATABASE=sqlite
+  - DJANGO_VERSION=1.10.8 DATABASE=postgres
+  - DJANGO_VERSION=1.10.8 DATABASE=sqlite
+  - DJANGO_VERSION=1.11.15 DATABASE=postgres
+  - DJANGO_VERSION=1.11.15 DATABASE=sqlite
+  - DJANGO_VERSION=2.0.8 DATABASE=postgres
+  - DJANGO_VERSION=2.0.8 DATABASE=sqlite
+  - DJANGO_VERSION=2.1 DATABASE=postgres
+  - DJANGO_VERSION=2.1 DATABASE=sqlite
   - DJANGO_VERSION=dev DATABASE=postgres
   - DJANGO_VERSION=dev DATABASE=sqlite
 
 matrix:
   exclude:
+    - python: 3.5
+      env: DJANGO_VERSION=1.6.11 DATABASE=sqlite
+    - python: 3.5
+      env: DJANGO_VERSION=1.6.11 DATABASE=postgres
+    - python: 3.5
+      env: DJANGO_VERSION=1.7.11 DATABASE=sqlite
+    - python: 3.5
+      env: DJANGO_VERSION=1.7.11 DATABASE=postgres
+    - python: 3.5
+      env: DJANGO_VERSION=1.8.19 DATABASE=sqlite
+    - python: 3.5
+      env: DJANGO_VERSION=1.9.13 DATABASE=sqlite
+    - python: 3.5
+      env: DJANGO_VERSION=1.10.8 DATABASE=sqlite
+    - python: 3.5
+      env: DJANGO_VERSION=1.11.15 DATABASE=sqlite
+    - python: 3.5
+      env: DJANGO_VERSION=dev DATABASE=sqlite
+    - python: 3.6
+      env: DJANGO_VERSION=1.6.11 DATABASE=sqlite
+    - python: 3.6
+      env: DJANGO_VERSION=1.6.11 DATABASE=postgres
+    - python: 3.6
+      env: DJANGO_VERSION=1.7.11 DATABASE=sqlite
+    - python: 3.6
+      env: DJANGO_VERSION=1.7.11 DATABASE=postgres
+    - python: 3.6
+      env: DJANGO_VERSION=1.8.19 DATABASE=sqlite
+    - python: 3.6
+      env: DJANGO_VERSION=1.8.19 DATABASE=postgres
+    - python: 3.6
+      env: DJANGO_VERSION=1.9.13 DATABASE=sqlite
+    - python: 3.6
+      env: DJANGO_VERSION=1.9.13 DATABASE=postgres
+    - python: 3.6
+      env: DJANGO_VERSION=1.10.8 DATABASE=sqlite
+    - python: 3.6
+      env: DJANGO_VERSION=1.10.8 DATABASE=postgres
+    - python: 3.6
+      env: DJANGO_VERSION=1.11.14 DATABASE=sqlite
     - python: 2.7
-      env: DJANGO_VERSION=2.0.7 DATABASE=sqlite
+      env: DJANGO_VERSION=2.0.8 DATABASE=sqlite
     - python: 2.7
-      env: DJANGO_VERSION=2.0.7 DATABASE=postgres
+      env: DJANGO_VERSION=2.0.8 DATABASE=postgres
     - python: 2.7
+      env: DJANGO_VERSION=2.1 DATABASE=sqlite
+    - python: 2.7
+      env: DJANGO_VERSION=2.1 DATABASE=postgres
+  - python: 2.7
       env: DJANGO_VERSION=dev DATABASE=sqlite
     - python: 2.7
       env: DJANGO_VERSION=dev DATABASE=postgres
@@ -45,6 +102,8 @@ matrix:
   - python: 3.6
     env: DJANGO_VERSION=dev DATABASE=sqlite
   - python: 3.6
+    env: DJANGO_VERSION=dev DATABASE=postgres
+  - python: 3.7
     env: DJANGO_VERSION=dev DATABASE=postgres
 
 before_install:
