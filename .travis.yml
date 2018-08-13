@@ -132,6 +132,8 @@ matrix:
   - python: 3.6
     env: DJANGO_VERSION=dev DATABASE=postgres
   - python: 3.7
+    env: DJANGO_VERSION=dev DATABASE=sqlite
+  - python: 3.7
     env: DJANGO_VERSION=dev DATABASE=postgres
 
 before_install:
