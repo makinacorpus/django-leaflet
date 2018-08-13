@@ -77,6 +77,28 @@ matrix:
       env: DJANGO_VERSION=1.10.8 DATABASE=postgres
     - python: 3.6
       env: DJANGO_VERSION=1.11.14 DATABASE=sqlite
+    - python: 3.7
+      env: DJANGO_VERSION=1.6.11 DATABASE=sqlite
+    - python: 3.7
+      env: DJANGO_VERSION=1.6.11 DATABASE=postgres
+    - python: 3.7
+      env: DJANGO_VERSION=1.7.11 DATABASE=sqlite
+    - python: 3.7
+      env: DJANGO_VERSION=1.7.11 DATABASE=postgres
+    - python: 3.7
+      env: DJANGO_VERSION=1.8.19 DATABASE=sqlite
+    - python: 3.7
+      env: DJANGO_VERSION=1.8.19 DATABASE=postgres
+    - python: 3.7
+      env: DJANGO_VERSION=1.9.13 DATABASE=sqlite
+    - python: 3.7
+      env: DJANGO_VERSION=1.9.13 DATABASE=postgres
+    - python: 3.7
+      env: DJANGO_VERSION=1.10.8 DATABASE=sqlite
+    - python: 3.7
+      env: DJANGO_VERSION=1.10.8 DATABASE=postgres
+    - python: 3.7
+      env: DJANGO_VERSION=1.11.14 DATABASE=sqlite
     - python: 2.7
       env: DJANGO_VERSION=2.0.8 DATABASE=sqlite
     - python: 2.7
@@ -85,7 +107,7 @@ matrix:
       env: DJANGO_VERSION=2.1 DATABASE=sqlite
     - python: 2.7
       env: DJANGO_VERSION=2.1 DATABASE=postgres
-  - python: 2.7
+    - python: 2.7
       env: DJANGO_VERSION=dev DATABASE=sqlite
     - python: 2.7
       env: DJANGO_VERSION=dev DATABASE=postgres
