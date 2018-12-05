@@ -21,6 +21,6 @@
     L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
     L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
     {% if FORCE_IMAGE_PATH %}
-    L.Icon.Default.imagePath = "{% static "leaflet/images" %}";
+    L.Icon.Default.imagePath = "{% static "leaflet/images" %}/";
     {% endif %}
 </script>
