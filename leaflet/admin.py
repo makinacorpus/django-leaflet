@@ -38,6 +38,23 @@ class LeafletGeoAdminMixin(object):
         if is_editable:
             kwargs.pop('request', None)  # unsupported for form field
             # Setting the widget with the newly defined widget.
+            if 'widget' in kwargs:
+                w = kwargs['widget']
+                # If the widget is already a LeafletWidget of some kind
+                # Then use it rather than a blank one.
+                if issubclass(w, LeafletWidget):
+                    class LeafletMap(w):
+                        template_name = self.map_template
+                        include_media = True
+                        geom_type = db_field.geom_type
+                        modifiable = self.modifiable
+                        map_width = self.map_width
+                        map_height = self.map_height
+                        display_raw = self.display_raw
+                        settings_overrides = self.settings_overrides
+                    kwargs['widget'] = LeafletMap
+                    return db_field.formfield(**kwargs)
+
             kwargs['widget'] = self._get_map_widget(db_field)
             return db_field.formfield(**kwargs)
         else:
