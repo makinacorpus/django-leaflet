@@ -6,6 +6,7 @@ CHANGELOG
 -------------------
 
 - #225 changes in staticfiles for django 1.11.14
+- #248 Allow use of a custom widget in the Admin. (fixes #151)
 
 0.24.0 (2018-06-07)
 -------------------

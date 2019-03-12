@@ -38,16 +38,22 @@ class LeafletGeoAdminMixin(object):
         if is_editable:
             kwargs.pop('request', None)  # unsupported for form field
             # Setting the widget with the newly defined widget.
-            kwargs['widget'] = self._get_map_widget(db_field)
+            widget = self.widget
+            if 'widget' in kwargs and issubclass(kwargs['widget'], LeafletWidget):
+                # If the widget is already a LeafletWidget of some kind
+                # Then use it rather than a blank one.
+                widget = kwargs['widget']
+
+            kwargs['widget'] = self._get_map_widget(db_field, widget)
             return db_field.formfield(**kwargs)
         else:
             return super(LeafletGeoAdminMixin, self).formfield_for_dbfield(db_field, **kwargs)
 
-    def _get_map_widget(self, db_field):
+    def _get_map_widget(self, db_field, widget):
         """
         Overriden LeafletWidget with LeafletGeoAdmin params.
         """
-        class LeafletMap(self.widget):
+        class LeafletMap(widget):
             template_name = self.map_template
             include_media = True
             geom_type = db_field.geom_type
