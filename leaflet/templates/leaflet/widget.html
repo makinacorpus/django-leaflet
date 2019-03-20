@@ -41,5 +41,9 @@
 {% endblock map %}
 {% endif %}
 
-{% if display_raw %}<p> Paste a valid GeoJSON Geometry:</p>{% endif %}
+{% if display_raw %}
+<p>
+    Draw on map or paste a <a href="http://geojsonlint.com/" title="" target="_" rel="nofollow">valid GeoJSON Geometry</a>:
+</p>
+{% endif %}
 <textarea id="{{ id_css }}" class="required django-leaflet-raw-textarea" cols="150" rows="10" name="{{ name }}">{{ serialized }}</textarea>
