@@ -82,7 +82,39 @@ some custom (non-tile) overlays.
     </script>
 
 Again, the actual overlays here are factored out into a separate snippet.
-In this example, we re-use ``shared/overlays.html`` as shown in ref::overlays_.
+In this example, we re-use ``shared/overlays.html`` as also shown in ref::overlays_.
+
+To show a textarea input for the raw GeoJSON geometry, override admin ``form_fields``:
+
+::
+    from django.contrib.gis.db import models as geo_models
+
+    LEAFLET_WIDGET_ATTRS = {
+        'map_height': '500px',
+        'map_width': '100%',
+        'display_raw': 'true',
+        'map_srid': 4326,
+    }
+
+    LEAFLET_FIELD_OPTIONS = {'widget': LeafletWidget(attrs=LEAFLET_WIDGET_ATTRS)}
+
+    FORMFIELD_OVERRIDES = {
+        geo_models.PointField: LEAFLET_FIELD_OPTIONS,
+        geo_models.MultiPointField: LEAFLET_FIELD_OPTIONS,
+        geo_models.LineStringField: LEAFLET_FIELD_OPTIONS,
+        geo_models.MultiLineStringField: LEAFLET_FIELD_OPTIONS,
+        geo_models.PolygonField: LEAFLET_FIELD_OPTIONS,
+        geo_models.MultiPolygonField: LEAFLET_FIELD_OPTIONS,
+    }
+
+    class MyAdmin(admin.ModelAdmin):
+
+        formfield_overrides = FORMFIELD_OVERRIDES
+
+
+The widget attribute `display_raw` toggles the textarea input.
+The textarea can be resized by overriding its CSS class ``.django-leaflet-raw-textarea``.
+
 
 In forms
 --------
@@ -102,6 +134,9 @@ With *Django* >= 1.6:
             model = WeatherStation
             fields = ('name', 'geom')
             widgets = {'geom': LeafletWidget()}
+
+Again, the LeafletWidget can be intialized with custom attributes,
+e.g. ``LeafletWidget(attrs=LEAFLET_WIDGET_ATTRS)`` as shown above.
 
 With all *Django* versions:
 
@@ -152,7 +187,7 @@ Every map field will trigger an event you can use to add your custom machinery :
 
 
 If you need a reusable customization of widgets maps, first override the JavaScript
-field behaviour by extending ``L.GeometryField``, then in Django subclass the
+field behaviour by extending ``L.GeometryField``, then in *Django* subclass the
 ``LeafletWidget`` to specify the custom ``geometry_field_class``.
 
 ::
@@ -177,8 +212,12 @@ field behaviour by extending ``L.GeometryField``, then in Django subclass the
             fields = ('name', 'geom')
             widgets = {'geom': YourMapWidget()}
 
-To add overlays to leaflet form widgets as shown for templates at ref::overlays_
-and for admin widets at ref::admin_, insert an extra script into the form template
+
+To customise individual forms, you can either extend the geometry field as shown above,
+or inject a script into the form template.
+
+In this example, a custom set of overlays is added as shown for both ref::overlays_
+and ref::admin_ widgets, insert an extra script into the form template
 in the same way as shown in ref::admin_.
 
 ::

@@ -78,6 +78,11 @@ CSS is your friend:
             height: 800px;
         }
 
+        /* Resize the "display_raw" textbox */
+        .django-leaflet-raw-textarea {
+            width: 100%;
+        }
+
     </style>
 
 
@@ -147,7 +152,7 @@ list, as shown below.
 
 Note that this will also prevent any overlays defined in settings from being displayed.
 
-
+.. _overlays:
 Overlay layers
 ~~~~~~~~~~~~~~
 
