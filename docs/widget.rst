@@ -7,7 +7,7 @@ It embeds *Leaflet.draw* in version *0.4.0*.
 
 .. image :: https://f.cloud.github.com/assets/546692/1048836/78b6ad94-1094-11e3-86d8-c3e88626a31d.png
 
-
+.. _admin:
 In Adminsite
 ------------
 
@@ -32,6 +32,57 @@ A mixin is also available for inline forms:
     class PoiLocationInline(LeafletGeoAdminMixin, admin.StackedInline):
         model = PoiLocation
 
+
+To modify the map widget used in the Django admin,
+override a custom ``admin/change_form.html``:
+
+::
+
+    {% extends "admin/change_form.html" %}
+    {% load i18n admin_urls staticfiles leaflet_tags %}
+
+    {% block stylesheets %}
+    {{ block.super }}
+    {% leaflet_css plugins="ALL" %}
+    <style>
+    /* Force leaflet controls underneath header (z-index 1000) and
+       above leaflet tiles (z-index 400)*/
+    .leaflet-top{z-index:999;}
+    </style>
+    {% endblock %}
+
+    {% block javascripts %}
+    {{ block.super }}
+    {% leaflet_js plugins="ALL" %}
+    {% include 'shared/leaflet_widget_overlays.js' %}
+    {% endblock %}
+
+In this way, both CSS and JS can be modified for all admin leaflet widgets.
+
+As an example of modifying the CSS, here the leaflet map widget controls
+are forced underneath a bootstrap4 navbar.
+
+As an example of modifying the JS, a custom snippet called
+``shared/leaflet_widget_overlays.js`` uses the map init event to add
+some custom (non-tile) overlays.
+
+::
+
+    <script type="text/javascript">
+      window.addEventListener("map:init", function (event) {
+        var map = event.detail.map; // Get reference to map
+        {% include 'shared/overlays.html' %}
+
+        // Other modifications, e.g. fullscreen control:
+        map.addControl(new L.Control.Fullscreen());
+        // Note, this requires the Leaflet fullscreen CSS, JS,
+        // and image assets to be present as static files,
+        // and configured in LEAFLET_SETTINGS
+    });
+    </script>
+
+Again, the actual overlays here are factored out into a separate snippet.
+In this example, we re-use ``shared/overlays.html`` as shown in ref::overlays_.
 
 In forms
 --------
@@ -100,7 +151,9 @@ Every map field will trigger an event you can use to add your custom machinery :
     });
 
 
-If you need a reusable customization of widgets maps, first override the JavaScript field behaviour by extending ``L.GeometryField``, then in Django subclass the ``LeafletWidget`` to specify the custom ``geometry_field_class``.
+If you need a reusable customization of widgets maps, first override the JavaScript
+field behaviour by extending ``L.GeometryField``, then in Django subclass the
+``LeafletWidget`` to specify the custom ``geometry_field_class``.
 
 ::
 
@@ -123,6 +176,39 @@ If you need a reusable customization of widgets maps, first override the JavaScr
             model = YourModel
             fields = ('name', 'geom')
             widgets = {'geom': YourMapWidget()}
+
+To add overlays to leaflet form widgets as shown for templates at ref::overlays_
+and for admin widets at ref::admin_, insert an extra script into the form template
+in the same way as shown in ref::admin_.
+
+::
+
+    {% extends "base.html" %}
+    {% load staticfiles leaflet_tags geojson_tags crispy_forms_tags bootstrap4  %}
+
+    <!-- The form -->
+    {% block content %}
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          {% crispy form form.helper %}
+        </div><!-- .col -->
+      </div><!-- .row -->
+    </div><!-- .container -->
+    {% endblock %}
+
+    {% block extrastyle %}
+    {% leaflet_css plugins="ALL" %}
+    {{ form.media.css }}
+    {% endblock %}
+
+    {% block extrajs %}
+    {% leaflet_js plugins="ALL" %}
+    {{ form.media.js }}
+    {% include 'shared/leaflet_widget_overlays.js' %}
+    {% endblock extrajs %}
+
+
 
 Plugins
 -------

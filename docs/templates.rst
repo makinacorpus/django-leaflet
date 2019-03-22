@@ -156,8 +156,54 @@ To globally add an overlay layer, use the same syntax as tiles::
     'OVERLAYS': [('Cadastral', 'http://server/a/{z}/{x}/{y}.png', {'attribution': '&copy; IGN'})]
 
 Currently, overlay layers from settings are limited to tiles. For vectorial overlays, you
-will have to add them via JavaScript (see events).
+will have to add them via JavaScript (see also events).
 
+.. new section: worked example on including WMS overlays
+To add layers other than the tiles supported by the global config, e.g. WMS layers,
+insert a script block, get a reference to the map's ``layerscontrol``, and add any layer supported by Leaflet
+as overlays to that layerscontrol object.
+
+
+In a template:
+
+::
+
+    {% block content %}
+    {% leaflet_map "detailmap" callback="window.map_init" %}
+    {% endblock %}
+
+
+    {% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript">
+    function map_init(map, options) {
+        {% include 'shared/overlays.html' %}
+    }
+    </script>
+    {% endblock %}
+
+In a snippet, here called ``shared/overlays.html``, the overlays are configured.
+Doing so in a snippet allows the same set of overlays to be re-used across other maps in your Django project.
+
+``shared/overlays.html``:
+
+::
+
+    var lc = map.layerscontrol;
+
+    // An example from the Atlas of Living Australia https://www.ala.org.au/
+    lc.addOverlay(L.tileLayer.wms('https://spatial-beta.ala.org.au/geoserver/ALA/wms',
+    {
+        layers: 'ALA:11385_species_richness',
+        format: 'image/png',
+        transparent: true,
+    }),
+    'Species Richness');
+
+    // add lc.addOverlay() layers as needed
+
+For an overview of available layer types and options, see the
+[Leaflet docs on tile layers](https://leafletjs.com/examples/wms/wms.html).
 
 Attribution prefix
 ~~~~~~~~~~~~~~~~~~
