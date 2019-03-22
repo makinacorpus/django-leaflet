@@ -197,13 +197,12 @@ Doing so in a snippet allows the same set of overlays to be re-used across other
     var lc = map.layerscontrol;
 
     // An example from the Atlas of Living Australia https://www.ala.org.au/
-    lc.addOverlay(L.tileLayer.wms('https://spatial-beta.ala.org.au/geoserver/ALA/wms',
-    {
-        layers: 'ALA:11385_species_richness',
-        format: 'image/png',
-        transparent: true,
-    }),
-    'Species Richness');
+    lc.addOverlay(
+        L.tileLayer.wms(
+        'https://spatial-beta.ala.org.au/geoserver/ALA/wms',
+        {layers: 'ALA:aus2', format: 'image/png', transparent: true}),
+        'Australia'
+    );
 
     // add lc.addOverlay() layers as needed
 

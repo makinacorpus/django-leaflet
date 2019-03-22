@@ -187,7 +187,7 @@ Every map field will trigger an event you can use to add your custom machinery :
 
 
 If you need a reusable customization of widgets maps, first override the JavaScript
-field behaviour by extending ``L.GeometryField``, then in *Django* subclass the
+field behavior by extending ``L.GeometryField``, then in *Django* subclass the
 ``LeafletWidget`` to specify the custom ``geometry_field_class``.
 
 ::
