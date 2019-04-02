@@ -550,7 +550,6 @@
 
 
 /* div icon */
-
 .leaflet-div-icon {
 	background: #fff;
 	border: 1px solid #666;
@@ -634,3 +633,8 @@
 	margin-left: -12px;
 	border-right-color: #fff;
 	}
+
+/* Resize the "display_raw" textbox */
+.django-leaflet-raw-textarea {
+	width: 100%;
+}
