@@ -82,11 +82,12 @@ some custom (non-tile) overlays.
     </script>
 
 Again, the actual overlays here are factored out into a separate snippet.
-In this example, we re-use ``shared/overlays.html`` as also shown in ref::overlays_.
+In this example, we re-use ``shared/overlays.html`` as also shown in :ref:`overlays`.
 
 To show a textarea input for the raw GeoJSON geometry, override admin ``form_fields``:
 
 ::
+
     from django.contrib.gis.db import models as geo_models
 
     LEAFLET_WIDGET_ATTRS = {
@@ -216,9 +217,9 @@ field behavior by extending ``L.GeometryField``, then in *Django* subclass the
 To customise individual forms, you can either extend the geometry field as shown above,
 or inject a script into the form template.
 
-In this example, a custom set of overlays is added as shown for both ref::overlays_
-and ref::admin_ widgets, insert an extra script into the form template
-in the same way as shown in ref::admin_.
+In this example, a custom set of overlays is added as shown for both :ref:`overlays`
+and :ref:`admin` widgets, insert an extra script into the form template
+in the same way as shown in :ref:`admin`.
 
 ::
 
