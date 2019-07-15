@@ -186,6 +186,15 @@ Every map field will trigger an event you can use to add your custom machinery :
         ...
     });
 
+If you are adding a map to the DOM programmatically, as for example by jQuery, the default events driven mechanism will not work, and a viable workaround is to specify an empty ``loadevent`` attribute in your ``Meta.widgets`` definiton :
+
+::
+
+    class Meta:
+        ...
+        widgets = {
+            'geometry': LeafletWidget(attrs={'loadevent': ''}),
+        }
 
 If you need a reusable customization of widgets maps, first override the JavaScript
 field behavior by extending ``L.GeometryField``, then in *Django* subclass the
