@@ -195,6 +195,8 @@ If you are adding a map to the DOM programmatically, as for example by jQuery, t
         widgets = {
             'geometry': LeafletWidget(attrs={'loadevent': ''}),
         }
+        
+You will also need to refresh the map by invoking ``invalidateSize`` on it, and to do so you need to instruct django-leaflet to expose the map globally, by setting the ``NO_GLOBALS`` to False, in ``LEAFLET_CONFIG``.
 
 If you need a reusable customization of widgets maps, first override the JavaScript
 field behavior by extending ``L.GeometryField``, then in *Django* subclass the
