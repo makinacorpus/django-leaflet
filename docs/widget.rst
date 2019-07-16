@@ -186,7 +186,12 @@ Every map field will trigger an event you can use to add your custom machinery :
         ...
     });
 
-If you are adding a map to the DOM programmatically, as for example by jQuery, the default events driven mechanism will not work, and a viable workaround is to specify an empty ``loadevent`` attribute in your ``Meta.widgets`` definiton :
+Programmatically appended maps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are adding a map to the DOM programmatically, as for example by jQuery, the 
+default events driven mechanism will not work, and a viable workaround is to specify 
+an empty ``loadevent`` attribute in your ``Meta.widgets`` definiton :
 
 ::
 
@@ -196,7 +201,14 @@ If you are adding a map to the DOM programmatically, as for example by jQuery, t
             'geometry': LeafletWidget(attrs={'loadevent': ''}),
         }
         
-You will also need to refresh the map by invoking ``invalidateSize`` on it, and to do so you need to instruct django-leaflet to expose the map globally, by setting the ``NO_GLOBALS`` to False, in ``LEAFLET_CONFIG``.
+You will also need to refresh the map by invoking ``invalidateSize`` on it, and to do
+so you need to instruct django-leaflet to expose the map globally, by setting the 
+``NO_GLOBALS`` to False, in ``LEAFLET_CONFIG``.  The map will be accessible via a field
+added to the global ``window`` object: if ``xyzt`` is the name of your field, your 
+corresponding leaflet map will be at ``window['leafletmapid_xyzt-map']``.
+
+Custom Forms
+~~~~~~~~~~~~
 
 If you need a reusable customization of widgets maps, first override the JavaScript
 field behavior by extending ``L.GeometryField``, then in *Django* subclass the
