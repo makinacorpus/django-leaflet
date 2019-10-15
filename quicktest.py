@@ -26,6 +26,7 @@ class QuickDjangoTest(object):
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.admin',
+        'django.contrib.messages',
     ]
 
     if django.VERSION >= (1, 8, 0):
@@ -34,6 +35,7 @@ class QuickDjangoTest(object):
             'OPTIONS': {
                 'context_processors': [
                     'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
                 ]
             },
             'APP_DIRS': True,
@@ -70,6 +72,11 @@ class QuickDjangoTest(object):
             'DATABASES': databases,
             'INSTALLED_APPS': self.INSTALLED_APPS + self.apps,
             'STATIC_URL': '/static/',
+            'MIDDLEWARE': [
+                'django.contrib.auth.middleware.AuthenticationMiddleware',
+                'django.contrib.messages.middleware.MessageMiddleware',
+                'django.contrib.sessions.middleware.SessionMiddleware',
+            ]
         }
         if 'SPATIALITE_LIBRARY_PATH' in os.environ:
             # If you get SpatiaLite-related errors, refer to this document
