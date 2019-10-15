@@ -63,8 +63,6 @@ install:
  - sudo apt-get install -y libproj-dev libgeos-dev
 
  - if [[ $DATABASE == sqlite ]]; then sudo apt-get install -y libspatialite-dev libsqlite3-mod-spatialite; fi
- - if [ $DATABASE == sqlite ] && [ $TRAVIS_PYTHON_VERSION == 2.7 ]; then pip install pysqlite==2.8.3; fi
- - if [[ $DATABASE == postgres ]]; then pip install psycopg2-binary; fi
 
  - pip install tox tox-travis flake8
  - npm install leaflet/tests/
