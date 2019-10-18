@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.25.0 (unreleased)
+0.25.0 (2019-10-18)
 -------------------
 
 - #225 changes in staticfiles for django 1.11.14
