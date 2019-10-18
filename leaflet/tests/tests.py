@@ -180,7 +180,7 @@ class BaseLeafletGeoAdminTest(object):
     def setUp(self):
         self.modeladmin = self.leafletgeoadmin_class(DummyModel, DummyAdminSite())
         self.geomfield = DummyModel._meta.get_field('geom')
-        self.formfield = self.modeladmin.formfield_for_dbfield(self.geomfield)
+        self.formfield = self.modeladmin.formfield_for_dbfield(self.geomfield, None)
 
     def test_widget_for_field(self):
         widget = self.formfield.widget
