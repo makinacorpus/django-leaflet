@@ -18,9 +18,15 @@ except ImportError:
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.contrib.staticfiles.templatetags.staticfiles import static
+try:
+    from django.templatetags.static.static import static
+except ImportError:
+    from django.templatetags.static import static
 from django.utils.translation import ugettext_lazy as _
-from django.utils import six
+try:
+    from django.utils import six
+except ImportError:
+    import six
 import django
 
 from .utils import memoized_lazy_function, ListWithLazyItems, ListWithLazyItemsRawIterator
@@ -228,3 +234,4 @@ class JSONLazyTranslationEncoder(DjangoJSONEncoder):
         if isinstance(obj, Promise):
             return force_text(obj)
         return super(JSONLazyTranslationEncoder, self).default(obj)
+
