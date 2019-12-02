@@ -234,4 +234,3 @@ class JSONLazyTranslationEncoder(DjangoJSONEncoder):
         if isinstance(obj, Promise):
             return force_text(obj)
         return super(JSONLazyTranslationEncoder, self).default(obj)
-
