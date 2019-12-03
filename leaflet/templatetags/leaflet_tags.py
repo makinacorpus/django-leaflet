@@ -5,10 +5,12 @@ import json
 
 from django import template
 from django.conf import settings
+
 try:
-    from django.utils import six
-except ImportError:
     import six
+except ImportError:
+    from django.utils import six
+
 from django.utils.encoding import force_text
 
 from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,

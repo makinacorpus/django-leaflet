@@ -4,14 +4,24 @@ import json
 
 import django
 from django.contrib.staticfiles.storage import StaticFilesStorage, staticfiles_storage
-from django.contrib.staticfiles.templatetags.staticfiles import static
+
+try:
+    from django.templatetags.static import static
+except ImportError:
+    from django.contrib.staticfiles.templatetags.staticfiles import static
+
 from django.test import SimpleTestCase
 from django.contrib.admin import ModelAdmin, StackedInline
 from django.contrib.admin.options import BaseModelAdmin, InlineModelAdmin
 from django.contrib.gis.db import models as gismodels
 
 from .. import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config, JSONLazyTranslationEncoder
-from django.utils import six
+
+try:
+    import six
+except ImportError:
+    from django.utils import six
+
 from django.utils.translation import ugettext_lazy
 from ..templatetags import leaflet_tags
 from ..admin import LeafletGeoAdmin, LeafletGeoAdminMixin

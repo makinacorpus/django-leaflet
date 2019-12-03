@@ -39,7 +39,12 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.widgets import Widget
 from django.template import loader
-from django.utils import six
+
+try:
+    import six
+except ImportError:
+    from django.utils import six
+
 from django.utils import translation
 from django import forms
 from django.utils.translation import ugettext_lazy as _

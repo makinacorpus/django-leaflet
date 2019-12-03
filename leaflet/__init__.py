@@ -18,15 +18,19 @@ except ImportError:
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+
 try:
-    from django.templatetags.static.static import static
-except ImportError:
     from django.templatetags.static import static
-from django.utils.translation import ugettext_lazy as _
-try:
-    from django.utils import six
 except ImportError:
+    from django.contrib.staticfiles.templatetags.staticfiles import static
+
+from django.utils.translation import ugettext_lazy as _
+
+try:
     import six
+except ImportError:
+    from django.utils import six
+
 import django
 
 from .utils import memoized_lazy_function, ListWithLazyItems, ListWithLazyItemsRawIterator
