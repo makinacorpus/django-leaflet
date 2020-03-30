@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Ayoub Bencherif <tony23dz@gmail.com>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-24 17:32+0100\n"
+"PO-Revision-Date: 2020-03-24 17:42+0100\n"
+"Last-Translator: Ayoub Bencherif <tony23dz@gmail.com>\n"
+"Language-Team: Arabic <tony23dz@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: __init__.py:39
+msgid "OSM"
+msgstr "OSM"
+
+#: __init__.py:69
+msgid "Remove TILES_URL and keep TILES value."
+msgstr "قم بإزالة TILES_URL و أبقي على قيمة TILES."
+
+#: __init__.py:75
+msgid "Background"
+msgstr "خلفية"
+
+#: __init__.py:94
+msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
+msgstr "يجب أن يكون المدى المكاني مجموعة (minx ، miny ، maxx ، maxy)"
+
+#: forms/backport.py:284
+msgid "No geometry value provided."
+msgstr "لم يتم تقديم قيمة هندسية."
+
+#: forms/backport.py:285
+msgid "Invalid geometry value."
+msgstr "قيمة هندسية غير صالحة."
+
+#: forms/backport.py:286
+msgid "Invalid geometry type."
+msgstr "نوع هندسي غير صالح."
+
+#: forms/backport.py:287
+msgid ""
+"An error occurred when transforming the geometry to the SRID of the geometry "
+"form field."
+msgstr "حدث خطأ عند تحويل الشكل الهندسي إلى SRID الخاص بحقل النموذج الهندسي."
+
+#: templates/leaflet/admin/widget.html:24 templates/leaflet/js.html:21
+msgid "Reset view"
+msgstr "إعادة تعيين العرض"
+
+#: tests/tests.py:357
+msgid "text"
+msgstr "نص"
