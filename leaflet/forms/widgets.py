@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from distutils.version import LooseVersion
 
+from django import get_version
 from django import forms
 from django.core import validators
+from django.core.exceptions import ImproperlyConfigured
 from django.template.defaultfilters import slugify
 try:
     from django.contrib.gis.forms.widgets import BaseGeometryWidget
-except ImportError:
+except (ImportError, ImproperlyConfigured):
     from .backport import BaseGeometryWidget
 
 from leaflet import app_settings, PLUGINS, PLUGIN_FORMS
@@ -36,10 +39,8 @@ class LeafletWidget(BaseGeometryWidget):
     def serialize(self, value):
         return value.geojson if value else ''
 
-    def render(self, name, value, attrs=None):
+    def _get_attrs(self, name, attrs=None):
         assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
-
-        value = None if value in validators.EMPTY_VALUES else value
 
         # Retrieve params from Field init (if any)
         self.geom_type = self.attrs.get('geom_type', self.geom_type)
@@ -55,10 +56,12 @@ class LeafletWidget(BaseGeometryWidget):
         if self.geom_type == 'GEOMETRY':
             attrs['geom_type'] = 'Geometry'
 
-        map_id = slugify(attrs.get('id', name)).replace('-', '_')  # JS-safe
+        map_id_css = slugify(attrs.get('id', name))  # id need to have - for the inline formset to replace the prefix
+        map_id = map_id_css.replace('-', '_')  # JS-safe
         attrs.update(id=map_id,
+                     id_css=map_id_css,
                      module='geodjango_%s' % map_id,
-                     id_map=map_id + '_map',
+                     id_map=map_id_css + '-map',
                      id_map_callback=map_id + '_map_callback',
                      loadevent=loadevent,
                      modifiable=self.modifiable,
@@ -66,4 +69,10 @@ class LeafletWidget(BaseGeometryWidget):
                      settings_overrides=attrs.get('settings_overrides', getattr(self, 'settings_overrides', None)),
                      geometry_field_class=attrs.get('geometry_field_class', getattr(self, 'geometry_field_class', 'L.GeometryField')),
                      field_store_class=attrs.get('field_store_class', getattr(self, 'field_store_class', 'L.FieldStore')))
-        return super(LeafletWidget, self).render(name, value, attrs)
+        return attrs
+
+    def get_context(self, name, value, attrs):
+        value = None if value in validators.EMPTY_VALUES else value
+        context = super(LeafletWidget, self).get_context(name, value, attrs)
+        context.update(self._get_attrs(name, attrs))
+        return context
