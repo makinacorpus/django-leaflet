@@ -82,7 +82,8 @@ L.FieldStore = L.Class.extend({
         if (/^\s*$/.test(value)) {
             return null;
         }
-
+        // Helps to get rid of the float value conversion error
+        document.querySelector('#id_geom').value = JSON.stringify(JSON.parse(value));
         return L.GeoJSON.geometryToLayer(JSON.parse(value));
     },
 });
