@@ -14,7 +14,7 @@ The easy way :
 
 ::
 
-    <script type="text/javascript">
+    <script>
         function map_init_basic (map, options) {
             ...
             L.marker([50.5, 30.5]).addTo(map);
@@ -31,7 +31,7 @@ If you don't want to expose global callbacks :
 
 ::
 
-    <script type="text/javascript">
+    <script>
         window.addEventListener("map:init", function (e) {
             var detail = e.detail;
             ...
@@ -173,7 +173,7 @@ In a template:
 
     {% block javascript %}
     {{ block.super }}
-    <script type="text/javascript">
+    <script>
     function map_init(map, options) {
         {% include 'shared/overlays.html' %}
     }
