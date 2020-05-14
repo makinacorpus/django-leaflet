@@ -128,7 +128,7 @@ _forms_js = ['leaflet/draw/leaflet.draw.js',
              'leaflet/leaflet.extras.js',
              'leaflet/leaflet.forms.js']
 if SRID:
-    _forms_js += ['leaflet/proj4js.js',
+    _forms_js += ['leaflet/proj4.js',
                   'leaflet/proj4leaflet.js',
                   'proj4js/%s.js' % SRID]
 

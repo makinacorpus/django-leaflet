@@ -6,7 +6,7 @@
 <script src="{% static "leaflet/leaflet.js" %}"></script>
 {% endif %}
 {% if SRID %}
-    <script src="{% static "leaflet/proj4js.js" %}"></script>
+    <script src="{% static "leaflet/proj4.js" %}"></script>
     <script src="{% static "leaflet/proj4leaflet.js" %}"></script>
     <script src="{% static "proj4js/"|add:SRID|add:".js" %}"></script>
 {% endif %}
