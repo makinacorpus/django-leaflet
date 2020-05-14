@@ -634,15 +634,11 @@
 	border-right-color: #fff;
 	}
 
-/* Resize the "display_raw" textbox */
-.django-leaflet-raw-textarea {
-	width: 100%;
-}
-
+/* Circle editing markers */
 .leaflet-editing-icon {
-    margin-left: -5px;
-    margin-top: -5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
+    margin-left: -5px!important;
+    margin-top: -5px!important;
+    width: 10px!important;
+    height: 10px!important;
+    border-radius: 10px!important;
 }
