@@ -3,17 +3,12 @@ from __future__ import unicode_literals
 import json
 
 import django
-from django.contrib.staticfiles.storage import StaticFilesStorage, staticfiles_storage
-
-try:
-    from django.templatetags.static import static
-except ImportError:
-    from django.contrib.staticfiles.templatetags.staticfiles import static
-
-from django.test import SimpleTestCase
 from django.contrib.admin import ModelAdmin, StackedInline
 from django.contrib.admin.options import BaseModelAdmin, InlineModelAdmin
 from django.contrib.gis.db import models as gismodels
+from django.contrib.staticfiles.storage import StaticFilesStorage, staticfiles_storage
+from django.templatetags.static import static
+from django.test import SimpleTestCase
 
 from .. import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config, JSONLazyTranslationEncoder
 
@@ -330,16 +325,15 @@ class LeafletModelFormTest(SimpleTestCase):
         output = form.as_p()
         self.assertIn(".geom_type = 'Point'", output)
 
-    if django.VERSION >= (1, 6, 0):
-        def test_modelform_widget_conformity(self):
-            class DummyForm(django.forms.ModelForm):
-                class Meta:
-                    model = DummyModel
-                    fields = ['geom']
-                    widgets = {'geom': LeafletWidget()}
-            form = DummyForm()
-            output = form.as_p()
-            self.assertIn(".geom_type = 'Point'", output)
+    def test_modelform_widget_conformity(self):
+        class DummyForm(django.forms.ModelForm):
+            class Meta:
+                model = DummyModel
+                fields = ['geom']
+                widgets = {'geom': LeafletWidget()}
+        form = DummyForm()
+        output = form.as_p()
+        self.assertIn(".geom_type = 'Point'", output)
 
 
 class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
