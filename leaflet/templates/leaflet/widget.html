@@ -17,7 +17,8 @@
 
     function {{ id_map_callback }}(map, options) {
         {{ module }}.store_class = {{ field_store_class }};
-        (new {{ geometry_field_class}}({...{{ module }}, precision: options.djoptions.precision})).addTo(map);
+        {{ module }}.precision = options.djoptions.precision;
+        (new {{ geometry_field_class}}({{ module }})).addTo(map);
         {% block callback %}{% endblock callback %}
     };
 
