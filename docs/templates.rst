@@ -52,13 +52,6 @@ For Internet Explorer support, we fallback on jQuery if available ::
         ...
     });
 
-If you want to support archaic browsers **and** still avoid jQuery,
-*django-leaflet* comes with a minimalist polyfill for events.
-Add it in ``<head>`` this way ::
-
-    <!--[if IE 8]><script src="{% static "leaflet/eventlister.ie8.js" %}"></script><!--<![endif]-->
-    <!--[if lt IE 8]><script src="{% static "leaflet/eventlister.ie6-7.js" %}"></script><!--<![endif]-->
-
 
 Customize map size
 ------------------

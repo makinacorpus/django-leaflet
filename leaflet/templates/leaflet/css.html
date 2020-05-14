@@ -1,8 +1,5 @@
 {% load static %}
 <link rel="stylesheet" href="{% static "leaflet/leaflet.css" %}" />
-<!--[if lte IE 8]>
-    <link rel="stylesheet" href="{% static "leaflet/leaflet.ie.css" %}" />
-<![endif]-->
 <style>.leaflet-container-default {min-height: 300px;}</style>
 {% if PLUGINS_CSS %}
     {% for css in PLUGINS_CSS %}
