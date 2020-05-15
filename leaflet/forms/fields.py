@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.contrib.gis.forms.fields import GeometryField as BaseGeometryField
 
 from .widgets import LeafletWidget
@@ -10,7 +8,7 @@ class GeometryField(BaseGeometryField):
     geom_type = 'GEOMETRY'
 
     def __init__(self, *args, **kwargs):
-        super(GeometryField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.widget.geom_type = self.geom_type
 
 

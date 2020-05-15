@@ -1,15 +1,13 @@
-# -*- coding: utf8 -*-
-from __future__ import unicode_literals
-
+import argparse
 import os
 import sys
-import argparse
+
 from django.conf import settings
 from django.test.runner import DiscoverRunner
 import django
 
 
-class QuickDjangoTest(object):
+class QuickDjangoTest:
     """
     A quick way to run the Django test suite without a fully-configured project.
 

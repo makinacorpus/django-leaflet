@@ -1,20 +1,12 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import json
 
 from django import template
 from django.conf import settings
-
-try:
-    import six
-except ImportError:
-    from django.utils import six
-
+from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.encoding import force_text
 
 from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
-                     PLUGIN_ALL, PLUGIN_FORMS, JSONLazyTranslationEncoder)
+                     PLUGIN_ALL, PLUGIN_FORMS)
 
 
 register = template.Library()
@@ -109,11 +101,11 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
     return {
         # templatetag options
         'name': name,
-        'loadevents': json.dumps(loadevent.split(), cls=JSONLazyTranslationEncoder),
+        'loadevents': json.dumps(loadevent.split(), cls=DjangoJSONEncoder),
         'creatediv': creatediv,
         'callback': callback,
         # initialization options
-        'djoptions': json.dumps(djoptions, cls=JSONLazyTranslationEncoder),
+        'djoptions': json.dumps(djoptions, cls=DjangoJSONEncoder),
         # settings
         'NO_GLOBALS': instance_app_settings.get('NO_GLOBALS'),
     }
@@ -128,7 +120,7 @@ def leaflet_json_config():
         settings_as_json['SPATIAL_EXTENT'] = {'xmin': xmin, 'ymin': ymin,
                                               'xmax': xmax, 'ymax': ymax}
 
-    return json.dumps(settings_as_json, cls=JSONLazyTranslationEncoder)
+    return json.dumps(settings_as_json, cls=DjangoJSONEncoder)
 
 
 def _get_plugin_names(plugin_names_from_tag_parameter):
@@ -138,7 +130,7 @@ def _get_plugin_names(plugin_names_from_tag_parameter):
     :param pluging_names_parameter:
     :return:
     """
-    if isinstance(plugin_names_from_tag_parameter, (six.binary_type, six.text_type)):
+    if isinstance(plugin_names_from_tag_parameter, str):
         names = plugin_names_from_tag_parameter.split(',')
         return [n.strip() for n in names]
     else:
