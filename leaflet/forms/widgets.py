@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from distutils.version import LooseVersion
 
-from django import get_version
 from django import forms
 from django.contrib.gis.forms.widgets import BaseGeometryWidget
 from django.core import validators
@@ -67,15 +65,8 @@ class LeafletWidget(BaseGeometryWidget):
                      field_store_class=attrs.get('field_store_class', getattr(self, 'field_store_class', 'L.FieldStore')))
         return attrs
 
-    # Django 1.11 changed how the widgets are rendered
-    if LooseVersion(get_version()) >= LooseVersion('1.11'):
-        def get_context(self, name, value, attrs):
-            value = None if value in validators.EMPTY_VALUES else value
-            context = super(LeafletWidget, self).get_context(name, value, attrs)
-            context.update(self._get_attrs(name, attrs))
-            return context
-    else:
-        def render(self, name, value, attrs=None):
-            attrs = self._get_attrs(name, attrs)
-            value = None if value in validators.EMPTY_VALUES else value
-            return super(LeafletWidget, self).render(name, value, attrs)
+    def get_context(self, name, value, attrs):
+        value = None if value in validators.EMPTY_VALUES else value
+        context = super(LeafletWidget, self).get_context(name, value, attrs)
+        context.update(self._get_attrs(name, attrs))
+        return context

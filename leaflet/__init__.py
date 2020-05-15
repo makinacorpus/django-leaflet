@@ -10,28 +10,17 @@ except ImportError:
     from urlparse import urlparse
 import warnings
 
-try:
-    from collections import OrderedDict
-except ImportError:
-    # python 2.6 compatibility (need to install ordereddict package).
-    from ordereddict import OrderedDict
+from collections import OrderedDict
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-
-try:
-    from django.templatetags.static import static
-except ImportError:
-    from django.contrib.staticfiles.templatetags.staticfiles import static
-
+from django.templatetags.static import static
 from django.utils.translation import ugettext_lazy as _
 
 try:
     import six
 except ImportError:
     from django.utils import six
-
-import django
 
 from .utils import memoized_lazy_function, ListWithLazyItems, ListWithLazyItemsRawIterator
 
@@ -225,12 +214,6 @@ def _normalize_plugins_config():
 
 
 default_app_config = 'leaflet.apps.LeafletConfig'
-
-if django.VERSION >= (1, 8, 0):  # otherwise is called in apps.py
-    if django.apps.apps.ready:
-        _normalize_plugins_config()
-else:
-    _normalize_plugins_config()
 
 
 class JSONLazyTranslationEncoder(DjangoJSONEncoder):

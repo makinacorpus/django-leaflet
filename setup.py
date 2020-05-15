@@ -1,7 +1,6 @@
 
 import os
 from setuptools import setup, find_packages
-import sys
 import codecs
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -10,8 +9,6 @@ requires = [
     'Django',
     'six',
 ]
-if sys.version_info < (2, 7):
-    requires += ['ordereddict']
 
 setup(
     name='django-leaflet',
