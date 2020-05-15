@@ -1,13 +1,13 @@
 {% load leaflet_tags l10n %}
 {% load static %}
 
-<style type="text/css">{% block map_css %}
+<style>{% block map_css %}
     {% if map_width and map_height %}#{{ id_map }} { width: {{ map_width|unlocalize }}; height: {{ map_height|unlocalize }}; }{% endif %}
     {% if not display_raw %}#{{ id_css }} { display: none; }{% endif %}
     {% endblock map_css %}
 </style>
 
-<script type="text/javascript">
+<script>
     {% block vars %}var {{ module }} = {};
     {{ module }}.fieldid = '{{ id_css }}';
     {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};

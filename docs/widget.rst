@@ -68,7 +68,7 @@ some custom (non-tile) overlays.
 
 ::
 
-    <script type="text/javascript">
+    <script>
       window.addEventListener("map:init", function (event) {
         var map = event.detail.map; // Get reference to map
         {% include 'shared/overlays.html' %}
