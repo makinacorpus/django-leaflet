@@ -86,7 +86,7 @@ L.Map.DjangoMap = L.Map.extend({
             resolutions.push(maxResolution / Math.pow(2, z));
         }
         var crs = new L.Proj.CRS('EPSG:' + djoptions.srid,
-            Proj4js.defs['EPSG:' + djoptions.srid],
+            proj4.defs['EPSG:' + djoptions.srid],
             {
                 origin: [bbox[0], bbox[3]],
                 resolutions: resolutions
