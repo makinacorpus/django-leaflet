@@ -8,7 +8,6 @@ try:
     from urllib.parse import urlparse
 except ImportError:
     from urlparse import urlparse
-import warnings
 
 from collections import OrderedDict
 
@@ -51,14 +50,6 @@ app_settings = dict({
 }, **LEAFLET_CONFIG)
 
 
-# Backward-compatibility : defaults TILES with value of TILES_URL
-if 'TILES_URL' in LEAFLET_CONFIG:
-    warnings.warn("TILES_URL is deprecated.", DeprecationWarning)
-    if 'TILES' in LEAFLET_CONFIG:
-        raise ImproperlyConfigured(_("Remove TILES_URL and keep TILES value."))
-    app_settings['TILES'] = [(app_settings['TILES_URL'])]
-
-
 # If TILES is a string, convert to tuple
 if isinstance(app_settings.get('TILES'), six.string_types):
     app_settings['TILES'] = [(_('Background'), app_settings.get('TILES'), '')]
@@ -73,24 +64,11 @@ elif SCALE not in ('metric', 'imperial', 'both', None, False):
 
 
 SPATIAL_EXTENT = app_settings.get("SPATIAL_EXTENT")
-if SPATIAL_EXTENT is None:
-    # Deprecate lookup in global Django settings
-    if hasattr(settings, 'SPATIAL_EXTENT'):
-        warnings.warn("SPATIAL_EXTENT is deprecated. Use LEAFLET_CONFIG['SPATIAL_EXTENT'] instead.", DeprecationWarning)
-    SPATIAL_EXTENT = getattr(settings, 'SPATIAL_EXTENT', (-180, -90, 180, 90))
-if SPATIAL_EXTENT is not None:
-    if not isinstance(SPATIAL_EXTENT, (tuple, list)) or len(SPATIAL_EXTENT) != 4:
-        raise ImproperlyConfigured(_("Spatial extent should be a tuple (minx, miny, maxx, maxy)"))
+if SPATIAL_EXTENT is not None and not isinstance(SPATIAL_EXTENT, (tuple, list)) or len(SPATIAL_EXTENT) != 4:
+    raise ImproperlyConfigured(_("Spatial extent should be a tuple (minx, miny, maxx, maxy)"))
 
 
 SRID = app_settings.get("SRID")
-if SRID is None:
-    # Deprecate lookup in global Django settings
-    if hasattr(settings, 'MAP_SRID'):
-        warnings.warn("MAP_SRID is deprecated. Use LEAFLET_CONFIG['SRID'] instead.", DeprecationWarning)
-    if hasattr(settings, 'SRID'):
-        warnings.warn("SRID is deprecated. Use LEAFLET_CONFIG['SRID'] instead.", DeprecationWarning)
-    SRID = getattr(settings, 'MAP_SRID', getattr(settings, 'SRID', 3857))
 if SRID == 3857:  # Leaflet's default, do not setup custom projection machinery
     SRID = None
 
