@@ -1,25 +1,10 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.encoding import force_text
-from django.utils.functional import Promise
-
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
-
 from collections import OrderedDict
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.templatetags.static import static
-from django.utils.translation import ugettext_lazy as _
-
-try:
-    import six
-except ImportError:
-    from django.utils import six
+from django.utils.translation import gettext_lazy as _
 
 from .utils import memoized_lazy_function, ListWithLazyItems, ListWithLazyItemsRawIterator
 
@@ -51,7 +36,7 @@ app_settings = dict({
 
 
 # If TILES is a string, convert to tuple
-if isinstance(app_settings.get('TILES'), six.string_types):
+if isinstance(app_settings.get('TILES'), str):
     app_settings['TILES'] = [(_('Background'), app_settings.get('TILES'), '')]
 
 
@@ -86,7 +71,7 @@ if DEFAULT_CENTER is not None and not (isinstance(DEFAULT_CENTER, (list, tuple))
 
 
 DEFAULT_ZOOM = app_settings['DEFAULT_ZOOM']
-if DEFAULT_ZOOM is not None and not (isinstance(DEFAULT_ZOOM, six.integer_types) and (1 <= DEFAULT_ZOOM <= 24)):
+if DEFAULT_ZOOM is not None and not (isinstance(DEFAULT_ZOOM, int) and (1 <= DEFAULT_ZOOM <= 24)):
     raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_ZOOM'] must be an int between 1 and 24.")
 
 
@@ -151,7 +136,7 @@ def _normalize_plugins_config():
         for resource_type in RESOURCE_TYPE_KEYS:
             # normalize the resource URLs
             urls = plugin_dict.get(resource_type, None)
-            if isinstance(urls, (six.binary_type, six.string_types)):
+            if isinstance(urls, str):
                 urls = [urls]
             elif isinstance(urls, tuple):  # force to list
                 urls = list(urls)
@@ -192,10 +177,3 @@ def _normalize_plugins_config():
 
 
 default_app_config = 'leaflet.apps.LeafletConfig'
-
-
-class JSONLazyTranslationEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Promise):
-            return force_text(obj)
-        return super(JSONLazyTranslationEncoder, self).default(obj)

@@ -1,14 +1,17 @@
 
 import os
 from setuptools import setup, find_packages
-import codecs
 
 here = os.path.abspath(os.path.dirname(__file__))
 
 requires = [
     'Django',
-    'six',
 ]
+
+with open(os.path.join(here, 'README.rst')) as f:
+    long_descr = f.read()
+with open(os.path.join(here, 'CHANGES')) as f:
+    long_descr +=  '\n\n' + f.read()
 
 setup(
     name='django-leaflet',
@@ -18,12 +21,7 @@ setup(
     url='https://github.com/makinacorpus/django-leaflet',
     download_url="http://pypi.python.org/pypi/django-leaflet/",
     description="Use Leaflet in your django projects",
-    long_description=codecs.open(
-        os.path.join(
-            here, 'README.rst'), 'r', 'utf-8').read() + '\n\n' +
-                        codecs.open(
-                            os.path.join(here, 'CHANGES'),
-                            'r', 'utf-8').read(),
+    long_description=long_descr,
     license='LPGL, see LICENSE file.',
     install_requires=requires,
     extras_require={
@@ -32,15 +30,19 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    classifiers=['Topic :: Utilities',
-                    'Natural Language :: English',
-                    'Operating System :: OS Independent',
-                    'Intended Audience :: Developers',
-                    'Environment :: Web Environment',
-                    'Framework :: Django',
-                    'Development Status :: 5 - Production/Stable',
-                    'Programming Language :: Python :: 2.7',
-                    'Programming Language :: Python :: 3.3',
-                    'Programming Language :: Python :: 3.4',
-                    'Programming Language :: Python :: 3.5'],
+    classifiers=[
+        'Topic :: Utilities',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
+        'Intended Audience :: Developers',
+        'Environment :: Web Environment',
+        'Framework :: Django',
+        'Development Status :: 5 - Production/Stable',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+    ],
 )

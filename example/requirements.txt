@@ -1,6 +1,5 @@
-Django==1.11.16
+Django==2.2.12
 django-geojson==2.10.0
-django-leaflet==0.24.0
+django-leaflet==0.26.0
 jsonfield==2.0.2
-Pillow==4.2.1
-six==1.10.0
+Pillow==7.1.2

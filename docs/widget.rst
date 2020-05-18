@@ -39,7 +39,7 @@ override a custom ``admin/change_form.html``:
 ::
 
     {% extends "admin/change_form.html" %}
-    {% load i18n admin_urls staticfiles leaflet_tags %}
+    {% load i18n admin_urls static leaflet_tags %}
 
     {% block stylesheets %}
     {{ block.super }}
@@ -120,8 +120,6 @@ The textarea can be resized by overriding its CSS class ``.django-leaflet-raw-te
 In forms
 --------
 
-With *Django* >= 1.6:
-
 ::
 
     from django import forms
@@ -138,22 +136,6 @@ With *Django* >= 1.6:
 
 Again, the LeafletWidget can be intialized with custom attributes,
 e.g. ``LeafletWidget(attrs=LEAFLET_WIDGET_ATTRS)`` as shown above.
-
-With all *Django* versions:
-
-::
-
-    from django import forms
-
-    from leaflet.forms.fields import PointField
-
-
-    class WeatherStationForm(forms.ModelForm):
-        geom = PointField()
-
-        class Meta:
-            model = WeatherStation
-            fields = ('name', 'geom')
 
 The related template would look like this:
 
@@ -247,7 +229,7 @@ in the same way as shown in :ref:`admin`.
 ::
 
     {% extends "base.html" %}
-    {% load staticfiles leaflet_tags geojson_tags crispy_forms_tags bootstrap4  %}
+    {% load static leaflet_tags geojson_tags crispy_forms_tags bootstrap4  %}
 
     <!-- The form -->
     {% block content %}

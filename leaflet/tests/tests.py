@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-import json
-
 import django
 from django.contrib.admin import ModelAdmin, StackedInline
 from django.contrib.admin.options import BaseModelAdmin, InlineModelAdmin
@@ -10,14 +6,8 @@ from django.contrib.staticfiles.storage import StaticFilesStorage, staticfiles_s
 from django.templatetags.static import static
 from django.test import SimpleTestCase
 
-from .. import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config, JSONLazyTranslationEncoder
+from .. import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config
 
-try:
-    import six
-except ImportError:
-    from django.utils import six
-
-from django.utils.translation import ugettext_lazy
 from ..templatetags import leaflet_tags
 from ..admin import LeafletGeoAdmin, LeafletGeoAdminMixin
 from ..forms.widgets import LeafletWidget
@@ -76,7 +66,7 @@ class PluginListingTest(SimpleTestCase):
 
         names = leaflet_tags._get_plugin_names(None)
         resources = leaflet_tags._get_all_resources_for_plugins(names, 'css')
-        self.assertEquals(['/static/b'], resources)
+        self.assertEqual(['/static/b'], resources)
 
     def test_all_resources(self):
         PLUGINS.update({
@@ -91,8 +81,8 @@ class PluginListingTest(SimpleTestCase):
 
         names = leaflet_tags._get_plugin_names('ALL')
         resources = leaflet_tags._get_all_resources_for_plugins(names, 'css')
-        self.assertEquals(['/static/a', '/static/b', '/static/c'],
-                          sorted(resources))
+        self.assertEqual(['/static/a', '/static/b', '/static/c'],
+                         sorted(resources))
 
     def test_explicit_resources(self):
         PLUGINS.update({
@@ -105,14 +95,14 @@ class PluginListingTest(SimpleTestCase):
 
         names = leaflet_tags._get_plugin_names('a,c')
         resources = leaflet_tags._get_all_resources_for_plugins(names, 'css')
-        self.assertEquals(['/static/a', '/static/c'], sorted(resources))
+        self.assertEqual(['/static/a', '/static/c'], sorted(resources))
 
 
 class TemplateTagTest(SimpleTestCase):
 
     def test_default_layer_in_leaflet_map(self):
         context = leaflet_tags.leaflet_map('map')
-        self.assertEquals('map', context['name'])
+        self.assertEqual('map', context['name'])
         self.assertTrue('"OSM", "//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"' in
                         context['djoptions'])
 
@@ -121,8 +111,8 @@ class LeafletWidgetRenderingTest(SimpleTestCase):
     def test_default_media(self):
         widget = LeafletWidget()
         media = widget.media
-        self.assertEquals([], media.render_js())
-        self.assertEquals([], list(media.render_css()))
+        self.assertEqual([], media.render_js())
+        self.assertEqual([], list(media.render_css()))
 
     def test_included_media(self):
         class LeafletWidgetMedia(LeafletWidget):
@@ -152,10 +142,10 @@ class LeafletFieldsWidgetsTest(SimpleTestCase):
                     'MultiLineString', 'MultiPolygon', 'GeometryCollection']:
             f = getattr(fields, typ + 'Field')()
             self.assertTrue(isinstance(f.widget, LeafletWidget))
-            self.assertEquals(f.widget.geom_type, typ.upper())
+            self.assertEqual(f.widget.geom_type, typ.upper())
 
 
-class DummyAdminSite(object):
+class DummyAdminSite:
     """
     Mock adminsite, which is required by InlineModelAdmin.__init__
     """
@@ -178,7 +168,7 @@ class DummyInlineModel(gismodels.Model):
         app_label = "leaflet"
 
 
-class BaseLeafletGeoAdminTest(object):
+class BaseLeafletGeoAdminTest:
     modeladmin_class = None  # type: BaseModelAdmin
     leafletgeoadmin_class = None  # type: LeafletGeoAdmin
 
@@ -193,8 +183,8 @@ class BaseLeafletGeoAdminTest(object):
 
     def test_widget_parameters(self):
         widget = self.formfield.widget
-        self.assertEquals(widget.geom_type, 'POINT')
-        self.assertEquals(widget.settings_overrides, {'DEFAULT_CENTER': (8.0, 3.15), })
+        self.assertEqual(widget.geom_type, 'POINT')
+        self.assertEqual(widget.settings_overrides, {'DEFAULT_CENTER': (8.0, 3.15), })
         self.assertFalse(widget.map_height is None)
         self.assertFalse(widget.map_width is None)
         self.assertTrue(widget.modifiable)
@@ -216,7 +206,7 @@ class BaseLeafletGeoAdminTest(object):
         self.assertTrue(issubclass(self.leafletgeoadmin_class, self.modeladmin_class))
 
 
-class DummyAdminSettingsOverridesMixin(object):
+class DummyAdminSettingsOverridesMixin:
     settings_overrides = {
         'DEFAULT_CENTER': (8.0, 3.15),
     }
@@ -343,12 +333,3 @@ class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
         output = widget.render('geom', '', {'id': 'geom'})
         self.assertIn(".module .leaflet-draw ul", output)
         self.assertIn('<div id="geom-div-map">', output)
-
-
-class JSONLazyTranslationEncoderTest(SimpleTestCase):
-
-    def test_lazy_translation_encoding(self):
-        text = ugettext_lazy('text')
-        ret = json.dumps(text, cls=JSONLazyTranslationEncoder)
-        self.assertIsInstance(ret, six.string_types)
-        self.assertEqual(ret, '"text"')

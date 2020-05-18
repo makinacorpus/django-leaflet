@@ -9,7 +9,7 @@ class MushroomSpot(models.Model):
     picture = models.ImageField()
     geom = PolygonField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     @property
