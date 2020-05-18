@@ -85,12 +85,17 @@ L.Map.DjangoMap = L.Map.extend({
         for (var z = 0; z < 20; z++) {
             resolutions.push(maxResolution / Math.pow(2, z));
         }
-        var crs = new L.Proj.CRS('EPSG:' + djoptions.srid,
-            proj4.defs['EPSG:' + djoptions.srid],
-            {
-                origin: [bbox[0], bbox[3]],
-                resolutions: resolutions
-            });
+        if (L.CRS['EPSG' + djoptions.srid] !== undefined) {
+            var crs = L.CRS['EPSG' + djoptions.srid];
+        } else {
+            var crs = new L.Proj.CRS('EPSG:' + djoptions.srid,
+                proj4.defs['EPSG:' + djoptions.srid],
+                {
+                    origin: [bbox[0], bbox[3]],
+                    resolutions: resolutions
+                }
+            );
+        }
         return {
             crs: crs,
             scale: crs.scale,
