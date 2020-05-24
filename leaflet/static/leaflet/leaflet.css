@@ -633,12 +633,3 @@
 	margin-left: -12px;
 	border-right-color: #fff;
 	}
-
-/* Circle editing markers */
-.leaflet-editing-icon {
-    margin-left: -5px!important;
-    margin-top: -5px!important;
-    width: 10px!important;
-    height: 10px!important;
-    border-radius: 10px!important;
-}
