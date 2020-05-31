@@ -18,7 +18,7 @@ class LeafletGeoAdminMixin:
     widget = LeafletWidget
     map_template = 'leaflet/admin/widget.html'
     modifiable = True
-    map_width = '100%'
+    map_width = 'min(calc(100vw - 30px), 720px)'
     map_height = '400px'
     display_raw = False
     settings_overrides = {}
