@@ -35,7 +35,7 @@ L.FieldStore = L.Class.extend({
             geom.feature = {geometry: {type: this.options.geom_type}};
         }
 
-        var geojson = geom.toGeoJSON();
+        var geojson = geom.toGeoJSON(this.options.precision);
         var is_geometrycollection = (geojson.geometry && geojson.geometry.type == 'GeometryCollection');
         if (is_multi && is_generic && !is_geometrycollection) {
             var flat = {type: 'GeometryCollection', geometries: []};
@@ -62,7 +62,7 @@ L.FieldStore = L.Class.extend({
                 latlngs.push(latlng);
             }
             geom = L[collection_type](latlngs);
-            geojson = geom.toGeoJSON().geometry;
+            geojson = geom.toGeoJSON(this.options.precision).geometry;
         }
         // In order to make multipoint work, it seems we need to treat it similarly to the GeometryCollections
         else if (this.options.geom_type == 'MULTIPOINT') {
@@ -82,6 +82,8 @@ L.FieldStore = L.Class.extend({
         if (/^\s*$/.test(value)) {
             return null;
         }
+        // Helps to get rid of the float value conversion error
+        document.querySelector('#id_geom').value = JSON.stringify(JSON.parse(value));
         return L.GeoJSON.geometryToLayer(JSON.parse(value));
     },
 });
@@ -108,6 +110,7 @@ L.GeometryField = L.Class.extend({
             'multilinestring': 'polyline',
             'multipolygon': 'polygon',
         })[geom_type] || 'featureGroup';
+
 
         L.setOptions(this, options);
 

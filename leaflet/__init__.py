@@ -23,6 +23,7 @@ app_settings = dict({
     'MIN_ZOOM': None,
     'MAX_ZOOM': None,
     'DEFAULT_CENTER': None,
+    'DEFAULT_PRECISION': 6,
     'FORCE_IMAGE_PATH': False,
     'SRID': None,
     'TILES_EXTENT': [],
@@ -73,6 +74,11 @@ if DEFAULT_CENTER is not None and not (isinstance(DEFAULT_CENTER, (list, tuple))
 DEFAULT_ZOOM = app_settings['DEFAULT_ZOOM']
 if DEFAULT_ZOOM is not None and not (isinstance(DEFAULT_ZOOM, int) and (1 <= DEFAULT_ZOOM <= 24)):
     raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_ZOOM'] must be an int between 1 and 24.")
+
+
+DEFAULT_PRECISION = app_settings['DEFAULT_PRECISION']
+if DEFAULT_PRECISION is not None and not (isinstance(DEFAULT_PRECISION, six.integer_types) and (4 <= DEFAULT_PRECISION <= 12)):
+    raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_PRECISION'] must be an int between 4 and 12.")
 
 
 PLUGINS = app_settings['PLUGINS']
