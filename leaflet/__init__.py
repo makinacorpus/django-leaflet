@@ -77,7 +77,7 @@ if DEFAULT_ZOOM is not None and not (isinstance(DEFAULT_ZOOM, int) and (1 <= DEF
 
 
 DEFAULT_PRECISION = app_settings['DEFAULT_PRECISION']
-if DEFAULT_PRECISION is not None and not (isinstance(DEFAULT_PRECISION, six.integer_types) and (4 <= DEFAULT_PRECISION <= 12)):
+if DEFAULT_PRECISION is not None and not (isinstance(DEFAULT_PRECISION, int) and (4 <= DEFAULT_PRECISION <= 12)):
     raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_PRECISION'] must be an int between 4 and 12.")
 
 
