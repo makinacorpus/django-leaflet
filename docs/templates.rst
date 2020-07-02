@@ -117,6 +117,11 @@ initial map center, default, min and max zoom level, coordinate values precision
 
 The tuple/list must contain (lat,lng) coords.
 
+Notice that if you do not use ``SPATIAL_EXTENT``, but you do specify a value for
+the ``DEFAULT_ZOOM`` entry, you **must**  also indicate a ``DEFAULT_CENTER``,
+or you will get an empty, not working pane, for all new database records without 
+a default geometry value.  This is regarded as an error in the configuration, not
+a bug in the software.
 
 Default tiles layer
 ~~~~~~~~~~~~~~~~~~~
