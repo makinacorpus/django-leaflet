@@ -11,11 +11,11 @@ requires = [
 with open(os.path.join(here, 'README.rst')) as f:
     long_descr = f.read()
 with open(os.path.join(here, 'CHANGES')) as f:
-    long_descr +=  '\n\n' + f.read()
+    long_descr += '\n\n' + f.read()
 
 setup(
     name='django-leaflet',
-    version='0.27.0.dev',
+    version='0.27.0',
     author='Mathieu Leplatre',
     author_email='mathieu.leplatre@makina-corpus.com',
     url='https://github.com/makinacorpus/django-leaflet',
