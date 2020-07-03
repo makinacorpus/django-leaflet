@@ -11,6 +11,7 @@ CHANGELOG
 - Add Arabic translation #274
 - Precision fixes #280 #291
 - Display the map on mobile (Fixes #241) #292
+- Updated Leaflet to 1.6.0
 
 0.26.0 (2019-12-06)
 -------------------
