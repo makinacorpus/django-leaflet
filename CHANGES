@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.27.0 (unreleased)
+0.27.1 (2020-07-31)
 -------------------
 
 - Replace link to geojsonlint.com with geojson.io. #298
