@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-05 16:25+0200\n"
+"POT-Creation-Date: 2020-09-27 11:06+0200\n"
 "PO-Revision-Date: 2020-01-07 19:25+0100\n"
 "Last-Translator: Ondřej Nejedlý <jsmesami@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,127 +18,104 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:2
+msgid "OSM"
+msgstr ""
+
+msgid "Background"
+msgstr ""
+
+msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
+msgstr ""
+
 msgid "Cancel drawing"
 msgstr "Zrušit kreslení"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:3
-#: templates/leaflet/_leaflet_draw_i18n.js:26
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:4
 msgid "Delete last point drawn"
 msgstr "Smazat poslední nakreslený bod"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:5
 msgid "Delete last point"
 msgstr "Smazat poslední bod"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:6
 msgid "Draw a polyline"
 msgstr "Nakreslit trasu"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:7
 msgid "Draw a polygon"
 msgstr "Nakreslit polygon"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:8
 msgid "Draw a rectangle"
 msgstr "Nakreslit obdélník"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:9
 msgid "Draw a circle"
 msgstr "Nakreslit kruh"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:10
 msgid "Draw a marker"
 msgstr "Nakreslit značku"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:11
 msgid "Click and drag to draw circle."
 msgstr "Kliknutím a tažením nakreslíte kruh."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:12
 msgid "Click map to place marker."
 msgstr "Kliknutím do mapy umístíte značku."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:13
 msgid "Click to start drawing shape."
 msgstr "Kliknutím začnete kreslení tvaru."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:14
 msgid "Click to continue drawing shape."
 msgstr "Kliknutím pokračujete v kreslení tvaru."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:15
 msgid "Click first point to close this shape."
 msgstr "Kliknutím na první bod uzavřete tvar."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:16
 msgid "<strong>Error:</strong> shape edges cannot cross!"
 msgstr "<strong>Chyba:</strong> hrany tvaru se nesmějí křižit!"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:17
 msgid "Click to start drawing line."
 msgstr "Kliknutím do mapy začnete kreslit trasu."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:18
 msgid "Click to continue drawing line."
 msgstr "Kliknutím pokračujete v kreslení trasy."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:19
 msgid "Click last point to finish line."
 msgstr "Kliknutím na poslední bod ukončíte trasu."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:20
 msgid "Click and drag to draw rectangle."
 msgstr "Kliknutím a tažením nakreslíte obdélník."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:21
 msgid "Release mouse to finish drawing."
 msgstr "Uvolněním tlačítka myši dokončíte kreslení."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:23
 msgid "Save changes."
 msgstr "Uložit změny."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:24
 msgid "Save"
 msgstr "Uložit"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:25
 msgid "Cancel editing, discards all changes."
 msgstr "Zrušit úpravy, zahodit veškeré změny."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:27
 msgid "Edit layers"
 msgstr "Upravit objekty"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:28
 msgid "No layers to edit."
 msgstr "Žádné objekty k úpravám."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:29
 msgid "Delete layers"
 msgstr "Smazat objekty"
 
-#: templates/leaflet/_leaflet_draw_i18n.js:30
 msgid "No layers to delete."
 msgstr "Žádné objekty ke smazání."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:31
 msgid "Drag handles, or marker to edit feature."
 msgstr "Tažením kontolních bodů upravte objekt."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:32
 msgid "Click cancel to undo changes."
 msgstr "Kliknutím na zrušit vrátíte změny."
 
-#: templates/leaflet/_leaflet_draw_i18n.js:33
 msgid "Click on a feature to remove"
 msgstr "Kliknutím na objekt ho zrušíte"
 
-#: templates/leaflet/admin/widget.html:24 templates/leaflet/js.html:21
 msgid "Reset view"
 msgstr "Obnovit pohled"

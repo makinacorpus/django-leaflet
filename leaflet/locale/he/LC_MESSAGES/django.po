@@ -2,6 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-leaflet\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-27 11:06+0200\n"
 "Last-Translator: Udi Oron <udioron@gmail.com>\n"
 "Language-Team:  <LL@li.org>\n"
 "Language: he\n"
@@ -13,28 +14,11 @@ msgstr ""
 msgid "OSM"
 msgstr ""
 
-msgid "Remove TILES_URL and keep TILES value."
-msgstr ""
-
 msgid "Background"
 msgstr "רקע"
 
 msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
 msgstr ""
-
-msgid "No geometry value provided."
-msgstr "לא סופק ערך גיאומטרי."
-
-msgid "Invalid geometry value."
-msgstr "ערך גאומטרי שגוי."
-
-msgid "Invalid geometry type."
-msgstr "סוג גיאומטרי שגוי."
-
-msgid ""
-"An error occurred when transforming the geometry to the SRID of the geometry "
-"form field."
-msgstr "הייתה בעיה עם השינוי של הצורה לסוג של השדה."
 
 msgid "Cancel drawing"
 msgstr "ביטול ציור"
@@ -128,3 +112,17 @@ msgstr "לחץ על פריט בכדי להסירו."
 
 msgid "Reset view"
 msgstr "איפוס תצוגה"
+
+#~ msgid "No geometry value provided."
+#~ msgstr "לא סופק ערך גיאומטרי."
+
+#~ msgid "Invalid geometry value."
+#~ msgstr "ערך גאומטרי שגוי."
+
+#~ msgid "Invalid geometry type."
+#~ msgstr "סוג גיאומטרי שגוי."
+
+#~ msgid ""
+#~ "An error occurred when transforming the geometry to the SRID of the "
+#~ "geometry form field."
+#~ msgstr "הייתה בעיה עם השינוי של הצורה לסוג של השדה."

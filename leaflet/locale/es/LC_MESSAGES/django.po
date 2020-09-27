@@ -2,23 +2,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-05 16:25+0200\n"
+"POT-Creation-Date: 2020-09-27 11:06+0200\n"
 "PO-Revision-Date: Mon Oct 13 2014 16:45:22 GMT+0200 (CEST)\n"
 "Last-Translator: Mathieu Leplatre <contact@mathieu-leplatre.info>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: Unknown locale\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Loco-Source-Locale: es_ES\n"
 "X-Loco-Parser: loco_parse_po\n"
 "X-Loco-Target-Locale: zz_ZZ\n"
-"X-Generator: Loco - https://localise.biz/"
-
-msgid "Reset view"
-msgstr "Reinicializar la vista"
+"X-Generator: Loco - https://localise.biz/\n"
 
 msgid "OSM"
 msgstr "OSM"
@@ -30,6 +27,18 @@ msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
 msgstr ""
 "La extensión (spatial extent) debe ser una tupla de tipo (minx, miny, maxx, "
 "maxy)"
+
+msgid "Cancel drawing"
+msgstr "Cancelar el dibujo."
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Delete last point drawn"
+msgstr "Eliminar el último punto dibujado"
+
+msgid "Delete last point"
+msgstr "Eliminar el último punto"
 
 msgid "Draw a polyline"
 msgstr "Dibujar una polilínea"
@@ -62,8 +71,7 @@ msgid "Click first point to close this shape."
 msgstr "Haz click en el primer punto para cerrar esta figura."
 
 msgid "<strong>Error:</strong> shape edges cannot cross!"
-msgstr ""
-"<strong>Error:</strong> ¡los segmentos no se pueden cruzar!"
+msgstr "<strong>Error:</strong> ¡los segmentos no se pueden cruzar!"
 
 msgid "Click to start drawing line."
 msgstr "Haz click para comenzar a dibujar una línea."
@@ -89,29 +97,17 @@ msgstr "Guardar"
 msgid "Cancel editing, discards all changes."
 msgstr "Cancelar la edición y descartar todos los cambios."
 
-msgid "Cancel"
-msgstr "Cancelar"
-
-msgid "Cancel drawing"
-msgstr "Cancelar el dibujo."
-
-msgid "Delete last point drawn"
-msgstr "Eliminar el último punto dibujado"
-
-msgid "Delete last point"
-msgstr "Eliminar el último punto"
-
 msgid "Edit layers"
 msgstr "Editar capas"
 
 msgid "No layers to edit."
 msgstr "No existen capas a editar."
 
-msgid "No layers to delete."
-msgstr "No existen capas a eliminar."
-
 msgid "Delete layers"
 msgstr "Eliminar capas."
+
+msgid "No layers to delete."
+msgstr "No existen capas a eliminar."
 
 msgid "Drag handles, or marker to edit feature."
 msgstr "Desplazar las marcas o puntos para editar la figura."
@@ -121,3 +117,6 @@ msgstr "Haz click en cancelar para deshacer los cambios."
 
 msgid "Click on a feature to remove"
 msgstr "Haz click en una figura para eliminarla"
+
+msgid "Reset view"
+msgstr "Reinicializar la vista"

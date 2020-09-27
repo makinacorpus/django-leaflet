@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-05 16:25+0200\n"
+"POT-Creation-Date: 2020-09-27 11:06+0200\n"
 "PO-Revision-Date: 2013-09-02 13:41+0100\n"
 "Last-Translator: Mathieu Leplatre <contact@mathieu-leplatre.info>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-msgid "Reset view"
-msgstr "Ansicht zurücksetzen"
-
 msgid "OSM"
 msgstr "OSM"
 
 msgid "Background"
 msgstr "Hintergrund"
 
-msgid "Räumliche Ausdehnung sollte ein Tupel sein (minx, miny, maxx, maxy)"
+msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
 msgstr ""
+
+msgid "Cancel drawing"
+msgstr "Zeichnen abbrechen"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Delete last point drawn"
+msgstr ""
+
+#, fuzzy
+#| msgid "Delete layers"
+msgid "Delete last point"
+msgstr "Ebenen löschen"
 
 msgid "Draw a polyline"
 msgstr "Polylinie zeichnen"
@@ -59,7 +70,7 @@ msgstr "Klicken, um Polygon weiter zu zeichnen."
 msgid "Click first point to close this shape."
 msgstr "Ersten Punkt anklicken, um dieses Polygon zu schließen."
 
-msgid "<strong>Fehler:</strong> Formkanten nicht überqueren!"
+msgid "<strong>Error:</strong> shape edges cannot cross!"
 msgstr ""
 
 msgid "Click to start drawing line."
@@ -86,17 +97,17 @@ msgstr "Speichern"
 msgid "Cancel editing, discards all changes."
 msgstr "Bearbeitung abbrechen, alle Änderungen werden verworfen."
 
-msgid "Cancel"
-msgstr "Abbrechen"
-
-msgid "Cancel drawing"
-msgstr "Zeichnen abbrechen"
-
 msgid "Edit layers"
 msgstr "Ebenen bearbeiten"
 
+msgid "No layers to edit."
+msgstr ""
+
 msgid "Delete layers"
 msgstr "Ebenen löschen"
+
+msgid "No layers to delete."
+msgstr ""
 
 msgid "Drag handles, or marker to edit feature."
 msgstr "Verschiebe Ziehpunkte oder Marker um Feature zu bearbeiten."
@@ -106,3 +117,6 @@ msgstr "Abbrechen klicken, um Änderungen rückgängig zu machen."
 
 msgid "Click on a feature to remove"
 msgstr "Feature anklicken, um es zu entfernen."
+
+msgid "Reset view"
+msgstr "Ansicht zurücksetzen"
