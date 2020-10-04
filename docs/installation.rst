@@ -15,6 +15,12 @@ Last development version (master branch):
     pip install -e git+https://github.com/makinacorpus/django-leaflet.git#egg=django-leaflet
 
 
+Dependencies
+------------
+
+*django-leaflet* requires the `GDAL library <https://gdal.org>`_ installed on the system. Installation instructions are platform-specific.
+
+
 Configuration
 -------------
 
