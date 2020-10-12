@@ -2,13 +2,14 @@
 #
 # Translators:
 # Nikolay Korotkiy <sikmir@gmail.com>, 2017.
+# Herman Schechkin <itseasy322@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: django-leaflet 0.20.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-27 11:06+0200\n"
 "PO-Revision-Date: 2013-09-02 13:41+0100\n"
-"Last-Translator: Nikolay Korotkiy <sikmir@gmail.com>\n"
+"Last-Translator: Herman Schechkin <itseasy322@gmail.com>\n"
 "Language-Team: Russian <LL@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -19,13 +20,13 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "OSM"
-msgstr ""
+msgstr "OSM"
 
 msgid "Background"
-msgstr ""
+msgstr "Задний план"
 
 msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
-msgstr ""
+msgstr "Экстент покрытия должен быть кортежем (minx, miny, maxx, maxy)"
 
 msgid "Cancel drawing"
 msgstr "Прекратить рисование"
@@ -43,7 +44,7 @@ msgid "Draw a polyline"
 msgstr "Нарисовать линию"
 
 msgid "Draw a polygon"
-msgstr "Нарисовать полигон"
+msgstr "Нарисовать многоугольник"
 
 msgid "Draw a rectangle"
 msgstr "Нарисовать прямоугольник"
@@ -118,4 +119,4 @@ msgid "Click on a feature to remove"
 msgstr "Кликните на объект для его удаления"
 
 msgid "Reset view"
-msgstr ""
+msgstr "Сбросить вид"
