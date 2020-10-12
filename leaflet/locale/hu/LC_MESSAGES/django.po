@@ -2,20 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-05 16:25+0200\n"
+"POT-Creation-Date: 2020-09-27 11:06+0200\n"
 "PO-Revision-Date: 2017-10-03 15:43+0200\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Miklos Horvath <hmiki@blackpantheros.eu>\n"
+"Language-Team: \n"
+"Language: hu_HU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.8.12\n"
-"Language-Team: \n"
-"Last-Translator: Miklos Horvath <hmiki@blackpantheros.eu>\n"
-"Language: hu_HU\n"
-
-msgid "Reset view"
-msgstr "Nézet visszavonása"
 
 msgid "OSM"
 msgstr "OSM"
@@ -25,6 +22,18 @@ msgstr "Háttér"
 
 msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
 msgstr "A térbeli kiterjedésnek tuple-nek kell lennie (minx, miny, maxx, maxy)"
+
+msgid "Cancel drawing"
+msgstr "Rajzolás megszakítása"
+
+msgid "Cancel"
+msgstr "Megszakítás"
+
+msgid "Delete last point drawn"
+msgstr "Utolsó rajzolt pont törlése"
+
+msgid "Delete last point"
+msgstr "Utolsó pont törlése"
 
 msgid "Draw a polyline"
 msgstr "Vonallánc rajzolása"
@@ -83,29 +92,17 @@ msgstr "Mentés"
 msgid "Cancel editing, discards all changes."
 msgstr "Szerkesztés megszakítása, minden változás eldobása."
 
-msgid "Cancel"
-msgstr "Megszakítás"
-
-msgid "Cancel drawing"
-msgstr "Rajzolás megszakítása"
-
-msgid "Delete last point drawn"
-msgstr "Utolsó rajzolt pont törlése"
-
-msgid "Delete last point"
-msgstr "Utolsó pont törlése"
-
 msgid "Edit layers"
 msgstr "Rétegek szerkesztése"
 
 msgid "No layers to edit."
 msgstr "Nincsenek szerkeszthető rétegek"
 
-msgid "No layers to delete."
-msgstr "Nincsenek törölhető rétegek"
-
 msgid "Delete layers"
 msgstr "Rétegek törlése"
+
+msgid "No layers to delete."
+msgstr "Nincsenek törölhető rétegek"
 
 msgid "Drag handles, or marker to edit feature."
 msgstr ""
@@ -115,3 +112,6 @@ msgstr "Kattints a megszakításra a változások visszavonásához"
 
 msgid "Click on a feature to remove"
 msgstr ""
+
+msgid "Reset view"
+msgstr "Nézet visszavonása"

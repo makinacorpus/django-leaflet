@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-24 17:32+0100\n"
+"POT-Creation-Date: 2020-09-27 11:06+0200\n"
 "PO-Revision-Date: 2020-03-24 17:42+0100\n"
 "Last-Translator: Ayoub Bencherif <tony23dz@gmail.com>\n"
 "Language-Team: Arabic <tony23dz@gmail.com>\n"
@@ -19,44 +19,125 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: __init__.py:39
 msgid "OSM"
 msgstr "OSM"
 
-#: __init__.py:69
-msgid "Remove TILES_URL and keep TILES value."
-msgstr "قم بإزالة TILES_URL و أبقي على قيمة TILES."
-
-#: __init__.py:75
 msgid "Background"
 msgstr "خلفية"
 
-#: __init__.py:94
 msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
 msgstr "يجب أن يكون المدى المكاني مجموعة (minx ، miny ، maxx ، maxy)"
 
-#: forms/backport.py:284
-msgid "No geometry value provided."
-msgstr "لم يتم تقديم قيمة هندسية."
+msgid "Cancel drawing"
+msgstr ""
 
-#: forms/backport.py:285
-msgid "Invalid geometry value."
-msgstr "قيمة هندسية غير صالحة."
+msgid "Cancel"
+msgstr ""
 
-#: forms/backport.py:286
-msgid "Invalid geometry type."
-msgstr "نوع هندسي غير صالح."
+msgid "Delete last point drawn"
+msgstr ""
 
-#: forms/backport.py:287
-msgid ""
-"An error occurred when transforming the geometry to the SRID of the geometry "
-"form field."
-msgstr "حدث خطأ عند تحويل الشكل الهندسي إلى SRID الخاص بحقل النموذج الهندسي."
+msgid "Delete last point"
+msgstr ""
 
-#: templates/leaflet/admin/widget.html:24 templates/leaflet/js.html:21
+msgid "Draw a polyline"
+msgstr ""
+
+msgid "Draw a polygon"
+msgstr ""
+
+msgid "Draw a rectangle"
+msgstr ""
+
+msgid "Draw a circle"
+msgstr ""
+
+msgid "Draw a marker"
+msgstr ""
+
+msgid "Click and drag to draw circle."
+msgstr ""
+
+msgid "Click map to place marker."
+msgstr ""
+
+msgid "Click to start drawing shape."
+msgstr ""
+
+msgid "Click to continue drawing shape."
+msgstr ""
+
+msgid "Click first point to close this shape."
+msgstr ""
+
+msgid "<strong>Error:</strong> shape edges cannot cross!"
+msgstr ""
+
+msgid "Click to start drawing line."
+msgstr ""
+
+msgid "Click to continue drawing line."
+msgstr ""
+
+msgid "Click last point to finish line."
+msgstr ""
+
+msgid "Click and drag to draw rectangle."
+msgstr ""
+
+msgid "Release mouse to finish drawing."
+msgstr ""
+
+msgid "Save changes."
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Cancel editing, discards all changes."
+msgstr ""
+
+msgid "Edit layers"
+msgstr ""
+
+msgid "No layers to edit."
+msgstr ""
+
+msgid "Delete layers"
+msgstr ""
+
+msgid "No layers to delete."
+msgstr ""
+
+msgid "Drag handles, or marker to edit feature."
+msgstr ""
+
+msgid "Click cancel to undo changes."
+msgstr ""
+
+msgid "Click on a feature to remove"
+msgstr ""
+
 msgid "Reset view"
 msgstr "إعادة تعيين العرض"
 
-#: tests/tests.py:357
-msgid "text"
-msgstr "نص"
+#~ msgid "Remove TILES_URL and keep TILES value."
+#~ msgstr "قم بإزالة TILES_URL و أبقي على قيمة TILES."
+
+#~ msgid "No geometry value provided."
+#~ msgstr "لم يتم تقديم قيمة هندسية."
+
+#~ msgid "Invalid geometry value."
+#~ msgstr "قيمة هندسية غير صالحة."
+
+#~ msgid "Invalid geometry type."
+#~ msgstr "نوع هندسي غير صالح."
+
+#~ msgid ""
+#~ "An error occurred when transforming the geometry to the SRID of the "
+#~ "geometry form field."
+#~ msgstr ""
+#~ "حدث خطأ عند تحويل الشكل الهندسي إلى SRID الخاص بحقل النموذج الهندسي."
+
+#~ msgid "text"
+#~ msgstr "نص"

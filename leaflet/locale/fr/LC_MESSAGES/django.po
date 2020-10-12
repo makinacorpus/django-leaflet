@@ -1,24 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
+# French translation of django-leaflet.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the django-leaflet package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: django-leaflet master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-05 16:25+0200\n"
-"PO-Revision-Date: 2013-09-02 13:41+0100\n"
+"POT-Creation-Date: 2020-09-27 11:06+0200\n"
+"PO-Revision-Date: 2020-09-27 11:08+0200\n"
 "Last-Translator: Mathieu Leplatre <contact@mathieu-leplatre.info>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language-Team: French\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
-
-msgid "Reset view"
-msgstr "Réinitialiser la vue"
 
 msgid "OSM"
 msgstr "OSM"
@@ -28,6 +25,18 @@ msgstr "Fond"
 
 msgid "Spatial extent should be a tuple (minx, miny, maxx, maxy)"
 msgstr "L'étendue (spatial extent) doit être un tuple (minx, miny, maxx, maxy)"
+
+msgid "Cancel drawing"
+msgstr "Annuler le dessin"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Delete last point drawn"
+msgstr "Supprimer le dernier point dessiné"
+
+msgid "Delete last point"
+msgstr "Supprimer le dernier point"
 
 msgid "Draw a polyline"
 msgstr "Dessiner une ligne"
@@ -78,25 +87,13 @@ msgid "Release mouse to finish drawing."
 msgstr "Relâcher la souris pour terminer le dessin."
 
 msgid "Save changes."
-msgstr "Sauvegarder les changements."
+msgstr "Enregistrer les changements."
 
 msgid "Save"
-msgstr "Sauvegarder"
+msgstr "Enregistrer"
 
 msgid "Cancel editing, discards all changes."
 msgstr "Annuler l'édition, annule tous les changements."
-
-msgid "Cancel"
-msgstr "Annuler"
-
-msgid "Cancel drawing"
-msgstr "Annuler le dessin"
-
-msgid "Delete last point drawn"
-msgstr "Supprimer le dernier point dessiné"
-
-msgid "Delete last point"
-msgstr "Supprimer le dernier point"
 
 msgid "Edit layers"
 msgstr "Éditer les objets"
@@ -104,11 +101,11 @@ msgstr "Éditer les objets"
 msgid "No layers to edit."
 msgstr "Aucun objet à éditer"
 
-msgid "No layers to delete."
-msgstr "Aucun objet à supprimer."
-
 msgid "Delete layers"
 msgstr "Supprimer des objets"
+
+msgid "No layers to delete."
+msgstr "Aucun objet à supprimer."
 
 msgid "Drag handles, or marker to edit feature."
 msgstr "Déplacer les poignées ou marqueurs pour éditer la forme."
@@ -119,3 +116,5 @@ msgstr "Cliquer sur annuler pour annuler les changements."
 msgid "Click on a feature to remove"
 msgstr "Cliquer sur une forme pour la supprimer"
 
+msgid "Reset view"
+msgstr "Réinitialiser la vue"
