@@ -1,17 +1,12 @@
 import json
 
-import django
 from django import template
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.encoding import force_str
 
 from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
                      PLUGIN_ALL, PLUGIN_FORMS)
-
-if django.VERSION >= (3, 0):
-    from django.utils.encoding import force_str
-else:
-    from django.utils.encoding import force_text as force_str
 
 
 register = template.Library()
