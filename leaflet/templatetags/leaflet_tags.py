@@ -3,7 +3,7 @@ import json
 from django import template
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
                      PLUGIN_ALL, PLUGIN_FORMS)
@@ -90,9 +90,9 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
         precision=instance_app_settings['DEFAULT_PRECISION'],
         minzoom=instance_app_settings['MIN_ZOOM'],
         maxzoom=instance_app_settings['MAX_ZOOM'],
-        layers=[(force_text(label), url, attrs) for (label, url, attrs) in instance_app_settings.get('TILES')],
-        overlays=[(force_text(label), url, attrs) for (label, url, attrs) in instance_app_settings.get('OVERLAYS')],
-        attributionprefix=force_text(instance_app_settings.get('ATTRIBUTION_PREFIX'), strings_only=True),
+        layers=[(force_str(label), url, attrs) for (label, url, attrs) in instance_app_settings.get('TILES')],
+        overlays=[(force_str(label), url, attrs) for (label, url, attrs) in instance_app_settings.get('OVERLAYS')],
+        attributionprefix=force_str(instance_app_settings.get('ATTRIBUTION_PREFIX'), strings_only=True),
         scale=instance_app_settings.get('SCALE'),
         minimap=instance_app_settings.get('MINIMAP'),
         resetview=instance_app_settings.get('RESET_VIEW'),
