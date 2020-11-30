@@ -19,9 +19,6 @@ It embeds Leaflet version *1.6.0*.
 .. image:: https://img.shields.io/pypi/dm/django-leaflet.svg
         :target: https://pypi.python.org/pypi/django-leaflet
 
-.. image:: https://travis-ci.org/makinacorpus/django-leaflet.png
-    :target: https://travis-ci.org/makinacorpus/django-leaflet
-
 .. image:: https://coveralls.io/repos/makinacorpus/django-leaflet/badge.png
     :target: https://coveralls.io/r/makinacorpus/django-leaflet
 
