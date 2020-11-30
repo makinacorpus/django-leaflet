@@ -42,9 +42,9 @@ class QuickDjangoTest:
                 'default': {
                     'ENGINE': 'django.contrib.gis.db.backends.postgis',
                     'NAME': 'test_db',
-                    'HOST': '127.0.0.1',
+                    'HOST': 'localhost',
                     'USER': 'postgres',
-                    'PASSWORD': '',
+                    'PASSWORD': 'password',
                 }
             }
 
