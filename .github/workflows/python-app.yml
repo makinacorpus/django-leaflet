@@ -15,26 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        django_version: [ '1.11', '2.0', '2.1', '2.2', '3.0', '3.1' ]
+        django_version: [ '2.2', '3.0', '3.1', '3.2' ]
         python_version: [ '3.5', '3.6', '3.7', '3.8', '3.9' ]
         database: [ 'postgres' ]
         exclude:
-          - django_version: '1.11'
-            python_version: '3.8'
-          - django_version: '1.11'
-            python_version: '3.9'
-
-          - django_version: '2.0'
-            python_version: '3.8'
-          - django_version: '2.0'
-            python_version: '3.9'
-
-          - django_version: '2.1'
-            python_version: '3.8'
-          - django_version: '2.1'
-            python_version: '3.9'
-
           - django_version: '3.0'
+            python_version: '3.5'
+
+          - django_version: '3.1'
             python_version: '3.5'
 
           - django_version: '3.1'
@@ -82,14 +70,9 @@ jobs:
     - name: Lint with flake8
       run: |
         flake8 --ignore=E501,W504 leaflet
-    - name: Test Django >= 2.0
-      if: matrix.django_version != '1.11'
+    - name: Test
       run: |
         python -W error::DeprecationWarning -W error::PendingDeprecationWarning -m coverage run ./quicktest.py leaflet --db=${{ matrix.database }}
-    - name: Test Django 1.11
-      if: matrix.django_version == '1.11'
-      run: |
-        python -m coverage run ./quicktest.py leaflet --db=${{ matrix.database }}
     - name: Coverage
       if: ${{ success() }}
       run: |
