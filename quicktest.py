@@ -64,6 +64,7 @@ class QuickDjangoTest:
                 'django.contrib.messages.middleware.MessageMiddleware',
                 'django.contrib.sessions.middleware.SessionMiddleware',
             ],
+            "SECRET_KEY": "insecure-secret-key",
             'TEMPLATES': [{
                 'BACKEND': 'django.template.backends.django.DjangoTemplates',
                 'OPTIONS': {
@@ -75,6 +76,8 @@ class QuickDjangoTest:
                 'APP_DIRS': True,
             }],
         }
+        if django.VERSION >= (3, 2):
+            conf["DEFAULT_AUTO_FIELD"] = "django.db.models.BigAutoField"
         if 'SPATIALITE_LIBRARY_PATH' in os.environ:
             # If you get SpatiaLite-related errors, refer to this document
             # to find out the proper SPATIALITE_LIBRARY_PATH value
