@@ -1,6 +1,8 @@
 from collections import OrderedDict
+from distutils.version import LooseVersion
 from urllib.parse import urlparse
 
+import django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.templatetags.static import static
@@ -182,4 +184,5 @@ def _normalize_plugins_config():
     PLUGINS['__is_normalized__'] = True
 
 
-default_app_config = 'leaflet.apps.LeafletConfig'
+if LooseVersion(django.__version__) < LooseVersion('3.2'):
+    default_app_config = 'leaflet.apps.LeafletConfig'
