@@ -34,7 +34,6 @@ jobs:
     env:
       SPATIALITE_LIBRARY_PATH: 'mod_spatialite'
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
     services:
       postgres:
@@ -76,7 +75,7 @@ jobs:
     - name: Coverage
       if: ${{ success() }}
       run: |
-        coveralls
+        coveralls --service=github
 
   tests_node:
     runs-on: ubuntu-latest
