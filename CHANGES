@@ -6,6 +6,7 @@ CHANGELOG
 -------------------
 
 - Upgrade Leaflet to 1.7.1.
+- Deprecate 'LeafletWidget._get_attrs' in favor of 'LeafletWidget.get_attrs'
 
 0.28.0 (2021-04-15)
 -------------------
