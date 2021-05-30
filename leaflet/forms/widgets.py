@@ -1,3 +1,5 @@
+import warnings
+
 from django import forms
 from django.contrib.gis.forms.widgets import BaseGeometryWidget
 from django.core import validators
@@ -31,6 +33,27 @@ class LeafletWidget(BaseGeometryWidget):
         return value.geojson if value else ''
 
     def _get_attrs(self, name, attrs=None):
+        """Get additional attributes for template context
+
+        Some important attributes needed for rendering the map widget
+        are not part of the widget context but rather of the global
+        template context.
+        When using e.g. :class:`django.forms.MultiWidget`, this global
+        context will not be accessible. For this reason, this method
+        has been made public so that it can be used in custom multi
+        widgets.
+
+        .. deprecated:: 0.28.1
+           Use :meth:`.get_attrs` instead.
+        """
+        warnings.warn(
+            'Method \'LeafletWidget._get_attrs\' has been deprecated. Consider calling '
+            '\'LeafletWidget.get_attrs\' instead.',
+            DeprecationWarning
+        )
+        return self.get_attrs(name, attrs=attrs)
+
+    def get_attrs(self, name, attrs=None):
         assert self.map_srid == 4326, 'Leaflet vectors should be decimal degrees.'
 
         # Retrieve params from Field init (if any)
@@ -65,5 +88,5 @@ class LeafletWidget(BaseGeometryWidget):
     def get_context(self, name, value, attrs):
         value = None if value in validators.EMPTY_VALUES else value
         context = super().get_context(name, value, attrs)
-        context.update(self._get_attrs(name, attrs))
+        context.update(self.get_attrs(name, attrs))
         return context
