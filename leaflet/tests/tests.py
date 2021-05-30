@@ -1,3 +1,5 @@
+import warnings
+
 import django
 from django.contrib.admin import ModelAdmin, StackedInline
 from django.contrib.admin.options import BaseModelAdmin, InlineModelAdmin
@@ -134,6 +136,19 @@ class LeafletWidgetRenderingTest(SimpleTestCase):
         widget = LeafletWidget()
         widget.render('geom', '', {'id': 'geom'})
         self.assertTrue(True, 'We should\'t accept blank geometry in value.')
+
+    def test_widget_get_attrs_deprecation(self):
+        widget = LeafletWidget()
+        with self.assertWarns(DeprecationWarning):
+            priv_result = widget._get_attrs("foo")
+        pub_result = widget.get_attrs("foo")
+        self.assertEqual(
+            priv_result, pub_result,
+            msg=(
+                'Deprecated \'LeafletWidget._get_attrs\' does not have the the same '
+                'output as public method \'LeafletWidget.get_attrs\'.'
+            )
+        )
 
 
 class LeafletFieldsWidgetsTest(SimpleTestCase):
