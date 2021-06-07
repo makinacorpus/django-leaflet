@@ -1,5 +1,3 @@
-import warnings
-
 import django
 from django.contrib.admin import ModelAdmin, StackedInline
 from django.contrib.admin.options import BaseModelAdmin, InlineModelAdmin
