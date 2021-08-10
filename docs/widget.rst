@@ -149,7 +149,7 @@ The related template would look like this:
       </head>
       <body>
         <h1>Edit {{ object }}</h1>
-        <form action="POST">
+        <form method="POST">
             {{ form }}
             <input type="submit"/>
         </form>
