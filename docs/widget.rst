@@ -57,6 +57,8 @@ override a custom ``admin/change_form.html``:
     {% include 'shared/leaflet_widget_overlays.js' %}
     {% endblock %}
 
+Note: Django 3.2 admin/change_form.html renamed ``stylesheet`` block to ``extrastyle`` and ``javascripts`` to ``admin_change_form_document_ready``, adjust your template accordingly.
+
 In this way, both CSS and JS can be modified for all admin leaflet widgets.
 
 As an example of modifying the CSS, here the leaflet map widget controls
