@@ -274,6 +274,36 @@ everywhere: ::
 ( *It will be merged over default minimal set required for edition* )
 
 
+Customizing serialization
+-------------------------
+
+Leaflet fields are easily customizable by setting ``field_store_class`` and ``geometry_field_class``.
+For example, if we have a field with three dimensions and we want to add the third dimension as 0 by default,
+we could use the following widget: ::
+
+    class Leaflet3dWidget(LeafletWidget):
+        field_store_class = 'L.Field3dStore'
+
+        class Media:
+            js = ['leaflet/leaflet.forms.js', 'leaflet.3d.js']
+
+
+With the following ``leaflet.3d.js``: ::
+
+    L.Field3dStore = L.FieldStore.extend({
+        _serialize: function (layer) {
+            const geojson = JSON.parse(L.FieldStore.prototype._serialize.call(this, layer));
+            for (const coordinate of geojson.coordinates) {
+                coordinate.push(0);
+            }
+            return JSON.stringify(geojson);
+        }
+    });
+
+
+For more information on what is customizable, please see the ``leaflet/leaflet.forms.js``.
+
+
 Details
 -------
 

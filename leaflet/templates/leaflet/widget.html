@@ -16,7 +16,7 @@
     {% endblock vars %}
 
     function {{ id_map_callback }}(map, options) {
-        {{ module }}.store_class = {{ field_store_class }};
+        {{ module }}.field_store_class = {{ field_store_class }};
         {{ module }}.precision = options.djoptions.precision;
         (new {{ geometry_field_class}}({{ module }})).addTo(map);
         {% block callback %}{% endblock callback %}
