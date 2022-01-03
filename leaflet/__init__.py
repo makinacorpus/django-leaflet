@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from distutils.version import LooseVersion
 from urllib.parse import urlparse
 
 import django
@@ -184,5 +183,5 @@ def _normalize_plugins_config():
     PLUGINS['__is_normalized__'] = True
 
 
-if LooseVersion(django.__version__) < LooseVersion('3.2'):
+if django.VERSION < (3, 2):
     default_app_config = 'leaflet.apps.LeafletConfig'
