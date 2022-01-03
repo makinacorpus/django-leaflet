@@ -5,7 +5,7 @@ CHANGELOG
 0.28.3 (unreleased)
 -------------------
 
--
+- Fix #346: distutils has been deprecated in Python 3.10.
 
 0.28.2 (2021-10-25)
 -------------------
