@@ -11,7 +11,7 @@ from .utils import memoized_lazy_function, ListWithLazyItems, ListWithLazyItemsR
 
 
 DEFAULT_TILES = [(_('OSM'), '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')]
+                  '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')]
 
 LEAFLET_CONFIG = getattr(settings, 'LEAFLET_CONFIG', {})
 
