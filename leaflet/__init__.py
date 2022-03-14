@@ -6,15 +6,15 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
+from django.utils.functional import lazy
 
-from .utils import memoized_lazy_function, ListWithLazyItems, ListWithLazyItemsRawIterator
+from .utils import ListWithLazyItems, ListWithLazyItemsRawIterator
 
 
 DEFAULT_TILES = [(_('OSM'), '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                   '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')]
 
 LEAFLET_CONFIG = getattr(settings, 'LEAFLET_CONFIG', {})
-
 app_settings = dict({
     'TILES': DEFAULT_TILES,
     'OVERLAYS': [],
@@ -168,7 +168,7 @@ def _normalize_plugins_config():
                     pass
                 else:
                     # pass relative URL through django.contrib.staticfiles
-                    urls[i] = memoized_lazy_function(static, url)  # lazy variant of `static(url)`
+                    urls[i] = lazy(static, str)(url)  # lazy variant of `static(url)`
 
             urls = ListWithLazyItems(urls)
             plugin_dict[resource_type] = urls
