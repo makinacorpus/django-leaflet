@@ -7,6 +7,7 @@ CHANGELOG
 
 - Fix #346: distutils has been deprecated in Python 3.10.
 - Change DEFAULT_TILES attribution to HTTPS #348 
+- Remove memoizing static URLs #351 
 
 0.28.2 (2021-10-25)
 -------------------
