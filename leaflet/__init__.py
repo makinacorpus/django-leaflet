@@ -6,15 +6,12 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
-
-from .utils import memoized_lazy_function, ListWithLazyItems, ListWithLazyItemsRawIterator
-
+from django.utils.functional import lazy, Promise
 
 DEFAULT_TILES = [(_('OSM'), '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                   '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')]
 
 LEAFLET_CONFIG = getattr(settings, 'LEAFLET_CONFIG', {})
-
 app_settings = dict({
     'TILES': DEFAULT_TILES,
     'OVERLAYS': [],
@@ -149,15 +146,12 @@ def _normalize_plugins_config():
                 urls = list(urls)
             elif isinstance(urls, list):  # already a list
                 pass
-            elif isinstance(urls, ListWithLazyItems):
-                # prevent evaluating Promises too early
-                urls = ListWithLazyItemsRawIterator(urls)
             else:  # css/js has not been specified or the wrong type
                 urls = []
 
             # normalize the URLs - see the docstring for details
             for i, url in enumerate(urls):
-                if ListWithLazyItems.is_lazy_item(url):
+                if isinstance(url, Promise):
                     # If it is a Promise, then we have already
                     # seen this url and have lazily applied the `static` call
                     # to it, so we can safely skip the check below.
@@ -168,17 +162,16 @@ def _normalize_plugins_config():
                     pass
                 else:
                     # pass relative URL through django.contrib.staticfiles
-                    urls[i] = memoized_lazy_function(static, url)  # lazy variant of `static(url)`
+                    urls[i] = lazy(static, str)(url)  # lazy variant of `static(url)`
 
-            urls = ListWithLazyItems(urls)
             plugin_dict[resource_type] = urls
 
             # Append it to the DEFAULT pseudo-plugin if auto-include
             if plugin_dict.get('auto-include', False):
-                PLUGINS[PLUGINS_DEFAULT].setdefault(resource_type, ListWithLazyItems()).extend(urls)
+                PLUGINS[PLUGINS_DEFAULT].setdefault(resource_type, []).extend(urls)
 
             # also append it to the ALL pseudo-plugin;
-            PLUGINS[PLUGIN_ALL].setdefault(resource_type, ListWithLazyItems()).extend(urls)
+            PLUGINS[PLUGIN_ALL].setdefault(resource_type, []).extend(urls)
 
     PLUGINS['__is_normalized__'] = True
 
