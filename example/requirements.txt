@@ -1,5 +1,5 @@
-Django==2.2.21
-django-geojson==2.12.0
-django-leaflet==0.26.0
-jsonfield==2.0.2
-Pillow==8.1.1
+Django==3.2.15
+django-geojson==3.2.1
+django-leaflet==0.28.3
+jsonfield==3.1.0
+Pillow==9.2.0
