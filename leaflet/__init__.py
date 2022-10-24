@@ -66,7 +66,7 @@ if SRID and TILES_EXTENT and (TILES_EXTENT[2] - TILES_EXTENT[0] > TILES_EXTENT[3
 
 DEFAULT_CENTER = app_settings['DEFAULT_CENTER']
 if DEFAULT_CENTER is not None and not (isinstance(DEFAULT_CENTER, (list, tuple)) and len(DEFAULT_CENTER) == 2):
-    raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_CENTER'] must be an list/tuple with two elements - (lon, lat)")
+    raise ImproperlyConfigured("LEAFLET_CONFIG['DEFAULT_CENTER'] must be an list/tuple with two elements - (lat, lon)")
 
 
 DEFAULT_ZOOM = app_settings['DEFAULT_ZOOM']
