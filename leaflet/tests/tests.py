@@ -2,8 +2,7 @@ import django
 from django.contrib.admin import ModelAdmin, StackedInline
 from django.contrib.admin.options import BaseModelAdmin, InlineModelAdmin
 from django.contrib.gis.db import models as gismodels
-from django.contrib.staticfiles.storage import StaticFilesStorage, staticfiles_storage
-from django.templatetags.static import static
+from django.contrib.staticfiles.storage import StaticFilesStorage
 from django.test import SimpleTestCase
 
 from .. import PLUGINS, PLUGIN_FORMS, _normalize_plugins_config
