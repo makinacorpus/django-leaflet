@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        django_version: [ '3.2' , '4.0', '4.1' ]
-        python_version: [ '3.7', '3.8', '3.9' , '3.10' ]
+        django_version: [ '3.2' , '4.0', '4.1', '4.2']
+        python_version: [ '3.7', '3.8', '3.9' , '3.10', '3.11' ]
         database: [ 'postgres' ]
         exclude:
           - django_version: '4.0'
@@ -24,6 +24,15 @@ jobs:
 
           - django_version: '4.1'
             python_version: '3.7'
+
+          - django_version: '4.2'
+            python_version: '3.7'
+
+          - django_version: '3.2'
+            python_version: '3.11'
+
+          - django_version: '4.0'
+            python_version: '3.11'
 
         include:
           - django_version: '3.2'
