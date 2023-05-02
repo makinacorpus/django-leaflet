@@ -1,5 +1,6 @@
 from django.contrib.admin import ModelAdmin
 from django.core.exceptions import ImproperlyConfigured
+from django.forms import Media
 
 try:
     from djgeojson.fields import GeoJSONField
@@ -14,12 +15,18 @@ except (ImportError, ImproperlyConfigured):
 from .forms.widgets import LeafletWidget
 
 
+class LeafletAdminWidget(LeafletWidget):
+    include_media = True
+
+    @property
+    def media(self):
+        return super().media + Media(css={'screen': ['leaflet/leaflet_django.css']})
+
+
 class LeafletGeoAdminMixin:
-    widget = LeafletWidget
+    widget = LeafletAdminWidget
     map_template = 'leaflet/admin/widget.html'
     modifiable = True
-    map_width = 'min(calc(100vw - 30px), 720px)'
-    map_height = '400px'
     display_raw = False
     settings_overrides = {}
 
@@ -51,11 +58,8 @@ class LeafletGeoAdminMixin:
         """
         class LeafletMap(widget):
             template_name = self.map_template
-            include_media = True
             geom_type = db_field.geom_type
             modifiable = self.modifiable
-            map_width = self.map_width
-            map_height = self.map_height
             display_raw = self.display_raw
             settings_overrides = self.settings_overrides
         return LeafletMap
