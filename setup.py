@@ -15,7 +15,7 @@ with open(os.path.join(here, 'CHANGES')) as f:
 
 setup(
     name='django-leaflet',
-    version='0.29.0',
+    version='0.29.1dev',
     author='Mathieu Leplatre',
     author_email='mathieu.leplatre@makina-corpus.com',
     url='https://github.com/makinacorpus/django-leaflet',
