@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.28.4 (unreleased)
+0.29.0 (2023-05-02)
 -------------------
 
 - Support Django 4.0, 4.1 and 4.2, and Python 3.10 and 3.11.
