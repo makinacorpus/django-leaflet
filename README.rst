@@ -7,7 +7,7 @@ See the `documentation <https://django-leaflet.readthedocs.io/en/latest/>`_ for 
 *django-leaflet* allows you to use `Leaflet <http://leafletjs.com>`_
 in your `Django <https://www.djangoproject.com>`_ projects.
 
-It embeds Leaflet version *1.7.1*.
+It embeds Leaflet version *1.9.3*.
 
 .. image:: https://readthedocs.org/projects/django-leaflet/badge/?version=latest
     :target: http://django-leaflet.readthedocs.io/en/latest/?badge=latest
