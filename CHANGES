@@ -5,7 +5,7 @@ CHANGELOG
 0.29.1 (unreleased)
 -------------------
 
--
+- Upgrade embedded Leaflet to 1.9.3.
 
 0.29.0 (2023-05-02)
 -------------------
