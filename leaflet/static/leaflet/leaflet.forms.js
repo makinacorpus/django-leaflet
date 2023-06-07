@@ -258,6 +258,7 @@ L.GeometryField = L.Class.extend({
                 polyline: this.options.is_linestring,
                 polygon: this.options.is_polygon,
                 circle: false, // Turns off this drawing tool
+                circlemarker: false, // Turns off this drawing tool
                 rectangle: this.options.is_polygon,
                 marker: this.options.is_point,
             }
