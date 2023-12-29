@@ -24,6 +24,21 @@ The easy way :
 
     {% leaflet_map "yourmap" callback="window.map_init_basic" %}
 
+django-leaflet is compatible with django-geojson fields, so you can draw e.g. markers based on the `django-geojson template filter <https://django-geojson.readthedocs.io/en/latest/views.html#geojson-template-filter/>`_:
+
+::
+
+    <script>
+        function map_init_basic (map, options) {
+            ...
+            var raw_data = '{{ object_list|geojsonfeature|safe|escapejs }}';
+            var data = JSON.parse(raw_data);      
+            L.geoJSON(data).addTo(map);
+            ...
+        }
+    </script>
+
+
 
 **Using events**
 
@@ -51,7 +66,6 @@ For Internet Explorer support, we fallback on jQuery if available ::
         L.marker([50.5, 30.5]).addTo(detail.map);
         ...
     });
-
 
 Customize map size
 ------------------
