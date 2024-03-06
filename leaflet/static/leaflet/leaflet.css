@@ -654,6 +654,3 @@ svg.leaflet-image-layer.leaflet-interactive path {
 		print-color-adjust: exact;
 		}
 	}
-
-.leaflet-container-default {min-height: 300px;}
-.leaflet-container { height: 100%; }
