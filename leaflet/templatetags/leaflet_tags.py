@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.encoding import force_str
 from django.utils.translation import gettext as _
+from django.templatetags.static import static
 
 from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
                      PLUGIN_ALL, PLUGIN_FORMS)
@@ -50,7 +51,8 @@ def leaflet_js(plugins=None):
         "SRID": str(SRID) if SRID else None,
         "PLUGINS_JS": _get_all_resources_for_plugins(plugin_names, 'js'),
         "with_forms": with_forms,
-        "FORCE_IMAGE_PATH": FORCE_IMAGE_PATH
+        "FORCE_IMAGE_PATH": FORCE_IMAGE_PATH,
+        "reset_view_icon": static("leaflet/images/reset-view.png")
     }
 
 

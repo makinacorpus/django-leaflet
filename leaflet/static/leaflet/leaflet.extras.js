@@ -16,6 +16,8 @@ L.Control.ResetView = L.Control.extend({
             };
 
         L.Util.setOptions(this, options);
+        L.Control.ResetView.TITLE = JSON.parse(document.getElementById("Control-ResetView-TITLE").textContent);
+        L.Control.ResetView.ICON = JSON.parse(document.getElementById("Control-ResetView-ICON").textContent);
     },
 
     onAdd: function (map) {
@@ -28,6 +30,8 @@ L.Control.ResetView = L.Control.extend({
         var link = L.DomUtil.create('a', 'leaflet-control-zoom-out leaflet-bar-part', container);
         link.href = '#';
         link.title = L.Control.ResetView.TITLE;
+
+        let resetIcon = document.getElementById('reset-view-icon')
         link.style.backgroundImage = L.Control.ResetView.ICON;
 
         L.DomEvent.addListener(link, 'click', L.DomEvent.stopPropagation)
@@ -254,3 +258,6 @@ L.Map.djangoMap = function (id, options) {
         }
     }
 };
+
+
+L.Icon.Default.imagePath = JSON.parse(document.getElementById("force-img-path").textContent);

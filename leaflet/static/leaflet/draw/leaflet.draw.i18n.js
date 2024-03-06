@@ -1,4 +1,3 @@
-L.Control.ResetView.TITLE = JSON.parse(document.getElementById("Control-ResetView-TITLE").textContent);
 const withForms = JSON.parse(document.getElementById("with-forms").textContent);
 if (withForms) {
     L.drawLocal.draw.toolbar.actions.title = JSON.parse(document.getElementById("draw-toolbar-actions-title").textContent);
