@@ -15,6 +15,7 @@ class LeafletWidget(BaseGeometryWidget):
     supports_3d = False
     include_media = False
     settings_overrides = {}
+    csp_nonce = None
 
     @property
     def media(self):
@@ -87,4 +88,5 @@ class LeafletWidget(BaseGeometryWidget):
         value = None if value in validators.EMPTY_VALUES else value
         context = super().get_context(name, value, attrs)
         context.update(self.get_attrs(name, attrs))
+        context["csp_nonce"] = self.csp_nonce
         return context
