@@ -31,7 +31,6 @@ L.Control.ResetView = L.Control.extend({
         link.href = '#';
         link.title = L.Control.ResetView.TITLE;
 
-        let resetIcon = document.getElementById('reset-view-icon')
         link.style.backgroundImage = L.Control.ResetView.ICON;
 
         L.DomEvent.addListener(link, 'click', L.DomEvent.stopPropagation)
