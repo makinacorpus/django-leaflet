@@ -59,7 +59,7 @@ def leaflet_js(plugins=None):
 @register.inclusion_tag('leaflet/_leaflet_map.html')
 def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
                 loadevent=app_settings.get('LOADEVENT'),
-                settings_overrides={}):
+                settings_overrides={}, csp_nonce=None):
     """
 
     :param name:
@@ -112,6 +112,7 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
         'djoptions': json.dumps(djoptions, cls=DjangoJSONEncoder),
         # settings
         'NO_GLOBALS': instance_app_settings.get('NO_GLOBALS'),
+        'csp_nonce': csp_nonce
     }
 
 
