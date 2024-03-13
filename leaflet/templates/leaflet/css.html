@@ -1,6 +1,5 @@
 {% load static %}
 <link rel="stylesheet" href="{% static "leaflet/leaflet.css" %}" />
-<style>.leaflet-container-default {min-height: 300px;}</style>
 {% if PLUGINS_CSS %}
     {% for css in PLUGINS_CSS %}
         <link rel="stylesheet" href="{{ css }}" />
