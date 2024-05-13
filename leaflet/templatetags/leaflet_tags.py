@@ -4,6 +4,8 @@ from django import template
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.encoding import force_str
+from django.utils.translation import gettext as _
+from django.templatetags.static import static
 
 from leaflet import (app_settings, SPATIAL_EXTENT, SRID, PLUGINS, PLUGINS_DEFAULT,
                      PLUGIN_ALL, PLUGIN_FORMS)
@@ -49,14 +51,15 @@ def leaflet_js(plugins=None):
         "SRID": str(SRID) if SRID else None,
         "PLUGINS_JS": _get_all_resources_for_plugins(plugin_names, 'js'),
         "with_forms": with_forms,
-        "FORCE_IMAGE_PATH": FORCE_IMAGE_PATH
+        "FORCE_IMAGE_PATH": FORCE_IMAGE_PATH,
+        "reset_view_icon": static("leaflet/images/reset-view.png")
     }
 
 
 @register.inclusion_tag('leaflet/_leaflet_map.html')
 def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
                 loadevent=app_settings.get('LOADEVENT'),
-                settings_overrides={}):
+                settings_overrides={}, csp_nonce=None):
     """
 
     :param name:
@@ -109,6 +112,46 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
         'djoptions': json.dumps(djoptions, cls=DjangoJSONEncoder),
         # settings
         'NO_GLOBALS': instance_app_settings.get('NO_GLOBALS'),
+        'csp_nonce': csp_nonce
+    }
+
+
+@register.inclusion_tag('leaflet/leaflet_draw_i18n.html')
+def leaflet_draw_i18n():
+    return {
+        "Control_ResetView_TITLE": _("Reset view"),
+        # with_forms
+        "draw_toolbar_actions_title": _("Cancel drawing"),
+        "draw_toolbar_actions_text": _("Cancel"),
+        "draw_toolbar_undo_title": _("Delete last point drawn"),
+        "draw_toolbar_undo_text": _("Delete last point"),
+        "draw_toolbar_buttons_polyline": _("Draw a polyline"),
+        "draw_toolbar_buttons_polygon": _("Draw a polygon"),
+        "draw_toolbar_buttons_rectangle": _("Draw a rectangle"),
+        "draw_toolbar_buttons_circle": _("Draw a circle"),
+        "draw_toolbar_buttons_marker": _("Draw a marker"),
+        "draw_handlers_circle_tooltip_start": _("Click and drag to draw circle."),
+        "draw_handlers_marker_tooltip_start": _("Click map to place marker."),
+        "draw_handlers_polygon_tooltip_start": _("Click to start drawing shape."),
+        "draw_handlers_polygon_tooltip_cont": _("Click to continue drawing shape."),
+        "draw_handlers_polygon_tooltip_end": _("Click first point to close this shape."),
+        "draw_handlers_polyline_error": _("<strong>Error:</strong> shape edges cannot cross!"),
+        "draw_handlers_polyline_tooltip_start": _("Click to start drawing line."),
+        "draw_handlers_polyline_tooltip_cont": _("Click to continue drawing line."),
+        "draw_handlers_polyline_tooltip_end": _("Click last point to finish line."),
+        "draw_handlers_rectangle_tooltip_start": _("Click and drag to draw rectangle."),
+        "draw_handlers_simpleshape_tooltip_end": _("Release mouse to finish drawing."),
+        "edit_toolbar_actions_save_title": _("Save changes."),
+        "edit_toolbar_actions_save_text": _("Save"),
+        "edit_toolbar_actions_cancel_title": _("Cancel editing, discards all changes."),
+        "edit_toolbar_actions_cancel_text": _("Cancel"),
+        "edit_toolbar_buttons_edit": _("Edit layers"),
+        "edit_toolbar_buttons_editDisabled": _("No layers to edit."),
+        "edit_toolbar_buttons_remove": _("Delete layers"),
+        "edit_toolbar_buttons_removeDisabled": _("No layers to delete."),
+        "edit_handlers_edit_tooltip_text": _("Drag handles, or marker to edit feature."),
+        "edit_handlers_edit_tooltip_subtext": _("Click cancel to undo changes."),
+        "edit_handlers_remove_tooltip_text": _("Click on a feature to remove"),
     }
 
 

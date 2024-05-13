@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.gis.forms.widgets import BaseGeometryWidget
 from django.core import validators
 from django.template.defaultfilters import slugify
+from django.templatetags.static import static
 
 from leaflet import app_settings, PLUGINS, PLUGIN_FORMS
 
@@ -15,6 +16,7 @@ class LeafletWidget(BaseGeometryWidget):
     supports_3d = False
     include_media = False
     settings_overrides = {}
+    csp_nonce = None
 
     @property
     def media(self):
@@ -87,4 +89,8 @@ class LeafletWidget(BaseGeometryWidget):
         value = None if value in validators.EMPTY_VALUES else value
         context = super().get_context(name, value, attrs)
         context.update(self.get_attrs(name, attrs))
+        context["csp_nonce"] = self.csp_nonce
+        context["FORCE_IMAGE_PATH"] = app_settings.get('FORCE_IMAGE_PATH')
+        context["reset_view_icon"] = static("leaflet/images/reset-view.png")
+        print(context)
         return context

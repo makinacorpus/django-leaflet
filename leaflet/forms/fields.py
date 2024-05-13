@@ -7,9 +7,10 @@ class GeometryField(BaseGeometryField):
     widget = LeafletWidget
     geom_type = 'GEOMETRY'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, csp_nonce=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.widget.geom_type = self.geom_type
+        self.widget.csp_nonce = csp_nonce
 
 
 class GeometryCollectionField(GeometryField):

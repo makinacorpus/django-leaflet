@@ -1,13 +1,17 @@
 {% load leaflet_tags l10n %}
 {% load static %}
 
-<style>{% block map_css %}
+{{ FORCE_IMAGE_PATH|json_script:"force-img-path" }}
+{{ reset_view_icon|json_script:"Control-ResetView-ICON" }}
+
+<style {% if csp_nonce %}nonce="{{ csp_nonce }}"{% endif %}>
+    {% block map_css %}
     {% if map_width and map_height %}#{{ id_map }} { width: {{ map_width|unlocalize }}; height: {{ map_height|unlocalize }}; }{% endif %}
     {% if not display_raw %}#{{ id_css }} { display: none; }{% endif %}
     {% endblock map_css %}
 </style>
 
-<script>
+<script {% if csp_nonce %}nonce="{{ csp_nonce }}"{% endif %}>
     {% block vars %}var {{ module }} = {};
     {{ module }}.fieldid = '{{ id_css }}';
     {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};
@@ -38,7 +42,7 @@
 
 {% if not target_map %}
 {% block map %}
-    {% leaflet_map id_map callback=id_map_callback loadevent=loadevent settings_overrides=settings_overrides %}
+    {% leaflet_map id_map callback=id_map_callback loadevent=loadevent settings_overrides=settings_overrides csp_nonce=csp_nonce %}
 {% endblock map %}
 {% endif %}
 

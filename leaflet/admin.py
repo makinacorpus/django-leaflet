@@ -48,6 +48,10 @@ class LeafletGeoAdminMixin:
                 widget = kwargs['widget']
 
             kwargs['widget'] = self._get_map_widget(db_field, widget)
+
+            if request is not None:
+                kwargs['widget'].csp_nonce = getattr(request, "csp_nonce", None)
+
             return db_field.formfield(**kwargs)
         else:
             return super().formfield_for_dbfield(db_field, request, **kwargs)

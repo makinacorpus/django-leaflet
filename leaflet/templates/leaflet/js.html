@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load leaflet_tags %}
 {% if DEBUG %}
 <script src="{% static "leaflet/leaflet-src.js" %}"></script>
 {% else %}
@@ -15,12 +16,10 @@
         <script src="{{ js }}"></script>
     {% endfor %}
 {% endif %}
+
+{{ FORCE_IMAGE_PATH|json_script:"force-img-path" }}
+{{ reset_view_icon|json_script:"Control-ResetView-ICON" }}
 <script src="{% static "leaflet/leaflet.extras.js" %}"></script>
-<script>
-    {% if with_forms %}{% include "leaflet/_leaflet_draw_i18n.js" %}{% endif %}
-    L.Control.ResetView.TITLE = "{% trans "Reset view" %}";
-    L.Control.ResetView.ICON = "url({% static "leaflet/images/reset-view.png" %})";
-    {% if FORCE_IMAGE_PATH %}
-    L.Icon.Default.imagePath = "{% static "leaflet/images/" %}";
-    {% endif %}
-</script>
+
+{{ with_forms|json_script:"with-forms" }}
+{% leaflet_draw_i18n %}
