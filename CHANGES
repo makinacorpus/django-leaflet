@@ -6,6 +6,7 @@ CHANGELOG
 -------------------
 
 - Make django-leaflet compatible with CSP #371 (This changes the way extra CSS is handled)
+- Allow delete polygon when using multipolygon geometries #372 
 
 0.29.1 (2024-03-11)
 -------------------
