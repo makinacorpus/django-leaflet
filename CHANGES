@@ -5,8 +5,10 @@ CHANGELOG
 0.30.0 (unreleased)
 -------------------
 
+- Support Django 5.0 and Python 3.12 (`#373 <https://github.com/makinacorpus/django-leaflet/pull/373>`__).
+- Drop support for Python 3.7 (`#373 <https://github.com/makinacorpus/django-leaflet/pull/373>`__).
 - Make django-leaflet compatible with CSP #371 (This changes the way extra CSS is handled)
-- Allow delete polygon when using multipolygon geometries #372 
+- Allow delete polygon when using multipolygon geometries #372
 
 0.29.1 (2024-03-11)
 -------------------
