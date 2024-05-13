@@ -16,8 +16,16 @@ L.Control.ResetView = L.Control.extend({
             };
 
         L.Util.setOptions(this, options);
-        L.Control.ResetView.TITLE = JSON.parse(document.getElementById("Control-ResetView-TITLE").textContent);
-        L.Control.ResetView.ICON = JSON.parse(document.getElementById("Control-ResetView-ICON").textContent);
+
+        const titleElement = document.getElementById("Control-ResetView-TITLE");
+        const iconElement = document.getElementById("Control-ResetView-TITLE");
+
+        if (!!titleElement) {
+            L.Control.ResetView.TITLE = JSON.parse(titleElement.textContent);
+        }
+        if (!!iconElement) {
+            L.Control.ResetView.ICON = JSON.parse(iconElement.textContent);
+        }
     },
 
     onAdd: function (map) {
@@ -258,5 +266,8 @@ L.Map.djangoMap = function (id, options) {
     }
 };
 
+const imgPathElement = document.getElementById("force-img-path");
 
-L.Icon.Default.imagePath = JSON.parse(document.getElementById("force-img-path").textContent);
+if (!!imgPathElement) {
+    L.Icon.Default.imagePath = JSON.parse(imgPathElement.textContent);
+}
