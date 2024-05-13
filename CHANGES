@@ -2,10 +2,10 @@
 CHANGELOG
 =========
 
-0.29.2 (unreleased)
+0.30.0 (unreleased)
 -------------------
 
--
+- Make django-leaflet compatible with CSP #371 (This changes the way extra CSS is handled)
 
 0.29.1 (2024-03-11)
 -------------------
