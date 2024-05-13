@@ -235,7 +235,7 @@ L.GeometryField = L.Class.extend({
     },
 
     onDeleted: function (e) {
-        var layer = e.layer;
+        var layer = e.layer || e.layers;
         this.drawnItems.removeLayer(layer);
         this.store.save(this.drawnItems);
     },
