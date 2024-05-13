@@ -36,13 +36,6 @@ Main purposes of having a python package for the Leaflet Javascript library :
     *django-leaflet* is compatible with `django-geojson <https://github.com/makinacorpus/django-geojson.git>`_ fields, which
     allow handling geographic data without spatial database.
 
-=========
-TUTORIALS
-=========
-
-* `GeoDjango maps with Leaflet <http://blog.mathieu-leplatre.info/geodjango-maps-with-leaflet.html>`_
-
-
 =======
 AUTHORS
 =======
