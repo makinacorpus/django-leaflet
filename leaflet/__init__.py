@@ -8,7 +8,7 @@ from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 from django.utils.functional import lazy, Promise
 
-DEFAULT_TILES = [(_('OSM'), '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+DEFAULT_TILES = [(_('OSM'), '//tile.openstreetmap.org/{z}/{x}/{y}.png',
                   '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')]
 
 LEAFLET_CONFIG = getattr(settings, 'LEAFLET_CONFIG', {})

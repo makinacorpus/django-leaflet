@@ -142,7 +142,7 @@ Default tiles layer
 
 To globally add a tiles layer to your maps::
 
-    'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    'TILES': 'http://tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 This setting can also be a list of tuples ``(name, url, options)``.
 The python dict ``options`` accepts all the Leaflet tileLayers options.
