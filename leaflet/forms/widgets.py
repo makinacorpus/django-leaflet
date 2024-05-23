@@ -92,5 +92,4 @@ class LeafletWidget(BaseGeometryWidget):
         context["csp_nonce"] = self.csp_nonce
         context["FORCE_IMAGE_PATH"] = app_settings.get('FORCE_IMAGE_PATH')
         context["reset_view_icon"] = static("leaflet/images/reset-view.png")
-        print(context)
         return context
