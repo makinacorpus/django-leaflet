@@ -69,7 +69,7 @@ class TemplateTagTest(SimpleTestCase):
     def test_default_layer_in_leaflet_map(self):
         context = leaflet_tags.leaflet_map('map')
         self.assertEqual('map', context['name'])
-        self.assertTrue('"OSM", "//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"' in
+        self.assertTrue('"OSM", "//tile.openstreetmap.org/{z}/{x}/{y}.png"' in
                         context['djoptions'])
 
 
