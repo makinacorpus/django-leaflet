@@ -87,18 +87,14 @@ jobs:
         sudo apt-get update -qq
         sudo apt-get install -y libproj-dev libgeos-dev gdal-bin libgdal-dev
         python -m pip install --upgrade pip
-        pip install -U flake8 coveralls psycopg2-binary argparse
+        pip install -U flake8 psycopg2-binary argparse
         pip install -U Django~=${{ matrix.django_version }}.0
     - name: Lint with flake8
       run: |
         flake8 --ignore=E501,W504 leaflet
     - name: Test
       run: |
-        python -W error::DeprecationWarning -W error::PendingDeprecationWarning -m coverage run ./quicktest.py leaflet --db=${{ matrix.database }}
-    - name: Coverage
-      if: ${{ success() }}
-      run: |
-        coveralls --service=github
+        python -W error::DeprecationWarning -W error::PendingDeprecationWarning quicktest.py leaflet --db=${{ matrix.database }}
 
   tests_node:
     runs-on: ubuntu-latest
