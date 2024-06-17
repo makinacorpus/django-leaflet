@@ -2,10 +2,12 @@
 CHANGELOG
 =========
 
-0.30.1 (unreleased)
+0.30.1 (2024-06-17)
 -------------------
 
 - Change OSM tile link to unified format #375
+- Remove debug print added in #371  #377
+- Removed obsolete leaflet-src.map file #376
 
 0.30.0 (2024-05-13)
 -------------------
