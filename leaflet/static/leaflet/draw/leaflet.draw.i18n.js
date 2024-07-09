@@ -1,4 +1,4 @@
-const withForms = JSON.parse(document.getElementById("with-forms").textContent);
+const withForms = document.getElementById("with-forms") ? JSON.parse(document.getElementById("with-forms").textContent) : false;
 if (withForms) {
     L.drawLocal.draw.toolbar.actions.title = JSON.parse(document.getElementById("draw-toolbar-actions-title").textContent);
     L.drawLocal.draw.toolbar.actions.text = JSON.parse(document.getElementById("draw-toolbar-actions-text").textContent);
