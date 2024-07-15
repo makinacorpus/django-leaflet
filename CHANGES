@@ -6,6 +6,7 @@ CHANGELOG
 -------------------
 
 - Fix icon control.
+- Fix JS error if with-forms does not exists #379 #380
 
 0.30.1 (2024-06-17)
 -------------------
