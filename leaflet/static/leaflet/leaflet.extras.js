@@ -18,7 +18,7 @@ L.Control.ResetView = L.Control.extend({
         L.Util.setOptions(this, options);
 
         const titleElement = document.getElementById("Control-ResetView-TITLE");
-        const iconElement = document.getElementById("Control-ResetView-TITLE");
+        const iconElement = document.getElementById("Control-ResetView-ICON");
 
         if (!!titleElement) {
             L.Control.ResetView.TITLE = JSON.parse(titleElement.textContent);
