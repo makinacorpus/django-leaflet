@@ -57,6 +57,7 @@ class QuickDjangoTest:
             }
         conf = {
             'DATABASES': databases,
+            'DEFAULT_AUTO_FIELD': 'django.db.models.BigAutoField',
             'INSTALLED_APPS': self.INSTALLED_APPS + self.apps,
             'STATIC_URL': '/static/',
             'MIDDLEWARE': [
@@ -77,8 +78,6 @@ class QuickDjangoTest:
                 'APP_DIRS': True,
             }],
         }
-        if django.VERSION >= (3, 2):
-            conf["DEFAULT_AUTO_FIELD"] = "django.db.models.BigAutoField"
         if 'SPATIALITE_LIBRARY_PATH' in os.environ:
             # If you get SpatiaLite-related errors, refer to this document
             # to find out the proper SPATIALITE_LIBRARY_PATH value
