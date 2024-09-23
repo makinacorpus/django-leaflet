@@ -1,7 +1,6 @@
 from collections import OrderedDict
 from urllib.parse import urlparse
 
-import django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.templatetags.static import static
@@ -174,7 +173,3 @@ def _normalize_plugins_config():
             PLUGINS[PLUGIN_ALL].setdefault(resource_type, []).extend(urls)
 
     PLUGINS['__is_normalized__'] = True
-
-
-if django.VERSION < (3, 2):
-    default_app_config = 'leaflet.apps.LeafletConfig'

@@ -16,11 +16,9 @@ jobs:
     strategy:
       matrix:
         django_version:
-        - '3.2'
-        - '4.0'
-        - '4.1'
         - '4.2'
         - '5.0'
+        - '5.1'
         python_version:
         - '3.8'
         - '3.9'
@@ -35,23 +33,14 @@ jobs:
           - django_version: '5.0'
             python_version: '3.9'
 
-          - django_version: '3.2'
-            python_version: '3.11'
+          - django_version: '5.1'
+            python_version: '3.8'
 
-          - django_version: '4.0'
-            python_version: '3.11'
-
-          - django_version: '3.2'
-            python_version: '3.12'
-
-          - django_version: '4.0'
-            python_version: '3.12'
-
-          - django_version: '4.1'
-            python_version: '3.12'
+          - django_version: '5.1'
+            python_version: '3.9'
 
         include:
-          - django_version: '3.2'
+          - django_version: '4.2'
             python_version: '3.8'
             database: 'sqlite'
     env:

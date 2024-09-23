@@ -309,12 +309,11 @@ class LeafletGeoAdminMapTest(LeafletGeoAdminTest):
         widget = self.formfield.widget
         output = widget.render('geom', '', {'id': 'geom'})
         self.assertIn('<div id="geom-div-map">', output)
-        link_type = 'type="text/css" ' if django.get_version() < '4.1' else ''
         self.assertEqual(
             list(widget.media.render_css()),
             [
-                f'<link href="/static/leaflet/leaflet.css" {link_type}media="screen" rel="stylesheet">',
-                f'<link href="/static/leaflet/leaflet_django.css" {link_type}media="screen" rel="stylesheet">',
-                f'<link href="/static/leaflet/draw/leaflet.draw.css" {link_type}media="screen" rel="stylesheet">',
+                '<link href="/static/leaflet/leaflet.css" media="screen" rel="stylesheet">',
+                '<link href="/static/leaflet/leaflet_django.css" media="screen" rel="stylesheet">',
+                '<link href="/static/leaflet/draw/leaflet.draw.css" media="screen" rel="stylesheet">',
             ]
         )
