@@ -25,7 +25,11 @@ class LeafletWidget(BaseGeometryWidget):
 
         # We assume that including media for widget means there is
         # no Leaflet at all in the page.
-        js = ['leaflet/leaflet.js'] + PLUGINS[PLUGIN_FORMS]['js']
+        js = [
+            'leaflet/leaflet.js',
+            'leaflet/leaflet.extras.js',
+            *PLUGINS[PLUGIN_FORMS]['js'],
+        ]
         css = ['leaflet/leaflet.css'] + PLUGINS[PLUGIN_FORMS]['css']
         return forms.Media(js=js, css={'screen': css})
 
