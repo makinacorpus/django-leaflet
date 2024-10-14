@@ -266,8 +266,10 @@ L.Map.djangoMap = function (id, options) {
     }
 };
 
-const imgPathElement = document.getElementById("force-img-path");
+{
+  const imgPathElement = document.getElementById("force-img-path");
 
-if (!!imgPathElement) {
+  if (!!imgPathElement) {
     L.Icon.Default.imagePath = JSON.parse(imgPathElement.textContent);
+  }
 }
