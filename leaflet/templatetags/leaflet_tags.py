@@ -116,11 +116,11 @@ def leaflet_map(name, callback=None, fitextent=True, creatediv=True,
     }
 
 
-@register.inclusion_tag('leaflet/leaflet_draw_i18n.html')
-def leaflet_draw_i18n():
+@register.inclusion_tag('leaflet/leaflet_draw_i18n.html', takes_context=True)
+def leaflet_draw_i18n(context):
     return {
         "Control_ResetView_TITLE": _("Reset view"),
-        # with_forms
+        "with_forms": context.get("with_forms", False),
         "draw_toolbar_actions_title": _("Cancel drawing"),
         "draw_toolbar_actions_text": _("Cancel"),
         "draw_toolbar_undo_title": _("Delete last point drawn"),
