@@ -2,13 +2,16 @@
 CHANGELOG
 =========
 
-0.31.0 (unreleased)
+0.31.0 (2024-10-14)
 -------------------
 
 - Fix icon control.
 - Fix JS error if with-forms does not exists #379 #380
 - Support Django 5.1.
 - Drop support for Django < 4.2.
+- Avoid defining imgPathElement globally #384
+- Remove forms dependency on 'extras' #385
+- Pass with_forms to leaflet_draw_i18n template #387
 
 0.30.1 (2024-06-17)
 -------------------
