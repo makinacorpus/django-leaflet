@@ -28,6 +28,9 @@ jobs:
         - '3.13'
         database: [ 'postgres' ]
         exclude:
+          - django_version: '4.2'
+            python_version: '3.13'
+
           - django_version: '5.0'
             python_version: '3.9'
 
