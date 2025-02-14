@@ -23,7 +23,7 @@ setup(
     description="Use Leaflet in your django projects",
     long_description=long_descr,
     license='LPGL, see LICENSE file.',
-    python_requires='>=3.8',
+    python_requires='>=3.9',
     install_requires=requires,
     extras_require={
         'docs': ['sphinx', 'sphinx-autobuild'],
@@ -40,10 +40,10 @@ setup(
         'Framework :: Django',
         'Development Status :: 5 - Production/Stable',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
     ],
 )

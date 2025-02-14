@@ -19,29 +19,30 @@ jobs:
         - '4.2'
         - '5.0'
         - '5.1'
+        - '5.2'
         python_version:
-        - '3.8'
         - '3.9'
         - '3.10'
         - '3.11'
         - '3.12'
+        - '3.13'
         database: [ 'postgres' ]
         exclude:
           - django_version: '5.0'
-            python_version: '3.8'
-
-          - django_version: '5.0'
             python_version: '3.9'
 
-          - django_version: '5.1'
-            python_version: '3.8'
+          - django_version: '5.0'
+            python_version: '3.13'
 
           - django_version: '5.1'
+            python_version: '3.9'
+
+          - django_version: '5.2'
             python_version: '3.9'
 
         include:
           - django_version: '4.2'
-            python_version: '3.8'
+            python_version: '3.9'
             database: 'sqlite'
     env:
       SPATIALITE_LIBRARY_PATH: 'mod_spatialite'
