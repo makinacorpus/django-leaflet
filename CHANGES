@@ -7,6 +7,7 @@ CHANGELOG
 
 - Support Django 5.2 and Python 3.13 (`#388 <https://github.com/makinacorpus/django-leaflet/pull/388>`__).
 - Drop support for Python 3.8 (`#388 <https://github.com/makinacorpus/django-leaflet/pull/388>`__).
+- Avoid defining withForms globally #391 
 
 0.31.0 (2024-10-14)
 -------------------
