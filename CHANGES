@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-0.31.1 (unreleased)
+0.32.0 (2025-05-14)
 -------------------
 
 - Support Django 5.2 and Python 3.13 (`#388 <https://github.com/makinacorpus/django-leaflet/pull/388>`__).
