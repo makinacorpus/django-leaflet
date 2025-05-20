@@ -2,7 +2,7 @@
 {% load static %}
 {% if creatediv %}<div id="{{ name }}" class="leaflet-container-default"></div>{% endif %}
 
-<script {% if csp_nonce %}nonce="{{ csp_nonce }}"{% endif %}>
+<script nonce="{{ csp_nonce }}">
 (function () {
 
     function loadmap() {
