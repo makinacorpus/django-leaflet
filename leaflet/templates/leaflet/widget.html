@@ -4,14 +4,14 @@
 {{ FORCE_IMAGE_PATH|json_script:"force-img-path" }}
 {{ reset_view_icon|json_script:"Control-ResetView-ICON" }}
 
-<style {% if csp_nonce %}nonce="{{ csp_nonce }}"{% endif %}>
+<style nonce="{{ csp_nonce }}">
     {% block map_css %}
     {% if map_width and map_height %}#{{ id_map }} { width: {{ map_width|unlocalize }}; height: {{ map_height|unlocalize }}; }{% endif %}
     {% if not display_raw %}#{{ id_css }} { display: none; }{% endif %}
     {% endblock map_css %}
 </style>
 
-<script {% if csp_nonce %}nonce="{{ csp_nonce }}"{% endif %}>
+<script nonce="{{ csp_nonce }}">
     {% block vars %}var {{ module }} = {};
     {{ module }}.fieldid = '{{ id_css }}';
     {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};
