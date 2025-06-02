@@ -5,7 +5,7 @@ CHANGELOG
 0.32.1 (unreleased)
 -------------------
 
--
+- CSP: Don't test nonce for truthiness before inclusion #393 
 
 0.32.0 (2025-05-14)
 -------------------
