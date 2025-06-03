@@ -6,7 +6,7 @@ from django.core import validators
 from django.template.defaultfilters import slugify
 from django.templatetags.static import static
 
-from leaflet import app_settings, PLUGINS, PLUGIN_FORMS
+from leaflet import PLUGIN_FORMS, PLUGINS, app_settings
 
 
 class LeafletWidget(BaseGeometryWidget):
@@ -94,6 +94,6 @@ class LeafletWidget(BaseGeometryWidget):
         context = super().get_context(name, value, attrs)
         context.update(self.get_attrs(name, attrs))
         context["csp_nonce"] = self.csp_nonce
-        context["FORCE_IMAGE_PATH"] = app_settings.get('FORCE_IMAGE_PATH')
+        context["FORCE_IMAGE_PATH"] = static("leaflet/images/") if app_settings['FORCE_IMAGE_PATH'] else False
         context["reset_view_icon"] = static("leaflet/images/reset-view.png")
         return context
