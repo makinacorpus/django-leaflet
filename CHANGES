@@ -6,6 +6,7 @@ CHANGELOG
 -------------------
 
 - CSP: Don't test nonce for truthiness before inclusion #393 
+- Solve broken marker image paths in the admin panel #392
 
 0.32.0 (2025-05-14)
 -------------------
