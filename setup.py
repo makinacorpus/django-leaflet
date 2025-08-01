@@ -22,7 +22,7 @@ setup(
     download_url="http://pypi.python.org/pypi/django-leaflet/",
     description="Use Leaflet in your django projects",
     long_description=long_descr,
-    license='LPGL, see LICENSE file.',
+    license='LGPL-3.0-or-later',
     python_requires='>=3.9',
     install_requires=requires,
     extras_require={
