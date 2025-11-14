@@ -7,6 +7,8 @@ CHANGELOG
 
 - CSP: Don't test nonce for truthiness before inclusion #393 
 - Solve broken marker image paths in the admin panel #392
+- Support Django 6.0 and Python 3.14 (`#396 <https://github.com/makinacorpus/django-leaflet/pull/396>`__).
+- Drop support for Python 3.9 (`#396 <https://github.com/makinacorpus/django-leaflet/pull/396>`__).
 
 0.32.0 (2025-05-14)
 -------------------
