@@ -10,6 +10,8 @@ CHANGELOG
 - `map_width` and `map_height` are no longer supported in LeafletWidget `attrs`,
   use traditional CSS to dimension maps (you can target the class
   `.leaflet-container-default` for example.)
+- Support Django 6.0 and Python 3.14 (`#396 <https://github.com/makinacorpus/django-leaflet/pull/396>`__) (#398) .
+- Drop support for Python 3.9 (`#396 <https://github.com/makinacorpus/django-leaflet/pull/396>`__).
 
 0.32.0 (2025-05-14)
 -------------------
