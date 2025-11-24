@@ -227,7 +227,7 @@ class LeafletWidgetMapTest(SimpleTestCase):
         self.assertIn(".fieldid = 'geom'", output)
         self.assertIn(".srid = 4326", output)
         self.assertIn(".geom_type = 'Geometry'", output)
-        self.assertIn('#geom { display: none; }', output)
+        self.assertIn('name="geom" hidden', output)
         self.assertIn('function geom_map_callback(map, options)', output)
 
     def test_overriden_parameters(self):
@@ -237,7 +237,7 @@ class LeafletWidgetMapTest(SimpleTestCase):
         output = widget.render('geometry', '', {'id': 'geometry'})
         self.assertIn(".fieldid = 'geometry'", output)
         self.assertIn(".geom_type = 'Polygon'", output)
-        self.assertIn('#geometry { display: none; }', output)
+        self.assertIn('name="geometry" hidden', output)
         self.assertIn('function geometry_map_callback(map, options)', output)
 
     def test_javascript_safe_callback_name(self):

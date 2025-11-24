@@ -4,13 +4,6 @@
 {{ FORCE_IMAGE_PATH|json_script:"force-img-path" }}
 {{ reset_view_icon|json_script:"Control-ResetView-ICON" }}
 
-<style nonce="{{ csp_nonce }}">
-    {% block map_css %}
-    {% if map_width and map_height %}#{{ id_map }} { width: {{ map_width|unlocalize }}; height: {{ map_height|unlocalize }}; }{% endif %}
-    {% if not display_raw %}#{{ id_css }} { display: none; }{% endif %}
-    {% endblock map_css %}
-</style>
-
 <script nonce="{{ csp_nonce }}">
     {% block vars %}var {{ module }} = {};
     {{ module }}.fieldid = '{{ id_css }}';
@@ -53,4 +46,4 @@
     target="_blank"
     rel="nofollow">valid GeoJSON Geometry</a>:</p>
 {% endif %}
-<textarea id="{{ id_css }}" class="required django-leaflet-raw-textarea {{ class }}" cols="150" rows="10" name="{{ name }}">{{ serialized }}</textarea>
+<textarea id="{{ id_css }}" class="required django-leaflet-raw-textarea {{ class }}" cols="150" rows="10" name="{{ name }}"{% if not display_raw %} hidden{% endif %}>{{ serialized }}</textarea>

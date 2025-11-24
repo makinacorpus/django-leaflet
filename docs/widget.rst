@@ -93,8 +93,6 @@ To show a textarea input for the raw GeoJSON geometry, override admin ``form_fie
     from django.contrib.gis.db import models as geo_models
 
     LEAFLET_WIDGET_ATTRS = {
-        'map_height': '500px',
-        'map_width': '100%',
         'display_raw': 'true',
         'map_srid': 4326,
     }

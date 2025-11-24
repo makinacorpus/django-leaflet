@@ -2,11 +2,14 @@
 CHANGELOG
 =========
 
-0.32.1 (unreleased)
+0.33.0 (unreleased)
 -------------------
 
 - CSP: Don't test nonce for truthiness before inclusion #393 
 - Solve broken marker image paths in the admin panel #392
+- `map_width` and `map_height` are no longer supported in LeafletWidget `attrs`,
+  use traditional CSS to dimension maps (you can target the class
+  `.leaflet-container-default` for example.)
 
 0.32.0 (2025-05-14)
 -------------------
