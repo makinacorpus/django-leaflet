@@ -55,10 +55,11 @@ class QuickDjangoTest:
                     'NAME': os.path.join(self.DIRNAME, 'database.db'),
                 }
             }
+        apps = list(set(app.split(".")[0] for app in self.apps))
         conf = {
             'DATABASES': databases,
             'DEFAULT_AUTO_FIELD': 'django.db.models.BigAutoField',
-            'INSTALLED_APPS': self.INSTALLED_APPS + self.apps,
+            'INSTALLED_APPS': self.INSTALLED_APPS + apps,
             'STATIC_URL': '/static/',
             'MIDDLEWARE': [
                 'django.contrib.auth.middleware.AuthenticationMiddleware',
