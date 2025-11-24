@@ -16,8 +16,9 @@
     }
     var loadevents = {% autoescape off %}{{ loadevents }}{% endautoescape %};
     if (loadevents.length === 0) loadmap();
-    else if (window.addEventListener) for (var i=0; i<loadevents.length; i++) window.addEventListener(loadevents[i], loadmap, false);
-    else if (window.jQuery) jQuery(window).on(loadevents.join(' '), loadmap);
+    else {
+        for (var i=0; i<loadevents.length; i++) window.addEventListener(loadevents[i], loadmap, false);
+    }
     {% if not NO_GLOBALS %}
     // Put initialization function in global scope (like django-leaflet < 0.7)
     window['loadmap' + '{{ name }}'] = loadmap;
