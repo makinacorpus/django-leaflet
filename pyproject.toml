@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-leaflet"
+description = "A Django map widget using Leaflet"
+version = "0.32.1dev"
+readme = "README.rst"
+license = "LGPL-3.0-only"
+authors = [
+  {name = "Mathieu Leplatre", email = "mathieu.leplatre@makina-corpus.com"},
+]
+maintainers = [
+  {name = "Gagaro", email = "gagaro42@gmail.com"}
+]
+requires-python = ">= 3.9"
+dependencies = [
+  "django",
+]
+classifiers = [
+    "Topic :: Utilities",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+
+[project.urls]
+Homepage = "https://github.com/makinacorpus/django-leaflet/"
+Changelog = "https://github.com/makinacorpus/django-leaflet/blob/master/CHANGES"
+Download = "https://pypi.org/project/django-leaflet/"
