@@ -15,8 +15,8 @@
     {% block vars %}var {{ module }} = {};
     {{ module }}.fieldid = '{{ id_css }}';
     {{ module }}.modifiable = {{ modifiable|yesno:"true,false" }};
-    {{ module }}.geom_type = '{{ geom_type }}';
-    {{ module }}.srid = {{ map_srid|unlocalize }};
+    {{ module }}.geom_type = '{{ widget.attrs.geom_name }}';
+    {{ module }}.srid = {{ widget.attrs.map_srid|unlocalize }};
     {% endblock vars %}
 
     function {{ id_map_callback }}(map, options) {
