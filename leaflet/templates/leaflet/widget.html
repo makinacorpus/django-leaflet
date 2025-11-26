@@ -46,4 +46,4 @@
     target="_blank"
     rel="nofollow">valid GeoJSON Geometry</a>:</p>
 {% endif %}
-<textarea id="{{ id_css }}" class="required django-leaflet-raw-textarea {{ class }}" cols="150" rows="10" name="{{ name }}"{% if not display_raw %} hidden{% endif %}>{{ serialized }}</textarea>
+<textarea id="{{ id_css }}" class="required django-leaflet-raw-textarea {{ class }}" cols="150" rows="10" name="{{ widget.name }}"{% if not display_raw %} hidden{% endif %}>{{ serialized }}</textarea>
