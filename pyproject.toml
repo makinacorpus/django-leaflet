@@ -2,6 +2,9 @@
 requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+packages = ['leaflet']
+
 [project]
 name = "django-leaflet"
 description = "A Django map widget using Leaflet"
