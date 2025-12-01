@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "django-leaflet"
 description = "A Django map widget using Leaflet"
-version = "0.32.1dev"
+version = "0.33.0"
 readme = "README.rst"
 license = "LGPL-3.0-only"
 authors = [

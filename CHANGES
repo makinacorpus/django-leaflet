@@ -9,7 +9,7 @@ CHANGELOG
 - Solve broken marker image paths in the admin panel #392
 - `map_width` and `map_height` are no longer supported in LeafletWidget `attrs`,
   use traditional CSS to dimension maps (you can target the class
-  `.leaflet-container-default` for example.)
+  `.leaflet-container-default` for example.) #401
 - Support Django 6.0 and Python 3.14 (`#396 <https://github.com/makinacorpus/django-leaflet/pull/396>`__) (#398) .
 - Drop support for Python 3.9 (`#396 <https://github.com/makinacorpus/django-leaflet/pull/396>`__).
 
