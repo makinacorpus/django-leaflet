@@ -8,7 +8,7 @@ packages = ['leaflet']
 [project]
 name = "django-leaflet"
 description = "A Django map widget using Leaflet"
-version = "0.33.0"
+version = "0.33.1dev"
 readme = "README.rst"
 license = "LGPL-3.0-only"
 authors = [
