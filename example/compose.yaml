@@ -1,0 +1,8 @@
+services:
+  server:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
