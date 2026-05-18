@@ -155,7 +155,7 @@ If it contains several layers, a layer switcher will then be added automatically
               ('Streets', 'http://server/b/...', {'attribution': '&copy; Contributors'})]
 
 OpenStreetMap requires you to set the
-`referer <https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/referrerPolicy>`_
+`referer <https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referer>`_
 header on all tile requests as part of their 
 `tile usage policy <https://operations.osmfoundation.org/policies/tiles/>`_.
 Leaflet has a `mechanism to do this <https://leafletjs.com/reference.html#tilelayer-referrerpolicy>`_
