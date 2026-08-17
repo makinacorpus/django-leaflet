@@ -154,10 +154,19 @@ If it contains several layers, a layer switcher will then be added automatically
     'TILES': [('Satellite', 'http://server/a/...', {'attribution': '&copy; Big eye', 'maxZoom': 16}),
               ('Streets', 'http://server/b/...', {'attribution': '&copy; Contributors'})]
 
+OpenStreetMap requires you to set the
+`referer <https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referer>`_
+header on all tile requests as part of their 
+`tile usage policy <https://operations.osmfoundation.org/policies/tiles/>`_.
+Leaflet has a `mechanism to do this <https://leafletjs.com/reference.html#tilelayer-referrerpolicy>`_
+which is enabled in django-leaflet by setting ``referrerPolicy``
+as part of the ``options`` dict::
 
-If you omit this setting, a default OpenSTreetMap layer will be created for your convenience. If you do not want
-a default layers (perhaps to add them in your own JavaScript code on map initialization), set the value to an empty
-list, as shown below.
+    'TILES': [('Satellite', 'http://server/a/...', {'attribution': '...', 'referrerPolicy': 'strict-origin'}),
+
+If you omit this setting, a default OpenStreetMap layer (with ``referrerPolicy: 'strict-origin'`` will
+be created for your convenience. If you do not want any default layers (perhaps to add them in your
+own JavaScript code on map initialization), set the value to an empty list, as shown below.
 
 ::
 
