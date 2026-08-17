@@ -2,10 +2,10 @@
 CHANGELOG
 =========
 
-0.33.0 (unreleased)
+0.34.0 (2026-08-17)
 -------------------
 
--
+- Make it clear in the documentation that the OpenStreetMap tile usage policy requires sending the referrer header - #405
 
 0.33.0 (2025-12-01)
 -------------------
