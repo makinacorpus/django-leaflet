@@ -24,6 +24,8 @@ The easy way :
 
     {% leaflet_map "yourmap" callback="window.map_init_basic" %}
 
+See :ref:`global-initialization` to enable global callbacks (versions since 0.7.0).
+
 django-leaflet is compatible with django-geojson fields, so you can draw e.g. markers based on the `django-geojson template filter <https://django-geojson.readthedocs.io/en/latest/views.html#geojson-template-filter/>`_:
 
 ::
@@ -276,6 +278,7 @@ To remove this button, set::
 
     'RESET_VIEW': False
 
+.. _global-initialization
 
 Global initialization functions and ``window.maps``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -283,7 +286,7 @@ Global initialization functions and ``window.maps``
 Since 0.7.0, the ``leaflet_map`` template tag no longer registers initialization functions in global scope,
 and no longer adds map objects into ``window.maps`` array by default. To restore these features, use::
 
-    'NO_GLOBALS' = False
+    'NO_GLOBALS': False
 
 Force Leaflet image path
 ~~~~~~~~~~~~~~~~~~~~~~~~
